@@ -5,12 +5,12 @@
 $host  = $_SERVER['HTTP_HOST'];
 $uri  = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
 $base = "http://" . $host . $uri . "/";
-//$ruta_inicio = 'http://localhost/sesninesapp/';
-//$ruta_archivos = 'http://localhost/sesninesapp/';
+$ruta_inicio = 'http://localhost/sesninesapp/';
+$ruta_archivos = 'http://localhost/sesninesapp/';
 //$ruta_inicio = 'http://192.168.153.248/sesninesapp/';
 //$ruta_archivos = 'http://192.168.153.248/sesninesapp/';
-$ruta_inicio = 'https://steampunkseo.es/sesninesapp/';
-$ruta_archivos = 'https://steampunkseo.es/sesninesapp/';
+//$ruta_inicio = 'https://steampunkseo.es/sesninesapp/';
+//$ruta_archivos = 'https://steampunkseo.es/sesninesapp/';
 $document_root = $_SERVER['DOCUMENT_ROOT'].'/sesninesapp/';
 //====================================================================================
 
