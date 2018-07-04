@@ -19,7 +19,6 @@ include_once('inc/cabecera.inc.php'); //cargando cabecera
                 <h3>Inicio Administrador Re-MOD</h3>
                 <div style="clear:both;"></div>
             </div>
-            
             <?php include_once('inc/main_menu.inc.php'); ?>
         </div>
     </div>

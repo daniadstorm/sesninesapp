@@ -24,7 +24,6 @@ class pedidoModel extends Model{
     function get_pedidos_usuario($id_usuario){
         $q  = ' SELECT * FROM '.$this->pre.'usuario_pedidos as up ';
         $q .= ' WHERE up.id_usuario='.$id_usuario.' AND up.estado_pedido>=4';
-        echo $q;
         return $this->execute_query($q);
     }
 

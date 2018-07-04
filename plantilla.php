@@ -19,20 +19,31 @@ include_once('inc/cabecera.inc.php'); //cargando cabecera
 ?>
 
 <body>
-<div id="main_container">
-    <?php //include_once('inc/franja_top.inc.php'); ?>
-    <?php //include_once('inc/main_menu.inc.php'); ?>
-    <section class="section_top"></section>
-    <section class="sep_section"></section>
-    <section class="middle_section">
-        <div class="responsive_seccion">
-            <div id="filtros_seccion">
-                <?php if (isset($str_info)) echo $str_info; ?>
-                <?php if (isset($str_errores)) echo $str_errores; ?>
+    <?php include_once('inc/franja_top.inc.php'); ?>
+    <?php include_once('inc/main_menu.inc.php'); ?>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                    <div class="content mt-1">
+                        <div class="layout">
+                            <div class="layout-table">
+                                <div id="alertas">
+                                    <?php if (isset($str_info)) echo $str_info; ?>
+                                    <?php if (isset($str_errores)) echo $str_errores; ?>
+                                </div>
+                                <div class="layout-table-item">
+                                    <div class="layout-table-header">
+                                        <h4 class="mb-0">Pedidos</h4>
+                                    </div>                                  
+                                    <div class="layout-table-content">
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
             </div>
-            <div id="filtros_seccion"></div>
         </div>
-    </section>
-</div>
+    </div>
 </body>
 </html>
