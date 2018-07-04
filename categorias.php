@@ -107,6 +107,7 @@ include_once('inc/cabecera.inc.php'); //cargando cabecera
                                                 <tr>
                                                     <th>Nombre categoría</th>
                                                     <th>Imagen categoría</th>
+                                                    <th>Otra columna</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
