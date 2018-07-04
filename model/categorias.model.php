@@ -11,7 +11,13 @@ class categoriasModel extends Model {
         $q .= ' ("'.$nombre_categoria.'", "'.$imagen_categoria.'") ';
         return $this->execute_query($q);
     }
-
+    
+    function get_categoria($id_categoria) {
+        $q  = ' SELECT c.* FROM '.$this->pre.'categorias c ';
+        $q .= ' WHERE c.id_categoria = '.$id_categoria.' ';
+        return $this->execute_query($q);
+    }
+    
     function update_categoria($id_categoria, $nombre_categoria, $imagen_categoria) {
         $q  = ' UPDATE '.$this->pre.'categorias SET ';
         $q .=   ' nombre_categoria = "'.$nombre_categoria.'", ';
