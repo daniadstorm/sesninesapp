@@ -16,7 +16,9 @@ include_once('inc/cabecera.inc.php'); //cargando cabecera
         <?php include_once('inc/main_menu.inc.php'); ?>
         <div id="responsive_seccion_back">
             <div id="ttl_seccion_back" style=" margin-top: 10%;">
+<<<<<<< HEAD
                 <h3>Inicio Administrador Re-MOD</h3>
+=======
                 <h3>Inicio Administrador</h3>
 >>>>>>> f767c4ee0cd8f988a738b77d009679d75f7402a1
                 <div style="clear:both;"></div>
