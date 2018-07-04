@@ -1,0 +1,46 @@
+/*globales --------------------------------------------------------------------*/
+@font-face { font-family:'montserratbold';src:url('/sesninesapp/css/webfont/montserrat-bold-webfont.woff2')format('woff2'),url('/sesninesapp/css/webfont/montserrat-bold-webfont.woff')format('woff');font-weight:normal;font-style:normal; }
+@font-face { font-family:'montserratlight';src:url('/sesninesapp/css/webfont/montserrat-light-webfont.woff2')format('woff2'),url('/sesninesapp/css/webfont/montserrat-light-webfont.woff')format('woff');font-weight:normal;font-style:normal; }
+@font-face { font-family:'montserratmedium';src: url('/sesninesapp/css/webfont/montserrat-medium-webfont.woff2')format('woff2'),url('/sesninesapp/css/webfont/montserrat-medium-webfont.woff')format('woff');font-weight:normal;font-style:normal; }
+html, body { margin:0;padding:0; }
+body { padding-top:2.2em;background-color:#f2f2f2; }
+/*globales --------------------------------------------------------------------*/
+
+/*correcciones bootstrap ------------------------------------------------------*/
+.cb-ajustado [class*="col-"] { padding:0;margin:0; }
+/*correcciones-----------------------------------------------------------------*/
+
+
+.layout-table{
+    min-width: 100%;
+    max-width: 100%;
+    margin-left: 0 !important;
+    flex: 1 1 100%;
+}
+.layout-table-item{
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    box-shadow: 1px 1px 4px 0 rgba(0, 0, 0, 1);
+    border-radius: 5px;
+    margin: 25px 0;
+    background-color: #fff;
+    overflow: unset;
+}
+.layout-table-header{
+    background: linear-gradient(60deg, #57666d,#607B8B);
+    /* box-shadow: 0 12px 20px -10px rgba(76, 175, 80, 1); */
+    margin: -20px 15px 0;
+    border-radius: 3px;
+    padding: 15px;
+    color: #ffffff;
+    display: flex;
+}
+.layout-table-content{
+    background-color: #fff;
+    padding: 15px 20px;
+}
+#paginacion{
+    display: flex;
+    justify-content: center;
+}
