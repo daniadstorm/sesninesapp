@@ -21,8 +21,13 @@ class inputsModel {
     function get_input_text($id, $val, $class='', $lbl='', $placeholder='', $err_desc='', $min_length=false, $max_length=false, $allow_empty=false) {
         $val = $this->safe_show($val);
         
+        $aux_required = 'required';
+        
         $aux_pattern = '';
-        if ($allow_empty != false) $aux_pattern .= '.{0}|';
+        if ($allow_empty != false) {
+            $aux_pattern .= '.{0}|';
+            $aux_required = '';
+        }
         $aux_pattern.= '.{';
         if ($min_length != false) $aux_pattern .= $min_length;
         $aux_pattern .= ',';
@@ -31,7 +36,7 @@ class inputsModel {
         
         $o  = '<div class="form-group">';
         if (strlen($lbl) > 0) $o .= '<label>'.$lbl.'</label>';
-        $o .=   '<input type="text" required id="'.$id.'" name="'.$id.'" value="'.$val.'" class="'.$class.'" placeholder="'.$placeholder.'" pattern="'.$aux_pattern.'" title="'.$err_desc.'">';
+        $o .=   '<input type="text" '.$aux_required.' id="'.$id.'" name="'.$id.'" value="'.$val.'" class="'.$class.'" placeholder="'.$placeholder.'" pattern="'.$aux_pattern.'" title="'.$err_desc.'">';
         $o .= '</div>';
             
         return $o;

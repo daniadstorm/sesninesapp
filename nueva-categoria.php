@@ -38,7 +38,7 @@ if (isset($_POST['id_categoria'])) {
     
     $id_categoria = $_POST['id_categoria'];
     $nombre_categoria = $_POST['nombre_categoria'];
-    $imagen_categoria = $_POST['imagen_categoria'];
+    //$imagen_categoria = $_POST['imagen_categoria'];
     
     //control de errores ---------------------------------------------------- */
     //control de errores ---------------------------------------------------- */
@@ -48,7 +48,6 @@ if (isset($_POST['id_categoria'])) {
         
         //id_categoria
         $nombre_categoria = $catM->escstr($nombre_categoria);
-        $imagen_categoria = $catM->escstr($imagen_categoria);
         
         //upload de img
         
@@ -101,6 +100,8 @@ include_once('inc/cabecera.inc.php'); //cargando cabecera
                                     <?php 
                                         echo $iM->get_input_hidden('id_categoria', $id_categoria);
                                         echo $iM->get_input_text('nombre_categoria', $nombre_categoria, 'form-control', 'Nombre categoría', '', 'Campo requerido', 1);
+                                        echo $iM->get_input_text('nombre_categoria', $nombre_categoria, 'form-control', 'Nombre categoría 5 10', '', 'Campo requerido', 5, 10);
+                                        echo $iM->get_input_text('nombre_categoria', $nombre_categoria, 'form-control', 'Nombre categoría 5 10 true', '', 'Campo requerido', 5, 10, true);
                                     ?>
                                     <div class="form-group">
                                         <label>Imagen categoría</label>
