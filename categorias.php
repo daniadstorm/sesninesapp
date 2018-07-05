@@ -15,7 +15,7 @@ $pagM->pag=0;
 $str_ruta = $ruta_inicio.'categorias.php?';
 
 //GET___________________________________________________________________________
-if (isset($_GET['nueva_categoria']) && $_GET['nuevo_categoria'] == 'true') $str_info = $hM->get_alert_success('Categoría añadida');
+if (isset($_GET['nueva_categoria']) && $_GET['nueva_categoria'] == 'true') $str_info = $hM->get_alert_success('Categoría añadida');
 if (isset($_GET['editar_categoria']) && $_GET['editar_categoria'] == 'true') $str_info = $hM->get_alert_success('Categoría actualizado');
 if (isset($_GET['eliminar_categoria']) && $_GET['eliminar_categproa'] == 'true') $str_info = $hM->get_alert_success('Categoría eliminada');
 
