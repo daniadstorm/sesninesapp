@@ -131,9 +131,7 @@ include_once('../inc/cabecera.inc.php'); //cargando cabecera
                                         <img src="http://sesnineshopper.com/adstorm/img/chica.png" alt="" width="38px" height="126px">
                                         <p>¿Cómo sueles vestir?</p>
                                         <div class="form-group">
-                                            <?php 
-                                                echo $uM->get_combo_tipo_estilo('tipo_estilo',$tipo_estilo);
-                                            ?>
+                                            <?php echo $uM->get_combo_tipo_estilo('tipo_estilo',$tipo_estilo); ?>
                                         </div>
                                     </div>
                                 </div>

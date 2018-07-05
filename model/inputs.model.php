@@ -41,6 +41,15 @@ class inputsModel {
             
         return $o;
     }
+
+    function get_combo_array($id, $arr, $class='', $selected=false, $onChange=false) {
+        $o  = '';
+        $o .= '<select id="'.$id.'" name="'.$id.'" class="'.$class.'" ';
+        (!$onChange) ? $o .= '>' : $o .= 'onchange="this.form.submit()">';
+        foreach ($arr as $key => $val) $o .= '<option '.(($selected == $key) ? ' selected="selected" ' : '').' value="'.$key.'">'.$val.'</option>';
+        $o .= '</select>';
+        return $o;
+    }
     
     function get_input_hidden($id, $val) {
         $val = $this->safe_show($val);
