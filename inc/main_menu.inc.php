@@ -51,11 +51,9 @@ if ($aux_control_sesion == true) {
         break;
     }
     
-    $mnuOp = '';
-    
     //DEPRECATED----------------------------------------------------------------
     //La funcion 'build_menu_opt($opt)' ya no usa el parametro 'class'
-    /*
+    
     $mnuOp = '';
     switch ($_SESSION['id_tipo_usuario']) {
         case ADMIN:
@@ -75,7 +73,6 @@ if ($aux_control_sesion == true) {
             }
         break;
     }
-     */
     //DEPRECATED----------------------------------------------------------------
 ?>
 <ul class="nav nav-pills justify-content-center">
