@@ -15,7 +15,6 @@ $id_categoria = 0;
 $nombre_categoria = '';
 $imagen_categoria = '';
 
-$arr_err = array();
 $verif = true;
 
 //GET___________________________________________________________________________

@@ -51,6 +51,8 @@ if ($aux_control_sesion == true) {
         break;
     }
     
+    $mnuOp = '';
+    
     //DEPRECATED----------------------------------------------------------------
     //La funcion 'build_menu_opt($opt)' ya no usa el parametro 'class'
     /*
