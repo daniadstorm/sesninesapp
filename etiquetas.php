@@ -12,7 +12,7 @@ $oge = '';
 $pagM->regs_x_pag=20;
 $pagM->pag=0;
 
-$str_ruta = $ruta_inicio.'categorias.php?';
+$str_ruta = $ruta_inicio.'etiquetas.php?';
 
 //GET___________________________________________________________________________
 if (isset($_GET['nueva_etiqueta']) && $_GET['nueva_etiqueta'] == 'true') $str_info = $hM->get_alert_success('Etiqueta añadida');
@@ -37,20 +37,19 @@ if (isset($_GET['pag'])) $pagM->pag=$_GET['pag'];
 
 //LISTADO_______________________________________________________________________
 
-$pagM->total_regs = $catM->get_etiquetas_total_regs();
-$rge = $catM->get_etiquetas($pagM->pag, $pagM->regs_x_pag);
+$pagM->total_regs = $eM->get_etiquetas_total_regs();
+$rge = $eM->get_etiquetas($pagM->pag, $pagM->regs_x_pag);
 if ($rge) {
     while($fge = $rge->fetch_assoc()) {
         $oge .= '<tr>';
-        /*
-        $oge .=     '<td><a href="'.$ruta_inicio.'nueva-categoria.php?id_categoria='.$fgc['id_categoria'].'">'.$fgc['nombre_categoria'].'</a></td>';
-        $oge .=     '<td><img class="img-fluid img-thumbnail" src="'.$fgc['imagen_categoria'].'" width="100" /></td>';
+        
+        $oge .=     '<td><a href="'.$ruta_inicio.'nueva-etiqueta.php?id_etiqueta='.$fge['id_etiqueta'].'">'.$fge['nombre_etiqueta'].'</a></td>';
         $oge .=     '<td>';
-        $oge .=         '<a href="'.$ruta_inicio.'categorias.php?eliminar_categoria='.$fgc['id_categoria'].'">';
+        $oge .=         '<a href="'.$ruta_inicio.'etiquetas.php?eliminar_etiqueta='.$fge['id_etiqueta'].'">';
         $oge .=             '<button type="button" class="btn btn-outline-danger">Eliminar</button>';
         $oge .=         '</a>';
         $oge .=     '</td>';
-        */
+        
         $oge .= '</tr>';
     }
 } else $str_errores = $hM->get_alert_danger('Error cargando etiquetas');

@@ -169,7 +169,7 @@ class usuarioModel extends Model {
         }else if($arr_filtro_ps=="no"){
             $q .= ' and ps_completo=0 ';
         }
-        $q .= ' LIMIT '.$pag.','.$regs_x_pag.' ';
+        $q .= ' LIMIT '.$pag*$regs_x_pag.','.$regs_x_pag.' ';
         return $this->execute_query($q);
     }
 

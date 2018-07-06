@@ -32,7 +32,7 @@ class categoriasModel extends Model {
         $q  = ' SELECT c.* FROM '.$this->pre.'categorias c ';
         $q .= ' WHERE c.deleted = 0 ';
         if ($order_by) $q .= ' ORDER BY c.nombre_categoria ASC ';
-        $q .= ' LIMIT '.$pag.','.$regs_x_pag.' ';
+        $q .= ' LIMIT '.$pag*$regs_x_pag.','.$regs_x_pag.' ';
         return $this->execute_query($q);
     }
     

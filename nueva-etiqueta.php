@@ -21,10 +21,10 @@ if (isset($_GET['id_etiqueta'])) {
     
     $id_etiqueta = $_GET['id_etiqueta'];
     
-    $rge = $catM->get_etiqueta($id_etiqueta);
+    $rge = $eM->get_etiqueta($id_etiqueta);
     if ($rge) {
         while ($fge = $rge->fetch_assoc()) {
-            $nombre_etiqueta = $fgc['nombre_etiqueta'];
+            $nombre_etiqueta = $fge['nombre_etiqueta'];
         }
     } else $str_errores = $hM->get_alert_danger('Error cargando etiqueta');
 }

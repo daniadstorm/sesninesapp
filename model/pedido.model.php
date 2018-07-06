@@ -85,7 +85,7 @@ class pedidoModel extends Model{
         $q .= ' INNER JOIN adst_sesnines_usuarios as u ';
         $q .= ' on p.id_usuario=u.id_usuario ';
         $q .= ' WHERE p.estado_pedido='.$arr_filtro_ps;
-        $q .= ' LIMIT '.$pag.','.$regs_x_pag.' ';
+        $q .= ' LIMIT '.$pag*$regs_x_pag.','.$regs_x_pag.' ';
         return $this->execute_query($q);
     }
     
