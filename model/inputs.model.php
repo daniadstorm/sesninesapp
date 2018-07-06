@@ -2,10 +2,6 @@
 
 class inputsModel {
     
-    function safe_show($v) {
-        return htmlspecialchars(stripslashes($v));
-    }
-    
     /*
     https://stackoverflow.com/questions/10281962/is-there-a-minlength-validation-attribute-in-html5
 

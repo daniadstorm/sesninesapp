@@ -31,6 +31,10 @@ class Model {
         return $this->link_bd->real_escape_string($str);
     }
     
+    function safe_show($v) {
+        return htmlspecialchars(stripslashes($v));
+    }
+    
     function get_insert_id() {
         return $this->link_bd->insert_id;
     }
