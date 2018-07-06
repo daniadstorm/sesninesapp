@@ -1,6 +1,6 @@
 <?php
 
-class inputsModel {
+class inputsModel extends Model {
     
     /*
     https://stackoverflow.com/questions/10281962/is-there-a-minlength-validation-attribute-in-html5
