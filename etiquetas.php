@@ -6,29 +6,27 @@ $uM->control_sesion($ruta_inicio, ADMIN);
 
 $pagM = load_model('paginado');
 $hM = load_model('html');
-$catM = load_model('categorias'); //cM es carritoModel
+$eM = load_model('etiquetas');
 
-$ogc = '';
+$oge = '';
 $pagM->regs_x_pag=20;
 $pagM->pag=0;
 
 $str_ruta = $ruta_inicio.'categorias.php?';
 
 //GET___________________________________________________________________________
-if (isset($_GET['nueva_categoria']) && $_GET['nueva_categoria'] == 'true') $str_info = $hM->get_alert_success('Categoría añadida');
-if (isset($_GET['editar_categoria']) && $_GET['editar_categoria'] == 'true') $str_info = $hM->get_alert_success('Categoría actualizado');
-if (isset($_GET['eliminar_categoria'])) {
+if (isset($_GET['nueva_etiqueta']) && $_GET['nueva_etiqueta'] == 'true') $str_info = $hM->get_alert_success('Etiqueta añadida');
+if (isset($_GET['editar_etiqueta']) && $_GET['editar_etiqueta'] == 'true') $str_info = $hM->get_alert_success('Etiqueta actualizada');
+if (isset($_GET['eliminar_etiqueta'])) {
     
-    $id_categoria = $_GET['eliminar_categoria'];
+    $id_etiqueta = $_GET['eliminar_etiqueta'];
     
-    if ($catM->is_safe_deleting($id_categoria)) {
-        $rdc = $catM->delete_categoria($id_categoria);
-        if ($rdc) {
-            $catM->clean_dir_imgcategorias($document_root);
-            $str_info = $hM->get_alert_success('Categoría eliminada');
-        } else $str_errores = $hM->get_alert_danger('Error eliminando categoría');
-    } else $str_errores = $hM->get_alert_danger('No se puede eliminar categoría (actualmente en uso)');
-    
+    if ($eM->is_safe_deleting($id_etiqueta)) {
+        $rde = $eM->delete_etiqueta($id_etiqueta);
+        if ($rde) {
+            $str_info = $hM->get_alert_success('Etiqueta eliminada');
+        } else $str_errores = $hM->get_alert_danger('Error eliminando etiqueta');
+    } else $str_errores = $hM->get_alert_danger('No se puede eliminar etiqueta (actualmente en uso)');
 }
 
 if (isset($_GET['pag'])) $pagM->pag=$_GET['pag'];
@@ -39,21 +37,23 @@ if (isset($_GET['pag'])) $pagM->pag=$_GET['pag'];
 
 //LISTADO_______________________________________________________________________
 
-$pagM->total_regs = $catM->get_categorias_total_regs();
-$rgc = $catM->get_categorias($pagM->pag, $pagM->regs_x_pag);
-if ($rgc) {
-    while($fgc = $rgc->fetch_assoc()) {
-        $ogc .= '<tr>';
-        $ogc .=     '<td><a href="'.$ruta_inicio.'nueva-categoria.php?id_categoria='.$fgc['id_categoria'].'">'.$fgc['nombre_categoria'].'</a></td>';
-        $ogc .=     '<td><img class="img-fluid img-thumbnail" src="'.$fgc['imagen_categoria'].'" width="100" /></td>';
-        $ogc .=     '<td>';
-        $ogc .=         '<a href="'.$ruta_inicio.'categorias.php?eliminar_categoria='.$fgc['id_categoria'].'">';
-        $ogc .=             '<button type="button" class="btn btn-outline-danger">Eliminar</button>';
-        $ogc .=         '</a>';
-        $ogc .=     '</td>';
-        $ogc .= '</tr>';
+$pagM->total_regs = $catM->get_etiquetas_total_regs();
+$rge = $catM->get_etiquetas($pagM->pag, $pagM->regs_x_pag);
+if ($rge) {
+    while($fge = $rge->fetch_assoc()) {
+        $oge .= '<tr>';
+        /*
+        $oge .=     '<td><a href="'.$ruta_inicio.'nueva-categoria.php?id_categoria='.$fgc['id_categoria'].'">'.$fgc['nombre_categoria'].'</a></td>';
+        $oge .=     '<td><img class="img-fluid img-thumbnail" src="'.$fgc['imagen_categoria'].'" width="100" /></td>';
+        $oge .=     '<td>';
+        $oge .=         '<a href="'.$ruta_inicio.'categorias.php?eliminar_categoria='.$fgc['id_categoria'].'">';
+        $oge .=             '<button type="button" class="btn btn-outline-danger">Eliminar</button>';
+        $oge .=         '</a>';
+        $oge .=     '</td>';
+        */
+        $oge .= '</tr>';
     }
-} else $str_errores = $hM->get_alert_danger('Error cargando categorías');
+} else $str_errores = $hM->get_alert_danger('Error cargando etiquetas');
 
 //LISTADO________________________________________________________________________
 
@@ -61,11 +61,13 @@ if ($rgc) {
 $mpag = $pagM->get_menu_paginacion($str_ruta);
 //PAGINADO______________________________________________________________________
 
+
 include_once('inc/cabecera.inc.php'); //cargando cabecera 
 ?>
 <script type="text/javascript">
 
 </script>
+
 <body>
     <?php include_once('inc/franja_top.inc.php'); ?>
     <?php include_once('inc/main_menu.inc.php'); ?>
@@ -81,9 +83,9 @@ include_once('inc/cabecera.inc.php'); //cargando cabecera
                             </div>
                             <div class="layout-table-item">
                                 <div class="layout-table-header">
-                                    <h4>Categorías</h4>
+                                    <h4>Etiquetas</h4>
                                     <div class="ml-2">
-                                        <a href="nueva-categoria.php"><button class="btn btn-light ml-2">Nueva Categoría</button></a>
+                                        <a href="nueva-etiqueta.php"><button class="btn btn-light ml-2">Nueva Etiqueta</button></a>
                                     </div>
                                 </div>
                                 <div class="ml-3 mr-3 mt-3">
@@ -98,13 +100,12 @@ include_once('inc/cabecera.inc.php'); //cargando cabecera
                                         <table class="table">
                                             <thead>
                                                 <tr>
-                                                    <th>Nombre categoría</th>
-                                                    <th>Imagen categoría</th>
-                                                    <th>Eliminar categoría</th>
+                                                    <th>Nombre etiqueta</th>
+                                                    <th>Eliminar etiqueta</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <?php echo $ogc; ?>
+                                                <?php echo $oge; ?>
                                             </tbody>
                                         </table>
                                         <nav id="paginacion">
