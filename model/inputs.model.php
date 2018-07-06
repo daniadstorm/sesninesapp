@@ -59,4 +59,36 @@ class inputsModel {
         return $o;
     }
     
+    /*
+    http://plugins.krajee.com/file-basic-usage-demo
+    */
+    function get_input_img($id, $val, $ruta_archivos, $class='', $lbl='') {
+        
+        if (strlen($val) > 0) {
+            $aux_imagen_categoria_required = '';
+            $aux_js_editar = 'initialPreview: [\''.$ruta_archivos.$val.'\'],initialPreviewAsData: true,';
+        } else {
+            $aux_imagen_categoria_required = 'required';
+            $aux_js_editar = '';
+        }
+        
+        $o  = '<div class="form-group">';
+        $o .=   '<label>'.$lbl.'</label>';
+        $o .=   '<div class="file-loading">';
+        $o .=       '<input '.$aux_imagen_categoria_required.' id="'.$id.'" name="'.$id.'[]" type="file" multiple>';
+        $o .=   '</div>';
+        $o .= '</div>';
+        
+        $o .= '<script>';
+        $o .=   '$(\'#'.$id.'\').fileinput({';
+        $o .=       'theme: \'fa\',';
+        $o .=       'language: \'es\',';
+        $o .=       'showUpload: false,';
+        $o .=       $aux_js_editar;
+        $o .=       'allowedFileExtensions: [\'jpg\', \'png\', \'gif\']';
+        $o .=   '});';
+        $o .= '</script>';
+        
+        return $o;
+    }
 }

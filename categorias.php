@@ -17,20 +17,21 @@ $str_ruta = $ruta_inicio.'categorias.php?';
 //GET___________________________________________________________________________
 if (isset($_GET['nueva_categoria']) && $_GET['nueva_categoria'] == 'true') $str_info = $hM->get_alert_success('Categoría añadida');
 if (isset($_GET['editar_categoria']) && $_GET['editar_categoria'] == 'true') $str_info = $hM->get_alert_success('Categoría actualizado');
-if (isset($_GET['eliminar_categoria']) && $_GET['eliminar_categproa'] == 'true') $str_info = $hM->get_alert_success('Categoría eliminada');
+if (isset($_GET['eliminar_categoria'])) {
+    
+    $id_categoria = $_GET['eliminar_categoria'];
+    
+    if ($catM->is_safe_deleting($id_categoria)) {
+        $rdc = $catM->delete_categoria($id_categoria);
+        if ($rdc) {
+            $catM->clean_dir_imgcategorias($document_root);
+            $str_info = $hM->get_alert_success('Categoría eliminada');
+        } else $str_errores = $hM->get_alert_danger('Error eliminando categoría');
+    } else $str_errores = $hM->get_alert_danger('No se puede eliminar (actualmente en uso)');
+    
+}
 
-/*
-if (isset($_GET['delete_usuario'])) {
-    $id_usuario = $_GET['delete_usuario'];
-    $rdu = $uM->delete_usuario($id_usuario);
-    if ($rdu) {
-        header('Location: '.$ruta_inicio.'usuarios.php?eliminar_usuario=true'); exit();
-    } else $str_errores = '<div class="error_alert">'.BD_ERR_MSG.'</div>';
-}
-*/
-if (isset($_GET['pag'])) {
-    $pagM->pag=$_GET['pag'];
-}
+if (isset($_GET['pag'])) $pagM->pag=$_GET['pag'];
 //GET___________________________________________________________________________
 
 //POST__________________________________________________________________________
@@ -43,9 +44,17 @@ $rgc = $catM->get_categorias($pagM->pag, $pagM->regs_x_pag);
 if ($rgc) {
     while($fgc = $rgc->fetch_assoc()) {
         $ogc .= '<tr>';
-        $ogc .= '<td>'.$fgc['nombre_categoria'].'</td>';
-        $ogc .= '<td><img src="'.$fgc['imagen_categoria'].'" /></td>';
+        $ogc .=     '<td><a href="'.$ruta_inicio.'nueva-categoria.php?id_categoria='.$fgc['id_categoria'].'">'.$fgc['nombre_categoria'].'</a></td>';
+        $ogc .=     '<td><img class="img-fluid img-thumbnail" src="'.$fgc['imagen_categoria'].'" width="100" /></td>';
+        $ogc .=     '<td>';
+        $ogc .=         '<a href="'.$ruta_inicio.'categorias.php?eliminar_categoria='.$fgc['id_categoria'].'">';
+        $ogc .=             '<button type="button" class="btn btn-outline-danger">Eliminar</button>';
+        $ogc .=         '</a>';
+        $ogc .=     '</td>';
         $ogc .= '</tr>';
+        
+        //'<a href="'.$ruta_inicio.'pedidos.php?id_pedido='.$fgu['id_pedido'].'&cambiar_estado=2&arr_filtro='.$arr_filtro_ps.'"><button type="button" class="btn btn-outline-success">Enviado</button></a></td>';//editpedido.png
+        
         /*
         $ogc .= '<td><a href="nuevo-cliente.php?id_usuario='.$fgu['id_usuario'].'">'.$fgu['nombrecompleto_usuario'].'</a></td>';
         $ogc .= '<td>'.$fgu['email_usuario'].'</td>';
@@ -107,7 +116,7 @@ include_once('inc/cabecera.inc.php'); //cargando cabecera
                                                 <tr>
                                                     <th>Nombre categoría</th>
                                                     <th>Imagen categoría</th>
-                                                    <th>Otra columna</th>
+                                                    <th>Eliminar categoría</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
