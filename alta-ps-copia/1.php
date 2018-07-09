@@ -48,7 +48,7 @@ if (isset($_POST['tipo_estilo'])) {
 }
 
 if(isset($_POST['tipo_estilo']) && $str_errores==''){
-    header('Location: '.$ruta_inicio.'alta-ps/2.php'); exit();
+    header('Location: '.$ruta_inicio.'alta-ps-copia/2.php'); exit();
 }
 
 //POST__________________________________________________________________________

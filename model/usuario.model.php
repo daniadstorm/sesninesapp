@@ -7,6 +7,18 @@ class usuarioModel extends Model {
     
     public $lbl_tipos_usuario = array();
     
+    public $arr_talla_superior = array( '34XS' => '34xs', '36S' => '36s', '38M' => '38m', '40L' => '40l', '42XL' => '42xl', );
+    
+    public $arr_talla_pecho = array( '80' => '80', '85' => '85', '90' => '90', '95' => '95', '100' => '100', '105' => '105', '110' => '100', 'más' => 'mas', );
+    
+    public $arr_altura = array( '-155' => '-155', '156-160' => '156-160', '161-165' => '161-165', '166-170' => '166-170', '171-175' => '171-175', 'más' => 'mas', );
+    
+    public $arr_tono_piel = array( 'rosada' => 'rosada', 'beige' => 'beige', 'dorada' => 'dorada', 'mulata' => 'mulata', 'negra' => 'negra', );
+    
+    public $arr_ojos = array( 'azul' => 'azul', 'verde' => 'verde', 'gris' => 'gris', 'miel' => 'miel', 'marrón' => 'marrón', 'negro' => 'negro', );
+
+    public $arr_si_no = array( 'Si' => 'Si', 'No' => 'No', );
+
     function __construct() {
     }
     

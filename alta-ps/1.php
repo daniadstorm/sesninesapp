@@ -23,9 +23,39 @@ $arr_estilos = array(
 //GET___________________________________________________________________________
 
 //POST__________________________________________________________________________
+if(isset($_POST['tipo_estilo'])) $_SESSION['tipo_estilo']=$_POST['tipo_estilo'];
+if(isset($_POST['color_estilo'])) $_SESSION['color_estilo']=$_POST['color_estilo'];
+if(isset($_POST['textura_estilo'])) $_SESSION['textura_estilo']=$_POST['textura_estilo'];
+if(isset($_POST['referente_estilo'])) $_SESSION['referente_estilo']=$_POST['referente_estilo'];
+if(isset($_POST['check'])){
+    for($i=1;$i<=5;$i++){
+        $_SESSION['img'.$i]='';
+    }
+    for($i=0;$i<count($_POST['check']);$i++){
+        $_SESSION[$_POST['check'][$i]]=$_POST['check'][$i];
+    }
+}
+echo '<pre>';
+print_r($_SESSION);
+echo '</pre>';
 //POST__________________________________________________________________________
 
+//LOAD__________________________________________________________________________
+$tipo_estilo = '';
+$color_estilo = '';
+$textura_estilo = '';
+$referente_estilo = '';
+(isset($_SESSION['tipo_estilo'])) ? $tipo_estilo=$_SESSION['tipo_estilo'] : $tipo_estilo='';
+(isset($_SESSION['color_estilo'])) ? $color_estilo=$_SESSION['color_estilo'] : $color_estilo='';
+(isset($_SESSION['textura_estilo'])) ? $textura_estilo=$_SESSION['textura_estilo'] : $textura_estilo='';
+(isset($_SESSION['referente_estilo'])) ? $referente_estilo=$_SESSION['referente_estilo'] : $referente_estilo='';
+//LOAD__________________________________________________________________________
+
+
 //CONTROL_______________________________________________________________________
+if(isset($_POST['tipo_estilo'])){//Comprobación de $_POST['tipo_estilo'] porque el campo es obligatorio.
+    header('Location: '.$ruta_inicio.'alta-ps/2.php');
+}
 //CONTROL_______________________________________________________________________
 
 include_once('../inc/cabecera.inc.php'); //cargando cabecera
@@ -43,11 +73,6 @@ include_once('../inc/cabecera.inc.php'); //cargando cabecera
                             <div id="alertas">
                                 <?php if (isset($str_info)) echo $str_info; ?>
                                 <?php if (isset($str_errores)) echo $str_errores; ?>
-                                <?php if(isset($_POST)){
-                                    echo '<pre>';
-                                    print_r($_POST);
-                                    echo '</pre>';
-                                } ?>
                             </div>
                             <div class="layout-table-item">
                                 <div class="layout-table-header">
@@ -112,12 +137,17 @@ include_once('../inc/cabecera.inc.php'); //cargando cabecera
                                                 <div class="col-md-1 text-center">
                                                     <img class="card-img-top w-50 text-center" src="http://sesnineshopper.com/adstorm/img/armario.png">
                                                     <p>¿Cómo sueles vestir?</p>
-                                                    <?php echo $iM->get_input_text("tipo_estilo","","form-control");  ?>
+                                                    <?php echo $iM->get_input_text("color_estilo",$color_estilo,"form-control");  ?>
                                                 </div>
                                                 <div class="col-md-1 text-center">
                                                     <img class="card-img-top w-50 text-center" src="http://sesnineshopper.com/adstorm/img/estampados.png">
                                                     <p>¿Cómo sueles vestir?</p>
-                                                    <?php echo $iM->get_combo_array("tipo_estilo",$arr_estilos,"form-control");  ?>
+                                                    <?php echo $iM->get_combo_array("textura_estilo",$arr_estilos,"form-control");  ?>
+                                                </div>
+                                                <div class="col-md-1 text-center">
+                                                    <img class="card-img-top w-50 text-center" src="http://sesnineshopper.com/adstorm/img/estrella.png">
+                                                    <p>¿Cómo sueles vestir?</p>
+                                                    <?php echo $iM->get_input_text("referente_estilo",$referente_estilo,"form-control","","","",false,false,true);  ?>
                                                 </div>
                                             </div>
                                         </div>

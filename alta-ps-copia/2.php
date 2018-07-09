@@ -51,7 +51,7 @@ if ($rgsu) {
 } else $str_errores = '<div class="error_alert">Error cargando datos sobre mi</div>';
 
 if(isset($_POST['actividad_estilo']) && $str_errores==''){
-    header('Location: '.$ruta_inicio.'alta-ps/3.php'); exit();
+    header('Location: '.$ruta_inicio.'alta-ps-copia/3.php'); exit();
 }
 
 //LISTADO__________________________________________________________________________
