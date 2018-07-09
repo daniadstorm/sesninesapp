@@ -59,12 +59,12 @@ class inputsModel extends Model {
         return $o;
     }
     
-    function get_input_number($id, $val, $class='', $lbl='', $placeholder='', $err_desc='', $min_length=false, $max_length=false, $step='int', $allow_empty=false) {
+    function get_input_number($id, $val, $class='', $lbl='', $placeholder='', $err_desc='', $min=false, $max=false, $step='int', $allow_empty=false) {
         $val = $this->safe_show($val);
         
         $aux_required = 'required';
-        $aux_min_length = '';
-        $aux_max_lenght = '';
+        $aux_min = '';
+        $aux_max = '';
         
         switch ($step) {
             default:
@@ -81,17 +81,44 @@ class inputsModel extends Model {
         }
         
         if ($allow_empty != false) $aux_required = '';
-        if ($min_length != false) $aux_min_length = 'min="'.$min_length.'"';
-        if ($max_length != false) $aux_max_lenght = 'max="'.$max_length.'"';
+        if ($min != false) $aux_min = 'min="'.$min.'"';
+        if ($max != false) $aux_max = 'max="'.$max.'"';
         
         $o  = '<div class="form-group">';
         if (strlen($lbl) > 0) $o .= '<label>'.$lbl.'</label>';
         $o .=   '<input type="number" '.$aux_required.' id="'.$id.'" name="'.$id.'" value="'.$val.'" class="'.$class.'" placeholder="'.$placeholder.'" '.
-                    $aux_min_length.' '.$aux_max_lenght.' title="'.$err_desc.'" '.$aux_step.'>';
+                    $aux_min.' '.$aux_max.' title="'.$err_desc.'" '.$aux_step.'>';
         $o .= '</div>';
             
         return $o;
     }
+    
+    /*
+    https://stackoverflow.com/questions/17443034/input-type-date-min-and-max-values-validate-against-yyyy-mm-dd-instead-of-dd-mm
+    formato de fechas requerido: YYYY-mm-dd
+    testear si para comprar dos fechas se puede: min='$("#segunda_fecha").val()'
+     */
+    function get_input_date($id, $val, $class='', $lbl='', $placeholder='', $err_desc='', $min=false, $max=false, $allow_empty=false) {
+        $val = $this->safe_show($val);
+        
+        $aux_required = 'required';
+        $aux_min = '';
+        $aux_max = '';
+        
+        if ($allow_empty != false) $aux_required = '';
+        if ($min != false) $aux_min = 'min="'.$min_length.'"';
+        if ($max != false) $aux_max = 'max="'.$max_length.'"';
+        
+        $o = '<div class="form-group">';
+        if (strlen($lbl) > 0) $o .= '<div><label>'.$lbl.'</label></div>';
+        
+        $o .=   '<input type="date" '.$aux_required.' id="'.$id.'" name="'.$id.'" value="'.$val.'" class="'.$class.'" placeholder="'.$placeholder.'" '.
+                    $aux_min.' '.$aux_max.' title="'.$err_desc.'">';
+        $o .= '</div>';
+        
+        return $o;
+    }
+    
     
     function get_input_hidden($id, $val) {
         $val = $this->safe_show($val);
@@ -131,30 +158,6 @@ class inputsModel extends Model {
         return $o;
     }
     
-    function get_input_date($id, $val, $class='', $lbl='', $placeholder='', $err_desc='', $allow_empty=false) {
-        $o = '<div class="form-group">
-        <label>'.$lbl_campo.'</label>
-        <input type="date" id="'.$id_campo.'" name="'.$id_campo.'" value="'.htmlspecialchars(stripslashes($value)).'" class="form-control" required>
-        </div>';
-
-        /* $o  = '<div class="'.$class.'">'; //output
-        $o .=   $lbl_campo;
-        $o .=   (isset($arr_err[$id_campo])) ? $arr_err[$id_campo] : '';
-        $o .=   '<input type="text" '.$disabled.' id="'.$id_campo.'" name="'.$id_campo.'" value="'.htmlspecialchars(stripslashes($value)).'" />';
-        $o .= '</div>'; */
-        
-        //$o .= 'dateFormat: \'dd-mm-yy\',';
-        //$o .= 'changeYear: true';
-        //$o .= '}+-7'
-        //        . '.30'
-        //        . ');</script>';
-        /* $o .= '<script>';
-        $o .= '$(\'#'.$id_campo.'\').datepicker(';
-        $o .= ');';
-        $o .= '</script>'; */
-        return $o;
-    }
-    
     /*
     http://plugins.krajee.com/file-basic-usage-demo
     */
@@ -188,12 +191,23 @@ class inputsModel extends Model {
         return $o;
     }
     
-    function get_combo_array($id, $arr, $class='', $selected=false, $onChange=false) {
-        $o  = '';
-        $o .= '<select id="'.$id.'" name="'.$id.'" class="'.$class.'" ';
-        (!$onChange) ? $o .= '>' : $o .= 'onchange="this.form.submit()">';
-        foreach ($arr as $key => $val) $o .= '<option '.(($selected == $key) ? ' selected="selected" ' : '').' value="'.$key.'">'.$val.'</option>';
-        $o .= '</select>';
+    function get_select($id, $val, $arr_opt, $class=false, $lbl=false, $onChange=false, $multiple=false) {
+        
+        $aux_onChange = '';
+        $aux_multiple = '';
+        
+        if ($onChange != false) $aux_onChange = $onChange;
+        if ($multiple != false) $aux_multiple = 'multiple';
+        
+        $o  = '<div class="form-group">';
+        if (strlen($lbl) > 0) $o .= '<div><label for="'.$id.'">'.$lbl.'</label></div>';
+        $o .=   '<select '.$aux_multiple.' id="'.$id.'" name="'.$id.'" class="'.$class.'" '.$aux_onChange.'>';
+        
+        foreach ($arr_opt as $k => $v) $o .= '<option '.(($val == $k) ? ' selected="selected" ' : '').' value="'.$k.'">'.$v.'</option>';
+        
+        $o .=   '</select>';
+        $o .= '</div>';
+        
         return $o;
     }
 }
