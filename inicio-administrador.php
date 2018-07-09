@@ -10,18 +10,43 @@ include_once('inc/cabecera.inc.php'); //cargando cabecera
     
 </script>
 <body>
-<div id="main_container">
-    <div id="responsive_back_content">
-        <?php include_once('inc/franja_top.inc.php'); ?>
-        <?php include_once('inc/main_menu.inc.php'); ?>
-        <div id="responsive_seccion_back">
-            <div id="ttl_seccion_back" style=" margin-top: 10%;">
-                <h3>Inicio Administrador Re-MOD</h3>
-                <div style="clear:both;"></div>
+    <?php include_once('inc/franja_top.inc.php'); ?>
+    <?php include_once('inc/main_menu.inc.php'); ?>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="content mt-1">
+                    <div class="layout">
+                        <div class="layout-table">
+                            <div id="alertas">
+                                <?php if (isset($str_info)) echo $str_info; ?>
+                                <?php if (isset($str_errores)) echo $str_errores; ?>
+                            </div>
+                            <div class="layout-table-item">
+                                <div class="layout-table-header">
+                                    <h4>Inicio</h4>
+                                    <div class="ml-2">
+                                        <a href="nueva-etiqueta.php"><button class="btn btn-light ml-2">Nueva Etiqueta</button></a>
+                                    </div>
+                                </div>
+                                <div class="ml-3 mr-3 mt-3">
+                                    <div class="dropdown">
+                                        <form method="post">
+                                            <!-- filtros -->
+                                        </form>
+                                    </div>
+                                </div>
+                                <div class="layout-table-content">
+                                    <div class="table-responsive-sm">
+                                        Inicio administración
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <?php include_once('inc/main_menu.inc.php'); ?>
         </div>
     </div>
-</div>
 </body>
 </html>

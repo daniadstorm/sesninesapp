@@ -51,16 +51,16 @@ $rgu = $pM->get_pedidos($pagM->pag, $pagM->regs_x_pag, $arr_filtro_ps);
 if ($rgu) {
     $cf = 1;
     while($fgu = $rgu->fetch_assoc()) {
-            $ogu .= '<tr>';
-            $ogu .= '<td><a href="'.$ruta_inicio.'ver-perfil.php?id_usuario='.$fgu['id_usuario'].'">'.$fgu['nombrecompleto_usuario'].'</a></td>';
-            $ogu .= '<td>'.$fgu['estado_pedido'].'</td>';
-            $ogu .= '<td>'.$fgu['fecha_pedido'].'</td>';
-            //$ogu .= '<td><a href="'.$ruta_inicio.'asignar-articulos-pedido.php?id_pedido='.$fgu['id_pedido'].'"><img src="'.$ruta_inicio.'img/editpedido.png"></td>';
-            $ogu .= '<td><a href="'.$ruta_inicio.'asignar-articulos-pedido.php?id_pedido='.$fgu['id_pedido'].'"><button type="button" class="btn btn-outline-info">Modificar</button>';
-            if($fgu['estado_pedido']==1){
-                $ogu .= '<a href="'.$ruta_inicio.'pedidos.php?id_pedido='.$fgu['id_pedido'].'&cambiar_estado=2&arr_filtro='.$arr_filtro_ps.'"><button type="button" class="btn btn-outline-success">Enviado</button></a></td>';//editpedido.png
-            }
-            $ogu .= '</td></tr>';
+        $ogu .= '<tr>';
+        $ogu .= '<td><a href="'.$ruta_inicio.'ver-perfil.php?id_usuario='.$fgu['id_usuario'].'">'.$fgu['nombrecompleto_usuario'].'</a></td>';
+        $ogu .= '<td>'.$fgu['estado_pedido'].'</td>';
+        $ogu .= '<td>'.$fgu['fecha_pedido'].'</td>';
+        //$ogu .= '<td><a href="'.$ruta_inicio.'asignar-articulos-pedido.php?id_pedido='.$fgu['id_pedido'].'"><img src="'.$ruta_inicio.'img/editpedido.png"></td>';
+        $ogu .= '<td><a href="'.$ruta_inicio.'asignar-articulos-pedido.php?id_pedido='.$fgu['id_pedido'].'"><button type="button" class="btn btn-outline-info">Modificar</button>';
+        if($fgu['estado_pedido']==1){
+            $ogu .= '<a href="'.$ruta_inicio.'pedidos.php?id_pedido='.$fgu['id_pedido'].'&cambiar_estado=2&arr_filtro='.$arr_filtro_ps.'"><button type="button" class="btn btn-outline-success">Enviado</button></a></td>';//editpedido.png
+        }
+        $ogu .= '</td></tr>';
     }
 } else $str_errores = $hM->get_alert_danger('Error cargando usuarios');
 

@@ -42,7 +42,7 @@ if (isset($_POST['id_etiqueta'])) {
     //MySQL ----------------------------------------------------------------- */
     if ($verif == true) {
         
-        //id_categoria
+        //id_etiqueta
         $nombre_etiqueta = $eM->escstr($nombre_etiqueta);
             
         if ($id_etiqueta > 0) { //UPDATE

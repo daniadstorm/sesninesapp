@@ -38,12 +38,58 @@ class inputsModel extends Model {
         return $o;
     }
 
-    function get_combo_array($id, $arr, $class='', $selected=false, $onChange=false) {
-        $o  = '';
-        $o .= '<select id="'.$id.'" name="'.$id.'" class="'.$class.'" ';
-        (!$onChange) ? $o .= '>' : $o .= 'onchange="this.form.submit()">';
-        foreach ($arr as $key => $val) $o .= '<option '.(($selected == $key) ? ' selected="selected" ' : '').' value="'.$key.'">'.$val.'</option>';
-        $o .= '</select>';
+    function get_input_textarea($id, $val, $class='', $lbl='', $placeholder='', $err_desc='', $min_length=false, $max_length=false, $allow_empty=false, $rows=3) {
+        $val = $this->safe_show($val);
+        
+        $aux_required = 'required';
+        $aux_min_length = '';
+        $aux_max_lenght = '';
+        
+        if ($allow_empty != false) $aux_required = '';
+        if ($min_length != false) $aux_min_length = 'minlength="'.$min_length.'"';
+        if ($max_length != false) $aux_max_lenght = 'maxlength="'.$max_length.'"';
+        
+        $o  = '<div class="form-group">';
+        if (strlen($lbl) > 0) $o .= '<label>'.$lbl.'</label>';
+        $o .=   '<textarea '.$aux_required.' id="'.$id.'" name="'.$id.'" class="'.$class.'" placeholder="'.$placeholder.'" '.$aux_min_length.' '.$aux_max_lenght.' title="'.$err_desc.'" rows="'.$rows.'">';
+        $o .=       $val;
+        $o .=   '</textarea>';
+        $o .= '</div>';
+            
+        return $o;
+    }
+    
+    function get_input_number($id, $val, $class='', $lbl='', $placeholder='', $err_desc='', $min_length=false, $max_length=false, $step='int', $allow_empty=false) {
+        $val = $this->safe_show($val);
+        
+        $aux_required = 'required';
+        $aux_min_length = '';
+        $aux_max_lenght = '';
+        
+        switch ($step) {
+            default:
+            case 'int':
+                $aux_step = 'step="1"';
+            break;
+            case 'decimal':
+                $aux_step = 'step=".1"';
+            break;
+            case 'price':
+            case 'centesimal':
+                $aux_step = 'step=".01"';
+            break;
+        }
+        
+        if ($allow_empty != false) $aux_required = '';
+        if ($min_length != false) $aux_min_length = 'min="'.$min_length.'"';
+        if ($max_length != false) $aux_max_lenght = 'max="'.$max_length.'"';
+        
+        $o  = '<div class="form-group">';
+        if (strlen($lbl) > 0) $o .= '<label>'.$lbl.'</label>';
+        $o .=   '<input type="number" '.$aux_required.' id="'.$id.'" name="'.$id.'" value="'.$val.'" class="'.$class.'" placeholder="'.$placeholder.'" '.
+                    $aux_min_length.' '.$aux_max_lenght.' title="'.$err_desc.'" '.$aux_step.'>';
+        $o .= '</div>';
+            
         return $o;
     }
     
@@ -52,6 +98,60 @@ class inputsModel extends Model {
         
         $o  = '<input type="hidden" id="'.$id.'" name="'.$id.'" value="'.$val.'" />';
         
+        return $o;
+    }
+    
+    function get_input_radio($id, $val, $arr_opt, $class='', $lbl='', $allow_empty=false) {
+        $val = $this->safe_show($val);
+        
+        $aux_required = ($allow_empty == false) ? 'required' : '';
+        
+        $o  = '<div class="form-group">';
+        if (strlen($lbl) > 0) $o .= '<div><label>'.$lbl.'</label></div>';
+        $o .=   '<div class="btn-group btn-group-toggle '.$class.'" data-toggle="buttons">';
+        
+        foreach ($arr_opt as $k => $v) {
+            
+            $aux_active = '';
+            $aux_checked = '';
+            
+            if ($val == $k) {
+                $aux_active = 'active';
+                $aux_checked = 'checked';
+            }
+            
+            $o .=       '<label class="btn btn-secondary '.$aux_active.'">';
+            $o .=           '<input type="radio" name="'.$id.'" id="'.$id.$k.'" value="'.$k.'" autocomplete="off" '.$aux_checked.' '.$aux_required.'> '.$v;
+            $o .=       '</label>';
+        }
+        
+        $o .=   '</div>';
+        $o .= '</div>';
+        
+        return $o;
+    }
+    
+    function get_input_date($id, $val, $class='', $lbl='', $placeholder='', $err_desc='', $allow_empty=false) {
+        $o = '<div class="form-group">
+        <label>'.$lbl_campo.'</label>
+        <input type="date" id="'.$id_campo.'" name="'.$id_campo.'" value="'.htmlspecialchars(stripslashes($value)).'" class="form-control" required>
+        </div>';
+
+        /* $o  = '<div class="'.$class.'">'; //output
+        $o .=   $lbl_campo;
+        $o .=   (isset($arr_err[$id_campo])) ? $arr_err[$id_campo] : '';
+        $o .=   '<input type="text" '.$disabled.' id="'.$id_campo.'" name="'.$id_campo.'" value="'.htmlspecialchars(stripslashes($value)).'" />';
+        $o .= '</div>'; */
+        
+        //$o .= 'dateFormat: \'dd-mm-yy\',';
+        //$o .= 'changeYear: true';
+        //$o .= '}+-7'
+        //        . '.30'
+        //        . ');</script>';
+        /* $o .= '<script>';
+        $o .= '$(\'#'.$id_campo.'\').datepicker(';
+        $o .= ');';
+        $o .= '</script>'; */
         return $o;
     }
     
@@ -85,6 +185,15 @@ class inputsModel extends Model {
         $o .=   '});';
         $o .= '</script>';
         
+        return $o;
+    }
+    
+    function get_combo_array($id, $arr, $class='', $selected=false, $onChange=false) {
+        $o  = '';
+        $o .= '<select id="'.$id.'" name="'.$id.'" class="'.$class.'" ';
+        (!$onChange) ? $o .= '>' : $o .= 'onchange="this.form.submit()">';
+        foreach ($arr as $key => $val) $o .= '<option '.(($selected == $key) ? ' selected="selected" ' : '').' value="'.$key.'">'.$val.'</option>';
+        $o .= '</select>';
         return $o;
     }
 }
