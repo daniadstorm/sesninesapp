@@ -23,11 +23,11 @@ $precio_coste_articulo = 0;
 $coste_externo_portes_articulo = 0;
 $PVP_final_articulo = 0;
 $margen_articulo = 0;
-$cantidad_articulo = 0;
+$cantidad_articulo = '';
 $inicio_descuento_articulo = '';
 $fin_descuento_articulo = '';
-$descuento_porcentaje_articulo = 0;
-$descuento_euros_articulo  = 0;
+$descuento_porcentaje_articulo = '';
+$descuento_euros_articulo  = '';
 $almacen_articulo = '';
 
 $verif = true;
@@ -72,8 +72,6 @@ if (isset($_POST['id_articulo'])) {
     $activado_articulo = $_POST['activado_articulo'];
     $visible_en_tienda_articulo = $_POST['visible_en_tienda_articulo'];
     $precio_coste_articulo = $_POST['precio_coste_articulo'];
-    /*
-    
     $coste_externo_portes_articulo = $_POST['coste_externo_portes_articulo'];
     $PVP_final_articulo = $_POST['PVP_final_articulo'];
     $margen_articulo = $_POST['margen_articulo'];
@@ -82,8 +80,8 @@ if (isset($_POST['id_articulo'])) {
     $fin_descuento_articulo = $_POST['fin_descuento_articulo'];
     $descuento_porcentaje_articulo = $_POST['descuento_porcentaje_articulo'];
     $descuento_euros_articulo = $_POST['descuento_euros_articulo'];
-    $almacen_articulo = $_POST['almacen_articulo'];
-    */
+    //$almacen_articulo = $_POST['almacen_articulo'];
+    
     //control de errores ---------------------------------------------------- */
     //control de errores ---------------------------------------------------- */
     
@@ -157,28 +155,25 @@ include_once('inc/cabecera.inc.php'); //cargando cabecera
                                     <form method="post" enctype="multipart/form-data">
                                     <?php 
                                         echo $iM->get_input_hidden('id_articulo', $id_articulo);
-                                        echo $iM->get_input_text('nombre_articulo', $nombre_articulo, 'form-control', 'Nombre etiqueta', '', 'Campo requerido', 1);
-                                        echo $iM->get_input_text('referencia_articulo', $referencia_articulo, 'form-control', 'Referencia', '', 'Campo requerido', 1);
-                                        echo $iM->get_input_text('referencia_proveedor_articulo', $referencia_proveedor_articulo, 'form-control', 'Referencia Proveedor', '', 'Campo requerido', 1);
-                                        echo $iM->get_input_textarea('descripcion_articulo', $descripcion_articulo, 'form-control', 'Descripción', '', 'Campo requerido', 1);
+                                        echo $iM->get_input_text('nombre_articulo', $nombre_articulo, 'form-control', '*Nombre etiqueta', '', 'Campo requerido', 1);
+                                        echo $iM->get_input_text('referencia_articulo', $referencia_articulo, 'form-control', '*Referencia', '', 'Campo requerido', 1);
+                                        echo $iM->get_input_text('referencia_proveedor_articulo', $referencia_proveedor_articulo, 'form-control', '*Referencia Proveedor', '', 'Campo requerido', 1);
+                                        echo $iM->get_input_textarea('descripcion_articulo', $descripcion_articulo, 'form-control', '*Descripción', '', 'Campo requerido', 1);
                                         echo $iM->get_input_radio('activado_articulo', $activado_articulo, $arr_opt_activado_articulo, '', 'Activado');
                                         echo $iM->get_input_radio('visible_en_tienda_articulo', $visible_en_tienda_articulo, $arr_opt_visible_en_tienda_articulo, '', 'Visible en tienda');
-                                        echo $iM->get_input_number('precio_coste_articulo', $precio_coste_articulo, 'form-control', 'Precio de coste (&euro;)', '', 'Campo requerido', 1, false, 'price');
-                                        echo $iM->get_input_number('coste_externo_portes_articulo', $coste_externo_portes_articulo, 'form-control', 'Precio de portes (&euro;)', '', 'Campo requerido', 1, false, 'price');
+                                        echo $iM->get_input_number('precio_coste_articulo', $precio_coste_articulo, 'form-control', '*Precio de coste (&euro;)', '', 'Campo requerido', 1, false, 'price');
+                                        echo $iM->get_input_number('coste_externo_portes_articulo', $coste_externo_portes_articulo, 'form-control', '*Precio de portes (&euro;)', '', 'Campo requerido', 1, false, 'price');
+                                        echo $iM->get_input_number('PVP_final_articulo', $PVP_final_articulo, 'form-control', '*Precio de venta al público (&euro;)', '', 'Campo requerido', 1, false, 'price');
+                                        echo $iM->get_input_number('margen_articulo', $margen_articulo, 'form-control', '*Margen (&euro;)', '', 'Campo requerido', 1, false, 'price');
+                                        echo $iM->get_input_number('cantidad_articulo', $cantidad_articulo, 'form-control', 'Cantidad', '', 'Campo requerido', 1, false, 'int', true);
+                                        echo $iM->get_input_date('inicio_descuento_articulo', $inicio_descuento_articulo, 'form-control', 'Fecha inicio descuento', '', '', false, false, true);
+                                        echo $iM->get_input_date('fin_descuento_articulo', $fin_descuento_articulo, 'form-control', 'Fecha fin descuento', '', '', false, false, true);
+                                        echo $iM->get_input_number('descuento_porcentaje_articulo', $descuento_porcentaje_articulo, 'form-control', 'Descuento (%)', '', '', 1, 100, 'int', true);
+                                        echo $iM->get_input_number('descuento_euros_articulo', $descuento_euros_articulo, 'form-control', 'Descuento (&euro;)', '', '', 1, false, 'int', true);
                                         
-                                        echo $iM->get_input_number('PVP_final_articulo', $PVP_final_articulo, 'form-control', 'Precio de venta al público (&euro;)', '', 'Campo requerido', 1, false, 'price');
-                                        
-                                        echo $iM->get_input_number('margen_articulo', $margen_articulo, 'form-control', 'Margen (&euro;)', '', 'Campo requerido', 1, false, 'price');
-                                        
-                                        echo $iM->get_input_number('cantidad_articulo', $cantidad_articulo, 'form-control', 'Cantidad', '', 'Campo requerido', 1);
-                                        
+                                        echo $aM->get_combo_almacenes('almacen_articulo', $almacen_articulo, 'form-control', 'Almacén');
                                         /*
                                         
-                                        
-                                        $inicio_descuento_articulo = $_POST['inicio_descuento_articulo'];
-                                        $fin_descuento_articulo = $_POST['fin_descuento_articulo'];
-                                        $descuento_porcentaje_articulo = $_POST['descuento_porcentaje_articulo'];
-                                        $descuento_euros_articulo = $_POST['descuento_euros_articulo'];
                                         $almacen_articulo = $_POST['almacen_articulo'];
                                         */
                                         

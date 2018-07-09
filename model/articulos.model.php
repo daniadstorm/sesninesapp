@@ -194,7 +194,7 @@ class articulosModel extends Model {
         return $o;
     }
     
-      function get_combo_array_articulos($arr, $id, $selected=false, $class=false, $onChange=false) {
+    function get_combo_array_articulos($arr, $id, $selected=false, $class=false, $onChange=false) {
         $o  = '';
         $o .= '<select id="'.$id.'" name="'.$id.'" ';
         if ($class) $o .= ' class ="'.$class.'" ';
@@ -205,15 +205,14 @@ class articulosModel extends Model {
         return $o;
     }
     
-    function get_combo_tipo_estilo_arti($id, $selected=false, $class=false, $default=false) {
-        $arr_estilos = array(
+    function get_combo_almacenes($id, $val, $class=false, $lbl=false, $onChange=false, $multiple=false) {
+        $iM = load_model('inputs');
+        $arr_almacenes = array(
             '01' => 'Almacén general',
             '02' => 'Almacén x',
-           
         );
-        return $this->get_combo_array_articulos($arr_estilos, $id, $selected, $class, $default);
+        return $iM->get_select($id, $val, $arr_almacenes, $class, $lbl, $onChange, $multiple);
     }
-    
     
     function html_ficha_producto_mini($ad) {
         
