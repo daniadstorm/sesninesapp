@@ -63,6 +63,10 @@ if ($rga) {
         $oga .=         '<button type="button" class="btn btn-outline-info">Img - Asignar</button>';
         $oga .=     '</a></td>';
         
+        $oga .=     '<td><a href="'.$ruta_inicio.'asignar-etiquetas-articulo.php?id_articulo='.$fga['id_articulo'].'">';
+        $oga .=         '<button type="button" class="btn btn-outline-info">Etiquetas - Asignar</button>';
+        $oga .=     '</a></td>';
+        
         $oga .=     '<td>';
         $oga .=         '<a href="'.$ruta_inicio.'articulos.php?eliminar_articulo='.$fga['id_articulo'].'">';
         $oga .=             '<button type="button" class="btn btn-outline-danger">Eliminar</button>';
@@ -131,6 +135,7 @@ include_once('inc/cabecera.inc.php'); //cargando cabecera
                                                     <th>PVP</th>
                                                     <th>Tallaje / Stock</th>
                                                     <th>Imágenes</th>
+                                                    <th>Etiquetas</th>
                                                     <th>Eliminar artículo</th>
                                                 </tr>
                                             </thead>

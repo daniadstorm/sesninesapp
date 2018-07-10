@@ -90,30 +90,6 @@ class articulosModel extends Model {
         return $this->execute_query($q);
     }
 
-    function get_etiquetas() {
-        $q = ' SELECT e.* FROM ' . $this->pre . 'etiquetas e ';
-        // $q .= ' WHERE u.deleted = 0';
-        return $this->execute_query($q);
-    }
-
-    function get_total_etiquetas() {
-        $r = $this->get_etiquetas();
-        if ($r)
-            return $r->num_rows;
-        else
-            return false;
-    }
-
-    //recoge las etiquetas por el id del artículo
-    function get_etiquetas_by_articulo($id_articulo) {
-        $q = ' SELECT ae.*, e.nombre_etiqueta FROM ' . $this->pre . 'articulo_etiquetas ae ';
-        $q .= ' LEFT JOIN ' . $this->pre . 'etiquetas e ON e.id_etiqueta = ae.id_etiqueta ';
-        $q .= ' WHERE ae.id_articulo = ' . $id_articulo . '';
-
-        // echo $q;
-        return $this->execute_query($q);
-    }
-
     function update_articulo($id_articulo, $nombre_articulo, $referencia_articulo,$referencia_proveedor_articulo,$descripcion_articulo,$activado_articulo,
         $visible_en_tienda_articulo,$precio_coste_articulo,$coste_externo_portes_articulo,$PVP_final_articulo,$margen_articulo,$inicio_descuento_articulo,
         $fin_descuento_articulo,$descuento_porcentaje_articulo,$descuento_euros_articulo,$cantidad_articulo, $almacen_articulo){
@@ -139,31 +115,6 @@ class articulosModel extends Model {
         return $this->execute_query($q);
     }
 
-    function get_combo_etiquetas($id, $selected = false, $class = false, $onChange = false, $default = true) {
-        $o = ''; //output
-        $q = 'SELECT e.* FROM ' . $this->pre . 'etiquetas e';
-        // $q .= ' WHERE gc.deleted = 0 ';
-        $r = $this->execute_query($q);
-        if ($r) {
-            $o .= '<select style="font-size:1em; margin:0em 0em 0em 2em;" id="' . $id . '" name="' . $id . '" ';
-            if ($class)
-                $o .= ' class ="' . $class . '" ';
-            if ($onChange)
-                $o .= ' onchange="' . $onChange . '" ';
-            $o .= '>';
-            if ($default)
-                $o .= '<option value="-1">-- Todas las etiquetas --</option>';
-            while ($f = $r->fetch_assoc()) {
-                $o .= '<option ' . (($selected == $f['id_etiqueta']) ? ' selected="selected" ' : '') . ' value="' . $f['id_etiqueta'] . '">' . $f['nombre_etiqueta'] . '</option>';
-            }
-            $o .= '</select>';
-        } else
-            return false;
-
-
-        return $o;
-    }
-    
     function get_combo_array_articulos($arr, $id, $selected=false, $class=false, $onChange=false) {
         $o  = '';
         $o .= '<select id="'.$id.'" name="'.$id.'" ';

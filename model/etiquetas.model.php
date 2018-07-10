@@ -39,6 +39,13 @@ class etiquetasModel extends Model {
             else return false;
     }
     
+    function get_etiquetas_by_articulo($id_articulo) {
+        $q  = ' SELECT ae.*, e.nombre_etiqueta FROM ' . $this->pre . 'articulo_etiquetas ae ';
+        $q .= ' LEFT JOIN ' . $this->pre . 'etiquetas e ON e.id_etiqueta = ae.id_etiqueta ';
+        $q .= ' WHERE ae.id_articulo = ' . $id_articulo . '';
+        return $this->execute_query($q);
+    }
+    
     function is_safe_deleting($id_etiqueta) {
         //adst_sesnines_articulo_etiquetas
         $q  = ' SELECT ae.id_articulo FROM '.$this->pre.'articulo_etiquetas ae ';
@@ -48,6 +55,23 @@ class etiquetasModel extends Model {
             if ($r->num_rows == 0) return true;
                 else return false;
         } else return false;
+    }
+    
+    
+    function get_select_etiquetas($id, $val, $class=false, $lbl=false, $onChange=false) {
+        $iM = load_model('inputs');
+        
+        $arr_opt = array();
+        
+        $q = 'SELECT e.* FROM ' . $this->pre . 'etiquetas e';
+        $r = $this->execute_query($q);
+        if ($r) {
+            while ($f = $r->fetch_assoc()) {
+                $arr_opt[$f['id_etiqueta']] = $f['nombre_etiqueta'];
+            }
+        } else return false;
+
+        return $iM->get_select($id, $val, $arr_opt, $class, $lbl, $onChange, false);
     }
     
     function delete_etiqueta($id_etiqueta) {

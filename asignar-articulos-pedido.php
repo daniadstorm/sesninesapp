@@ -24,8 +24,6 @@ if(isset($_GET['id_pedido'])){
     $id_pedido=$_GET['id_pedido'];
 }
 
-
-
 //GET___________________________________________________________________________
 if(isset($_REQUEST['arr_filtro'])){
     $arr_filtro_ps=$_REQUEST['arr_filtro'];
