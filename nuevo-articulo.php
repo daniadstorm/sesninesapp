@@ -80,7 +80,7 @@ if (isset($_POST['id_articulo'])) {
     $fin_descuento_articulo = $_POST['fin_descuento_articulo'];
     $descuento_porcentaje_articulo = $_POST['descuento_porcentaje_articulo'];
     $descuento_euros_articulo = $_POST['descuento_euros_articulo'];
-    //$almacen_articulo = $_POST['almacen_articulo'];
+    $almacen_articulo = $_POST['almacen_articulo'];
     
     //control de errores ---------------------------------------------------- */
     //control de errores ---------------------------------------------------- */
@@ -100,7 +100,6 @@ if (isset($_POST['id_articulo'])) {
         $PVP_final_articulo = $aM->escstr($PVP_final_articulo);
         $margen_articulo = $aM->escstr($margen_articulo);
         $cantidad_articulo = $aM->escstr($cantidad_articulo);
-        //verificar uso de fechas en pedidos
         //$inicio_descuento_articulo;
         //$fin_descuento_articulo;
         $descuento_porcentaje_articulo = $aM->escstr($descuento_porcentaje_articulo);
@@ -108,15 +107,20 @@ if (isset($_POST['id_articulo'])) {
         //$almacen_articulo;
         
         if ($id_articulo > 0) { //UPDATE
+            $rua = $aM->update_articulo($id_articulo, $nombre_articulo, $referencia_articulo, $referencia_proveedor_articulo, $descripcion_articulo, $activado_articulo, 
+                $visible_en_tienda_articulo, $precio_coste_articulo, $coste_externo_portes_articulo, $PVP_final_articulo, $margen_articulo, $inicio_descuento_articulo,
+                $fin_descuento_articulo, $descuento_porcentaje_articulo, $descuento_euros_articulo, $cantidad_articulo, $almacen_articulo);
             //$rua = $aM->update_artciulo($id_articulo, $nombre_etiqueta);
-            //if ($rua) {
-            //    header('Location: '.$ruta_inicio.'articulos.php?editar_articulo=true'); exit();
-            //} else $str_errores = $hM->get_alert_danger('Error actualizando artículo');
+            if ($rua) {
+                header('Location: '.$ruta_inicio.'articulos.php?editar_articulo=true'); exit();
+            } else $str_errores = $hM->get_alert_danger('Error actualizando artículo');
         } else { //NUEVO
-            //$raa = $aM->add_articulo($nombre_etiqueta);
-            //if ($raa) {
-            //    header('Location: '.$ruta_inicio.'articulos.php?nuevo_articulo=true'); exit();
-            //} else $str_errores = $hM->get_alert_danger('Error añadiendo artículo');
+            $raa = $aM->add_articulo($nombre_articulo, $referencia_articulo, $referencia_proveedor_articulo, $descripcion_articulo, $activado_articulo, $visible_en_tienda_articulo,
+                $precio_coste_articulo, $coste_externo_portes_articulo, $PVP_final_articulo, $margen_articulo, $inicio_descuento_articulo, $fin_descuento_articulo,
+                $descuento_porcentaje_articulo, $descuento_euros_articulo, $cantidad_articulo, $almacen_articulo);
+            if ($raa) {
+                header('Location: '.$ruta_inicio.'articulos.php?nuevo_articulo=true'); exit();
+            } else $str_errores = $hM->get_alert_danger('Error añadiendo artículo');
         }
     }
     //MySQL ----------------------------------------------------------------- */
@@ -155,7 +159,7 @@ include_once('inc/cabecera.inc.php'); //cargando cabecera
                                     <form method="post" enctype="multipart/form-data">
                                     <?php 
                                         echo $iM->get_input_hidden('id_articulo', $id_articulo);
-                                        echo $iM->get_input_text('nombre_articulo', $nombre_articulo, 'form-control', '*Nombre etiqueta', '', 'Campo requerido', 1);
+                                        echo $iM->get_input_text('nombre_articulo', $nombre_articulo, 'form-control', '*Nombre artículo', '', 'Campo requerido', 1);
                                         echo $iM->get_input_text('referencia_articulo', $referencia_articulo, 'form-control', '*Referencia', '', 'Campo requerido', 1);
                                         echo $iM->get_input_text('referencia_proveedor_articulo', $referencia_proveedor_articulo, 'form-control', '*Referencia Proveedor', '', 'Campo requerido', 1);
                                         echo $iM->get_input_textarea('descripcion_articulo', $descripcion_articulo, 'form-control', '*Descripción', '', 'Campo requerido', 1);
@@ -170,13 +174,7 @@ include_once('inc/cabecera.inc.php'); //cargando cabecera
                                         echo $iM->get_input_date('fin_descuento_articulo', $fin_descuento_articulo, 'form-control', 'Fecha fin descuento', '', '', false, false, true);
                                         echo $iM->get_input_number('descuento_porcentaje_articulo', $descuento_porcentaje_articulo, 'form-control', 'Descuento (%)', '', '', 1, 100, 'int', true);
                                         echo $iM->get_input_number('descuento_euros_articulo', $descuento_euros_articulo, 'form-control', 'Descuento (&euro;)', '', '', 1, false, 'int', true);
-                                        
                                         echo $aM->get_combo_almacenes('almacen_articulo', $almacen_articulo, 'form-control', 'Almacén');
-                                        /*
-                                        
-                                        $almacen_articulo = $_POST['almacen_articulo'];
-                                        */
-                                        
                                     ?>                                    
                                     <button class="btn bg-primary text-light">Aceptar</button>
                                     </form>

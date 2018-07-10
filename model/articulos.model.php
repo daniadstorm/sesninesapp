@@ -7,18 +7,6 @@ class articulosModel extends Model {
     function add_articulo($nombre_articulo,$referencia_articulo,$referencia_proveedor_articulo,$descripcion_articulo,$activado_articulo, $visible_en_tienda_articulo,
         $precio_coste_articulo,$coste_externo_portes_articulo,$PVP_final_articulo,$margen_articulo,$inicio_descuento_articulo,$fin_descuento_articulo,
         $descuento_porcentaje_articulo,$descuento_euros_articulo,$cantidad_articulo, $almacen_articulo) {
-        //si ambos no están vacios
-        if (!$inicio_descuento_articulo == 0 && !$fin_descuento_articulo == 0) {
-            $inicio = new DateTime($inicio_descuento_articulo);
-            $fin = new DateTime($fin_descuento_articulo);
-
-            $inicio_descuento_articulo = $inicio->format('Y-m-d');
-            $fin_descuento_articulo =  $fin->format('Y-m-d');
-        } else {
-            $inicio = null;
-            $fin = null;
-        }
-        
         
         $q  = ' INSERT INTO ' . $this->pre . 'articulos (nombre_articulo, referencia_articulo, referencia_proveedor_articulo, descripcion_articulo, activado_articulo, ';
         $q .=   ' visible_en_tienda_articulo, precio_coste_articulo, coste_externo_portes_articulo, PVP_final_articulo, margen_articulo, cantidad_articulo, ';
@@ -27,9 +15,6 @@ class articulosModel extends Model {
         $q .= ' "' . $activado_articulo . '", "' . $visible_en_tienda_articulo . '", "' .$precio_coste_articulo . '", "' . $coste_externo_portes_articulo . '", ';
         $q .= ' "' . $PVP_final_articulo . '", "' . $margen_articulo . '","' . $cantidad_articulo . '", "' .$inicio_descuento_articulo. '", "' .$fin_descuento_articulo. '", ';
         $q .= ' "' .$descuento_porcentaje_articulo. '", "'.$descuento_euros_articulo.'","' . $almacen_articulo . '")';
-
-        //echo $q ;
-
         return $this->execute_query($q);
     }
 
@@ -130,42 +115,27 @@ class articulosModel extends Model {
     }
 
     function update_articulo($id_articulo, $nombre_articulo, $referencia_articulo,$referencia_proveedor_articulo,$descripcion_articulo,$activado_articulo,
-                $visible_en_tienda_articulo,$precio_coste_articulo,$coste_externo_portes_articulo,$PVP_final_articulo,$margen_articulo,$inicio_descuento_articulo,
-                $fin_descuento_articulo,$descuento_porcentaje_articulo,$descuento_euros_articulo,$cantidad_articulo, $almacen_articulo){
+        $visible_en_tienda_articulo,$precio_coste_articulo,$coste_externo_portes_articulo,$PVP_final_articulo,$margen_articulo,$inicio_descuento_articulo,
+        $fin_descuento_articulo,$descuento_porcentaje_articulo,$descuento_euros_articulo,$cantidad_articulo, $almacen_articulo){
         
-        /*
-        if (!$inicio_descuento_articulo == 0 && !$fin_descuento_articulo == 0) {
-            $inicio = new DateTime($inicio_descuento_articulo);
-            $fin = new DateTime($fin_descuento_articulo);
-
-            $inicio_descuento_articulo = $inicio->format('Y-m-d');
-            $fin_descuento_articulo =  $fin->format('Y-m-d');
-        } else {
-            $inicio = null;
-            $fin = null;
-        }
-        */
-
-        $q = ' UPDATE ' . $this->pre . 'articulos SET ';
-        $q .= ' nombre_articulo = "' . $nombre_articulo . '", ';
-        $q .= ' referencia_articulo = "' . $referencia_articulo . '", ';
-        $q .= ' referencia_proveedor_articulo = "' . $referencia_proveedor_articulo . '", ';
-        $q .= ' descripcion_articulo = "' . $descripcion_articulo . '", ';
-        $q .= ' activado_articulo = "' . $activado_articulo . '", ';
-        $q .= ' visible_en_tienda_articulo = "' . $visible_en_tienda_articulo . '", ';
-        $q .= ' precio_coste_articulo = "' . $precio_coste_articulo . '", ';
-        $q .= ' coste_externo_portes_articulo = "' . $coste_externo_portes_articulo . '", ';
-        $q .= ' PVP_final_articulo = "' . $PVP_final_articulo . '", ';
-        $q .= ' margen_articulo = "' . $margen_articulo . '", ';
-        $q .= ' cantidad_articulo = "' . $cantidad_articulo . '", ';
-        $q .= ' inicio_descuento_articulo = "' . $inicio_descuento_articulo. '", ';
-        $q .= ' fin_descuento_articulo = "' . $fin_descuento_articulo. '", ';
-        $q .= ' descuento_porcentaje_articulo = ' . $descuento_porcentaje_articulo . ', ';
-        $q .= ' descuento_euros_articulo = ' . $descuento_euros_articulo . ', ';
-        $q .= ' almacen_articulo = ' . $almacen_articulo . ' ';
-
+        $q  = ' UPDATE ' . $this->pre . 'articulos SET ';
+        $q .=   ' nombre_articulo = "' . $nombre_articulo . '", ';
+        $q .=   ' referencia_articulo = "' . $referencia_articulo . '", ';
+        $q .=   ' referencia_proveedor_articulo = "' . $referencia_proveedor_articulo . '", ';
+        $q .=   ' descripcion_articulo = "' . $descripcion_articulo . '", ';
+        $q .=   ' activado_articulo = "' . $activado_articulo . '", ';
+        $q .=   ' visible_en_tienda_articulo = "' . $visible_en_tienda_articulo . '", ';
+        $q .=   ' precio_coste_articulo = "' . $precio_coste_articulo . '", ';
+        $q .=   ' coste_externo_portes_articulo = "' . $coste_externo_portes_articulo . '", ';
+        $q .=   ' PVP_final_articulo = "' . $PVP_final_articulo . '", ';
+        $q .=   ' margen_articulo = "' . $margen_articulo . '", ';
+        $q .=   ' cantidad_articulo = "' . $cantidad_articulo . '", ';
+        $q .=   ' inicio_descuento_articulo = "' . $inicio_descuento_articulo. '", ';
+        $q .=   ' fin_descuento_articulo = "' . $fin_descuento_articulo. '", ';
+        $q .=   ' descuento_porcentaje_articulo = ' . $descuento_porcentaje_articulo . ', ';
+        $q .=   ' descuento_euros_articulo = "' . $descuento_euros_articulo . '", ';
+        $q .=   ' almacen_articulo = ' . $almacen_articulo . ' ';
         $q .= ' WHERE id_articulo = ' . $id_articulo . ';';
-        //echo $q.'<br>';
         return $this->execute_query($q);
     }
 
@@ -208,8 +178,8 @@ class articulosModel extends Model {
     function get_combo_almacenes($id, $val, $class=false, $lbl=false, $onChange=false, $multiple=false) {
         $iM = load_model('inputs');
         $arr_almacenes = array(
-            '01' => 'Almacén general',
-            '02' => 'Almacén x',
+            1 => 'Almacén general',
+            2 => 'Almacén x',
         );
         return $iM->get_select($id, $val, $arr_almacenes, $class, $lbl, $onChange, $multiple);
     }
