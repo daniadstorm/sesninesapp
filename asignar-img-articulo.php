@@ -128,7 +128,7 @@ include_once('inc/cabecera.inc.php'); //cargando cabecera
                                     <form method="post" enctype="multipart/form-data">
                                     <?php 
                                         echo $iM->get_input_hidden('id_articulo', $id_articulo);
-                                        echo $iM->get_input_img('imagenes_articulo', $imagen_categoria, $ruta_archivos, '', 'Imagen categoría');
+                                        echo $iM->get_input_img('imagenes_articulo', $imagen_categoria, $ruta_archivos, '', 'Imagen categoría', 'required');
                                         //input de imagenes a 5
                                     ?>                                    
                                     <button class="btn bg-primary text-light">Aceptar</button>

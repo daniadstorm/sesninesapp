@@ -11,34 +11,43 @@ $iM = load_model('inputs');
 //GET___________________________________________________________________________
 
 //POST__________________________________________________________________________
-if(isset($_POST['arraySiluetaImg'])){
+if(isset($_POST['silueta'])) $_SESSION['silueta']=$_POST['silueta'];
+if(isset($_POST['talla_superior'])) $_SESSION['talla_superior']=$_POST['talla_superior'];
+if(isset($_POST['talla_inferior'])) $_SESSION['talla_inferior']=$_POST['talla_inferior'];
+if(isset($_POST['talla_pecho'])) $_SESSION['talla_pecho']=$_POST['talla_pecho'];
+if(isset($_POST['altura'])) $_SESSION['altura']=$_POST['altura'];
+/* if(isset($_POST['arraySiluetaImg'])){
     for($i=1;$i<=5;$i++){
-        $_SESSION['img'.$i]='';
+        $_SESSION['silueta'.$i]='';
     }
     for($i=0;$i<count($_POST['check']);$i++){
         $_SESSION[$_POST['check'][$i]]=$_POST['check'][$i];
     }
-}
+} */
 echo '<pre>';
 print_r($_SESSION);
 echo '</pre>';
 //POST__________________________________________________________________________
 
 //LOAD__________________________________________________________________________
-$actividad_estilo = '';
-$tienes_hijos = '';
-$profesion_estilo = '';
+$talla_superior = '';
+$talla_inferior = '';
+$talla_pecho = '';
+$altura = '';
 $imagen_categoria = '';
-(isset($_SESSION['actividad_estilo'])) ? $actividad_estilo=$_SESSION['actividad_estilo'] : $actividad_estilo='';
-(isset($_SESSION['tienes_hijos'])) ? $tienes_hijos=$_SESSION['tienes_hijos'] : $tienes_hijos='';
-(isset($_SESSION['profesion_estilo'])) ? $profesion_estilo=$_SESSION['profesion_estilo'] : $profesion_estilo='';
+$silueta = '';
+(isset($_SESSION['talla_superior'])) ? $talla_superior=$_SESSION['talla_superior'] : $talla_superior='';
+(isset($_SESSION['talla_inferior'])) ? $talla_inferior=$_SESSION['talla_inferior'] : $talla_inferior='';
+(isset($_SESSION['talla_pecho'])) ? $talla_pecho=$_SESSION['talla_pecho'] : $talla_pecho='';
+(isset($_SESSION['altura'])) ? $altura=$_SESSION['altura'] : $altura='';
+(isset($_SESSION['silueta'])) ? $silueta=$_SESSION['silueta'] : $silueta='';
 
 //LOAD__________________________________________________________________________
 
 
 //CONTROL_______________________________________________________________________
-if(isset($_POST['actividad_estilo'])){//Comprobación de $_POST['actividad_estilo'] porque el campo es obligatorio.
-    header('Location: '.$ruta_inicio.'alta-ps/3.php');
+if(isset($_POST['talla_superior'])){ //Comprobación de $_POST['talla_superior'] porque el campo es obligatorio.
+    header('Location: '.$ruta_inicio.'alta-ps/4.php');
 }
 //CONTROL_______________________________________________________________________
 
@@ -107,7 +116,21 @@ include_once('../inc/cabecera.inc.php'); //cargando cabecera
                                                     </label>
                                                 </div>
                                             </div>
-                                            <?php echo $iM->get_input_img('imagen_categoria', $imagen_categoria, $ruta_archivos, '', 'Puedes subir imágenes tuyas si lo prefieres..', true); ?>  
+                                            <?php echo $iM->get_input_img('imagen_categoria', $imagen_categoria, $ruta_archivos, '', 'Puedes subir imágenes tuyas si lo prefieres..', '', true); ?>  
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <?php echo $iM->get_input_radio('talla_superior',$talla_superior,$uM->arr_talla_superior,'flex-wrap d-flex justify-content-center'); ?>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <?php echo $iM->get_input_radio('talla_inferior',$talla_inferior,$uM->arr_talla_superior,'flex-wrap d-flex justify-content-center'); ?>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <?php echo $iM->get_input_radio('talla_pecho',$talla_pecho,$uM->arr_talla_pecho,'flex-wrap d-flex justify-content-center'); ?>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <?php echo $iM->get_input_radio('altura',$altura,$uM->arr_altura,'flex-wrap d-flex justify-content-center'); ?>
+                                                </div>
+                                            </div>
                                         <button type="submit" class="btn btn-primary">Enviar</button>
                                     </form>
                                 </div>
@@ -121,6 +144,7 @@ include_once('../inc/cabecera.inc.php'); //cargando cabecera
     <script>
         $(document).ready(function (e) {
             $(".img-check").click(function () {
+                $(".img-check").removeClass("check");
                 $(this).toggleClass("check");
             });
         });

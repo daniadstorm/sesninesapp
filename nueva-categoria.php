@@ -122,7 +122,7 @@ include_once('inc/cabecera.inc.php'); //cargando cabecera
                                     <?php 
                                         echo $iM->get_input_hidden('id_categoria', $id_categoria);
                                         echo $iM->get_input_text('nombre_categoria', $nombre_categoria, 'form-control', 'Nombre categoría', '', 'Campo requerido', 1);
-                                        echo $iM->get_input_img('imagen_categoria', $imagen_categoria, $ruta_archivos, '', 'Imagen categoría', true);
+                                        echo $iM->get_input_img('imagen_categoria', $imagen_categoria, $ruta_archivos, '', 'Imagen categoría', 'required', false);
                                     ?>                                    
                                     <button class="btn bg-primary text-light">Aceptar</button>
                                     </form>

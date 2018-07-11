@@ -122,9 +122,7 @@ class inputsModel extends Model {
     
     function get_input_hidden($id, $val) {
         $val = $this->safe_show($val);
-        
         $o  = '<input type="hidden" id="'.$id.'" name="'.$id.'" value="'.$val.'" />';
-        
         return $o;
     }
     
@@ -161,7 +159,7 @@ class inputsModel extends Model {
     /*
     http://plugins.krajee.com/file-basic-usage-demo
     */
-    function get_input_img($id, $val, $ruta_archivos, $class='', $lbl='', $multiple=false, $maxFileCount=false) {
+    function get_input_img($id, $val, $ruta_archivos, $class='', $lbl='', $required='required',$multiple=false, $maxFileCount=false) {
 
         $aux_multiple = '';
         if ($multiple) $aux_multiple = 'multiple';
@@ -170,11 +168,11 @@ class inputsModel extends Model {
             $aux_imagen_categoria_required = '';
             $aux_js_editar = 'initialPreview: [\''.$ruta_archivos.$val.'\'],initialPreviewAsData: true,';
         } else {
-            $aux_imagen_categoria_required = 'required';
+            $aux_imagen_categoria_required = $required;
             $aux_js_editar = '';
         }
         
-        $o  = '<div class="form-group">';
+        $o  = '<div class="form-group '.$class.'">';
         $o .=   '<label>'.$lbl.'</label>';
         $o .=   '<div class="file-loading">';
         $o .=       '<input '.$aux_imagen_categoria_required.' id="'.$id.'" name="'.$id.'[]" type="file" '.$aux_multiple.'>';
