@@ -50,9 +50,6 @@ if (isset($_POST['id_categoria'])) {
         $aux_fecha_hora = date('Ymd').'-'.date('Hms');
         
         //upload de img
-        echo '<pre>';
-        print_r($_FILES);
-        echo '</pre>';
         if (isset($_FILES['imagen_categoria'])) {
             $cantidad = count($_FILES['imagen_categoria']['tmp_name']); //Recibe un array de FILES que se hace poniendo el mismo name a todos los input[type="file"]
             for ($i=0;$i<$cantidad;$i++) { //Recorre el bucle

@@ -2,13 +2,13 @@
 
 class articulosModel extends Model {
     
-
+    public $dir = 'imgart/';
     
     function add_articulo($nombre_articulo,$referencia_articulo,$referencia_proveedor_articulo,$descripcion_articulo,$activado_articulo, $visible_en_tienda_articulo,
         $precio_coste_articulo,$coste_externo_portes_articulo,$PVP_final_articulo,$margen_articulo,$inicio_descuento_articulo,$fin_descuento_articulo,
         $descuento_porcentaje_articulo,$descuento_euros_articulo,$cantidad_articulo, $almacen_articulo) {
         
-        $q  = ' INSERT INTO ' . $this->pre . 'articulos (nombre_articulo, referencia_articulo, referencia_proveedor_articulo, descripcion_articulo, activado_articulo, ';
+        $q  = ' INSERT INTO '.$this->pre.'articulos (nombre_articulo, referencia_articulo, referencia_proveedor_articulo, descripcion_articulo, activado_articulo, ';
         $q .=   ' visible_en_tienda_articulo, precio_coste_articulo, coste_externo_portes_articulo, PVP_final_articulo, margen_articulo, cantidad_articulo, ';
         $q .=   ' inicio_descuento_articulo, fin_descuento_articulo, descuento_porcentaje_articulo, descuento_euros_articulo, almacen_articulo ) VALUES ';
         $q .= ' ("' . $nombre_articulo . '", "' . $referencia_articulo . '", "' . $referencia_proveedor_articulo . '", "' . $descripcion_articulo . '", ';
@@ -19,77 +19,85 @@ class articulosModel extends Model {
     }
 
     function add_articulo_etiquetas($id_articulo, $id_etiqueta) {
-
-        $q = ' INSERT INTO ' . $this->pre . 'articulo_etiquetas ( 
-                id_articulo, id_etiqueta ) VALUES ';
+        $q  = ' INSERT INTO '.$this->pre.'articulo_etiquetas (id_articulo, id_etiqueta) VALUES ';
         $q .= ' (' . $id_articulo . ', ' . $id_etiqueta . ')';
-
-        // echo $q.'<br>' ;
-
         return $this->execute_query($q);
     }
 
-    function delete_articulo_etiquetas($id_articulo) {
-        $q = ' DELETE FROM ' . $this->pre . 'articulo_etiquetas';
+    function delete_articulo_all_etiquetas($id_articulo) {
+        $q  = ' DELETE FROM '.$this->pre.'articulo_etiquetas';
         $q .= ' WHERE id_articulo = ' . $id_articulo . ' ';
         return $this->execute_query($q);
     }
 
-    function delete_articulo_etiquetas_etiqueta($id_articulo, $id_etiqueta) {
-        $q = ' DELETE FROM ' . $this->pre . 'articulo_etiquetas';
+    function delete_articulo_etiquetas($id_articulo, $id_etiqueta) {
+        $q  = ' DELETE FROM '.$this->pre.'articulo_etiquetas';
         $q .= ' WHERE id_articulo = ' . $id_articulo . ' AND id_etiqueta = ' . $id_etiqueta . ' ';
-        //echo $q;
         return $this->execute_query($q);
     }
 
     function get_articulos($pag, $regs_x_pag) {
-        $q = ' SELECT a.* FROM ' . $this->pre . 'articulos a ';
-        //$q .= ' WHERE a.cantidad_articulo>0 ';
+        $q  = ' SELECT a.* FROM '.$this->pre.'articulos a ';
+        $q .= ' WHERE a.deleted_articulo = 0 ';
         $q .= ' LIMIT ' . ($pag * $regs_x_pag) . ', ' . $regs_x_pag . ' ';
-         //echo $q;
         return $this->execute_query($q);
     }
 
     function get_articulos_total_regs() {
-        $q = ' SELECT a.* FROM ' . $this->pre . 'articulos a ';
-        //$q .= ' WHERE a.';
+        $q = ' SELECT a.* FROM '.$this->pre.'articulos a ';
+        $q .= ' WHERE a.deleted_articulo = 0 ';
         $r = $this->execute_query($q);
         if ($r) return $r->num_rows;
             else return false;
     }
 
     function get_articulo($id_articulo) {
-        $q = ' SELECT u.* FROM ' . $this->pre . 'articulos u ';
-        $q .= ' WHERE u.id_articulo = ' . $id_articulo . ' ';
-        //$q .= ' AND u.deleted = 0';
+        $q  = ' SELECT a.* FROM '.$this->pre.'articulos a ';
+        $q .= ' WHERE a.id_articulo = ' . $id_articulo . ' ';
+        $q .=   ' AND a.deleted_articulo = 0';
         return $this->execute_query($q);
     }
-
-    function get_articulo_img($id_articulo) {
-        $q = ' SELECT ia.* FROM ' . $this->pre . 'img_articulos ia ';
-        $q .= ' WHERE ia.id_articulo = ' . $id_articulo . '';
-        
-        //$q .= ' AND ia.deleted = 0';
-        //echo $q;
+    
+    function add_articulo_img($id_articulo, $ruta_imagen_articulo) {
+        $q  = ' INSERT INTO '.$this->pre.'articulo_imagenes (id_articulo, ruta_imagen) VALUES ';
+        $q .= ' ('.$id_articulo.', '.$ruta_imagen_articulo.') ';
         return $this->execute_query($q);
     }
-
-    function delete_articulo_img($id_articulo, $i) {
-        
-        //echo 'i: '.$i.'<br>';
-        //echo 'ruta: '.$ruta.'<br>';
-        //echo 'id_articulo: '.$id_articulo.'<br>';
-        
-        $q = ' UPDATE ' . $this->pre . 'img_articulos SET ';
-         
-        $q .= ' ruta'.$i.' = \'\'';
-        $q .= ' WHERE id_articulo = ' . $id_articulo . ' ';
-        
-        //$q .= ' AND ia.deleted = 0';
-        echo $q;
+    
+    function clear_articulo_img($id_articulo) {
+        $q  = ' DELETE FROM '.$this->pre.'articulo_imagenes ';
+        $q .= ' WHERE id_articulo = '.$id_articulo.' ';
         return $this->execute_query($q);
     }
-
+    
+    function clean_dir_imgart($document_root) {
+        //todos los archivos que no estén en la tabla se eliminan
+        
+        $arr_bbdd = array();
+        $arr_dir = array();
+        
+        $q  = ' SELECT c.* FROM '.$this->pre.'categorias c ';
+        $q .= ' WHERE c.deleted = 0 ';
+        $r = $this->execute_query($q);
+        if ($r) {
+            while ($f = $r->fetch_assoc()) {
+                //array con nombres de archivo de tabla sql
+                $arr_bbdd []= substr($f['imagen_categoria'], (strpos($f['imagen_categoria'], '/')+1), strlen($f['imagen_categoria'])); //desde la barra hasta el final
+            }
+        } else return false;
+        
+        //array con nombres de archivo existentes en directorio
+        $arr_dir = scandir($this->dir);
+        
+        foreach ($arr_dir as $k => $v) {
+            if ($v != '.' && $v != '..') {
+                if (!in_array($v, $arr_bbdd)) {
+                    unlink($document_root.$this->dir.$v);
+                }
+            }
+        }
+    }
+    
     function update_articulo($id_articulo, $nombre_articulo, $referencia_articulo,$referencia_proveedor_articulo,$descripcion_articulo,$activado_articulo,
         $visible_en_tienda_articulo,$precio_coste_articulo,$coste_externo_portes_articulo,$PVP_final_articulo,$margen_articulo,$inicio_descuento_articulo,
         $fin_descuento_articulo,$descuento_porcentaje_articulo,$descuento_euros_articulo,$cantidad_articulo, $almacen_articulo){
@@ -113,17 +121,6 @@ class articulosModel extends Model {
         $q .=   ' almacen_articulo = ' . $almacen_articulo . ' ';
         $q .= ' WHERE id_articulo = ' . $id_articulo . ';';
         return $this->execute_query($q);
-    }
-
-    function get_combo_array_articulos($arr, $id, $selected=false, $class=false, $onChange=false) {
-        $o  = '';
-        $o .= '<select id="'.$id.'" name="'.$id.'" ';
-        if ($class) $o .= ' class ="'.$class.'" ';
-        (!$onChange) ? $o .= '>' : $o .= 'onchange="this.form.submit()">';
-        //$o .= '>';
-        foreach ($arr as $key => $val) $o .= '<option '.(($selected == $key) ? ' selected="selected" ' : '').' value="'.$key.'">'.$val.'</option>';
-        $o .= '</select>';
-        return $o;
     }
     
     function get_combo_almacenes($id, $val, $class=false, $lbl=false, $onChange=false, $multiple=false) {
@@ -185,8 +182,10 @@ class articulosModel extends Model {
         
         return $op;
     }
-
-        function add_imagen_art($id_articulo, $nombre_img, $num_img){
+    
+    /* DEPRECATED */
+    /*
+    function add_imagen_art($id_articulo, $nombre_img, $num_img){
         $q = '';
         switch($num_img){
             case 0:
@@ -211,8 +210,10 @@ class articulosModel extends Model {
         //echo $q;
         return $this->execute_query($q);
     }
+    */
     
-
+    /* DEPRECATED */
+    /*
     function update_imagen_art($id_articulo, $nombre_img, $num_img){
         $q = '';
         switch($num_img){
@@ -238,7 +239,7 @@ class articulosModel extends Model {
         //echo $q;
         return $this->execute_query($q);
     }
-  
+    */
 }
 
 ?>

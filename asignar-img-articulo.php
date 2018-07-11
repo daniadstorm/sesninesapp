@@ -27,37 +27,48 @@ if (isset($_POST['id_articulo'])) {
     
     $id_articulo = $_POST['id_articulo'];
     
-    
     //control de errores ---------------------------------------------------- */
     //control de errores ---------------------------------------------------- */
     
     //MySQL ----------------------------------------------------------------- */
     if ($verif == true) {
+        $imagenOK = array();
+        //id_categoria
+        $nombre_categoria = $aM->escstr($nombre_categoria);
+        $aux_fecha_hora = date('Ymd').'-'.date('Hms');
         
-        //id_articulo
-        //imagenes
+        //limpiar registros
+        $rcai = $aM->clear_articulo_img($id_articulo);
         
-        //clear previo
-        //actualizar (insertar)
-        
-        /*
-        if ($id_articulo > 0) { //UPDATE
-            $rua = $aM->update_articulo($id_articulo, $nombre_articulo, $referencia_articulo, $referencia_proveedor_articulo, $descripcion_articulo, $activado_articulo, 
-                $visible_en_tienda_articulo, $precio_coste_articulo, $coste_externo_portes_articulo, $PVP_final_articulo, $margen_articulo, $inicio_descuento_articulo,
-                $fin_descuento_articulo, $descuento_porcentaje_articulo, $descuento_euros_articulo, $cantidad_articulo, $almacen_articulo);
-            //$rua = $aM->update_artciulo($id_articulo, $nombre_etiqueta);
-            if ($rua) {
-                header('Location: '.$ruta_inicio.'articulos.php?editar_articulo=true'); exit();
-            } else $str_errores = $hM->get_alert_danger('Error actualizando artículo');
-        } else { //NUEVO
-            $raa = $aM->add_articulo($nombre_articulo, $referencia_articulo, $referencia_proveedor_articulo, $descripcion_articulo, $activado_articulo, $visible_en_tienda_articulo,
-                $precio_coste_articulo, $coste_externo_portes_articulo, $PVP_final_articulo, $margen_articulo, $inicio_descuento_articulo, $fin_descuento_articulo,
-                $descuento_porcentaje_articulo, $descuento_euros_articulo, $cantidad_articulo, $almacen_articulo);
-            if ($raa) {
-                header('Location: '.$ruta_inicio.'articulos.php?nuevo_articulo=true'); exit();
-            } else $str_errores = $hM->get_alert_danger('Error añadiendo artículo');
-        }
-        */
+        //upload de img
+        if (isset($_FILES['imagenes_articulo'])) {
+            $cantidad = count($_FILES['imagenes_articulo']['tmp_name']); //Recibe un array de FILES que se hace poniendo el mismo name a todos los input[type="file"]
+            for ($i=0;$i<$cantidad;$i++) { //Recorre el bucle
+                if($_FILES['imagenes_articulo']['name'][$i]!=""){ //Si está vacio es que no ha insertado ninguna imagen por lo tanto no hace las siguientes comprobaciones
+                    $imagenInfo = getimagesize($_FILES['imagenes_articulo']['tmp_name'][$i]); //Saca el mime "type" pero que no se puede modificar
+                    if ($imagenInfo['mime']=='image/png' || $imagenInfo['mime']=='image/jpeg') { //Si tiene una de las siguientes extensiones es que es imagen
+                        $res = move_uploaded_file($_FILES['imagenes_articulo']['tmp_name'][$i],$document_root.$aM->dir.$aux_fecha_hora.$_FILES['imagenes_articulo']['name'][$i]);
+                        if ($res) {
+                            
+                            $ruta_imagen_articulo = $aM->dir.$aux_fecha_hora.$_FILES['imagenes_articulo']['name'][$i];
+                            
+                            //añadir registro
+                            $raai = $aM->add_articulo_img($id_articulo, $ruta_imagen_articulo);
+                            
+                        }
+                    } else $str_errores = $hM->get_alert_danger('El archivo no es de tipo imagen');           
+                } else $str_errores = $hM->get_alert_danger('Campo requerido');
+            }
+            
+            //limpiar archivos que no estan en registro
+            
+            
+            /*
+            if($imagenOK){
+                header('Location: '.$ruta_inicio.'categorias.php?nueva_categoria=true'); exit();
+            } else $str_errores = $hM->get_alert_danger('Error añadiendo categoría');
+             */
+        } else $str_errores = $hM->get_alert_danger('Campo requerido');
     }
     //MySQL ----------------------------------------------------------------- */
 }
@@ -128,8 +139,7 @@ include_once('inc/cabecera.inc.php'); //cargando cabecera
                                     <form method="post" enctype="multipart/form-data">
                                     <?php 
                                         echo $iM->get_input_hidden('id_articulo', $id_articulo);
-                                        echo $iM->get_input_img('imagenes_articulo', $imagen_categoria, $ruta_archivos, '', 'Imagen categoría');
-                                        //input de imagenes a 5
+                                        echo $iM->get_input_img('imagenes_articulo', false, $ruta_archivos, '', 'Imagenes artículo (máximo 5)', true, 5);
                                     ?>                                    
                                     <button class="btn bg-primary text-light">Aceptar</button>
                                     </form>
