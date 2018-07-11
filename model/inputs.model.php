@@ -161,8 +161,11 @@ class inputsModel extends Model {
     /*
     http://plugins.krajee.com/file-basic-usage-demo
     */
-    function get_input_img($id, $val, $ruta_archivos, $class='', $lbl='') {
-        
+    function get_input_img($id, $val, $ruta_archivos, $class='', $lbl='', $multiple=false, $maxFileCount=false) {
+
+        $aux_multiple = '';
+        if ($multiple) $aux_multiple = 'multiple';
+
         if (strlen($val) > 0) {
             $aux_imagen_categoria_required = '';
             $aux_js_editar = 'initialPreview: [\''.$ruta_archivos.$val.'\'],initialPreviewAsData: true,';
@@ -174,7 +177,7 @@ class inputsModel extends Model {
         $o  = '<div class="form-group">';
         $o .=   '<label>'.$lbl.'</label>';
         $o .=   '<div class="file-loading">';
-        $o .=       '<input '.$aux_imagen_categoria_required.' id="'.$id.'" name="'.$id.'[]" type="file" multiple>';
+        $o .=       '<input '.$aux_imagen_categoria_required.' id="'.$id.'" name="'.$id.'[]" type="file" '.$aux_multiple.'>';
         $o .=   '</div>';
         $o .= '</div>';
         
@@ -183,6 +186,7 @@ class inputsModel extends Model {
         $o .=       'theme: \'fa\',';
         $o .=       'language: \'es\',';
         $o .=       'showUpload: false,';
+        ($maxFileCount!=false) ? $o .= 'maxFileCount: '.$maxFileCount.',' : '';
         $o .=       $aux_js_editar;
         $o .=       'allowedFileExtensions: [\'jpg\', \'png\', \'gif\']';
         $o .=   '});';

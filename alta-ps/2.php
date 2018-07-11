@@ -71,7 +71,6 @@ include_once('../inc/cabecera.inc.php'); //cargando cabecera
                                 </div>
                                 <div class="layout-table-content">
                                     <form action="2.php" method="post">
-                                    
                                         <div id="parte2">
                                             <h3 class="text-center">¿Cómo sueles vestir?</h3>
                                             <div class="row justify-content-center">
@@ -83,7 +82,7 @@ include_once('../inc/cabecera.inc.php'); //cargando cabecera
                                                 <div class="col-md-1 text-center">
                                                     <img class="card-img-top w-50 text-center" src="http://sesnineshopper.com/adstorm/img/estampados.png">
                                                     <p>¿Cómo sueles vestir?</p>
-                                                    <?php echo $iM->get_combo_array("tienes_hijos",$arr_hijos,"form-control",$tienes_hijos);  ?>
+                                                    <?php echo $iM->get_select("tienes_hijos",$tienes_hijos,$arr_hijos,"form-control");  ?>
                                                 </div>
                                                 <div class="col-md-1 text-center">
                                                     <img class="card-img-top w-50 text-center" src="http://sesnineshopper.com/adstorm/img/maleta.png">

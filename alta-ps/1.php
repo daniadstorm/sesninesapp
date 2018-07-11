@@ -132,7 +132,7 @@ include_once('../inc/cabecera.inc.php'); //cargando cabecera
                                                 <div class="col-md-1 text-center">
                                                     <img class="card-img-top w-50 text-center" src="http://sesnineshopper.com/adstorm/img/chica.png">
                                                     <p>¿Cómo sueles vestir?</p>
-                                                    <?php echo $iM->get_combo_array("tipo_estilo",$arr_estilos,"form-control");  ?>
+                                                    <?php echo $iM->get_select("tipo_estilo",$tipo_estilo,$arr_estilos,"form-control");  ?>
                                                 </div>
                                                 <div class="col-md-1 text-center">
                                                     <img class="card-img-top w-50 text-center" src="http://sesnineshopper.com/adstorm/img/armario.png">
@@ -142,7 +142,7 @@ include_once('../inc/cabecera.inc.php'); //cargando cabecera
                                                 <div class="col-md-1 text-center">
                                                     <img class="card-img-top w-50 text-center" src="http://sesnineshopper.com/adstorm/img/estampados.png">
                                                     <p>¿Cómo sueles vestir?</p>
-                                                    <?php echo $iM->get_combo_array("textura_estilo",$arr_estilos,"form-control");  ?>
+                                                    <?php echo $iM->get_select("textura_estilo",$textura_estilo,$arr_estilos,"form-control");  ?>
                                                 </div>
                                                 <div class="col-md-1 text-center">
                                                     <img class="card-img-top w-50 text-center" src="http://sesnineshopper.com/adstorm/img/estrella.png">

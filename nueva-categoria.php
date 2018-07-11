@@ -44,42 +44,43 @@ if (isset($_POST['id_categoria'])) {
     
     //MySQL ----------------------------------------------------------------- */
     if ($verif == true) {
-        
+        $imagenOK = true;
         //id_categoria
         $nombre_categoria = $catM->escstr($nombre_categoria);
         $aux_fecha_hora = date('Ymd').'-'.date('Hms');
         
         //upload de img
+        echo '<pre>';
+        print_r($_FILES);
+        echo '</pre>';
         if (isset($_FILES['imagen_categoria'])) {
-            $cantidad = count($_FILES['imagen_categoria']['tmp_name']);//Recibe un array de FILES que se hace poniendo el mismo name a todos los input[type="file"]
-            for ($i=0;$i<$cantidad;$i++) {//Recorre el bucle
+            $cantidad = count($_FILES['imagen_categoria']['tmp_name']); //Recibe un array de FILES que se hace poniendo el mismo name a todos los input[type="file"]
+            for ($i=0;$i<$cantidad;$i++) { //Recorre el bucle
                 if($_FILES['imagen_categoria']['name'][$i]!=""){ //Si está vacio es que no ha insertado ninguna imagen por lo tanto no hace las siguientes comprobaciones
-                    $imagenInfo = getimagesize($_FILES['imagen_categoria']['tmp_name'][$i]);//Saca el mime "type" pero que no se puede modificar
-                    if ($imagenInfo['mime']=='image/png' || $imagenInfo['mime']=='image/jpeg') {//Si tiene una de las siguientes extensiones es que es imagen
+                    $imagenInfo = getimagesize($_FILES['imagen_categoria']['tmp_name'][$i]); //Saca el mime "type" pero que no se puede modificar
+                    if ($imagenInfo['mime']=='image/png' || $imagenInfo['mime']=='image/jpeg') { //Si tiene una de las siguientes extensiones es que es imagen
                         $res = move_uploaded_file($_FILES['imagen_categoria']['tmp_name'][$i],$document_root.$catM->dir.$aux_fecha_hora.$_FILES['imagen_categoria']['name'][$i]);
                         if ($res) {
                             $imagen_categoria = $catM->dir.$aux_fecha_hora.$_FILES['imagen_categoria']['name'][$i];
+                            if ($imagen_categoria) {
+                                if ($id_categoria > 0) { //UPDATE
+                                    $ruc = $catM->update_categoria($id_categoria, $nombre_categoria, $imagen_categoria);
+                                    if ($ruc) {
+                                        $catM->clean_dir_imgcategorias($document_root);
+                                        //header('Location: '.$ruta_inicio.'categorias.php?editar_categoria=true'); exit();
+                                    } else $str_errores = $hM->get_alert_danger('Error actualizando categoría');
+                                } else { //NUEVO
+                                    $rac = $catM->add_categoria($nombre_categoria, $imagen_categoria);
+                                    if ($rac) {
+                                        //header('Location: '.$ruta_inicio.'categorias.php?nueva_categoria=true'); exit();
+                                    } else $str_errores = $hM->get_alert_danger('Error añadiendo categoría');
+                                }
+                            } else $str_errores = $hM->get_alert_danger('Error cargando imagen');
                         }
                     } else $str_errores = $hM->get_alert_danger('El archivo no es de tipo imagen');           
                 } else $str_errores = $hM->get_alert_danger('Campo requerido');
             }
         } else $str_errores = $hM->get_alert_danger('Campo requerido');
-        
-        if ($imagen_categoria) {
-            
-            if ($id_categoria > 0) { //UPDATE
-                $ruc = $catM->update_categoria($id_categoria, $nombre_categoria, $imagen_categoria);
-                if ($ruc) {
-                    $catM->clean_dir_imgcategorias($document_root);
-                    header('Location: '.$ruta_inicio.'categorias.php?editar_categoria=true'); exit();
-                } else $str_errores = $hM->get_alert_danger('Error actualizando categoría');
-            } else { //NUEVO
-                $rac = $catM->add_categoria($nombre_categoria, $imagen_categoria);
-                if ($rac) {
-                    header('Location: '.$ruta_inicio.'categorias.php?nueva_categoria=true'); exit();
-                } else $str_errores = $hM->get_alert_danger('Error añadiendo categoría');
-            }
-        } else $str_errores = $hM->get_alert_danger('Error cargando imagen');
     }
     //MySQL ----------------------------------------------------------------- */
 }
@@ -118,7 +119,7 @@ include_once('inc/cabecera.inc.php'); //cargando cabecera
                                     <?php 
                                         echo $iM->get_input_hidden('id_categoria', $id_categoria);
                                         echo $iM->get_input_text('nombre_categoria', $nombre_categoria, 'form-control', 'Nombre categoría', '', 'Campo requerido', 1);
-                                        echo $iM->get_input_img('imagen_categoria', $imagen_categoria, $ruta_archivos, '', 'Imagen categoría');
+                                        echo $iM->get_input_img('imagen_categoria', $imagen_categoria, $ruta_archivos, '', 'Imagen categoría', true, 1);
                                     ?>                                    
                                     <button class="btn bg-primary text-light">Aceptar</button>
                                     </form>

@@ -11,9 +11,14 @@ $iM = load_model('inputs');
 //GET___________________________________________________________________________
 
 //POST__________________________________________________________________________
-if(isset($_POST['actividad_estilo'])) $_SESSION['actividad_estilo']=$_POST['actividad_estilo'];
-if(isset($_POST['tienes_hijos'])) $_SESSION['tienes_hijos']=$_POST['tienes_hijos'];
-if(isset($_POST['profesion_estilo'])) $_SESSION['profesion_estilo']=$_POST['profesion_estilo'];
+if(isset($_POST['arraySiluetaImg'])){
+    for($i=1;$i<=5;$i++){
+        $_SESSION['img'.$i]='';
+    }
+    for($i=0;$i<count($_POST['check']);$i++){
+        $_SESSION[$_POST['check'][$i]]=$_POST['check'][$i];
+    }
+}
 echo '<pre>';
 print_r($_SESSION);
 echo '</pre>';
@@ -64,26 +69,43 @@ include_once('../inc/cabecera.inc.php'); //cargando cabecera
                                 </div>
                                 <div class="layout-table-content">
                                     <form action="3.php" method="post">
-                                        <div id="parte2">
-                                            <h3 class="text-center">Mi tipología</h3>
-                                            <div class="row justify-content-center">
-                                                <div class="col-md-1 text-center">
-                                                    <img class="card-img-top w-50 text-center" src="http://sesnineshopper.com/adstorm/img/ocio.png">
-                                                    <p>¿Cómo sueles vestir?</p>
-                                                    <?php echo $iM->get_input_text("actividad_estilo",$actividad_estilo,"form-control");  ?>
+                                    <div class="row justify-content-center">
+                                                <div class="col-xs-12 col-sm-4 col-md-2">
+                                                    <label>
+                                                        <img src="http://sesnineshopper.com/adstorm/img/casualstreet.jpg" class="img-thumbnail img-check">
+                                                        <input type="radio" name="silueta" value="triangulo" id="item" hidden>
+                                                        <p class="text-center">Triangulo</p>
+                                                    </label>
                                                 </div>
-                                                <div class="col-md-1 text-center">
-                                                    <img class="card-img-top w-50 text-center" src="http://sesnineshopper.com/adstorm/img/estampados.png">
-                                                    <p>¿Cómo sueles vestir?</p>
-                                                    <?php echo $iM->get_combo_array("tienes_hijos",$uM->arr_si_no,"form-control",$tienes_hijos);  ?>
+                                                <div class="col-xs-12 col-sm-4 col-md-2">
+                                                    <label>
+                                                        <img src="http://sesnineshopper.com/adstorm/img/casualstreet.jpg" class="img-thumbnail img-check">
+                                                        <input type="radio" name="silueta" value="trianguloinvertido" id="item" hidden>
+                                                        <p class="text-center">Triangulo invertido</p>
+                                                    </label>
                                                 </div>
-                                                <div class="col-md-1 text-center">
-                                                    <img class="card-img-top w-50 text-center" src="http://sesnineshopper.com/adstorm/img/maleta.png">
-                                                    <p>¿Cómo sueles vestir?</p>
-                                                    <?php echo $iM->get_input_text("profesion_estilo",$profesion_estilo,"form-control","","","",false,false,true);  ?>
+                                                <div class="col-xs-12 col-sm-4 col-md-2">
+                                                    <label>
+                                                        <img src="http://sesnineshopper.com/adstorm/img/casualstreet.jpg" class="img-thumbnail img-check">
+                                                        <input type="radio" name="silueta" value="relojarena" id="item" hidden>
+                                                        <p class="text-center">Reloj arena</p>
+                                                    </label>
+                                                </div>
+                                                <div class="col-xs-12 col-sm-4 col-md-2">
+                                                    <label>
+                                                        <img src="http://sesnineshopper.com/adstorm/img/casualstreet.jpg" class="img-thumbnail img-check">
+                                                        <input type="radio" name="silueta" value="rectangular" id="item" hidden>
+                                                        <p class="text-center">Rectangular</p>
+                                                    </label>
+                                                </div>
+                                                <div class="col-xs-12 col-sm-4 col-md-2">
+                                                    <label>
+                                                        <img src="http://sesnineshopper.com/adstorm/img/casualstreet.jpg" class="img-thumbnail img-check">
+                                                        <input type="radio" name="silueta" value="redonda" id="item" hidden>
+                                                        <p class="text-center">Redonda</p>
+                                                    </label>
                                                 </div>
                                             </div>
-                                        </div>
                                         <button type="submit" class="btn btn-primary">Enviar</button>
                                     </form>
                                 </div>
@@ -95,6 +117,11 @@ include_once('../inc/cabecera.inc.php'); //cargando cabecera
         </div>
     </div>
     <script>
+        $(document).ready(function (e) {
+            $(".img-check").click(function () {
+                $(this).toggleClass("check");
+            });
+        });
     </script>
 </body>
 
