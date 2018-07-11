@@ -18,11 +18,15 @@ $oge = '';
 $verif = true;
 
 //GET___________________________________________________________________________
-if (isset($_GET['id_articulo'])) {
-    
-    $id_articulo = $_GET['id_articulo'];
-    
+if (isset($_GET['id_articulo'])) $id_articulo = $_GET['id_articulo'];
+if (isset($_GET['eliminar_etiqueta'])) {
+    $eliminar_etiqueta = $_GET['eliminar_etiqueta'];
+    $rdae = $aM->delete_articulo_etiquetas($id_articulo, $eliminar_etiqueta);
+    if ($rdae) {
+        $str_info = $hM->get_alert_success('Etiqueta eliminada del artículo correctamente');
+    } else $str_errores = $hM->get_alert_danger('Error eliminando etiqueta del artículo');
 }
+
 //eliminar relacion etiqueta
 //GET___________________________________________________________________________
 
@@ -30,7 +34,7 @@ if (isset($_GET['id_articulo'])) {
 if (isset($_POST['id_articulo'])) {
     
     $id_articulo = $_POST['id_articulo'];
-    
+    $asignar_etiqueta = $_POST['asignar_etiqueta'];
     
     //control de errores ---------------------------------------------------- */
     //verificar que la etiqueta no se encuentre ya asignada
@@ -41,7 +45,13 @@ if (isset($_POST['id_articulo'])) {
     if ($verif == true) {
         
         //anyadir relacion
+        //echo 'post detectado<br>';
+        //echo $id_articulo.' => '.$asignar_etiqueta.'<br>';
         
+        $raae = $aM->add_articulo_etiquetas($id_articulo, $asignar_etiqueta);
+        if ($raae) {
+            $str_info = $hM->get_alert_success('Etiqueta añadida al artículo correctamente');
+        } else $str_errores = $hM->get_alert_danger('Error añadiendo etiqueta al artículo');
         
         /*
         if ($id_articulo > 0) { //UPDATE
@@ -83,7 +93,7 @@ if ($id_articulo > 0) {
             $oge .= '<tr>';
             $oge .=     '<td>'.$fge['nombre_etiqueta'].'</td>';
             $oge .=     '<td>';
-            $oge .=         '<a href="'.$ruta_inicio.'asignar-etiquetas-articulo.php?eliminar_etiqueta='.$fge['id_etiqueta'].'">';
+            $oge .=         '<a href="'.$ruta_inicio.'asignar-etiquetas-articulo.php?id_articulo='.$id_articulo.'&eliminar_etiqueta='.$fge['id_etiqueta'].'">';
             $oge .=             '<button type="button" class="btn btn-outline-danger">Eliminar</button>';
             $oge .=         '</a>';
             $oge .=     '</td>';
