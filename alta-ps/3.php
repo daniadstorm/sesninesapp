@@ -28,6 +28,7 @@ echo '</pre>';
 $actividad_estilo = '';
 $tienes_hijos = '';
 $profesion_estilo = '';
+$imagen_categoria = '';
 (isset($_SESSION['actividad_estilo'])) ? $actividad_estilo=$_SESSION['actividad_estilo'] : $actividad_estilo='';
 (isset($_SESSION['tienes_hijos'])) ? $tienes_hijos=$_SESSION['tienes_hijos'] : $tienes_hijos='';
 (isset($_SESSION['profesion_estilo'])) ? $profesion_estilo=$_SESSION['profesion_estilo'] : $profesion_estilo='';
@@ -106,6 +107,7 @@ include_once('../inc/cabecera.inc.php'); //cargando cabecera
                                                     </label>
                                                 </div>
                                             </div>
+                                            <?php echo $iM->get_input_img('imagen_categoria', $imagen_categoria, $ruta_archivos, '', 'Puedes subir imágenes tuyas si lo prefieres..', true); ?>  
                                         <button type="submit" class="btn btn-primary">Enviar</button>
                                     </form>
                                 </div>
