@@ -64,7 +64,6 @@ $parte_menos_preferida_cuerpo = '';
 (isset($_SESSION['silueta'])) ? $silueta=$_SESSION['silueta'] : $silueta='';
 (isset($_SESSION['imagen_categoria'])) ? $imagen_categoria=$_SESSION['imagen_categoria'] : $imagen_categoria=array();
 
-print_r($_SESSION['imagen_categoria']);
 //LOAD__________________________________________________________________________
 
 //CONTROL_______________________________________________________________________
@@ -88,10 +87,6 @@ include_once('../inc/cabecera.inc.php'); //cargando cabecera
                             <div id="alertas">
                                 <?php if (isset($str_info)) echo $str_info; ?>
                                 <?php if (isset($str_errores)) echo $str_errores; ?>
-                                <!-- <pre> -->
-                                <!-- <?php echo '' ?> -->
-                                <?php if (isset($_FILES)) print_r($_FILES); ?>
-                                <!-- </pre> -->
                             </div>
                             <div class="layout-table-item">
                                 <div class="layout-table-header">
@@ -166,10 +161,10 @@ include_once('../inc/cabecera.inc.php'); //cargando cabecera
                                             </div>
                                             <div class="row">
                                                 <div class="col-md-6">
-                                                    <?php echo $iM->get_input_text('parte_preferida_cuerpo', $parte_preferida_cuerpo, '', '¿Qué parte de tu cuerpo te gusta más (realzar)?'); ?>
+                                                    <?php echo $iM->get_input_text('parte_preferida_cuerpo', $parte_preferida_cuerpo, 'form-control', '¿Qué parte de tu cuerpo te gusta más (realzar)?'); ?>
                                                 </div>
                                                 <div class="col-md-6">
-                                                    <?php echo $iM->get_input_text('parte_menos_preferida_cuerpo', $parte_menos_preferida_cuerpo, '', '¿Qué parte de tu cuerpo te gusta menos (disimular)?'); ?>
+                                                    <?php echo $iM->get_input_text('parte_menos_preferida_cuerpo', $parte_menos_preferida_cuerpo, 'form-control', '¿Qué parte de tu cuerpo te gusta menos (disimular)?'); ?>
                                                 </div>
                                             </div>
                                         <button type="submit" class="btn btn-primary">Enviar</button>
