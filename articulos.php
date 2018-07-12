@@ -55,8 +55,8 @@ if ($rga) {
         
         $oga .=     '<td>'.$fga['PVP_final_articulo'].' &euro;</td>';
         
-        $oga .=     '<td><a href="'.$ruta_inicio.'asignar-tallas-articulo.php?id_articulo='.$fga['id_articulo'].'">';
-        $oga .=         '<button type="button" class="btn btn-outline-info">Stock - Asignar</button>';
+        $oga .=     '<td><a href="'.$ruta_inicio.'asignar-existencias-articulo.php?id_articulo='.$fga['id_articulo'].'">';
+        $oga .=         '<button type="button" class="btn btn-outline-info">Existencias - Asignar</button>';
         $oga .=     '</a></td>';
         
         $oga .=     '<td><a href="'.$ruta_inicio.'asignar-img-articulo.php?id_articulo='.$fga['id_articulo'].'">';
@@ -133,7 +133,7 @@ include_once('inc/cabecera.inc.php'); //cargando cabecera
                                                     <th>Visible</th>
                                                     <th>Coste</th>
                                                     <th>PVP</th>
-                                                    <th>Tallaje / Stock</th>
+                                                    <th>Existencias</th>
                                                     <th>Imágenes</th>
                                                     <th>Etiquetas</th>
                                                     <th>Eliminar artículo</th>
