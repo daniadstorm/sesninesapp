@@ -164,9 +164,19 @@ class inputsModel extends Model {
         $aux_multiple = '';
         if ($multiple) $aux_multiple = 'multiple';
 
-        if (strlen($val) > 0) {
+        if (count($val) > 0) {
             $aux_imagen_categoria_required = '';
-            $aux_js_editar = 'initialPreview: [\''.$ruta_archivos.$val.'\'],initialPreviewAsData: true,';
+            /* $aux_js_editar = 'initialPreview: [\''.$ruta_archivos.$val.'\'],initialPreviewAsData: true,'; */
+            $aux_js_editar = 'initialPreview: [';
+            $ruta_imgs = '';
+            foreach($val as $value){
+                if($value==end($val)){
+                    $ruta_imgs .= '\''.$ruta_archivos.$value.'\'';
+                }else{
+                    $ruta_imgs .= '\''.$ruta_archivos.$value.'\',';
+                }
+            }
+            $aux_js_editar .= $ruta_imgs.'],initialPreviewAsData: true,';
         } else {
             $aux_imagen_categoria_required = $required;
             $aux_js_editar = '';
