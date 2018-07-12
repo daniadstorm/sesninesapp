@@ -6,24 +6,25 @@ $uM->control_sesion($ruta_inicio, ADMIN);
 $hM = load_model('html');
 $iM = load_model('inputs');
 $aM = load_model('articulos');
+$eM = load_model('etiquetas');
 
-$ttl = 'Asignar imágenes artículo';
+$ttl = 'Asignar etiquetas artículo';
 
 //campos formulario
 $id_articulo = 0;
-$ogia = ''; //output get imagenes articulo
+$asignar_existencia = 0;
 
+$ogex = '';
 $verif = true;
 
 //GET___________________________________________________________________________
 if (isset($_GET['id_articulo'])) $id_articulo = $_GET['id_articulo'];
-if (isset($_GET['eliminar_imagen'])) {
-    $eliminar_imagen = $_GET['eliminar_imagen'];
-    $rdai = $aM->delete_articulo_imagen($id_articulo, $eliminar_imagen);
-    if ($rdai) {
-        $str_info = $hM->get_alert_success('Imagen eliminada del artículo correctamente');
-        $aM->clean_dir_imgart($document_root); //limpiar directorio
-    } else $str_errores = $hM->get_alert_danger('Error eliminando imagen del artículo');
+if (isset($_GET['eliminar_existencia'])) {
+    $eliminar_existencia = $_GET['eliminar_existencia'];
+    $rdaex = $aM->delete_articulo_existencia($id_articulo, $eliminar_existencia);
+    if ($rdaex) {
+        $str_info = $hM->get_alert_success('Existencia eliminada del artículo correctamente');
+    } else $str_errores = $hM->get_alert_danger('Error eliminando existencia del artículo');
 }
 //GET___________________________________________________________________________
 
@@ -31,53 +32,20 @@ if (isset($_GET['eliminar_imagen'])) {
 if (isset($_POST['id_articulo'])) {
     
     $id_articulo = $_POST['id_articulo'];
+    $asignar_etiqueta = $_POST['asignar_etiqueta'];
     
     //control de errores ---------------------------------------------------- */
-    //obtener cantidad de imágenes que hay actualmente
-    $total_imagenes_asignadas = $aM->get_total_imagenes_articulo($id_articulo);
-    if ($total_imagenes_asignadas >= $aM->max_imagenes_articulo) {
-        $verif = false;
-        $str_errores = $hM->get_alert_danger('Máximo de '.$aM->max_imagenes_articulo.' imágenes por artículo');
-    }
+    //verificar que la etiqueta no se encuentre ya asignada
+        //el control lo hace mysql por key compuesta repetida
     //control de errores ---------------------------------------------------- */
     
     //MySQL ----------------------------------------------------------------- */
     if ($verif == true) {
-        $imagenOK = array();
-        //id_categoria
-        //$nombre_categoria = $aM->escstr($nombre_categoria);
-        $aux_fecha_hora = date('Ymd').'-'.date('Hms');
         
-        //limpiar registros
-        //$rcai = $aM->clear_articulo_img($id_articulo);
-        
-        //upload de img
-        if (isset($_FILES['imagenes_articulo'])) {
-            $cantidad = count($_FILES['imagenes_articulo']['tmp_name']); //Recibe un array de FILES que se hace poniendo el mismo name a todos los input[type="file"]
-            for ($i=0;$i<$cantidad;$i++) { //Recorre el bucle
-                if($_FILES['imagenes_articulo']['name'][$i]!=""){ //Si está vacio es que no ha insertado ninguna imagen por lo tanto no hace las siguientes comprobaciones
-                    $imagenInfo = getimagesize($_FILES['imagenes_articulo']['tmp_name'][$i]); //Saca el mime "type" pero que no se puede modificar
-                    if ($imagenInfo['mime']=='image/png' || $imagenInfo['mime']=='image/jpeg') { //Si tiene una de las siguientes extensiones es que es imagen
-                        $res = move_uploaded_file($_FILES['imagenes_articulo']['tmp_name'][$i],$document_root.$aM->dir.$aux_fecha_hora.$_FILES['imagenes_articulo']['name'][$i]);
-                        if ($res) {
-                            
-                            $ruta_imagen_articulo = $aM->dir.$aux_fecha_hora.$_FILES['imagenes_articulo']['name'][$i];
-                            
-                            //añadir registro
-                            $raai = $aM->add_articulo_img($id_articulo, $ruta_imagen_articulo);
-                            
-                            if($raai) {
-                                $str_info = $hM->get_alert_success('Imagen enlazada al artículo correctamente');
-                            } else $str_errores = $hM->get_alert_danger('Error enlazando imagen al artículo');
-                            
-                            //en principio solo requerido al eliminar?
-                            //analizar cuando puede ser requerido...
-                            //$aM->clean_dir_imgart($document_root);
-                        }
-                    } else $str_errores = $hM->get_alert_danger('El archivo no es de tipo imagen');           
-                } else $str_errores = $hM->get_alert_danger('Campo requerido');
-            }
-        } else $str_errores = $hM->get_alert_danger('Campo requerido');
+        $raae = $aM->add_articulo_etiquetas($id_articulo, $asignar_etiqueta);
+        if ($raae) {
+            $str_info = $hM->get_alert_success('Etiqueta añadida al artículo correctamente');
+        } else $str_errores = $hM->get_alert_danger('Error añadiendo etiqueta al artículo');
     }
     //MySQL ----------------------------------------------------------------- */
 }
@@ -94,18 +62,17 @@ if ($id_articulo > 0) {
         }
     } else $str_errores = $hM->get_alert_danger('Error cargando datos artículo');
 /* --------------------------------------------------------------------------- */
-    $rgia = $aM->get_imagenes_by_articulo($id_articulo);
-    if ($rgia) {
-        while ($fgia = $rgia->fetch_assoc()) {
-            $ogia .= '<tr>';
-            $ogia .=     '<td><img class="img-fluid img-thumbnail" src="'.$fgia['ruta_imagen'].'" width="100" /></td>';
-            $ogia .=     '<td>'.substr($fgia['ruta_imagen'], strpos($fgia['ruta_imagen'], '/')+1, strlen($fgia['ruta_imagen'])).'</td>';
-            $ogia .=     '<td>';
-            $ogia .=         '<a href="'.$ruta_inicio.'asignar-img-articulo.php?id_articulo='.$id_articulo.'&eliminar_imagen='.$fgia['id_imagen'].'">';
-            $ogia .=             '<button type="button" class="btn btn-outline-danger">Eliminar</button>';
-            $ogia .=         '</a>';
-            $ogia .=     '</td>';
-            $ogia .= '</tr>';
+    $rge = $eM->get_etiquetas_by_articulo($id_articulo);
+    if ($rge) {
+        while ($fge = $rge->fetch_assoc()) {
+            $oge .= '<tr>';
+            $oge .=     '<td>'.$fge['nombre_etiqueta'].'</td>';
+            $oge .=     '<td>';
+            $oge .=         '<a href="'.$ruta_inicio.'asignar-etiquetas-articulo.php?id_articulo='.$id_articulo.'&eliminar_etiqueta='.$fge['id_etiqueta'].'">';
+            $oge .=             '<button type="button" class="btn btn-outline-danger">Eliminar</button>';
+            $oge .=         '</a>';
+            $oge .=     '</td>';
+            $oge .= '</tr>';
         }
     } else $str_errores = $hM->get_alert_danger('Error cargando etiquetas artículo');
     
@@ -113,10 +80,8 @@ if ($id_articulo > 0) {
 //LISTADO_______________________________________________________________________
 
 //COMBOS________________________________________________________________________
-
+//$sl_etiquetas = $iM->get_select_etiquetas($id, $val, $class=false, $lbl=false, $onChange=false);
 //COMBOS________________________________________________________________________
-
-//if ($id_articulo > 0) $ttl = 'Editar imágenes artículo';
 
 include_once('inc/cabecera.inc.php'); //cargando cabecera 
 ?>
@@ -162,32 +127,32 @@ include_once('inc/cabecera.inc.php'); //cargando cabecera
                                     </div>
                                 </div>
                                 <hr class="mt-0" />
-                                <div class="layout-table-content">
-                                    <h5>Asignar imágenes</h5>
-                                    <form method="post" enctype="multipart/form-data">
-                                    <?php 
-                                        echo $iM->get_input_hidden('id_articulo', $id_articulo);
-                                        echo $iM->get_input_img('imagenes_articulo', false, $ruta_archivos, '', 'Asignar imagen al artículo', 'required');
-                                        //input de imagenes a 5
-                                    ?>                                    
-                                    <button class="btn bg-primary text-light">Aceptar</button>
-                                    </form>
+                                <div class="ml-3 mr-3">
+                                    <h5>Asignar etiquetas</h5>
+                                    <div class="dropdown">
+                                        <form method="post">
+                                            <?php 
+                                                echo $iM->get_input_hidden('id_articulo', $id_articulo);
+                                                echo $eM->get_select_etiquetas('asignar_etiqueta', $asignar_etiqueta, 'form-control', 'Etiquetas diponibles'); 
+                                            ?>
+                                            <button class="btn bg-primary text-light">Asignar etiqueta</button>
+                                        </form>
+                                    </div>
                                 </div>
                                 <hr />
                                 <div class="layout-table-content">
                                     <div class="table-responsive-sm">
-                                        <h5>Imagenes asignadas</h5>
+                                        <h5>Etiquetas asignadas</h5>
                                         <table class="table">
                                             <thead>
                                                 <tr>
-                                                    <th>Imagen</th>
-                                                    <th>Nombre Imagen</th>
-                                                    <th>Eliminar Imagen</th>
+                                                    <th>Etiqueta</th>
+                                                    <th>Eliminar asignación</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <?php
-                                                    echo $ogia;
+                                                    echo $oge;
                                                 ?>
                                             </tbody>
                                         </table>

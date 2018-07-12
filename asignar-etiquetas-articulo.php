@@ -26,8 +26,6 @@ if (isset($_GET['eliminar_etiqueta'])) {
         $str_info = $hM->get_alert_success('Etiqueta eliminada del artículo correctamente');
     } else $str_errores = $hM->get_alert_danger('Error eliminando etiqueta del artículo');
 }
-
-//eliminar relacion etiqueta
 //GET___________________________________________________________________________
 
 //POST__________________________________________________________________________
@@ -38,39 +36,16 @@ if (isset($_POST['id_articulo'])) {
     
     //control de errores ---------------------------------------------------- */
     //verificar que la etiqueta no se encuentre ya asignada
-        //puede ser que el control lo haga mysql por key compuesta repetida
+        //el control lo hace mysql por key compuesta repetida
     //control de errores ---------------------------------------------------- */
     
     //MySQL ----------------------------------------------------------------- */
     if ($verif == true) {
         
-        //anyadir relacion
-        //echo 'post detectado<br>';
-        //echo $id_articulo.' => '.$asignar_etiqueta.'<br>';
-        
         $raae = $aM->add_articulo_etiquetas($id_articulo, $asignar_etiqueta);
         if ($raae) {
             $str_info = $hM->get_alert_success('Etiqueta añadida al artículo correctamente');
         } else $str_errores = $hM->get_alert_danger('Error añadiendo etiqueta al artículo');
-        
-        /*
-        if ($id_articulo > 0) { //UPDATE
-            $rua = $aM->update_articulo($id_articulo, $nombre_articulo, $referencia_articulo, $referencia_proveedor_articulo, $descripcion_articulo, $activado_articulo, 
-                $visible_en_tienda_articulo, $precio_coste_articulo, $coste_externo_portes_articulo, $PVP_final_articulo, $margen_articulo, $inicio_descuento_articulo,
-                $fin_descuento_articulo, $descuento_porcentaje_articulo, $descuento_euros_articulo, $cantidad_articulo, $almacen_articulo);
-            //$rua = $aM->update_artciulo($id_articulo, $nombre_etiqueta);
-            if ($rua) {
-                header('Location: '.$ruta_inicio.'articulos.php?editar_articulo=true'); exit();
-            } else $str_errores = $hM->get_alert_danger('Error actualizando artículo');
-        } else { //NUEVO
-            $raa = $aM->add_articulo($nombre_articulo, $referencia_articulo, $referencia_proveedor_articulo, $descripcion_articulo, $activado_articulo, $visible_en_tienda_articulo,
-                $precio_coste_articulo, $coste_externo_portes_articulo, $PVP_final_articulo, $margen_articulo, $inicio_descuento_articulo, $fin_descuento_articulo,
-                $descuento_porcentaje_articulo, $descuento_euros_articulo, $cantidad_articulo, $almacen_articulo);
-            if ($raa) {
-                header('Location: '.$ruta_inicio.'articulos.php?nuevo_articulo=true'); exit();
-            } else $str_errores = $hM->get_alert_danger('Error añadiendo artículo');
-        }
-        */
     }
     //MySQL ----------------------------------------------------------------- */
 }

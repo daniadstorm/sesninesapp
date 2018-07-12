@@ -3,6 +3,7 @@
 class articulosModel extends Model {
     
     public $dir = 'imgart/';
+    public $max_imagenes_articulo = 5;
     
     function add_articulo($nombre_articulo,$referencia_articulo,$referencia_proveedor_articulo,$descripcion_articulo,$activado_articulo, $visible_en_tienda_articulo,
         $precio_coste_articulo,$coste_externo_portes_articulo,$PVP_final_articulo,$margen_articulo,$inicio_descuento_articulo,$fin_descuento_articulo,
@@ -60,7 +61,29 @@ class articulosModel extends Model {
     
     function add_articulo_img($id_articulo, $ruta_imagen_articulo) {
         $q  = ' INSERT INTO '.$this->pre.'articulo_imagenes (id_articulo, ruta_imagen) VALUES ';
-        $q .= ' ('.$id_articulo.', '.$ruta_imagen_articulo.') ';
+        $q .= ' ('.$id_articulo.', "'.$ruta_imagen_articulo.'") ';
+        return $this->execute_query($q);
+    }
+    
+    function get_imagenes_by_articulo($id_articulo) {
+        $q  = ' SELECT ai.* FROM '.$this->pre.'articulo_imagenes ai ';
+        $q .= ' WHERE ai.id_articulo = '.$id_articulo.' ';
+        return $this->execute_query($q);
+    }
+    
+    function get_total_imagenes_articulo($id_articulo) {
+        $q  = ' SELECT ai.* FROM '.$this->pre.'articulo_imagenes ai ';
+        $q .= ' WHERE ai.id_articulo = '.$id_articulo.' ';
+        $r = $this->execute_query($q);
+        if ($r) {
+            return $r->num_rows;
+        } else return false;
+    }
+    
+    function delete_articulo_imagen($id_articulo, $id_imagen) {
+        $q  = ' DELETE FROM '.$this->pre.'articulo_imagenes ';
+        $q .= ' WHERE id_articulo = '.$id_articulo.' ';
+        $q .=   ' AND id_imagen = '.$id_imagen.' ';
         return $this->execute_query($q);
     }
     
@@ -76,13 +99,13 @@ class articulosModel extends Model {
         $arr_bbdd = array();
         $arr_dir = array();
         
-        $q  = ' SELECT c.* FROM '.$this->pre.'categorias c ';
-        $q .= ' WHERE c.deleted = 0 ';
+        $q  = ' SELECT ai.* FROM '.$this->pre.'articulo_imagenes ai ';
+        
         $r = $this->execute_query($q);
         if ($r) {
             while ($f = $r->fetch_assoc()) {
                 //array con nombres de archivo de tabla sql
-                $arr_bbdd []= substr($f['imagen_categoria'], (strpos($f['imagen_categoria'], '/')+1), strlen($f['imagen_categoria'])); //desde la barra hasta el final
+                $arr_bbdd []= substr($f['ruta_imagen'], (strpos($f['ruta_imagen'], '/')+1), strlen($f['ruta_imagen'])); //desde la barra hasta el final
             }
         } else return false;
         
