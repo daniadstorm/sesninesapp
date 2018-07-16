@@ -170,7 +170,9 @@ class inputsModel extends Model {
             $aux_js_editar = 'initialPreview: [';
             $ruta_imgs = '';
             foreach($val as $value){
-                ($value==end($val)) ? $ruta_imgs .= '\''.$ruta_archivos.$value.'\'' : $ruta_imgs .= '\''.$ruta_archivos.$value.'\',';
+                if (strlen($value) > 0) {
+                    ($value==end($val)) ? $ruta_imgs .= '\''.$ruta_archivos.$value.'\'' : $ruta_imgs .= '\''.$ruta_archivos.$value.'\',';
+                }
             }
             $aux_js_editar .= $ruta_imgs.'],initialPreviewAsData: true, ';
         } else {

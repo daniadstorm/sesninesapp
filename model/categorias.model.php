@@ -28,6 +28,13 @@ class categoriasModel extends Model {
         return $this->execute_query($q);
     }
     
+    function update_nombre_categoria($id_categoria, $nombre_categoria) {
+        $q  = ' UPDATE '.$this->pre.'categorias SET ';
+        $q .=   ' nombre_categoria = "'.$nombre_categoria.'" ';
+        $q .= ' WHERE id_categoria = '.$id_categoria.' ';
+        return $this->execute_query($q);
+    }
+    
     function get_categorias($pag, $regs_x_pag, $order_by=true) {
         $q  = ' SELECT c.* FROM '.$this->pre.'categorias c ';
         $q .= ' WHERE c.deleted = 0 ';

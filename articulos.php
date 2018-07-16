@@ -42,7 +42,7 @@ $rga = $aM->get_articulos($pagM->pag, $pagM->regs_x_pag);
 if ($rga) {
     while ($fga = $rga->fetch_assoc()) {
         $oga .= '<tr>';
-        $oga .=     '<td><a href="ver-articulo.php?id_articulo='.$fga['id_articulo'].'" target="_blank">';
+        $oga .=     '<td><a href="ver-articulo.php?id_articulo='.$fga['id_articulo'].'">';
         $oga .=         '<button type="button" class="btn btn-outline-secondary">'.$fga['referencia_articulo'].'</button>';
         $oga .=     '</a></td>';
         $oga .=     '<td><a href="nuevo-articulo.php?id_articulo='.$fga['id_articulo'].'" target="_blank" >'.$fga['nombre_articulo'].'</a></td>';
