@@ -13,7 +13,7 @@ $ttl = 'Nueva categoría';
 //campos formulario
 $id_categoria = 0;
 $nombre_categoria = '';
-$imagen_categoria = '';
+$imagen_categoria = array();
 
 $verif = true;
 

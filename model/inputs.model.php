@@ -162,6 +162,7 @@ class inputsModel extends Model {
     function get_input_img($id, $val, $ruta_archivos, $class='', $lbl='', $required='required',$multiple=false, $maxFileCount=false) {
 
         $aux_multiple = '';
+        $initial_preview_config = '';
         if ($multiple) $aux_multiple = 'multiple';
 
         if (count($val) > 0) {
@@ -169,10 +170,15 @@ class inputsModel extends Model {
             /* $aux_js_editar = 'initialPreview: [\''.$ruta_archivos.$val.'\'],initialPreviewAsData: true,'; */
             $aux_js_editar = 'initialPreview: [';
             $ruta_imgs = '';
+            $preview_config = '';
             foreach($val as $value){
                 ($value==end($val)) ? $ruta_imgs .= '\''.$ruta_archivos.$value.'\'' : $ruta_imgs .= '\''.$ruta_archivos.$value.'\',';
+                $value = str_replace('imgaltaps/','',$value);
+                $preview_config .= '{caption: "'.$value.'", filename: "'.$value.'", url: "http://localhost/sesninesapp/del.php?del='.$value.'&nombre_array=imagen_categoria"}';
+                if($value!=end($val)) $preview_config .= ',';
             }
             $aux_js_editar .= $ruta_imgs.'],initialPreviewAsData: true, ';
+            $initial_preview_config = 'initialPreviewConfig:['.$preview_config.'],';
         } else {
             $aux_imagen_categoria_required = $required;
             $aux_js_editar = '';
@@ -190,6 +196,7 @@ class inputsModel extends Model {
         $o .=       'theme: \'fa\',';
         $o .=       'language: \'es\',';
         $o .=       'showUpload: false,';
+        $o .= $initial_preview_config;
         ($maxFileCount!=false) ? $o .= 'maxFileCount: '.$maxFileCount.',' : '';
         $o .=       $aux_js_editar;
         $o .=       'allowedFileExtensions: [\'jpg\', \'png\', \'gif\']';

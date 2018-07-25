@@ -13,8 +13,10 @@ $ttl = 'Asignar etiquetas artículo';
 //campos formulario
 $id_articulo = 0;
 $asignar_existencia = 0;
+$asignar_etiqueta = '';
 
 $ogex = '';
+$oge = '';
 $verif = true;
 
 //GET___________________________________________________________________________

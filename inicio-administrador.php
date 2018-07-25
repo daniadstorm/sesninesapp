@@ -25,9 +25,6 @@ include_once('inc/cabecera.inc.php'); //cargando cabecera
                             <div class="layout-table-item">
                                 <div class="layout-table-header">
                                     <h4>Inicio</h4>
-                                    <div class="ml-2">
-                                        <a href="nueva-etiqueta.php"><button class="btn btn-light ml-2">Nueva Etiqueta</button></a>
-                                    </div>
                                 </div>
                                 <div class="ml-3 mr-3 mt-3">
                                     <div class="dropdown">

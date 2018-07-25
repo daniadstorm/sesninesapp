@@ -21,9 +21,7 @@ $arr_hijos = array(
 if(isset($_POST['actividad_estilo'])) $_SESSION['actividad_estilo']=$_POST['actividad_estilo'];
 if(isset($_POST['tienes_hijos'])) $_SESSION['tienes_hijos']=$_POST['tienes_hijos'];
 if(isset($_POST['profesion_estilo'])) $_SESSION['profesion_estilo']=$_POST['profesion_estilo'];
-echo '<pre>';
-print_r($_SESSION);
-echo '</pre>';
+
 //POST__________________________________________________________________________
 
 //LOAD__________________________________________________________________________

@@ -3,8 +3,8 @@ include_once('config/config.inc.php'); //cargando archivo de configuracion
 //$uM->control_sesion($ruta_inicio, ADMIN);
 
 $fM = load_model('form');
-
 $uM = load_model('usuario'); //uM userModel
+$iM = load_model('inputs');
 
 $nombre_usuario = '';
 
@@ -84,7 +84,48 @@ include_once('inc/cabecera.inc.php'); //cargando cabecera
 <script type="text/javascript">
     
 </script>
+
 <body>
+    <?php include_once('inc/franja_top.inc.php'); ?>
+    <?php include_once('inc/main_menu.inc.php'); ?>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="content mt-1">
+                    <div class="layout">
+                        <div class="layout-table">
+                            <div id="alertas">
+                                <?php if (isset($str_info)) echo $str_info; ?>
+                                <?php if (isset($str_errores)) echo '<div class="alert alert-danger" role="alert">'.$str_errores.'</div>'; ?>
+                            </div>
+                            <div class="layout-table-item">
+                                <div class="layout-table-header">
+                                    <h4>Datos de envio</h4>
+                                </div>
+                                <div class="layout-table-content">
+                                    <form method="post">
+                                    <?php
+                                        echo $fM->get_input_hidden('id_usuario', $id_usuario);
+                                        echo $fM->get_input_text('nombre', 'Nombre', $nombre, $arr_err);
+                                        echo $fM->get_input_text('direccion', 'Direccion', $direccion, $arr_err);
+                                        echo $fM->get_input_text('cp', 'Codigo postal', $cp, $arr_err);
+                                        echo $fM->get_input_text('poblacion', 'Poblacion', $poblacion, $arr_err);
+                                        echo $fM->get_input_text('provincia', 'Provincia', $provincia, $arr_err);
+                                        echo '<div class="form-group">Hora inicio<br><div class="d-flex">'.combo_horas("hora_inicio",$hora_inicio,"form-control col-1").combo_minutos("minuto_inicio",$minuto_inicio,"form-control col-1").'</div></div>';
+                                        echo '<div class="form-group">Hora fin<br><div class="d-flex">'.combo_horas("hora_fin",$hora_fin,"form-control col-1").combo_minutos("minuto_fin",$minuto_fin,"form-control col-1").'</div></div>';
+                                    ?>
+                                    <button class="btn bg-primary text-light">Guardar cambios</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</body>
+
+<!-- <body>
 <div id="main_container">
     <div id="responsive_back_content">
         <?php include_once('inc/franja_top.inc.php'); ?>
@@ -112,8 +153,8 @@ include_once('inc/cabecera.inc.php'); //cargando cabecera
                             echo $fM->get_input_text('cp', 'Codigo postal', $cp, $arr_err);
                             echo $fM->get_input_text('poblacion', 'Poblacion', $poblacion, $arr_err);
                             echo $fM->get_input_text('provincia', 'Provincia', $provincia, $arr_err);
-                            echo '<div class="campo">Hora inicio<br>'.combo_horas("hora_inicio",$hora_inicio).combo_minutos("minuto_inicio",$minuto_inicio).'</div>';
-                            echo '<div class="campo">Hora fin<br>'.combo_horas("hora_fin",$hora_fin).combo_minutos("minuto_fin",$minuto_fin).'</div>';
+                            echo '<div class="form-group">Hora inicio<br>'.combo_horas("hora_inicio",$hora_inicio).combo_minutos("minuto_inicio",$minuto_inicio).'</div>';
+                            echo '<div class="form-group">Hora fin<br>'.combo_horas("hora_fin",$hora_fin).combo_minutos("minuto_fin",$minuto_fin).'</div>';
                         ?>
                         <div style="float:right; margin:0.8em 0;">
                             <input type="submit" style="float:none;" class="btn_aceptar" value="Aceptar" />
@@ -127,5 +168,5 @@ include_once('inc/cabecera.inc.php'); //cargando cabecera
         </div>
     </div>
 </div>
-</body>
+</body> -->
 </html>

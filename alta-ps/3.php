@@ -16,6 +16,9 @@ if(isset($_POST['talla_superior'])) $_SESSION['talla_superior']=$_POST['talla_su
 if(isset($_POST['talla_inferior'])) $_SESSION['talla_inferior']=$_POST['talla_inferior'];
 if(isset($_POST['talla_pecho'])) $_SESSION['talla_pecho']=$_POST['talla_pecho'];
 if(isset($_POST['altura'])) $_SESSION['altura']=$_POST['altura'];
+if(isset($_POST['parte_preferida_cuerpo'])) $_SESSION['parte_preferida_cuerpo']=$_POST['parte_preferida_cuerpo'];
+if(isset($_POST['parte_menos_preferida_cuerpo'])) $_SESSION['parte_menos_preferida_cuerpo']=$_POST['parte_menos_preferida_cuerpo'];
+
 $aux_fecha_hora = date('Ymd').'-'.date('Hms');
 $imagenOK = true;
 
@@ -40,12 +43,8 @@ if (isset($_FILES['imagen_categoria'])) {
         $_SESSION['imagen_categoria']=$imagen_categoria;
         //header('Location: '.$ruta_inicio.'categorias.php?nueva_categoria=true'); exit();
     } else $str_errores = $hM->get_alert_danger('Errooooor');
-} else $str_errores = $hM->get_alert_danger('Campo requerido');
+}
 
-
-echo '<pre>';
-print_r($_SESSION);
-echo '</pre>';
 //POST__________________________________________________________________________
 
 //LOAD__________________________________________________________________________
@@ -63,7 +62,8 @@ $parte_menos_preferida_cuerpo = '';
 (isset($_SESSION['altura'])) ? $altura=$_SESSION['altura'] : $altura='';
 (isset($_SESSION['silueta'])) ? $silueta=$_SESSION['silueta'] : $silueta='';
 (isset($_SESSION['imagen_categoria'])) ? $imagen_categoria=$_SESSION['imagen_categoria'] : $imagen_categoria=array();
-
+(isset($_SESSION['parte_preferida_cuerpo'])) ? $parte_preferida_cuerpo=$_SESSION['parte_preferida_cuerpo'] : $parte_preferida_cuerpo='';
+(isset($_SESSION['parte_menos_preferida_cuerpo'])) ? $parte_menos_preferida_cuerpo=$_SESSION['parte_menos_preferida_cuerpo'] : $parte_menos_preferida_cuerpo='';
 //LOAD__________________________________________________________________________
 
 //CONTROL_______________________________________________________________________
