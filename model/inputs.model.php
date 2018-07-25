@@ -176,6 +176,9 @@ class inputsModel extends Model {
                 $value = str_replace('imgaltaps/','',$value);
                 $preview_config .= '{caption: "'.$value.'", filename: "'.$value.'", url: "http://localhost/sesninesapp/del.php?del='.$value.'&nombre_array=imagen_categoria"}';
                 if($value!=end($val)) $preview_config .= ',';
+                /* if (strlen($value) > 0) {
+                    ($value==end($val)) ? $ruta_imgs .= '\''.$ruta_archivos.$value.'\'' : $ruta_imgs .= '\''.$ruta_archivos.$value.'\',';
+                } */
             }
             $aux_js_editar .= $ruta_imgs.'],initialPreviewAsData: true, ';
             $initial_preview_config = 'initialPreviewConfig:['.$preview_config.'],';

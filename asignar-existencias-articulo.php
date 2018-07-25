@@ -6,14 +6,16 @@ $uM->control_sesion($ruta_inicio, ADMIN);
 $hM = load_model('html');
 $iM = load_model('inputs');
 $aM = load_model('articulos');
-$eM = load_model('etiquetas');
+$exM = load_model('existencias');
 
 $ttl = 'Asignar etiquetas artículo';
 
 //campos formulario
 $id_articulo = 0;
-$asignar_existencia = 0;
-$asignar_etiqueta = '';
+$id_existencia = 0;
+$color_existencia = '';
+$talla_existencia = '';
+$cantidad_existencia = 0;
 
 $ogex = '';
 $oge = '';
@@ -23,7 +25,7 @@ $verif = true;
 if (isset($_GET['id_articulo'])) $id_articulo = $_GET['id_articulo'];
 if (isset($_GET['eliminar_existencia'])) {
     $eliminar_existencia = $_GET['eliminar_existencia'];
-    $rdaex = $aM->delete_articulo_existencia($id_articulo, $eliminar_existencia);
+    $rdaex = $exM->delete_existencia($eliminar_existencia);
     if ($rdaex) {
         $str_info = $hM->get_alert_success('Existencia eliminada del artículo correctamente');
     } else $str_errores = $hM->get_alert_danger('Error eliminando existencia del artículo');
@@ -34,7 +36,10 @@ if (isset($_GET['eliminar_existencia'])) {
 if (isset($_POST['id_articulo'])) {
     
     $id_articulo = $_POST['id_articulo'];
-    $asignar_etiqueta = $_POST['asignar_etiqueta'];
+    $id_existencia = $_POST['id_existencia'];
+    $color_existencia = $_POST['color_existencia'];
+    $talla_existencia = $_POST['talla_existencia'];
+    $cantidad_existencia = $_POST['cantidad_existencia'];
     
     //control de errores ---------------------------------------------------- */
     //verificar que la etiqueta no se encuentre ya asignada
@@ -44,10 +49,18 @@ if (isset($_POST['id_articulo'])) {
     //MySQL ----------------------------------------------------------------- */
     if ($verif == true) {
         
-        $raae = $aM->add_articulo_etiquetas($id_articulo, $asignar_etiqueta);
-        if ($raae) {
-            $str_info = $hM->get_alert_success('Etiqueta añadida al artículo correctamente');
-        } else $str_errores = $hM->get_alert_danger('Error añadiendo etiqueta al artículo');
+        if ($id_existencia > 0) {
+            
+            $ruaex = $exM->update_existencia($id_existencia, $id_articulo, $color_existencia, $talla_existencia, $cantidad_existencia);
+            if ($ruaex) {
+                $str_info = $hM->get_alert_success('Existencia añadida al artículo correctamente');
+            } else $str_errores = $hM->get_alert_danger('Error añadiendo existencia al artículo');
+        } else {
+            $raaex = $exM->add_existencia($id_articulo, $color_existencia, $talla_existencia, $cantidad_existencia);
+            if ($raaex) {
+                $str_info = $hM->get_alert_success('Existencia añadida al artículo correctamente');
+            } else $str_errores = $hM->get_alert_danger('Error añadiendo existencia al artículo');
+        }
     }
     //MySQL ----------------------------------------------------------------- */
 }
@@ -64,26 +77,24 @@ if ($id_articulo > 0) {
         }
     } else $str_errores = $hM->get_alert_danger('Error cargando datos artículo');
 /* --------------------------------------------------------------------------- */
-    $rge = $eM->get_etiquetas_by_articulo($id_articulo);
+    $rge = $exM->get_existencias_by_articulo($id_articulo);
     if ($rge) {
         while ($fge = $rge->fetch_assoc()) {
-            $oge .= '<tr>';
-            $oge .=     '<td>'.$fge['nombre_etiqueta'].'</td>';
-            $oge .=     '<td>';
-            $oge .=         '<a href="'.$ruta_inicio.'asignar-etiquetas-articulo.php?id_articulo='.$id_articulo.'&eliminar_etiqueta='.$fge['id_etiqueta'].'">';
-            $oge .=             '<button type="button" class="btn btn-outline-danger">Eliminar</button>';
-            $oge .=         '</a>';
-            $oge .=     '</td>';
-            $oge .= '</tr>';
+            $ogex .= '<tr>';
+            $ogex .=     '<td>'.$fge['color_existencia'].'</td>';
+            $ogex .=     '<td>'.$fge['talla_existencia'].'</td>';
+            $ogex .=     '<td>'.$fge['cantidad_existencia'].'</td>';
+            $ogex .=     '<td>';
+            $ogex .=         '<a href="'.$ruta_inicio.'asignar-existencias-articulo.php?id_articulo='.$id_articulo.'&eliminar_existencia='.$fge['id_existencia'].'">';
+            $ogex .=             '<button type="button" class="btn btn-outline-danger">Eliminar</button>';
+            $ogex .=         '</a>';
+            $ogex .=     '</td>';
+            $ogex .= '</tr>';
         }
     } else $str_errores = $hM->get_alert_danger('Error cargando etiquetas artículo');
     
 } else $str_errores = $hM->get_alert_danger('No se ha encontrado el artículo');
 //LISTADO_______________________________________________________________________
-
-//COMBOS________________________________________________________________________
-//$sl_etiquetas = $iM->get_select_etiquetas($id, $val, $class=false, $lbl=false, $onChange=false);
-//COMBOS________________________________________________________________________
 
 include_once('inc/cabecera.inc.php'); //cargando cabecera 
 ?>
@@ -130,31 +141,37 @@ include_once('inc/cabecera.inc.php'); //cargando cabecera
                                 </div>
                                 <hr class="mt-0" />
                                 <div class="ml-3 mr-3">
-                                    <h5>Asignar etiquetas</h5>
+                                    <h5>Asignar existencias</h5>
                                     <div class="dropdown">
                                         <form method="post">
                                             <?php 
                                                 echo $iM->get_input_hidden('id_articulo', $id_articulo);
-                                                echo $eM->get_select_etiquetas('asignar_etiqueta', $asignar_etiqueta, 'form-control', 'Etiquetas diponibles'); 
+                                                echo $iM->get_input_hidden('id_existencia', $id_existencia);
+                                                echo $iM->get_input_text('color_existencia', $color_existencia, 'form-control', 'Color', '', 'Campo requerido', 1);
+                                                echo $exM->get_select_tallas('talla_existencia', $talla_existencia, 'form-control', 'Talla');
+                                                echo $iM->get_input_text('cantidad_existencia', $cantidad_existencia, 'form-control', 'Cantidad', '', 'Campo requerido', 1);
+                                                
                                             ?>
-                                            <button class="btn bg-primary text-light">Asignar etiqueta</button>
+                                            <button class="btn bg-primary text-light">Asignar existencia</button>
                                         </form>
                                     </div>
                                 </div>
                                 <hr />
                                 <div class="layout-table-content">
                                     <div class="table-responsive-sm">
-                                        <h5>Etiquetas asignadas</h5>
+                                        <h5>Existencias asignadas</h5>
                                         <table class="table">
                                             <thead>
                                                 <tr>
-                                                    <th>Etiqueta</th>
-                                                    <th>Eliminar asignación</th>
+                                                    <th>Color</th>
+                                                    <th>Talla</th>
+                                                    <th>Cantidad</th>
+                                                    <th>Eliminar</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <?php
-                                                    echo $oge;
+                                                    echo $ogex;
                                                 ?>
                                             </tbody>
                                         </table>
