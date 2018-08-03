@@ -63,7 +63,7 @@ if(isset($_GET['id_pedido'])){
                 $ogu .= '</div>';
                 $cf = ($cf == 1) ? 2 : 1;
         }
-    } else $str_errores = '<div class="error_alert">Error cargando usuarios</div>';
+    } else $str_errores = '<div class="error_alert">Error cargando articulos</div>';
 }
 
 //LISTADO_______________________________________________________________________

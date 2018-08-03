@@ -144,7 +144,13 @@ include_once('../inc/cabecera.inc.php'); //cargando cabecera
                                                 <div class="col-md-2"><?php echo $iM->get_input_img('imagen_categoria4', $imagen_categoria, $ruta_archivos, '', '', '', true); ?></div>
                                                 <div class="col-md-2"><?php echo $iM->get_input_img('imagen_categoria5', $imagen_categoria, $ruta_archivos, '', '', '', true); ?></div>
                                             </div> -->
-                                            <?php echo $iM->get_input_img('imagen_categoria', $imagen_categoria, $ruta_archivos, '', '', '', true); ?>
+                                            <?php
+                                            if(count($imagen_categoria)>0){
+                                                echo $iM->get_input_img('imagen_categoria', $imagen_categoria, $ruta_archivos, '', '', '', false);
+                                            }else{
+                                                echo $iM->get_input_img('imagen_categoria', $imagen_categoria, $ruta_archivos, '', '', '', true);
+                                            }
+                                            ?>
                                             <div class="row">
                                                 <div class="col-md-3">
                                                     <?php echo $iM->get_input_radio('talla_superior',$talla_superior,$uM->arr_talla_superior,'flex-wrap d-flex justify-content-center'); ?>

@@ -150,7 +150,6 @@ include_once('inc/cabecera.inc.php'); //cargando cabecera
                                                 echo $iM->get_input_text('color_existencia', $color_existencia, 'form-control', 'Color', '', 'Campo requerido', 1);
                                                 echo $exM->get_select_tallas('talla_existencia', $talla_existencia, 'form-control', 'Talla');
                                                 echo $iM->get_input_text('cantidad_existencia', $cantidad_existencia, 'form-control', 'Cantidad', '', 'Campo requerido', 1);
-                                                
                                             ?>
                                             <button class="btn bg-primary text-light">Asignar existencia</button>
                                         </form>

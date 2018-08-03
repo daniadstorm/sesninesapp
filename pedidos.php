@@ -56,10 +56,9 @@ if ($rgu) {
         $ogu .= '<td>'.$fgu['estado_pedido'].'</td>';
         $ogu .= '<td>'.$fgu['fecha_pedido'].'</td>';
         //$ogu .= '<td><a href="'.$ruta_inicio.'asignar-articulos-pedido.php?id_pedido='.$fgu['id_pedido'].'"><img src="'.$ruta_inicio.'img/editpedido.png"></td>';
-        $ogu .= '<td><a href="'.$ruta_inicio.'asignar-articulos-pedido.php?id_pedido='.$fgu['id_pedido'].'"><button type="button" class="btn btn-outline-info">Modificar</button>';
-        if($fgu['estado_pedido']==1){
-            $ogu .= '<a href="'.$ruta_inicio.'pedidos.php?id_pedido='.$fgu['id_pedido'].'&cambiar_estado=2&arr_filtro='.$arr_filtro_ps.'"><button type="button" class="btn btn-outline-success">Enviado</button></a></td>';//editpedido.png
-        }
+        if($fgu['estado_pedido']==0) $ogu .= '<td><a href="'.$ruta_inicio.'asignar-articulos-pedido.php?id_pedido='.$fgu['id_pedido'].'"><button type="button" class="btn btn-outline-info">Modificar</button>';
+        if($fgu['estado_pedido']==1) $ogu .= '<td><a href="'.$ruta_inicio.'pedidos.php?id_pedido='.$fgu['id_pedido'].'&cambiar_estado=2&arr_filtro='.$arr_filtro_ps.'"><button type="button" class="btn btn-outline-success">Enviado</button></a></td>';
+        /* $ogu .= '<td><a href="'.$ruta_inicio.'asignar-articulos-pedido.php?id_pedido='.$fgu['id_pedido'].'"><button type="button" class="btn btn-outline-info">Modificar</button>'; */
         $ogu .= '</td></tr>';
     }
 } else $str_errores = $hM->get_alert_danger('Error cargando usuarios');

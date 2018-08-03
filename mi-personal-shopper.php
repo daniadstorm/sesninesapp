@@ -140,7 +140,7 @@ include_once('inc/cabecera.inc.php'); //cargando cabecera
                                                 <input style="display:none;" type="text" name="paquete_recibido_val" value="1">
                                                 <?php
                                                 if($id_pedido!=''){
-                                                    echo '<button class="btn btn-outline-success mb-2" name="paquete_recibido" type="submit">He recibido mi paquete</button>';
+                                                    echo '<button class="btn btn-outline-success mb-2" name="paquete_recibido" type="submit">He recibido mi paquete con fecha de pedido '.$proxima_fecha.'</button>';
                                                 }
                                                 ?>
                                             </form>
