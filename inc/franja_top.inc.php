@@ -2,10 +2,11 @@
 
 $html_mmnu = '';
 $arr_mmnu = array(
-    1 => array('txt'=>'Personal Shopper', 'url'=>'#'),
-    2 => array('txt'=>'Insp&iacute;rate', 'url'=>'#'),
-    3 => array('txt'=>'Regala Personal Shopper', 'url'=>'#'),
-    4 => array('txt'=>'Shopping', 'url'=>'#')
+    1 => array('txt'=>'sobre ses nïnes', 'url'=>'#'),
+    2 => array('txt'=>'personal shopper', 'url'=>'http://sesnineshopper.com/content/20-personal-shopper'),
+    3 => array('txt'=>'insp&iacute;rate', 'url'=>'http://sesnineshopper.com/inspirate/'),
+    4 => array('txt'=>'regala personal shopper', 'url'=>'http://sesnineshopper.com/promo/'),
+    5 => array('txt'=>'shopping', 'url'=>'http://sesnineshopper.com/content/16-shopping'),
 );
 
 foreach ($arr_mmnu as $k => $v) {
@@ -36,7 +37,7 @@ if (isset($_SESSION['id_tipo_usuario']) && $_SESSION['id_tipo_usuario'] <= USER)
 ?>
 
 
-<header>
+<!-- <header>
     <div class="row">
         <div class="navbar navbar-dark bg-dark fixed-top text-center">
             <div class="col-12">
@@ -68,11 +69,11 @@ if (isset($_SESSION['id_tipo_usuario']) && $_SESSION['id_tipo_usuario'] <= USER)
               </a>
             </button>
             <?php } ?>
-            <!-- <button class="navbar-toggler" type="button">
+            <button class="navbar-toggler" type="button">
               <a href="login.php" title="">
                 <img src="<?php echo $ruta_archivos; ?>img/mnu-usuario.png" width="24" height="30" />
               </a>
-            </button> -->
+            </button>
 
             <button class="navbar-toggler" type="button">
               <a href="#" title="">
@@ -95,5 +96,5 @@ if (isset($_SESSION['id_tipo_usuario']) && $_SESSION['id_tipo_usuario'] <= USER)
 
     
     
-</header>
+</header> -->
 

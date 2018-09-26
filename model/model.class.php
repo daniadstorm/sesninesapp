@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 /* DRIVER DE BASE DE DATOS */
 //se carga desde 'config/config.inc.php'
 

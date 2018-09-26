@@ -1,0 +1,22 @@
+#Web guia
+#https://www.bonaval.com/kb/sistemas-operativos/linux-sistemas-operativos/ejemplos-de-htaccess-que-todo-webmaster-deberia-conocer
+
+Allow from all
+Options All -Indexes
+
+<IfModule mod_rewrite.c>
+RewriteEngine on
+RewriteBase /sesninesapp/
+RewriteCond %{SCRIPT_FILENAME} !-d
+RewriteCond %{SCRIPT_FILENAME} !-f
+
+#DirectoryIndex index.php
+#RewriteRule ^(.*)$ index.php?idioma_seleccionado=$1 [L]
+#RewriteRule ^(.{0})$ es [R=301,L]
+
+#RewriteRule ^([a-zA-Z_-]+)/fichaproducto/([a-zA-Z_-]+)$ ficha-producto.php?idioma_seleccionado=$1&id=$2 [L]
+#RewriteRule ^productos_ysana/(.*)$ prueba.php?producto=$1 [L]
+
+#ErrorDocument 404 "Ups, 404"
+
+</IfModule>

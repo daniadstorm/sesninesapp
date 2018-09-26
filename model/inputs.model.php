@@ -125,6 +125,36 @@ class inputsModel extends Model {
         $o  = '<input type="hidden" id="'.$id.'" name="'.$id.'" value="'.$val.'" />';
         return $o;
     }
+
+    function get_input_checkbox($id, $val, $arr_opt, $class='', $lbl='', $allow_empty=false) {
+        $val = $this->safe_show($val);
+        
+        $aux_required = ($allow_empty == false) ? 'required' : '';
+        
+        $o  = '<div class="form-group">';
+        if (strlen($lbl) > 0) $o .= '<div><label>'.$lbl.'</label></div>';
+        $o .=   '<div class="btn-group btn-group-toggle '.$class.'" data-toggle="buttons">';
+        
+        foreach ($arr_opt as $k => $v) {
+            
+            $aux_active = '';
+            $aux_checked = '';
+            
+            if ($val == $k) {
+                $aux_active = 'active';
+                $aux_checked = 'checked';
+            }
+            
+            $o .=       '<label class="btn btn-secondary '.$aux_active.'">';
+            $o .=           '<input type="checkbox" name="'.$id.'" id="'.$id.$k.'" value="'.$k.'" autocomplete="off" '.$aux_checked.' '.$aux_required.'> '.$v;
+            $o .=       '</label>';
+        }
+        
+        $o .=   '</div>';
+        $o .= '</div>';
+        
+        return $o;
+    }
     
     function get_input_radio($id, $val, $arr_opt, $class='', $lbl='', $allow_empty=false) {
         $val = $this->safe_show($val);

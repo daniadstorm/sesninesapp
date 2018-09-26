@@ -173,6 +173,17 @@ class usuarioModel extends Model {
         return $this->execute_query($q);
     }
 
+    function get_estado_tienda(){
+        $q = ' SELECT c.* FROM '.$this->pre.'config c';
+        return $this->execute_query($q);
+    }
+
+    function update_estado_tienda($estado){
+        $q  = ' UPDATE '.$this->pre.'config SET ';
+        $q .=   ' estado_tienda="'.$estado.'"';
+        return $this->execute_query($q);
+    }
+
     function get_usuarios($pag, $regs_x_pag, $arr_filtro_ps=false) {
         $q  = ' SELECT u.* FROM '.$this->pre.'usuarios u ';
         $q .= ' WHERE u.deleted = 0 and u.id_tipo_usuario=10 ';
