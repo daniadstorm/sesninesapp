@@ -2,7 +2,7 @@
 
 $html_mmnu = '';
 $arr_mmnu = array(
-    1 => array('txt'=>'sobre ses nïnes', 'url'=>'#'),
+    1 => array('txt'=>'sobre ses nïnes', 'url'=>$ruta_inicio.'quiensomos.php'),
     2 => array('txt'=>'personal shopper', 'url'=>'http://sesnineshopper.com/content/20-personal-shopper'),
     3 => array('txt'=>'insp&iacute;rate', 'url'=>'http://sesnineshopper.com/inspirate/'),
     4 => array('txt'=>'regala personal shopper', 'url'=>'http://sesnineshopper.com/promo/'),
@@ -19,7 +19,7 @@ foreach ($arr_mmnu as $k => $v) {
     //</li>
     
     $html_mmnu .= '<li class="nav-item">';
-    $html_mmnu .=   '<a class="nav-link" href="'.$v['url'].'">'.$v['txt'].'</a>';
+    $html_mmnu .=   '<a class="nav-link menu-mbl-sesnines" href="'.$v['url'].'">'.$v['txt'].'</a>';
     $html_mmnu .= '</li>';
 }
 

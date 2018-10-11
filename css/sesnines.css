@@ -141,7 +141,7 @@ nav ul li a{
 }
 img.logo-rs {
     display: inline;
-    height: 16px;
+    /* height: 16px; */
     margin-left: .5rem;
     margin-right: .5rem;
 }
@@ -317,7 +317,7 @@ div.blq_3 .blq_exp_ps p.texto{
     top: 50%;
     transform: translate(-50%, -50%);
     -webkit-transform: translate(-50%, -50%);
-    background-color: rgba(255, 255, 255, 0.8);
+    background-color: rgba(255, 255, 255, 0.9);
 }
 .blq_centrado h1.titulo{
     font-weight: bold;
@@ -350,7 +350,7 @@ p.news {
     border-width: 1px;
     text-align: center;
     border-color: white;
-    min-width: 350px;
+    min-width: 310px;
 }
 #mail-newsletter::placeholder {
     color: white;
@@ -475,6 +475,144 @@ h3.h3-enlace{
 .mail-pc{
     display: block;
 }
+.carousel-sesnines-rsp1{
+    width: 100%;
+}
+.carousel-sesnines-rsp2{
+    width: 0%;
+}
+.menu-fijo{
+    width: 100%;
+    position: fixed;
+    left: 0;
+    z-index: 1000;
+}
+
+.margen-personalizado {
+    margin-top: 43px;
+}
+
+.padding-newsletter{
+    padding: 2rem;
+    padding-bottom: 0;
+}
+
+.navbar-light .navbar-toggler-icon{
+    background-image: url("http://192.168.1.2/sesninesapp/img/icono-menu-sesnines.svg");
+}
+.bg-transparencia-blanco{
+    background-color: rgba(255, 255, 255, 0.8);
+}
+.titulo-sesnines{
+    border-bottom: 1px solid #000;
+    text-align: right;
+}
+.titulo-sesnines a{
+    color: #000;
+    text-decoration: none;
+}
+.titulo-sesnines a:hover{
+    text-decoration: none;
+}
+.texto-sn-qs{
+    font-family: 'CourierNew';
+}
+.texto-persona .nombre{
+    border-bottom: 1px solid #000;
+}
+.lista-persona{
+    list-style-type: none;
+    padding-inline-start: 1.5em;
+}
+div.img-persona{
+    display: none;
+}
+/* button#btn-sesnines-menu:focus{
+    outline: 0px dotted !important;
+    outline: 0px auto -webkit-focus-ring-color !important;
+} */
+
+div.img-persona-mvl{
+    display: block;
+    /* position: absolute; */
+    top: 0;
+    right: 0;
+    max-width: 80px;
+}
+
+div.texto-persona h1.nombre{
+    margin-bottom: 5rem;
+}
+
+.bb-1{
+    border-bottom: 1px solid #000;
+}
+
+#form-contact{
+    max-width: 80%;
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.input-sn {
+    border: 1px solid #000;
+    border-radius: 0px;
+    width: 95%;
+    margin-left: auto;
+    margin-right: auto;
+}
+.input-checkbox{
+    width: 95%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 0.5rem;
+    margin-top: 0.5rem;
+}
+
+.input-sn::placeholder {
+    color: #000;
+}
+
+form#form-contact div.form-group{
+    margin-bottom: 0;
+}
+
+@media only screen and (max-width: 576px){
+    .lin-movil-rsp{
+        display: flex;
+    }
+}
+
+@media (max-width: 376px) {
+    .titulo-sn-exp{
+        text-align: right;
+    }
+    ol.carousel-indicators{
+        display: none;
+    }
+    .padding-newsletter{
+        padding-top: 2rem;
+        padding-left: 2rem;
+        padding-right: 2rem;
+        /* padding: 2rem !important; */
+        padding-bottom: 0;
+    }
+    .img.logo-rs{
+        height: 24px !important;
+    }
+    .h3-enlace{
+        font-size: 1rem;
+    }
+   
+}
+
+@media (min-width: 377px) {
+    .h3-enlace{
+        font-size: 1.25rem;
+    }
+}
+
 @media (min-width: 576px) {
     div.blq_3 .blq_exp_ps h5.titulo{
         font-size: 1rem;
@@ -495,6 +633,12 @@ h3.h3-enlace{
         width: 90%;
         font-size: 1.2em;
     }
+    /* .menu-sesnines-footer.centro{
+        display: none !important;
+    } */
+    img.logo-rs{
+        height: 16px;
+    }
 }
 
 @media (min-width: 768px) {
@@ -511,6 +655,25 @@ h3.h3-enlace{
     .texto-slider{
         font-size: 0.7rem;
     }
+    .padding-newsletter{
+        padding-top: 2rem;
+        padding-left: 2rem;
+        padding-right: 2rem;
+        /* padding: 2rem !important; */
+        padding-bottom: 0;
+    }
+    div.img-persona{
+        display: block;
+    }
+    div.texto-persona h1.nombre{
+        margin-bottom: 0.5rem;
+    }
+    div.img-persona-mvl{
+        display: none;
+    }
+    /* .menu-sesnines-footer.centro{
+        display: block !important;
+    } */
 }
 
 @media (min-width: 992px) {
@@ -528,8 +691,23 @@ h3.h3-enlace{
     .h3-enlace{
         font-size: 0.8rem;
     }
+    .margen-personalizado {
+        margin-top: 0px;
+    }
+    .padding-newsletter{
+        padding: 3rem;
+    }
 }
 
+@media (max-width: 991.98px) {
+    #menu-top .menu-mbl-sesnines{
+        text-align: right;
+        color: #000;
+        font-family: 'JosefinSans-Light';
+        font-size: 1.2rem;
+        margin-right: 1rem;
+    }
+}
 
 @media (min-width: 1200px) {
     .h3-enlace{
@@ -537,5 +715,8 @@ h3.h3-enlace{
     }
     .mail-pc{
         display: flex;
+    }
+    .padding-newsletter{
+        padding: 3rem;
     }
 }

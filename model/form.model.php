@@ -7,7 +7,31 @@ class formModel {
         
         $o = '<div class="form-group">
             <label>'.$lbl_campo.'</label>
-            <input id="'.$id_campo.'" name="'.$id_campo.'" value="'.htmlspecialchars(stripslashes($value)).'" type="text" class="form-control" required>
+            <input id="'.$id_campo.'" name="'.$id_campo.'" value="'.htmlspecialchars(stripslashes($value)).'" placeholder="'.$placeholder.'" type="text" class="form-control '.$class.'" required>
+            </div>';
+        return $o;
+    }
+
+    function get_input_checkbox_text($id_campo, $lbl_campo, $value, $arr_err, $class='campo', $placeholder='') {
+        $o = '<div class="form-group">
+        <p class="'.$class.'"><label class="m-0 p-0">
+        <input id="'.$id_campo.'" name="'.$id_campo.'" type="checkbox" value="'.htmlspecialchars(stripslashes($value)).'" required>'.$lbl_campo.'
+        </label></p>
+        </div>';
+        return $o;
+    }
+
+    function get_input_submit($id_campo, $lbl_campo, $value, $arr_err, $class='campo', $placeholder='') {
+        $o = '<div class="form-group">
+            <input id="'.$id_campo.'" name="'.$id_campo.'" value="'.htmlspecialchars(stripslashes($value)).'" placeholder="'.$placeholder.'" type="submit" class="form-control '.$class.'" required>
+            </div>';
+        return $o;
+    }
+
+    function get_input_textarea($id_campo, $lbl_campo, $value, $arr_err, $class='campo', $placeholder='', $max_length=false, $rows='6') {        
+        $o = '<div class="form-group">
+            <label>'.$lbl_campo.'</label>
+            <textarea id="'.$id_campo.'" name="'.$id_campo.'" value="'.htmlspecialchars(stripslashes($value)).'" placeholder="'.$placeholder.'" type="textarea" class="form-control '.$class.'" rows="'.$rows.'" required></textarea>
             </div>';
         return $o;
     }
@@ -24,8 +48,6 @@ class formModel {
         return $o;
     }
     
-   
-
     function get_input_date($id_campo, $lbl_campo, $value, $arr_err, $class='campo', $disabled='') {
         $o = '<div class="form-group">
         <label>'.$lbl_campo.'</label>
