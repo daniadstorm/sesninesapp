@@ -44,7 +44,7 @@ if ($aux_control_sesion == true) {
                 0=>array('ttl'=>'Inicio '.$_SESSION['nombrecompleto_usuario'], 'dest'=>$ruta_inicio.'inicio.php', 'img'=>$ruta_inicio.'img/inicio.png', 'class'=>'opt_menu'),
                 1=>array('ttl'=>'Mi Personal Shopper', 'dest'=>$ruta_inicio.'mi-personal-shopper.php', 'img'=>$ruta_inicio.'img/shopper.png', 'class'=>'opt_menu'),
                 2=>array('ttl'=>'Ver perfil', 'dest'=>$ruta_inicio.'ver-perfil.php', 'img'=>$ruta_inicio.'img/usuarios.png', 'class'=>'opt_menu'),
-                3=>array('ttl'=>'Sobre Mi', 'dest'=>$ruta_inicio.'alta-ps/1.php', 'img'=>$ruta_inicio.'img/aboutme.png', 'class'=>'opt_menu'),
+                3=>array('ttl'=>'Sobre Mi', 'dest'=>$ruta_inicio.'alta-ps-copia/1.php', 'img'=>$ruta_inicio.'img/aboutme.png', 'class'=>'opt_menu'),
                 4=>array('ttl'=>'Datos de envio', 'dest'=>$ruta_inicio.'datos-envio.php', 'img'=>$ruta_inicio.'img/camion.png', 'class'=>'opt_menu'),
                 5=>array('ttl'=>'Cerrar sesión', 'dest'=>$ruta_inicio.'login.php?unlogin=true', 'img'=>$ruta_inicio.'img/cerrar.png', 'class'=>'opt_menu')
             );

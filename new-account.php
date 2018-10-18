@@ -24,7 +24,6 @@ $verif = true;
 
 //POST__________________________________________________________________________
 if (isset($_POST['id_usuario'])) {
-    
     $id_usuario = $_POST['id_usuario'];
     $nombrecompleto_usuario = $_POST['nombrecompleto_usuario'];
     $email_usuario = $_POST['email_usuario'];
@@ -34,17 +33,16 @@ if (isset($_POST['id_usuario'])) {
     $nie_usuario = $_POST['nie_usuario'];
     
     //control de errores ---------------------------------------------------- */
-    $fM->check_length('nombrecompleto_usuario', $nombrecompleto_usuario, $verif, $arr_err);
+    /* $fM->check_length('nombrecompleto_usuario', $nombrecompleto_usuario, $verif, $arr_err);
     $fM->check_is_valid_email('email_usuario', $email_usuario, $verif, $arr_err, 'Debe ser una dirección email');
     $fM->check_is_date('fecha_nacimiento',$fecha_nacimiento, $verif, $arr_err, 'La fecha de nacimiento no es válida');
     $fM->check_length('contrasenya_usuario',$contrasenya_usuario, $verif, $arr_err);
     $fM->check_length('telf_usuario', $telf_usuario, $verif, $arr_err);
-    $fM->check_length('nie_usuario', $nie_usuario, $verif, $arr_err);
+    $fM->check_length('nie_usuario', $nie_usuario, $verif, $arr_err); */
     //control de errores ---------------------------------------------------- */
     
     //MySQL ----------------------------------------------------------------- */
     if ($verif == true) {
-        
         //id_usuario
         $nombrecompleto_usuario = $uM->escstr($nombrecompleto_usuario);
         $fecha_nacimiento = date_to_mysql($fecha_nacimiento);
@@ -58,14 +56,13 @@ if (isset($_POST['id_usuario'])) {
             $ruu = $uM->update_usuario($id_usuario, $email_usuario, $fecha_nacimiento, $nombrecompleto_usuario, $email_usuario, $contrasenya_usuario, $telf_usuario, $nie_usuario, 
                 USER);
             if ($ruu) {
-                header('Location: '.$ruta_inicio.'clientes.php?editar_usuario=true'); exit();
+                header('Location: '.$ruta_inicio.'login.php?editar_usuario=true'); exit();
             } else $str_errores = '<div class="error_alert">Error actualizando usuario</div>';
-            
         } else { //NUEVO
             //para el campo nombre_usuario se le pasa email_usuario (el email es usado para el login)
             $rau = $uM->add_usuario($email_usuario, $fecha_nacimiento, $nombrecompleto_usuario, $email_usuario, $contrasenya_usuario, $telf_usuario, $nie_usuario, USER);
             if ($rau) {
-                header('Location: '.$ruta_inicio.'clientes.php?nuevo_usuario=true'); exit();
+                header('Location: '.$ruta_inicio.'login.php?nuevo_usuario=true'); exit();
             } else $str_errores = '<div class="error_alert">Error añadiendo usuario</div>';
         }
     }
@@ -92,7 +89,7 @@ include_once('inc/cabecera.inc.php'); //cargando cabecera
                 <?php if (isset($str_errores)) echo '<div class="alert alert-danger" role="alert">'.$str_errores.'</div>'; ?>
             </div>
             <div class="form container mt-3">
-                <form action="login.php" method="post" id="form_login" name="form_login" >
+                <form action="new-account.php" method="post" id="form_login" name="form_login" >
                     <?php 
                         echo $fM->get_input_hidden('id_usuario', $id_usuario);
                         echo $fM->get_input_text('nombrecompleto_usuario', 'Nombre completo', $nombrecompleto_usuario, $arr_err);

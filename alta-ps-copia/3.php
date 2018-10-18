@@ -167,17 +167,17 @@ foreach ($arr_silueta as $clave => $valor){
 }
 
 if(isset($_POST['talla_superior']) && $str_errores==''){
-    header('Location: '.$ruta_inicio.'alta-ps/4.php'); exit();
+    header('Location: '.$ruta_inicio.'alta-ps-copia/4.php'); exit();
 }
 
 if(isset($_SERVER["HTTP_REFERER"])){
     $array = explode('/', $_SERVER["HTTP_REFERER"]);
     $ruta_anterior = array_pop($array);
     if(!$ruta_anterior=="1.php"){
-        header('Location: '.$ruta_inicio.'alta-ps/1.php'); exit();
+        header('Location: '.$ruta_inicio.'alta-ps-copia/1.php'); exit();
     }
 }else{
-    header('Location: '.$ruta_inicio.'alta-ps/1.php'); exit();
+    header('Location: '.$ruta_inicio.'alta-ps-copia/1.php'); exit();
 }
 
 //CONTROL_______________________________________________________________________

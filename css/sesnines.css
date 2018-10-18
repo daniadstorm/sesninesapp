@@ -191,6 +191,9 @@ label.linea {
 #carouselSesninesHome div.carousel-inner{
     max-height: 650px;
 }
+#carouselBodega div.carousel-inner{
+    max-height: 650px;
+}
 div.blq_1 .titulo-sesnines{
     border-bottom: 1px solid #000;
     text-align: right;
@@ -331,7 +334,7 @@ div.blq_3 .blq_exp_ps p.texto{
     color: #000;
 }
 .newsletter{
-    background-color: #c2c5cc;
+    background-color: #b0b9c6;
     overflow: hidden;
 }
 h1.news{
@@ -379,7 +382,7 @@ p#acepto-terminos {
     padding-left: 0;
 }
 .menu-sesnines-footer ul li a{
-    color: #fff;
+    color: #b0b9c6;
     font-family: 'JosefinSans-Light';
 }
 
@@ -393,7 +396,7 @@ p#acepto-terminos {
 #frmBuscarfooter input[type="text"]{
     background-color: transparent;
     border-width: 1px;
-    border-color: white;
+    border-color: #b0b9c6;;
     border-style: solid;
     border-radius: 5px;
     font-family: 'JosefinSans-Light';
@@ -401,17 +404,23 @@ p#acepto-terminos {
     padding-right: 0.5rem;
     min-width: 200px;
 }
+.fondo-1{
+    background-image: url(../img/slider1.jpg);
+    height: 100vh;
+    background-position: center;
+    background-size: cover;
+}
 #frmBuscarfooter button[type="submit"]{
     background-color: transparent;
     border-color: transparent;
     border-width: 0px;
-    background: url(../img/lupa.png) no-repeat;
+    background: url(../img/sns_icono__lupaazul.svg) no-repeat;
     background-size: contain;
-    width: 32px;
-    height: 32px;
+    min-width: 32px;
+    min-height: 32px;
 }
 #frmBuscarfooter input[type="text"]::placeholder{
-    color: white;
+    color: #b0b9c6;
     text-align: center;
 }
 .carousel-control-next-icon, .carousel-control-prev-icon{
@@ -427,7 +436,8 @@ p#acepto-terminos {
     border-right: 2px solid white;
 }
 .footer{
-    background-color: #f1e8e1;
+    background-color: #f2f2f2;
+    color: #b0b9c6;
 }
 .texto-slider{
     font-family: 'CourierNewPS-BoldItalicMT';
@@ -438,6 +448,9 @@ p.texto-slider+h4{
 }
 .carousel-sesnines-rsp1{
     background-color: #f1e8e1;
+}
+.slider-doble{
+    height: 100vh;
 }
 h3.h3-enlace{
     font-family: 'JosefinSans-Regular';

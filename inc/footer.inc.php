@@ -5,7 +5,7 @@
     <div class="row footer py-md-5">
         <div class="col-md-4 brd-right">
             <div class="logo">
-                <img class="logo-sesnines-footer" src="img/logo_blanco.svg" alt="">
+                <img class="logo-sesnines-footer" src="img/logo_final_azul.svg" alt="">
             </div>
             <div class="menu-sesnines-footer">
                 <ul>
@@ -27,14 +27,14 @@
             </div>
             <div class="redes-sociales d-flex justify-content-center">
                 <a href="https://www.pinterest.es/sesnines/">
-                    <img src="img/pin1.svg" class="logo-rs" alt="">
+                    <img src="img/pinterest.svg" class="logo-rs" alt="">
                 </a>
                 <!-- <img src="img/twitter1.svg" class="logo-rs" alt=""> -->
                 <a href="https://www.facebook.com/sesnineshopper/">
-                    <img src="img/fb1.svg" class="logo-rs" alt="">
+                    <img src="img/fb.svg" class="logo-rs" alt="">
                 </a>
                 <a href="https://www.instagram.com/sesnineshopper/">
-                    <img src="img/insta1.svg" class="logo-rs" alt="">
+                    <img src="img/insta.svg" class="logo-rs" alt="">
                 </a>
             </div>
         </div>

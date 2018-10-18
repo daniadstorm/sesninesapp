@@ -84,12 +84,6 @@ include_once('inc/cabecera.inc.php'); //cargando cabecera
                         <div class="carousel-item active">
                             <img class="d-block w-100 o-80" src="img/slider_1.jpg" alt="First slide">
                         </div>
-                        <div class="carousel-item">
-                            <img class="d-block w-100 o-80" src="img/slider_2.jpg" alt="Second slide">
-                        </div>
-                        <div class="carousel-item">
-                            <img class="d-block w-100 o-80" src="img/slider_3.jpg" alt="Third slide">
-                        </div>
                     </div>
                     <a class="carousel-control-prev o-100" href="#carouselSesninesHome" role="button" data-slide="prev">
                         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -182,33 +176,73 @@ include_once('inc/cabecera.inc.php'); //cargando cabecera
                         </a>
                     </div>
                     <div class="col-lg-11 offset-lg-1 mb-5 mt-4">
-                        <div id="carouselSesninesHome" class="carousel slide mt-5" data-ride="carousel">
-                            <ol class="carousel-indicators">
-                                <li data-target="#carouselSesninesHome" data-slide-to="0" class="active"></li>
-                                <li data-target="#carouselSesninesHome" data-slide-to="1"></li>
-                                <li data-target="#carouselSesninesHome" data-slide-to="2"></li>
-                            </ol>
-                            <div class="carousel-inner">
-                                <div class="carousel-item d-flex active">
-                                    <div class="contenedor w-100">
-                                        <div class="d-flex flex-column align-items-center justify-content-center carousel-sesnines-rsp1 100vh">
-                                            <p class="w-70 texto-slider pt-4">"Crea un buen fondo de armario con prendas atemporales para hacer mil y una combinaciones.
-                                                No tenemos tiempo pero sí ganas de vernos guapas."</p>
-                                            <h4 class="w-70 text-right texto-slider">Mónica</h4>
-                                        </div>
-                                        <img class="d-block carousel-sesnines-rsp2 h-100 o-80" src="img/slider1.jpg" alt="First slide">
+                    <div id="carouselBodega" class="carousel slide" data-ride="carousel">
+                        <ol class="carousel-indicators">
+                            <li data-target="#carouselBodega" data-slide-to="0" class="active"></li>
+                            <li data-target="#carouselBodega" data-slide-to="1"></li>
+                            <li data-target="#carouselBodega" data-slide-to="2"></li>
+                        </ol>
+                        <div class="carousel-inner">
+                            <div class="carousel-item active">
+                                <div class="col-md-6 carousel-sesnines-rsp1">
+                                    <div class="slider-doble d-flex justify-content-center align-items-center w-100">
+                                        <p>hola</p>
                                     </div>
                                 </div>
+                                <div class="col-md-6 fondo-1">
+                                    <!-- <img class="d-block w-100" src="img/slider1.jpg" alt="First slide"> -->
+                                </div>
                             </div>
-                            <a class="carousel-control-prev carousel-control-prev-mod o-100" href="#carouselSesninesHome" role="button" data-slide="prev">
-                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                <span class="sr-only">Previous</span>
-                            </a>
-                            <a class="carousel-control-next carousel-control-next-mod o-100" href="#carouselSesninesHome" role="button" data-slide="next">
-                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                <span class="sr-only">Next</span>
-                            </a>
+                            <div class="carousel-item">
+                                <div class="col-md-6 carousel-sesnines-rsp1">
+                                    <div class="slider-doble d-flex justify-content-center align-items-center w-100">
+                                        <p>hola</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 fondo-1">
+                                    <!-- <img class="d-block w-100" src="img/slider1.jpg" alt="First slide"> -->
+                                </div>
+                            </div>
+                            <div class="carousel-item">
+                                <div class="col-md-6 carousel-sesnines-rsp1">
+                                    <div class="slider-doble d-flex justify-content-center align-items-center w-100">
+                                        <p>hola</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 fondo-1">
+                                    <!-- <img class="d-block w-100" src="img/slider1.jpg" alt="First slide"> -->
+                                </div>
+                            </div>
+                            <!-- <div class="carousel-item">
+                                <div class="col-md-6 carousel-sesnines-rsp1">
+                                    <div class="slider-doble d-flex justify-content-center align-items-center w-100">
+                                        <p>hola</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <img class="d-block w-100" src="img/slider1.jpg" alt="First slide">
+                                </div>
+                            </div>
+                            <div class="carousel-item">
+                                <div class="col-md-6 carousel-sesnines-rsp1">
+                                    <div class="slider-doble d-flex justify-content-center align-items-center w-100">
+                                        <p>hola</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <img class="d-block w-100" src="img/slider1.jpg" alt="First slide">
+                                </div>
+                            </div> -->
                         </div>
+                        <a class="carousel-control-prev" href="#carouselBodega" role="button" data-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="carousel-control-next" href="#carouselBodega" role="button" data-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </div>
                     </div>
                 </div>
                 <div class="row mx-0 blq_1">
@@ -271,26 +305,38 @@ include_once('inc/cabecera.inc.php'); //cargando cabecera
                         <div class="carousel-inner">
                             <div class="carousel-item carousel-item-tuopinas active">
                                 <div class="d-flex flex-column justify-content-center align-items-center">
-                                    <p class="texto-tuopinas">"1 Me ha encantado.. de verdad verdadera. Me han sorprendido un montón, han entendido
-                                        a la primera lo que buscaba y TODAS las prendas me gustan. Impresionada de lo bien
-                                        que ha ido el primer pedido. Repetiré seguro "</p>
+                                    <p class="texto-tuopinas">“Me ha encantado.. de verdad verdadera. Me han sorprendido un montón, han entendido a la primera lo que buscaba y TODAS las prendas me gustan. Impresionada de lo bien que ha ido el primer pedido. Repetiré seguro"</p>
                                     <h1 class="texto-tuopinas mt-3">A. Aznar</h1>
                                 </div>
                             </div>
                             <div class="carousel-item carousel-item-tuopinas">
                                 <div class="d-flex flex-column justify-content-center align-items-center">
-                                    <h1 class="texto-tuopinas">"2 Me ha encantado.. de verdad verdadera. Me han sorprendido un montón, han entendido
-                                        a la primera lo que buscaba y TODAS las prendas me gustan. Impresionada de lo bien
-                                        que ha ido el primer pedido. Repetiré seguro "</h1>
-                                    <h1 class="texto-tuopinas mt-3">A. Aznar</h1>
+                                    <h1 class="texto-tuopinas">Quiero felicitaros por el trabajo, se nota que lo habéis leído con detenimiento y os habéis esforzado en ello. Mil gracias porque me han encantado todas las prendas y me habéis sorprendido mucho con los looks</h1>
+                                    <h1 class="texto-tuopinas mt-3">E. López</h1>
                                 </div>
                             </div>
                             <div class="carousel-item carousel-item-tuopinas">
                                 <div class="d-flex flex-column justify-content-center align-items-center">
-                                    <h1 class="texto-tuopinas">"3 Me ha encantado.. de verdad verdadera. Me han sorprendido un montón, han entendido
-                                        a la primera lo que buscaba y TODAS las prendas me gustan. Impresionada de lo bien
-                                        que ha ido el primer pedido. Repetiré seguro "</h1>
-                                    <h1 class="texto-tuopinas mt-3">A. Aznar</h1>
+                                    <h1 class="texto-tuopinas">Hola esta sería la cuarta caja, las dos últimas me las he quedado entera. He salido de compras para renovar el armario junto lo que os compre y me he ido con las manos vacías.. O es muy fea o no le veo el bonito. Así que recurro de nuevo a vosotras”</h1>
+                                    <h1 class="texto-tuopinas mt-3">L. Garcia</h1>
+                                </div>
+                            </div>
+                            <div class="carousel-item carousel-item-tuopinas">
+                                <div class="d-flex flex-column justify-content-center align-items-center">
+                                    <h1 class="texto-tuopinas">"Me ha encantado TODA la selección de prendas que me habéis mandado. Que sepáis q habéis ganado una clienta!! Hablaré por todos lados de vosotras”</h1>
+                                    <h1 class="texto-tuopinas mt-3">E.Magaña</h1>
+                                </div>
+                            </div>
+                            <div class="carousel-item carousel-item-tuopinas">
+                                <div class="d-flex flex-column justify-content-center align-items-center">
+                                    <h1 class="texto-tuopinas">Quedé muy contenta con mi primer pedido. Supisteis entender muy bien lo que buscaba, y me sorprendisteis muchísimo con los looks, además de acertar con las tallas. Fue absolutamente una experiencia de 10. Así que me he animado con una nueva caja.</h1>
+                                    <h1 class="texto-tuopinas mt-3">R. Gómez</h1>
+                                </div>
+                            </div>
+                            <div class="carousel-item carousel-item-tuopinas">
+                                <div class="d-flex flex-column justify-content-center align-items-center">
+                                    <h1 class="texto-tuopinas">Sí, me lo quedo todo. ¡Me ha encantado! Las tallas un acierto total . Cruzo los dedos a ver si para finales de mes puedo pediros otra caja... Estilazo total :-)</h1>
+                                    <h1 class="texto-tuopinas mt-3">O. Illana</h1>
                                 </div>
                             </div>
                         </div>

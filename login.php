@@ -27,6 +27,12 @@ if (isset($_POST['nombre_usuario'])) { //si viene de submit de login
         $str_errores = $result_login;
     }
 }
+
+if(isset($_GET['nuevo_usuario'])){
+    echo '<h1></h1>';
+    $str_info = "Usuario creado con exito";
+}
+
 //POST__________________________________________________________________________
 
 //CONTROL_______________________________________________________________________
@@ -58,7 +64,7 @@ include_once('inc/cabecera.inc.php'); //cargando cabecera
     
     <section class="container">
             <div class="mt-3">
-                <?php if (isset($str_info)) echo $str_info; ?>
+                <?php if (isset($str_info)) echo '<div class="alert alert-info" role="alert">'.$str_info.'</div>'; ?>
                 <?php if (isset($str_errores)) echo '<div class="alert alert-danger" role="alert">'.$str_errores.'</div>'; ?>
             </div>
             <div class="form mt-3">
