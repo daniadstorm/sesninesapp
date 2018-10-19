@@ -8,9 +8,21 @@ class categoriasModel extends Model {
         //
     }
     
-    function add_categoria($nombre_categoria, $imagen_categoria) {
-        $q  = ' INSERT INTO '.$this->pre.'categorias (nombre_categoria, imagen_categoria) VALUES ';
-        $q .= ' ("'.$nombre_categoria.'", "'.$imagen_categoria.'") ';
+    function add_categoria($nombre_categoria) {
+        $q  = ' INSERT INTO '.$this->pre.'categorias (nombre_categoria) VALUES ';
+        $q .= ' ("'.$nombre_categoria.'") ';
+        return $this->execute_query($q);
+    }
+
+    function get_subcategoria($id_categoria) {
+        $q  = ' SELECT c.* FROM '.$this->pre.'subcategorias c ';
+        $q .= ' WHERE c.id_categoria = '.$id_categoria.' ';
+        return $this->execute_query($q);
+    }
+
+    function add_subcategoria($nombre_subcategoria, $id_categoria_padre) {
+        $q  = ' INSERT INTO '.$this->pre.'subcategorias (nombre_subcategoria, id_categoria) VALUES ';
+        $q .= ' ("'.$nombre_subcategoria.'", "'.$id_categoria_padre.'") ';
         return $this->execute_query($q);
     }
     
@@ -19,12 +31,44 @@ class categoriasModel extends Model {
         $q .= ' WHERE c.id_categoria = '.$id_categoria.' ';
         return $this->execute_query($q);
     }
+
+    function get_subcategorias($id_categoria) {
+        $q  = ' SELECT c.* FROM '.$this->pre.'subcategorias c ';
+        $q .= ' WHERE c.id_subcategoria = '.$id_categoria.' ';
+        return $this->execute_query($q);
+    }
+
+    function get_last_id_categoria() {
+        $q  = ' SELECT max(id_categoria) as cat FROM '.$this->pre.'categorias c ';
+        /* $q .= ' WHERE c.id_categoria = '.$id_categoria.' '; */
+        return $this->execute_query($q);
+    }
     
-    function update_categoria($id_categoria, $nombre_categoria, $imagen_categoria) {
+    function update_estado_categoria($id_categoria, $visible) {
         $q  = ' UPDATE '.$this->pre.'categorias SET ';
-        $q .=   ' nombre_categoria = "'.$nombre_categoria.'", ';
-        $q .=   ' imagen_categoria = "'.$imagen_categoria.'" ';
+        $q .=   ' visible = "'.$visible.'" ';
         $q .= ' WHERE id_categoria = '.$id_categoria.' ';
+        return $this->execute_query($q);
+    }
+
+    function update_estado_subcategoria($id_categoria, $visible) {
+        $q  = ' UPDATE '.$this->pre.'subcategorias SET ';
+        $q .=   ' visible = "'.$visible.'" ';
+        $q .= ' WHERE id_subcategoria = '.$id_categoria.' ';
+        return $this->execute_query($q);
+    }
+
+    function update_categoria($id_categoria, $nombre_categoria) {
+        $q  = ' UPDATE '.$this->pre.'categorias SET ';
+        $q .=   ' nombre_categoria = "'.$nombre_categoria.'" ';
+        $q .= ' WHERE id_categoria = '.$id_categoria.' ';
+        return $this->execute_query($q);
+    }
+
+    function update_subcategoria($id_categoria, $nombre_categoria) {
+        $q  = ' UPDATE '.$this->pre.'subcategorias SET ';
+        $q .=   ' nombre_subcategoria = "'.$nombre_categoria.'" ';
+        $q .= ' WHERE id_subcategoria = '.$id_categoria.' ';
         return $this->execute_query($q);
     }
     
@@ -93,6 +137,12 @@ class categoriasModel extends Model {
     function delete_categoria($id_categoria) {
         $q  = ' DELETE FROM '.$this->pre.'categorias ';
         $q .= ' WHERE id_categoria = '.$id_categoria.' ';
+        return $this->execute_query($q);
+    }
+
+    function delete_subcategoria($id_categoria) {
+        $q  = ' DELETE FROM '.$this->pre.'subcategorias ';
+        $q .= ' WHERE id_subcategoria = '.$id_categoria.' ';
         return $this->execute_query($q);
     }
 }

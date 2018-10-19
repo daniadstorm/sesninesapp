@@ -16,14 +16,14 @@ $referencia_articulo = '';
 $referencia_proveedor_articulo = '';
 $descripcion_articulo = '';
 $activado_articulo = '';
-    $arr_opt_activado_articulo = array(1 => 'SÍ', 0 => 'NO');
+$arr_opt_activado_articulo = array(1 => 'SÍ', 0 => 'NO');
 $visible_en_tienda_articulo = '';
-    $arr_opt_visible_en_tienda_articulo = array(1 => 'SÍ', 0 => 'NO');
+$arr_opt_visible_en_tienda_articulo = array(1 => 'SÍ', 0 => 'NO');
 $precio_coste_articulo = 0;
 $coste_externo_portes_articulo = 0;
 $PVP_final_articulo = 0;
 $margen_articulo = 0;
-$cantidad_articulo = '';
+/* $cantidad_articulo = ''; */
 $inicio_descuento_articulo = '';
 $fin_descuento_articulo = '';
 $descuento_porcentaje_articulo = '';
@@ -50,7 +50,7 @@ if (isset($_GET['id_articulo'])) {
             $coste_externo_portes_articulo = $fga['coste_externo_portes_articulo'];
             $PVP_final_articulo = $fga['PVP_final_articulo'];
             $margen_articulo = $fga['margen_articulo'];
-            $cantidad_articulo = $fga['cantidad_articulo'];
+            /* $cantidad_articulo = $fga['cantidad_articulo']; */
             $inicio_descuento_articulo = $fga['inicio_descuento_articulo'];
             $fin_descuento_articulo = $fga['fin_descuento_articulo'];
             $descuento_porcentaje_articulo = $fga['descuento_porcentaje_articulo'];
@@ -75,7 +75,7 @@ if (isset($_POST['id_articulo'])) {
     $coste_externo_portes_articulo = $_POST['coste_externo_portes_articulo'];
     $PVP_final_articulo = $_POST['PVP_final_articulo'];
     $margen_articulo = $_POST['margen_articulo'];
-    $cantidad_articulo = $_POST['cantidad_articulo'];
+    /* $cantidad_articulo = $_POST['cantidad_articulo']; */
     $inicio_descuento_articulo = $_POST['inicio_descuento_articulo'];
     $fin_descuento_articulo = $_POST['fin_descuento_articulo'];
     $descuento_porcentaje_articulo = $_POST['descuento_porcentaje_articulo'];
@@ -99,7 +99,7 @@ if (isset($_POST['id_articulo'])) {
         $coste_externo_portes_articulo = $aM->escstr($coste_externo_portes_articulo);
         $PVP_final_articulo = $aM->escstr($PVP_final_articulo);
         $margen_articulo = $aM->escstr($margen_articulo);
-        $cantidad_articulo = $aM->escstr($cantidad_articulo);
+        /* $cantidad_articulo = $aM->escstr($cantidad_articulo); */
         //$inicio_descuento_articulo;
         //$fin_descuento_articulo;
         $descuento_porcentaje_articulo = $aM->escstr($descuento_porcentaje_articulo);
@@ -163,13 +163,13 @@ include_once('inc/cabecera.inc.php'); //cargando cabecera
                                         echo $iM->get_input_text('referencia_articulo', $referencia_articulo, 'form-control', '*Referencia', '', 'Campo requerido', 1);
                                         echo $iM->get_input_text('referencia_proveedor_articulo', $referencia_proveedor_articulo, 'form-control', '*Referencia Proveedor', '', 'Campo requerido', 1);
                                         echo $iM->get_input_textarea('descripcion_articulo', $descripcion_articulo, 'form-control', '*Descripción', '', 'Campo requerido', 1);
-                                        echo $iM->get_input_radio('activado_articulo', $activado_articulo, $arr_opt_activado_articulo, '', 'Activado');
+                                        /* echo $iM->get_input_radio('activado_articulo', $activado_articulo, $arr_opt_activado_articulo, '', 'Activado'); */
                                         echo $iM->get_input_radio('visible_en_tienda_articulo', $visible_en_tienda_articulo, $arr_opt_visible_en_tienda_articulo, '', 'Visible en tienda');
                                         echo $iM->get_input_number('precio_coste_articulo', $precio_coste_articulo, 'form-control', '*Precio de coste (&euro;)', '', 'Campo requerido', 1, false, 'price');
                                         echo $iM->get_input_number('coste_externo_portes_articulo', $coste_externo_portes_articulo, 'form-control', '*Precio de portes (&euro;)', '', 'Campo requerido', 1, false, 'price');
                                         echo $iM->get_input_number('PVP_final_articulo', $PVP_final_articulo, 'form-control', '*Precio de venta al público (&euro;)', '', 'Campo requerido', 1, false, 'price');
                                         echo $iM->get_input_number('margen_articulo', $margen_articulo, 'form-control', '*Margen (&euro;)', '', 'Campo requerido', 1, false, 'price');
-                                        echo $iM->get_input_number('cantidad_articulo', $cantidad_articulo, 'form-control', 'Cantidad', '', 'Campo requerido', 1, false, 'int', true);
+                                        /* echo $iM->get_input_number('cantidad_articulo', $cantidad_articulo, 'form-control', 'Cantidad', '', 'Campo requerido', 1, false, 'int', true); */
                                         echo $iM->get_input_date('inicio_descuento_articulo', $inicio_descuento_articulo, 'form-control', 'Fecha inicio descuento', '', '', false, false, true);
                                         echo $iM->get_input_date('fin_descuento_articulo', $fin_descuento_articulo, 'form-control', 'Fecha fin descuento', '', '', false, false, true);
                                         echo $iM->get_input_number('descuento_porcentaje_articulo', $descuento_porcentaje_articulo, 'form-control', 'Descuento (%)', '', '', 1, 100, 'int', true);
@@ -186,5 +186,18 @@ include_once('inc/cabecera.inc.php'); //cargando cabecera
             </div>
         </div>
     </div>
+    <script>
+    $(document).ready(function(){
+        if($("#id_articulo").val()==0){
+            $(".form-control").keyup(function(){
+                let precio_coste = parseInt($("#precio_coste_articulo").val(),10);
+                let precio_porte = parseInt($("#coste_externo_portes_articulo").val(),10);
+                let precio_final_articulo = parseInt($("#PVP_final_articulo").val(),10);
+                let margen = (precio_final_articulo-(precio_coste+precio_porte))-21/100;
+                $("#margen_articulo").val(margen);
+            });
+        }
+    });
+    </script>
 </body>
 </html>

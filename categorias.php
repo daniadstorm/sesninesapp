@@ -18,19 +18,56 @@ $str_ruta = $ruta_inicio.'categorias.php?';
 if (isset($_GET['nueva_categoria']) && $_GET['nueva_categoria'] == 'true') $str_info = $hM->get_alert_success('Categoría añadida');
 if (isset($_GET['editar_categoria']) && $_GET['editar_categoria'] == 'true') $str_info = $hM->get_alert_success('Categoría actualizado');
 if (isset($_GET['eliminar_categoria'])) {
-    
     $id_categoria = $_GET['eliminar_categoria'];
+    $rdc = $catM->delete_categoria($id_categoria);
+    if ($rdc) {
+        $str_info = $hM->get_alert_success('Categoría eliminada');
+    } else $str_errores = $hM->get_alert_danger('Error eliminando categoría');
+}
+if (isset($_GET['eliminar_subcategoria'])) {
     
-    if ($catM->is_safe_deleting($id_categoria)) {
-        $rdc = $catM->delete_categoria($id_categoria);
+    $id_categoria = $_GET['eliminar_subcategoria'];
+        $rdc = $catM->delete_subcategoria($id_categoria);
         if ($rdc) {
-            $catM->clean_dir_imgcategorias($document_root);
-            $str_info = $hM->get_alert_success('Categoría eliminada');
-        } else $str_errores = $hM->get_alert_danger('Error eliminando categoría');
-    } else $str_errores = $hM->get_alert_danger('No se puede eliminar categoría (actualmente en uso)');
+            $str_info = $hM->get_alert_success('Subcategoría eliminada');
+        } else $str_errores = $hM->get_alert_danger('Error eliminando subcategoría');
     
 }
+if(isset($_GET['desactivar_categoria'])){
+    $id_categoria = $_GET['desactivar_categoria'];
+    $ruec = $catM->update_estado_categoria($id_categoria,0);
+    if($ruec){
+        $rgsc = $catM->get_subcategoria($id_categoria);
+        if($rgsc){
+            while($fgsc = $rgsc->fetch_assoc()){
+                $catM->update_estado_subcategoria($fgsc['id_subcategoria'],0);
+            }
+        }
+        $str_info = $hM->get_alert_success('Se ha desactivado la categoria');
+    } else $str_errores = $hM->get_alert_danger('Error desactivando categoría');
+}
+if(isset($_GET['activar_categoria'])){
+    $id_categoria = $_GET['activar_categoria'];
+    $ruec = $catM->update_estado_categoria($id_categoria,1);
+    if($ruec){
+        $str_info = $hM->get_alert_success('Se ha activado la categoria');
+    } else $str_errores = $hM->get_alert_danger('Error activando categoría');
+}
 
+if(isset($_GET['desactivar_subcategoria'])){
+    $id_categoria = $_GET['desactivar_subcategoria'];
+    $ruec = $catM->update_estado_subcategoria($id_categoria,0);
+    if($ruec){
+        $str_info = $hM->get_alert_success('Se ha desactivado la categoria');
+    } else $str_errores = $hM->get_alert_danger('Error desactivando categoría');
+}
+if(isset($_GET['activar_subcategoria'])){
+    $id_categoria = $_GET['activar_subcategoria'];
+    $ruec = $catM->update_estado_subcategoria($id_categoria,1);
+    if($ruec){
+        $str_info = $hM->get_alert_success('Se ha activado la categoria');
+    } else $str_errores = $hM->get_alert_danger('Error activando categoría');
+}
 if (isset($_GET['pag'])) $pagM->pag=$_GET['pag'];
 //GET___________________________________________________________________________
 
@@ -45,13 +82,41 @@ if ($rgc) {
     while($fgc = $rgc->fetch_assoc()) {
         $ogc .= '<tr>';
         $ogc .=     '<td><a href="'.$ruta_inicio.'nueva-categoria.php?id_categoria='.$fgc['id_categoria'].'">'.$fgc['nombre_categoria'].'</a></td>';
-        $ogc .=     '<td><img class="img-fluid img-thumbnail" src="'.$fgc['imagen_categoria'].'" width="100" /></td>';
+        $ogc .=     '<td></td>';
         $ogc .=     '<td>';
         $ogc .=         '<a href="'.$ruta_inicio.'categorias.php?eliminar_categoria='.$fgc['id_categoria'].'">';
         $ogc .=             '<button type="button" class="btn btn-outline-danger">Eliminar</button>';
         $ogc .=         '</a>';
         $ogc .=     '</td>';
+        if($fgc['visible']){
+            $ogc .=     '<td><a href="'.$ruta_inicio.'categorias.php?desactivar_categoria='.$fgc['id_categoria'].'">
+            <button type="button" class="btn btn-outline-info">Desactivar</button></a></td>';
+        }else if(!$fgc['visible']){
+            $ogc .=     '<td><a href="'.$ruta_inicio.'categorias.php?activar_categoria='.$fgc['id_categoria'].'">
+            <button type="button" class="btn btn-outline-secondary">Activar</button></a></td>';
+        }
         $ogc .= '</tr>';
+        $rsc = $catM->get_subcategoria($fgc['id_categoria']);
+        if($rsc->num_rows>0){
+            while($frsc = $rsc->fetch_assoc()){
+                $ogc .= '<tr>';
+                $ogc .=     '<td></td>';
+                $ogc .=     '<td><a href="'.$ruta_inicio.'nueva-subcategoria.php?id_categoria='.$frsc['id_subcategoria'].'">'.$frsc['nombre_subcategoria'].'</a></td>';
+                $ogc .=     '<td>';
+                $ogc .=         '<a href="'.$ruta_inicio.'categorias.php?eliminar_subcategoria='.$frsc['id_subcategoria'].'">';
+                $ogc .=             '<button type="button" class="btn btn-outline-danger">Eliminar</button>';
+                $ogc .=         '</a>';
+                $ogc .=     '</td>';
+                if($frsc['visible']){
+                    $ogc .=     '<td><a href="'.$ruta_inicio.'categorias.php?desactivar_subcategoria='.$frsc['id_subcategoria'].'">
+                    <button type="button" class="btn btn-outline-info">Desactivar</button></a></td>';
+                }else if(!$frsc['visible']){
+                    $ogc .=     '<td><a href="'.$ruta_inicio.'categorias.php?activar_subcategoria='.$frsc['id_subcategoria'].'">
+                    <button type="button" class="btn btn-outline-secondary">Activar</button></a></td>';
+                }
+                $ogc .= '</tr>';
+            }
+        }
     }
 } else $str_errores = $hM->get_alert_danger('Error cargando categorías');
 
@@ -99,8 +164,9 @@ include_once('inc/cabecera.inc.php'); //cargando cabecera
                                             <thead>
                                                 <tr>
                                                     <th>Nombre categoría</th>
-                                                    <th>Imagen categoría</th>
+                                                    <th>subcategoría</th>
                                                     <th>Eliminar categoría</th>
+                                                    <th>Activar/Desactivar</th>
                                                 </tr>
                                             </thead>
                                             <tbody>

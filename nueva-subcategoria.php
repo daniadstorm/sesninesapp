@@ -15,7 +15,6 @@ $req_input_img = 'required';
 //campos formulario
 $id_categoria = 0;
 $nombre_categoria = '';
-$imagen_categoria[0] = '';
 
 $verif = true;
 
@@ -24,31 +23,12 @@ $pcat = "";
 //GET___________________________________________________________________________
 if (isset($_GET['id_categoria'])) {
     $id_categoria = $_GET['id_categoria'];
-    
-    $rgc = $catM->get_categoria($id_categoria);
+    $rgc = $catM->get_subcategorias($id_categoria);
     if ($rgc) {
         while ($fgc = $rgc->fetch_assoc()) {
-            $nombre_categoria = $fgc['nombre_categoria'];
+            $nombre_categoria = $fgc['nombre_subcategoria'];
         }
-    } else $str_errores = $hM->get_alert_danger('Error cargando categoría');
-
-}
-
-$rgcs = $uM->get_categorias();
-    if($rgcs){
-        while($fgcs = $rgcs->fetch_assoc()){
-            //echo $fgcs['nombre_categoria'];
-            if($nombre_categoria!=$fgcs['nombre_categoria']){
-                $pcat .= '<div class="input-group mb-3">
-                <div class="input-group-prepend">
-                  <div class="input-group-text">
-                    <input type="checkbox" name="arrCategorias[]" value="'.$fgcs['id_categoria'].'">
-                  </div>
-                </div>
-                <input type="text" class="form-control" disabled value="'.$fgcs['nombre_categoria'].'">
-              </div>';
-            }
-    }
+    } else $str_errores = $hM->get_alert_danger('Error cargando subcategoría');
 }
 
 //GET___________________________________________________________________________
@@ -71,48 +51,13 @@ if (isset($_POST['id_categoria'])) {
         $aux_fecha_hora = date('Ymd').'-'.date('Hms');
         
         if ($id_categoria > 0) { //UPDATE
-            $ruc = $catM->update_categoria($id_categoria, $nombre_categoria, null);
+            $ruc = $catM->update_subcategoria($id_categoria, $nombre_categoria);
             if ($ruc) {
             //$catM->clean_dir_imgcategorias($document_root);
                 header('Location: '.$ruta_inicio.'categorias.php?editar_categoria=true'); exit();
             } else $str_errores = $hM->get_alert_danger('Error actualizando categoría');
             //} else $str_errores = $hM->get_alert_danger('Error actualizando categoría');
-        } else { //NUEVO
-            if(isset($_POST['arrCategorias'])){
-                    foreach($_POST['arrCategorias'] as $valor){
-                        $ras = $catM->add_subcategoria($nombre_categoria, $valor);
-                    }
-                header('Location: '.$ruta_inicio.'categorias.php?nueva_categoria=true'); exit();
-            }else{
-                $rac = $catM->add_categoria($nombre_categoria);
-                if($rac){
-                    header('Location: '.$ruta_inicio.'categorias.php?nueva_categoria=true'); exit();
-                }else $str_errores = $hM->get_alert_danger('Error añadiendo categoría');
-            }
-            /* $rac = $catM->add_categoria($nombre_categoria); */
-            /* if($rac) {
-                $ruc = $catM->get_last_id_categoria();
-                if($ruc){
-                    $id_ultima_cat = 0;
-                    while($frucs = $ruc->fetch_assoc()){
-                        $id_ultima_cat = $frucs['cat'];
-                    }
-                    if($id_ultima_cat>0){
-                        if(isset($_POST['arrCategorias'])){
-                            if(count($_POST['arrCategorias'])>0){
-                                foreach($_POST['arrCategorias'] as $valor){
-                                    $ras = $catM->add_subcategoria($valor, $id_ultima_cat);
-                                }
-                            }
-                        }
-                    }else{
-                        header('Location: '.$ruta_inicio.'categorias.php?nueva_categoria=true'); exit();
-                    }
-                } else $str_errores = $hM->get_alert_danger('Error añadiendo subcategorias');
-                //header('Location: '.$ruta_inicio.'categorias.php?nueva_categoria=true'); exit();
-            } else $str_errores = $hM->get_alert_danger('Error añadiendo categoría'); */
         }
-
     }
     //MySQL ----------------------------------------------------------------- */
 }

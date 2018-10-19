@@ -7,7 +7,7 @@ class usuarioModel extends Model {
     
     public $lbl_tipos_usuario = array();
     
-    public $arr_talla_superior = array( '34XS' => '34xs', '36S' => '36s', '38M' => '38m', '40L' => '40l', '42XL' => '42xl', );
+    public $arr_talla_superior = array( '34/XS' => '34/XS', '36/S' => '36/S', '38/M' => '38/M', '40/L' => '40/L', '42/XL' => '42/XL', );
     
     public $arr_talla_pecho = array( '80' => '80', '85' => '85', '90' => '90', '95' => '95', '100' => '100', '105' => '105', '110' => '100', 'más' => 'mas', );
     

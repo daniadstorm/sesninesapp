@@ -150,7 +150,7 @@ class articulosModel extends Model {
         $iM = load_model('inputs');
         $arr_almacenes = array(
             1 => 'Almacén general',
-            2 => 'Almacén x',
+            2 => 'Almacén secundario',
         );
         return $iM->get_select($id, $val, $arr_almacenes, $class, $lbl, $onChange, $multiple);
     }

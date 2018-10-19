@@ -36,7 +36,8 @@ if ($aux_control_sesion == true) {
                 3=>array('ttl'=>'Art&iacute;culos', 'dest'=>$ruta_inicio.'articulos.php', 'img'=>$ruta_inicio.'img/articulos.png', 'class'=>'opt_menu'),
                 4=>array('ttl'=>'Categorías', 'dest'=>'categorias.php', 'img'=>'img/categorias.png', 'class'=>'opt_menu'),
                 5=>array('ttl'=>'Etiquetas', 'dest'=>'etiquetas.php', 'img'=>'', 'class'=>'opt_menu'),
-                6=>array('ttl'=>'Cerrar sesión', 'dest'=>$ruta_inicio.'login.php?unlogin=true', 'img'=>$ruta_inicio.'img/cerrar.png', 'class'=>'opt_menu'),
+                6=>array('ttl'=>'Proveedores', 'dest'=>'proveedores.php', 'img'=>'', 'class'=>'opt_menu'),
+                7=>array('ttl'=>'Cerrar sesión', 'dest'=>$ruta_inicio.'login.php?unlogin=true', 'img'=>$ruta_inicio.'img/cerrar.png', 'class'=>'opt_menu'),
             );
         break;
         case USER:

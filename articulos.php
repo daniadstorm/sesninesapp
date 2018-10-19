@@ -47,7 +47,7 @@ if ($rga) {
         $oga .=     '</a></td>';
         $oga .=     '<td><a href="nuevo-articulo.php?id_articulo='.$fga['id_articulo'].'" target="_blank" >'.$fga['nombre_articulo'].'</a></td>';
         
-        $oga .=     '<td>'.(($fga['activado_articulo'] == 0) ? 'NO' : 'SÍ').'</td>';
+        /* $oga .=     '<td>'.(($fga['activado_articulo'] == 0) ? 'NO' : 'SÍ').'</td>'; */
         
         $oga .=     '<td>'.(($fga['visible_en_tienda_articulo'] == 0) ? 'NO' : 'SÍ').'</td>';
         
@@ -129,7 +129,7 @@ include_once('inc/cabecera.inc.php'); //cargando cabecera
                                                 <tr>
                                                     <th>Ref</th>
                                                     <th>Nombre artículo</th>
-                                                    <th>Activo</th>
+                                                    <!-- th>Activo</th> -->
                                                     <th>Visible</th>
                                                     <th>Coste</th>
                                                     <th>PVP</th>
