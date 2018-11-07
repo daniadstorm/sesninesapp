@@ -4,6 +4,7 @@ include_once('../config/config.inc.php'); //cargando archivo de configuracion
 
 $fM = load_model('form');
 $uM = load_model('usuario'); //uM userModel
+$iM = load_model('inputs');
 
 $total_pag_form = 5;
 $array = explode('/', $_SERVER['PHP_SELF']);
@@ -140,15 +141,18 @@ include_once('../inc/cabecera.inc.php'); //cargando cabecera
                                     <img src="http://sesnineshopper.com/adstorm/img/armario.png" alt="" width="94px" height="125px">
                                     <p>¿Qué colores predominan en tu armario?</p>
                                     <?php
-                                    if ($color_estilo!='') echo '<input type="text" value="'.$color_estilo.'" class="form-control" name="color_estilo" placeholder="Escribe aquí" style="background-color: #d1d1d1; border-radius: 0p;">';
-                                    else echo '<input type="text" class="form-control" name="color_estilo" placeholder="Escribe aquí" style="background-color: #d1d1d1; border-radius: 0p;">';
+                                    echo $iM->get_input_text('', $color_estilo,'form-control', '','Escribe aquí','', 1, 255);
+                                    //if ($color_estilo!='') echo '<input type="text" value="'.$color_estilo.'" class="form-control" name="color_estilo" placeholder="Escribe aquí" style="background-color: #d1d1d1; border-radius: 0p;">';
+                                    //else echo '<input type="text" class="form-control" name="color_estilo" placeholder="Escribe aquí" style="background-color: #d1d1d1; border-radius: 0p;">';
                                     ?>
                                     </div>
                                 </div>
                                 <div class="flex-container-column">
                                     <div style="width:10em;">
                                         <img src="http://sesnineshopper.com/adstorm/img/estampados.png" alt="" width="158px" height="126px">
+
                                         <div class="form-group">
+                                        <p>¿Te más o te gusta el estilo de una persona conocida?</p>
                                             <?php 
                                         echo $uM->get_combo_textura_estilo('textura_estilo',$textura_estilo);
                                         ?>
@@ -160,11 +164,14 @@ include_once('../inc/cabecera.inc.php'); //cargando cabecera
                                         <img src="http://sesnineshopper.com/adstorm/img/estrella.png" alt="" width="94px" height="125px">
                                         <p>¿Te identificas o te gusta el estilo de una persona conocida?</p>
                                         <?php
+                                            echo $iM->get_input_text('', $referente_estilo,'form-control', '','Escribe aquí','', 1, 255);
+                                        /*
                                         if ($referente_estilo!='') {
                                             echo '<input type="text" value="'.$referente_estilo.'" class="form-control" name="referente_estilo" placeholder="Escribe aquí" style="background-color: #d1d1d1; border-radius: 0p;">';
                                         }else{
                                             echo '<input type="text" class="form-control" name="referente_estilo" placeholder="Escribe aquí" style="background-color: #d1d1d1; border-radius: 0p;">';
                                         }
+                                        */
                                         ?>
                                     </div>
                                 </div>

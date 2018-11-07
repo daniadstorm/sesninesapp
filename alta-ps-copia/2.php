@@ -4,7 +4,7 @@ include_once('../config/config.inc.php'); //cargando archivo de configuracion
 
 $fM = load_model('form');
 $uM = load_model('usuario'); //uM userModel
-
+$iM = load_model('inputs');
 $total_pag_form = 5;
 $array = explode('/', $_SERVER['PHP_SELF']);
 $nombre_fichero = array_pop($array);
@@ -17,6 +17,13 @@ $profesion_estilo = '';
 if (isset($_POST['profesion_estilo'])) $profesion_estilo = $_POST['profesion_estilo'];
 $tienes_hijos = '';
 if (isset($_POST['tienes_hijos'])) $tienes_hijos = $_POST['tienes_hijos'];
+
+$nombre_apellidos = '';
+if (isset($_POST['nombre_apellidos'])) $nombre_apellidos = $_POST['nombre_apellidos'];
+
+$fecha_nacimiento = '';
+if (isset($_POST['fecha_nacimiento'])) $fecha_nacimiento = $_POST['fecha_nacimiento'];
+
 //GET___________________________________________________________________________
 //GET___________________________________________________________________________
 
@@ -30,6 +37,15 @@ if (isset($_POST['actividad_estilo'])) {
         } 
     } else $str_errores = '<div class="error_alert">Error eliminando datos de usuario</div>';
 }
+
+//crear funcion  en modelo de usuario para actualiar nombre y apellidos
+$runau = $uM->update_nombre_apellidos_usuario($id_usuario, $nombre_apellidos);
+if ($runau) {
+    //es correcto
+    
+} else $str_errores = '<div class="error_alert">Error actualizando nombre y apellidos de usuario</div>';
+
+$uM->
 //POST__________________________________________________________________________
 
 //LISTADO__________________________________________________________________________
@@ -47,11 +63,15 @@ if ($rgsu) {
         $actividad_estilo = $frgsu['actividad_estilo'];
         $profesion_estilo = $frgsu['profesion_estilo'];
         $tienes_hijos = $frgsu['tienes_hijos'];
+        $nombre_apellidos = $frgsu['nombre_apellidos'];
+        $fecha_naci
     }
 } else $str_errores = '<div class="error_alert">Error cargando datos sobre mi</div>';
 
 if(isset($_POST['actividad_estilo']) && $str_errores==''){
     header('Location: '.$ruta_inicio.'alta-ps-copia/3.php'); exit();
+} else {
+
 }
 
 //LISTADO__________________________________________________________________________
@@ -61,10 +81,10 @@ if(isset($_SERVER["HTTP_REFERER"])){
     $array = explode('/', $_SERVER["HTTP_REFERER"]);
     $ruta_anterior = array_pop($array);
     if(!$ruta_anterior=="1.php"){
-        header('Location: '.$ruta_inicio.'alta-ps/1.php'); exit();
+        header('Location: '.$ruta_inicio.'alta-ps-copia/1.php'); exit();
     }
 }else{
-    header('Location: '.$ruta_inicio.'alta-ps/1.php'); exit();
+    header('Location: '.$ruta_inicio.'alta-ps-copia/1.php'); exit();
 }
 //CONTROL_______________________________________________________________________
 
@@ -102,8 +122,9 @@ include_once('../inc/cabecera.inc.php'); //cargando cabecera
                                     <img src="http://sesnineshopper.com/adstorm/img/ocio.png" alt="" width="188px" height="126px">
                                     <p>Cuéntamos tus actividades de ocio</p>
                                     <?php
-                                    if ($actividad_estilo!='') echo '<input type="text" value="'.$actividad_estilo.'" class="form-control" name="actividad_estilo" placeholder="Escribe aquí" style="background-color: #d1d1d1; border-radius: 0p;">';
-                                    else echo '<input type="text" class="form-control" name="actividad_estilo" placeholder="Escribe aquí" style="background-color: #d1d1d1; border-radius: 0p;">';
+                                    echo $iM->get_input_text('actividad_estilo', $actividad_estilo,'form-control', '','Escribe aquí','', 1, 255);
+                                    //if ($actividad_estilo!='') echo '<input type="text" value="'.$actividad_estilo.'" class="form-control" name="actividad_estilo" placeholder="Escribe aquí" style="background-color: #d1d1d1; border-radius: 0p;">';
+                                    //else echo '<input type="text" class="form-control" name="actividad_estilo" placeholder="Escribe aquí" style="background-color: #d1d1d1; border-radius: 0p;">';
                                     
                                     ?>
                                 </div>
@@ -111,8 +132,9 @@ include_once('../inc/cabecera.inc.php'); //cargando cabecera
                                     <img src="http://sesnineshopper.com/adstorm/img/maleta.png" alt="" width="94px" height="125px">
                                     <p>¿A qué te dedicas?</p>
                                     <?php
-                                    if ($profesion_estilo!='') echo '<input type="text" value="'.$profesion_estilo.'" class="form-control" name="profesion_estilo" placeholder="Escribe aquí" style="background-color: #d1d1d1; border-radius: 0p;">';
-                                    else echo '<input type="text" class="form-control" name="profesion_estilo" placeholder="Escribe aquí" style="background-color: #d1d1d1; border-radius: 0p;">';
+                                    echo $iM->get_input_text('profesion_estilo', $profesion_estilo,'form-control', '','Escribe aquí','', 1, 255);
+                                    //if ($profesion_estilo!='') echo '<input type="text" value="'.$profesion_estilo.'" class="form-control" name="profesion_estilo" placeholder="Escribe aquí" style="background-color: #d1d1d1; border-radius: 0p;">';
+                                    //else echo '<input type="text" class="form-control" name="profesion_estilo" placeholder="Escribe aquí" style="background-color: #d1d1d1; border-radius: 0p;">';
                                     ?>
                                 </div>
                                 <div class="flex-container-column"><!-- https://png.icons8.com/ultraviolet/80/000000/boy.png -->
@@ -123,9 +145,39 @@ include_once('../inc/cabecera.inc.php'); //cargando cabecera
                                     ?>
                                 </div>
                             </div>
+                            <div class="flex-container-center">
+                                <h1>Datos Personales</h1>
+                            </div>
+                            <div class="flex-container-sa">
+                                <div class="flex-container-column">
+                                    <p>Nombre y apellidos</p>
+                                    <?php
+                                    echo $iM->get_input_text('nombre_apellidos', $nombre_apellidos,'form-control', '','Escribe aquí','', 1, 255);
+                                    
+                                    ?>
+                                </div>
+                                <div class="flex-container-column">
+                                    <p>Fecha de nacimiento</p>
+                                    <?php
+                                    
+                                    echo $iM->get_input_date('fecha_nacimiento', $fecha_nacimiento, 'form-control', '', 'Escribe aquí', '');
+
+
+                                    //if ($profesion_estilo!='') echo '<input type="text" value="'.$profesion_estilo.'" class="form-control" name="profesion_estilo" placeholder="Escribe aquí" style="background-color: #d1d1d1; border-radius: 0p;">';
+                                    //else echo '<input type="text" class="form-control" name="profesion_estilo" placeholder="Escribe aquí" style="background-color: #d1d1d1; border-radius: 0p;">';
+                                    ?>
+                                </div>
+                                <div class="flex-container-column"><!-- https://png.icons8.com/ultraviolet/80/000000/boy.png -->
+                                    <p>Correo Electronico</p>
+                                    <?php
+                                        //echo $iM->get_input_date('fecha_nacimiento', $fecha_nacimiento, 'form-control', '', 'Escribe aquí', '');
+                                    ?>
+                                </div>
+                            </div>
                             <div style="float:left; margin:0.8em 0;">
                                 <input type="submit" style="float:none;" class="btn_aceptar" value="Aceptar" />
                             </div>
+                            
                         </form>
                     </div>
                 </div>

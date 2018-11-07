@@ -214,6 +214,7 @@ include_once('../inc/cabecera.inc.php'); //cargando cabecera
                                 <h1>Mi tipología</h1>
                             </div>
                             <div class="flex-container-sa">
+                            <p>Mi silueta és...</p>
                                 <?php echo $oas; ?>
                             </div>
                             <div class="flex-container-sa">
@@ -250,21 +251,23 @@ include_once('../inc/cabecera.inc.php'); //cargando cabecera
                                 <div style="display:flex;flex-direction:column;flex-wrap:wrap;align-items:center;">
                                     <p>¿Qué parte de tu cuerpo te gusta más (realzar)?</p>
                                     <?php
-                                    if ($parte_preferida_cuerpo!='') {
+                                    echo $iM->get_input_text('parte_preferida_cuerpo', $parte_preferida_cuerpo,'form-control', '','Escribe aquí','', 1, 255);
+                                    /*if ($parte_preferida_cuerpo!='') {
                                         echo '<input type="text" value="'.$parte_preferida_cuerpo.'" class="form-control" name="parte_preferida_cuerpo" placeholder="Escribe aquí" style="background-color: #d1d1d1; border-radius: 0p;">';
                                     }else{
                                         echo '<input type="text" class="form-control" name="parte_preferida_cuerpo" placeholder="Escribe aquí" style="background-color: #d1d1d1; border-radius: 0p;">';
-                                    }
+                                    }*/
                                     ?>
                                 </div>
                                 <div style="display:flex;flex-direction:column;flex-wrap:wrap;align-items:center;">
                                     <p>¿Qué parte de tu cuerpo te gusta menos (disimular)?</p>
                                     <?php
-                                    if ($parte_menos_preferida_cuerpo!='') {
+                                    echo $iM->get_input_text('parte_menos_preferida_cuerpo', $parte_menos_preferida_cuerpo,'form-control', '','Escribe aquí','', 1, 255);
+                                    /*if ($parte_menos_preferida_cuerpo!='') {
                                         echo '<input type="text" value="'.$parte_menos_preferida_cuerpo.'" class="form-control" name="parte_menos_preferida_cuerpo" placeholder="Escribe aquí" style="background-color: #d1d1d1; border-radius: 0p;">';
                                     }else{
                                         echo '<input type="text" class="form-control" name="parte_menos_preferida_cuerpo" placeholder="Escribe aquí" style="background-color: #d1d1d1; border-radius: 0p;">';
-                                    }
+                                    }*/
                                     ?>
                                 </div>
                                 <div style="display:flex;flex-direction:column;flex-wrap:wrap;align-items:center;">
@@ -281,11 +284,12 @@ include_once('../inc/cabecera.inc.php'); //cargando cabecera
                                     <img src="http://sesnineshopper.com/adstorm/img/cabello.png" alt="" width="94px" height="125px">
                                     <p>Colorpelo</p>
                                     <?php
-                                    if ($color_pelo!='') {
+                                    echo $iM->get_input_text('color_pelo', $color_pelo,'form-control', '','Escribe aquí','', 1, 255);
+                                    /*if ($color_pelo!='') {
                                         echo '<input type="text" value="'.$color_pelo.'" class="form-control" name="color_pelo" placeholder="Escribe aquí" style="background-color: #d1d1d1; border-radius: 0p;">';
                                     }else{
                                         echo '<input type="text" class="form-control" name="color_pelo" placeholder="Escribe aquí" style="background-color: #d1d1d1; border-radius: 0p;">';
-                                    }
+                                    }*/
                                     ?>
                                 </div>
                                 </div>

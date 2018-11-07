@@ -175,74 +175,44 @@ include_once('inc/cabecera.inc.php'); //cargando cabecera
                             <button class="btn-sesnines-empezamos btn rounded-0 px-5 text-center ml-auto mr-auto mt-4">¿Empezamos?</button>
                         </a>
                     </div>
-                    <div class="col-lg-11 offset-lg-1 mb-5 mt-4">
-                    <div id="carouselBodega" class="carousel slide" data-ride="carousel">
-                        <ol class="carousel-indicators">
-                            <li data-target="#carouselBodega" data-slide-to="0" class="active"></li>
-                            <li data-target="#carouselBodega" data-slide-to="1"></li>
-                            <li data-target="#carouselBodega" data-slide-to="2"></li>
-                        </ol>
-                        <div class="carousel-inner">
-                            <div class="carousel-item active">
-                                <div class="col-md-6 carousel-sesnines-rsp1">
-                                    <div class="slider-doble d-flex justify-content-center align-items-center w-100">
-                                        <p>hola</p>
-                                    </div>
-                                </div>
-                                <div class="col-md-6 fondo-1">
-                                    <!-- <img class="d-block w-100" src="img/slider1.jpg" alt="First slide"> -->
-                                </div>
-                            </div>
-                            <div class="carousel-item">
-                                <div class="col-md-6 carousel-sesnines-rsp1">
-                                    <div class="slider-doble d-flex justify-content-center align-items-center w-100">
-                                        <p>hola</p>
-                                    </div>
-                                </div>
-                                <div class="col-md-6 fondo-1">
-                                    <!-- <img class="d-block w-100" src="img/slider1.jpg" alt="First slide"> -->
-                                </div>
-                            </div>
-                            <div class="carousel-item">
-                                <div class="col-md-6 carousel-sesnines-rsp1">
-                                    <div class="slider-doble d-flex justify-content-center align-items-center w-100">
-                                        <p>hola</p>
-                                    </div>
-                                </div>
-                                <div class="col-md-6 fondo-1">
-                                    <!-- <img class="d-block w-100" src="img/slider1.jpg" alt="First slide"> -->
-                                </div>
-                            </div>
-                            <!-- <div class="carousel-item">
-                                <div class="col-md-6 carousel-sesnines-rsp1">
-                                    <div class="slider-doble d-flex justify-content-center align-items-center w-100">
-                                        <p>hola</p>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
+                    <div class="col-lg-9 offset-lg-1 mb-5 mt-4">
+
+
+                        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                            <div class="carousel-inner">
+                                <div class="carousel-item active">
                                     <img class="d-block w-100" src="img/slider1.jpg" alt="First slide">
-                                </div>
-                            </div>
-                            <div class="carousel-item">
-                                <div class="col-md-6 carousel-sesnines-rsp1">
-                                    <div class="slider-doble d-flex justify-content-center align-items-center w-100">
-                                        <p>hola</p>
+                                    <div class="carousel-caption d-none d-md-block">
+                                        <h5>Holaa</h5>
+                                        <p>Holaa</p>
                                     </div>
                                 </div>
-                                <div class="col-md-6">
-                                    <img class="d-block w-100" src="img/slider1.jpg" alt="First slide">
+                                <!-- <div class="carousel-item">
+                                    <img class="d-block w-100" src="img/slider1.jpg" alt="Second slide">
+                                    <div class="carousel-caption d-none d-md-block">
+                                        <h5>Holaa</h5>
+                                        <p>Holaa</p>
+                                    </div>
                                 </div>
-                            </div> -->
-                        </div>
-                        <a class="carousel-control-prev" href="#carouselBodega" role="button" data-slide="prev">
-                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                            <span class="sr-only">Previous</span>
-                        </a>
-                        <a class="carousel-control-next" href="#carouselBodega" role="button" data-slide="next">
-                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="sr-only">Next</span>
-                        </a>
-                    </div>
+                                <div class="carousel-item">
+                                    <img class="d-block w-100" src="img/slider1.jpg" alt="Third slide">
+                                    <div class="carousel-caption d-none d-md-block">
+                                        <h5>Holaa</h5>
+                                        <p>Holaa</p>
+                                    </div>
+                                </div> -->
+                            </div>
+                            <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                              <span class="sr-only">Previous</span>
+                            </a>
+                            <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                              <span class="sr-only">Next</span>
+                            </a>
+                          </div>
+
+
                     </div>
                 </div>
                 <div class="row mx-0 blq_1">

@@ -89,7 +89,6 @@ class usuarioModel extends Model {
         return $this->execute_query($q);
     }
     
-
     function update_imagen_articulo($id_articulo, $nombre_img, $num_img){
         $q = '';
         switch($num_img){
@@ -319,7 +318,8 @@ class usuarioModel extends Model {
     function get_combo_textura_estilo($id, $selected=false, $class=false, $default=false) {
         $arr_estilos = array(
             'Estampados' => 'Estampados',
-            'Colores lisos' => 'Colores lisos'
+            'Colores lisos' => 'Colores lisos',
+            'Combinados' => 'Combinados'
         );
         return $this->get_combo_array($arr_estilos, $id, $selected, $class, $default);
     }
@@ -440,6 +440,13 @@ class usuarioModel extends Model {
         $q .=   ' contrasenya_usuario = "'.$contrasenya_usuario.'", ';
         $q .=   ' telf_usuario = "'.$telf_usuario.'", ';
         $q .=   ' nie_usuario = "'.$nie_usuario.'"';
+        $q .= ' WHERE id_usuario='.$id_usuario.' ';
+        return $this->execute_query($q);
+    }
+
+    function update_nombre_apellidos_usuario($id_usuario, $nombre_apellidos) {
+        $q =  ' UPDATE '.$this->pre.' usuarios SET';
+        $q .= 'nombrecompleto_usuario = "'.$nombre_apellidos.'", ';
         $q .= ' WHERE id_usuario='.$id_usuario.' ';
         return $this->execute_query($q);
     }
