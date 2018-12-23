@@ -3,10 +3,10 @@
 //se carga desde 'config/config.inc.php'
 
 class Model {
-    private $host_bd = 'localhost';
-    private $name_bd = 'adst_sesnines';
-    private $user_bd = 'root';
-    private $pass_bd = '';
+    private $host_bd = '77.104.147.210';
+    private $name_bd = 'aulademu_sesnines';
+    private $user_bd = 'aulademu_sesnine';
+    private $pass_bd = 'hIN9fFP5arPJ';
     public $pre = 'adst_sesnines_';
 
     private $link_bd = false;
