@@ -3,8 +3,11 @@ include_once('../config/config.inc.php'); //cargando archivo de configuracion
 
 $uM = load_model('usuario'); //uM userModel
 $hM = load_model('html');
+$iM = load_model('inputs');
 
 include_once('../inc/cabecera.inc.php'); //cargando cabecera
+
+$enviarfoto = null;
 
 /* echo '<pre>';
 print_r($_POST);
@@ -25,7 +28,7 @@ echo '</pre>'; */
                 aria-valuemin="0" aria-valuemax="100"></div>
         </div>
     </div>
-    <form action="" method="POST" class="my-3">
+    <form action="index.php" method="POST" class="my-3">
         <div id="p1" class="container pregunta-ns">
             <div class="pregunta">
                 <h1 class="mb-0">¿Cómo te gusta vestir en tu día a día?</h1>
@@ -176,10 +179,10 @@ echo '</pre>'; */
                 <h1 class="mb-2">Datos personales</h1>
                 <div class="borde">
                     <div class="inputs">
-                        <input type="text" class="inp" placeholder="Nombre" required>
-                        <input type="text" class="inp" placeholder="Apellidos" required>
-                        <input type="date" class="inp" placeholder="Fecha de nacimiento" required>
-                        <input type="email" class="inp" placeholder="Correo electronico" required>
+                        <input type="text" class="inp" placeholder="Nombre">
+                        <input type="text" class="inp" placeholder="Apellidos">
+                        <input type="date" class="inp" placeholder="Fecha de nacimiento">
+                        <input type="email" class="inp" placeholder="Correo electronico">
                     </div>
                 </div>
             </div>
@@ -188,7 +191,7 @@ echo '</pre>'; */
                 <input id="btnp2" class="btnFormps" type="button" value="Siguiente">
             </div>
         </div>
-        <div id="p3" class="container pregunta-ns show">
+        <div id="p3" class="container pregunta-ns">
             <div class="pregunta">
                 <h1 class="mb-3">Mi silueta es...</h1>
             </div>
@@ -351,35 +354,174 @@ echo '</pre>'; */
                 <h1 class="mb-0">Ojos</h1>
             </div>
             <div class="d-flex justify-content-center my-3">
-                <label class="d-flex justify-content-center align-items-center mx-5">
-                    <div class="redonda rosada red5 check"></div>
-                    <input checked type="radio" name="ojos" value="rosada" id="item" hidden>
-                    <p class="text-center m-0 ml-2">Rosada</p>
+                <label class="d-flex flex-column justify-content-center align-items-center mx-5">
+                    <img src="https://lookiero.es/vue-app/src/assets/images/onboarding/eyes/eyes--5.jpg" class="cuadr-ojos azul red6 check">
+                    <input checked type="radio" name="ojos" value="azul" id="item" hidden>
+                    <p class="text-center m-0 ml-2">Azul</p>
                 </label>
-                <label class="d-flex justify-content-center align-items-center mx-5">
-                    <div class="redonda beige red5"></div>
-                    <input type="radio" name="ojos" value="beige" id="item" hidden>
-                    <p class="text-center m-0 ml-2">Beige</p>
+                <label class="d-flex flex-column justify-content-center align-items-center mx-5">
+                    <img src="https://lookiero.es/vue-app/src/assets/images/onboarding/eyes/eyes--4.jpg" class="cuadr-ojos verde red6">
+                    <input type="radio" name="ojos" value="verde" id="item" hidden>
+                    <p class="text-center m-0 ml-2">Verde</p>
                 </label>
-                <label class="d-flex justify-content-center align-items-center mx-5">
-                    <div class="redonda dorada red5"></div>
-                    <input type="radio" name="ojos" value="dorada" id="item" hidden>
-                    <p class="text-center m-0 ml-2">Dorada</p>
+                <label class="d-flex flex-column justify-content-center align-items-center mx-5">
+                    <img src="https://lookiero.es/vue-app/src/assets/images/onboarding/eyes/eyes--6.jpg" class="cuadr-ojos gris red6">
+                    <input type="radio" name="ojos" value="gris" id="item" hidden>
+                    <p class="text-center m-0 ml-2">Gris</p>
                 </label>
-                <label class="d-flex justify-content-center align-items-center mx-5">
-                    <div class="redonda mulata red5"></div>
-                    <input type="radio" name="ojos" value="mulata" id="item" hidden>
-                    <p class="text-center m-0 ml-2">Mulata</p>
+                <label class="d-flex flex-column justify-content-center align-items-center mx-5">
+                    <img src="https://lookiero.es/vue-app/src/assets/images/onboarding/eyes/eyes--2.jpg" class="cuadr-ojos miel red6">
+                    <input type="radio" name="ojos" value="miel" id="item" hidden>
+                    <p class="text-center m-0 ml-2">Miel</p>
                 </label>
-                <label class="d-flex justify-content-center align-items-center mx-5">
-                    <div class="redonda negra red5"></div>
-                    <input type="radio" name="ojos" value="negra" id="item" hidden>
-                    <p class="text-center m-0 ml-2">Negra</p>
+                <label class="d-flex flex-column justify-content-center align-items-center mx-5">
+                    <img src="https://lookiero.es/vue-app/src/assets/images/onboarding/eyes/eyes--1.jpg" class="cuadr-ojos marron red6">
+                    <input type="radio" name="ojos" value="marron" id="item" hidden>
+                    <p class="text-center m-0 ml-2">Marron</p>
+                </label>
+                <label class="d-flex flex-column justify-content-center align-items-center mx-5">
+                    <img src="https://lookiero.es/vue-app/src/assets/images/onboarding/eyes/eyes--3.jpg" class="cuadr-ojos negro red6">
+                    <input type="radio" name="ojos" value="negro" id="item" hidden>
+                    <p class="text-center m-0 ml-2">Negro</p>
                 </label>
             </div>
-
+            <div class="pregunta">
+                <h1 class="mb-0">Color del cabello</h1>
+            </div>
+            <div class="d-flex justify-content-around my-3">
+                <textarea id="cuerporealzar" name="colorcabello" class="textareasn" placeholder="Escribe aquí.."></textarea>
+                <!-- <input id="colorArmario" type="text"> -->
+            </div>
+            <div class="pregunta">
+                <h1 class="mb-0 ph">Si lo prefieres, puedes enviarnos una foto (max. 2MB) en la que podamos ver la
+                    forma de tu silueta. Preferiblemente en leggins y camiseta entallada. <strong color="#color">No te
+                        preocupes, toda la información de tu cuenta es totalmente privada.</strong></h1>
+            </div>
+            <?php echo $iM->get_input_img('enviarfoto', $enviarfoto, $ruta_inicio, '', '', '', true, 5); ?>
         </div>
-
+        <div id="p4" class="container pregunta-ns">
+            <div class="pregunta">
+                <h1 class="mb-3">Listado de prendas que te sueles poner</h1>
+            </div>
+            <div class="d-flex flex-wrap justify-content-center my-3">
+                <label class="d-flex justify-content-center align-items-center mx-5">
+                    <div class="cuadrado red7"></div>
+                    <input checked type="checkbox" name="listadoprendas[]" value="chaquetaamericanas" id="item" hidden
+                    >
+                    <p class="text-center m-0 ml-2">Chaquetas / Americanas</p>
+                </label>
+                <label class="d-flex justify-content-center align-items-center mx-5">
+                    <div class="cuadrado red7"></div>
+                    <input type="checkbox" name="listadoprendas[]" value="camisas" id="item" hidden>
+                    <p class="text-center m-0 ml-2">Camisas</p>
+                </label>
+                <label class="d-flex justify-content-center align-items-center mx-5">
+                    <div class="cuadrado red7"></div>
+                    <input type="checkbox" name="listadoprendas[]" value="camisetas" id="item" hidden>
+                    <p class="text-center m-0 ml-2">Camisetas</p>
+                </label>
+                <label class="d-flex justify-content-center align-items-center mx-5">
+                    <div class="cuadrado red7"></div>
+                    <input type="checkbox" name="listadoprendas[]" value="jerseys" id="item" hidden>
+                    <p class="text-center m-0 ml-2">Jerseys</p>
+                </label>
+                <label class="d-flex justify-content-center align-items-center mx-5">
+                    <div class="cuadrado red7"></div>
+                    <input type="checkbox" name="listadoprendas[]" value="faldas" id="item" hidden>
+                    <p class="text-center m-0 ml-2">Faldas</p>
+                </label>
+                <label class="d-flex justify-content-center align-items-center mx-5">
+                    <div class="cuadrado red7"></div>
+                    <input type="checkbox" name="listadoprendas[]" value="pantalones" id="item" hidden>
+                    <p class="text-center m-0 ml-2">Pantalones</p>
+                </label>
+                <label class="d-flex justify-content-center align-items-center mx-5">
+                    <div class="cuadrado red7"></div>
+                    <input type="checkbox" name="listadoprendas[]" value="tejanos" id="item" hidden>
+                    <p class="text-center m-0 ml-2">Tejanos</p>
+                </label>
+                <label class="d-flex justify-content-center align-items-center mx-5">
+                    <div class="cuadrado red7"></div>
+                    <input type="checkbox" name="listadoprendas[]" value="vestidos" id="item" hidden>
+                    <p class="text-center m-0 ml-2">Vestidos</p>
+                </label>
+                <label class="d-flex justify-content-center align-items-center mx-5">
+                    <div class="cuadrado red7"></div>
+                    <input type="checkbox" name="listadoprendas[]" value="monos" id="item" hidden>
+                    <p class="text-center m-0 ml-2">Monos</p>
+                </label>
+                <label class="d-flex justify-content-center align-items-center mx-5">
+                    <div class="cuadrado red7"></div>
+                    <input type="checkbox" name="listadoprendas[]" value="accesorios" id="item" hidden>
+                    <p class="text-center m-0 ml-2">Accesorios</p>
+                </label>
+            </div>
+            <div class="pregunta">
+                <h1 class="mb-3">¿Qué necesitarías renovar?</h1>
+            </div>
+            <div class="d-flex flex-wrap justify-content-center my-3">
+                <label class="d-flex justify-content-center align-items-center mx-5">
+                    <div class="cuadrado red8"></div>
+                    <input checked type="checkbox" name="renovar[]" value="vestido" id="item" hidden>
+                    <p class="text-center m-0 ml-2">Vestido</p>
+                </label>
+                <label class="d-flex justify-content-center align-items-center mx-5">
+                    <div class="cuadrado red8"></div>
+                    <input checked type="checkbox" name="renovar[]" value="camisa" id="item" hidden>
+                    <p class="text-center m-0 ml-2">Camisa</p>
+                </label>
+                <label class="d-flex justify-content-center align-items-center mx-5">
+                    <div class="cuadrado red8"></div>
+                    <input checked type="checkbox" name="renovar[]" value="tejana" id="item" hidden>
+                    <p class="text-center m-0 ml-2">Cazaora cuero / Tejana</p>
+                </label>
+                <label class="d-flex justify-content-center align-items-center mx-5">
+                    <div class="cuadrado red8"></div>
+                    <input checked type="checkbox" name="renovar[]" value="pantalones" id="item" hidden>
+                    <p class="text-center m-0 ml-2">Pantalones</p>
+                </label>
+                <label class="d-flex justify-content-center align-items-center mx-5">
+                    <div class="cuadrado red8"></div>
+                    <input checked type="checkbox" name="renovar[]" value="jeans" id="item" hidden>
+                    <p class="text-center m-0 ml-2">Jeans</p>
+                </label>
+                <label class="d-flex justify-content-center align-items-center mx-5">
+                    <div class="cuadrado red8"></div>
+                    <input checked type="checkbox" name="renovar[]" value="jerseypunto" id="item" hidden>
+                    <p class="text-center m-0 ml-2">Jersey punto</p>
+                </label>
+                <label class="d-flex justify-content-center align-items-center mx-5">
+                    <div class="cuadrado red8"></div>
+                    <input checked type="checkbox" name="renovar[]" value="abrigotrench" id="item" hidden>
+                    <p class="text-center m-0 ml-2">Abrigo o Trench</p>
+                </label>
+            </div>
+        </div>
+        <div id="p5" class="container pregunta-ns show">
+            <div class="pregunta">
+                <h1 class="mb-3">¿Para qué looks necesitas asesoría?</h1>
+            </div>
+            <div class="d-flex flex-wrap justify-content-center my-3">
+                <label class="d-flex justify-content-center align-items-center mx-5">
+                    <div class="cuadrado red9"></div>
+                    <input type="checkbox" name="looksasesoria[]" value="trabajo" id="item" hidden>
+                    <p class="text-center m-0 ml-2">Para mi trabajo</p>
+                </label>
+                <label class="d-flex justify-content-center align-items-center mx-5">
+                    <div class="cuadrado red9"></div>
+                    <input type="checkbox" name="looksasesoria[]" value="tiempolibre" id="item" hidden>
+                    <p class="text-center m-0 ml-2">Para mi tiempo libre</p>
+                </label>
+                <label class="d-flex justify-content-center align-items-center mx-5">
+                    <div class="cuadrado red9"></div>
+                    <input id="inptOtros" type="checkbox" name="looksasesoria[]" value="otros" id="item" hidden>
+                    <p class="text-center m-0 ml-2">Otros</p>
+                </label>
+            </div>
+            <div class="d-flex justify-content-center">
+                <textarea id="otroasesoria" class="textareasn my-3 esconderotros" placeholder="Escribe aquí.."></textarea>
+            </div>
+        </div>
     </form>
     <script>
         $(document).ready(function (e) {
@@ -387,6 +529,14 @@ echo '</pre>'; */
                 $(".redonda").removeClass("check");
                 $(this).addClass("check");
             }); */
+            $(".red9").click(function () {
+                $(this).toggleClass("check");
+                if($("#inptOtros").prop("checked")){
+                    $("#otroasesoria").addClass("esconderotros");
+                }else{
+                    $("#otroasesoria").removeClass("esconderotros");
+                }
+            });
             $("#altura").on('mousemove', function () {
                 $("#valaltura").html($(this).val() + " m");
             });
@@ -426,6 +576,17 @@ echo '</pre>'; */
                 $(".red5").removeClass("check");
                 $(this).addClass("check");
             });
+            $(".red6").click(function () {
+                $(".red6").removeClass("check");
+                $(this).addClass("check");
+            });
+            $(".red7").click(function () {
+                $(this).toggleClass("check");
+            });
+            $(".red8").click(function () {
+                $(this).toggleClass("check");
+            });
+
             $(".img-check-silueta").click(function () {
                 $(".img-check-silueta").removeClass("check");
                 $(this).toggleClass("check");

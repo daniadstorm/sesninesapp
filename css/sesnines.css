@@ -649,6 +649,36 @@ form#form-contact div.form-group{
     padding: .25rem;
     transition: all .5s;
 }
+.cuadrado{
+    height: 32px;
+    width: 32px;
+    border: 1px solid #6f859c;
+    border-radius: 4px;
+    padding: .25rem;
+    transition: all .5s;
+}
+.cuadrado:hover{
+    cursor: pointer;
+}
+.cuadrado.check{
+    border: 5px solid #6f859c;
+    transition: all .5s;
+}
+.cuadr-ojos{
+    height: 96px;
+    width: 96px;
+    border: 5px solid white;
+    border-radius: 36px;
+    padding: .25rem;
+    transition: all .5s;
+}
+.cuadr-ojos:hover{
+    cursor: pointer;
+}
+.cuadr-ojos.check{
+    border: 1px solid #6f859c;
+    transition: all .5s;
+}
 .redonda:hover{
     cursor: pointer;
 }
@@ -679,6 +709,7 @@ form#form-contact div.form-group{
     border-radius: 4px;
     height: 128px;
     padding: .5rem;
+    transition: 1s;
 }
 .bloque{
     margin: 0 auto;
@@ -831,8 +862,15 @@ form#form-contact div.form-group{
 .red5.check{
     border: 10px solid;
 }
-
-
+.pregunta h1.ph{
+    font-size: 1.1rem;
+}
+.esconderotros{
+    transition: .1s;
+    border: 0;
+    padding: 0;
+    height: 0;
+}
 
 @media only screen and (max-width: 576px){
     .lin-movil-rsp{
