@@ -4,6 +4,8 @@ include_once('config/config.inc.php'); //cargando archivo de configuracion
 $uM = load_model('usuario'); //uM userModel
 $hM = load_model('html');
 
+$id_usuario = (isset($_SESSION['id_usuario'])) ? $_SESSION['id_usuario'] : 0;
+
 $outps = '';
 $ps_completo = '';
 $tipo_suscripcion = '';
@@ -22,8 +24,9 @@ $suscripciones = array(
 
 //POST__________________________________________________________________________
 
-//CONTROL
-$rgu = $uM->get_user($_SESSION["id_usuario"]);
+//CONTROL_______________________________________________________________________
+
+$rgu = $uM->get_user($id_usuario);
 if($rgu){
     while($fgu = $rgu->fetch_assoc()){
         $ps_completo=$fgu["ps_completo"];
@@ -41,7 +44,7 @@ if($rgu){
     }
 }
 
-//CONTROL
+//CONTROL_______________________________________________________________________
 
 include_once('inc/cabecera.inc.php'); //cargando cabecera
 ?>
@@ -111,7 +114,7 @@ include_once('inc/cabecera.inc.php'); //cargando cabecera
                 <div class="container-fluid">
                     <div class="my-3">
                         <div class="tab-content" id="myTabContent">
-                            <div class="tab-pane fade" id="home" role="tabpanel" aria-labelledby="home-tab">
+                            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                                 <div class="row">
                                     <form method="POST" class="col-xl-8">
                                         <label class="title-menuuser"><strong>Pide tu Personal Shopper</strong></label>
@@ -131,8 +134,7 @@ include_once('inc/cabecera.inc.php'); //cargando cabecera
                                             </div>
                                         </div>
                                         <div class="btnenviar">
-                                            <button type="submit" class="btn btn-lg btn-block p-3">Pedir mi Personal
-                                                Shopper</button>
+                                            <button type="submit" class="btn btn-lg btn-block p-3 btnsn">Pedir mi Personal Shopper</button>
                                         </div>
                                     </form>
                                     <div class="col-xl-4">
@@ -158,16 +160,16 @@ include_once('inc/cabecera.inc.php'); //cargando cabecera
                                     </div>
                                 </div>
                             </div>
-                            <div class="tab-pane fade show active" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                            <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                                 <div id="micuenta" class="row">
                                     <div class="col-6">
                                         <label class="title-menuuser"><strong>Mi cuenta</strong></label>
                                         <div class="accordion" id="accordionExample">
                                             <div class="card">
                                                 <i class="fa fa-sort-down sortsn"></i>
-                                                <div class="card-header" id="headingOne">
+                                                <div class="card-header p-0" id="headingOne">
                                                     <h2 class="mb-0">
-                                                        <button class="btn btn-link btnsnac" type="button" data-toggle="collapse"
+                                                        <button class="btn btn-block btn-link btnsnac" type="button" data-toggle="collapse"
                                                             data-target="#miemail" aria-expanded="true"
                                                             aria-controls="miemail">
                                                             Mi email
@@ -178,15 +180,15 @@ include_once('inc/cabecera.inc.php'); //cargando cabecera
                                                     data-parent="#accordionExample">
                                                     <div class="card-body">
                                                         <input type="email" name="email" class="form-control frm p-3">
-                                                        <button class="btn btn-lg btn-block mt-3">Guardar email</button>
+                                                        <button class="btn btn-lg btn-block mt-3 btnsn">Guardar email</button>
                                                     </div>
                                                 </form>
                                             </div>
                                             <div class="card">
                                                     <i class="fa fa-sort-down sortsn"></i>
-                                                    <div class="card-header" id="headingdos">
+                                                    <div class="card-header p-0" id="headingdos">
                                                         <h2 class="mb-0">
-                                                            <button class="btn btn-link btnsnac" type="button" data-toggle="collapse"
+                                                            <button class="btn btn-block btn-link btnsnac" type="button" data-toggle="collapse"
                                                                 data-target="#mipassord" aria-expanded="true"
                                                                 aria-controls="mipassord">
                                                                 Mi contraseña
@@ -197,7 +199,7 @@ include_once('inc/cabecera.inc.php'); //cargando cabecera
                                                         data-parent="#accordionExample">
                                                         <div class="card-body">
                                                             <input type="password" class="form-control frm p-3">
-                                                            <button class="btn btn-lg btn-block mt-3">Cambiar contraseña</button>
+                                                            <button class="btn btn-lg btn-block mt-3 btnsn">Cambiar contraseña</button>
                                                         </div>
                                                     </form>
                                                 </div>

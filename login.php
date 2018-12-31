@@ -3,6 +3,7 @@ include_once('config/config.inc.php'); //cargando archivo de configuracion
 
 $uM = load_model('usuario'); //uM userModel
 $fM = load_model('form');
+$iM = load_model('inputs');
 
 $nombre_usuario = '';
 $contrasenya_usuario = '';
@@ -28,11 +29,6 @@ if (isset($_POST['nombre_usuario'])) { //si viene de submit de login
     }
 }
 
-if(isset($_GET['nuevo_usuario'])){
-    echo '<h1></h1>';
-    $str_info = "Usuario creado con exito";
-}
-
 //POST__________________________________________________________________________
 
 //CONTROL_______________________________________________________________________
@@ -53,39 +49,20 @@ if (isset($_SESSION['id_tipo_usuario'])) { //si hay login
 
 include_once('inc/cabecera.inc.php'); //cargando cabecera
 ?>
-<script type="text/javascript">
-    
-</script>
-<body>
-<div id="main_container">
-    <?php include_once('inc/franja_top.inc.php'); ?>
-    <?php //include_once('inc/main_menu.inc.php'); ?>
-    <section class="section_top mt-3"> <?php include_once('inc/acceso_top.inc.php'); ?> </section>
-    
-    <section class="container">
-            <div class="mt-3">
-                <?php if (isset($str_info)) echo '<div class="alert alert-info" role="alert">'.$str_info.'</div>'; ?>
-                <?php if (isset($str_errores)) echo '<div class="alert alert-danger" role="alert">'.$str_errores.'</div>'; ?>
-            </div>
-            <div class="form mt-3">
-                <form action="login.php" method="post" id="form_login" name="form_login" >
-                    <?php 
-                        echo $fM->get_input_text('nombre_usuario', 'Nombre de usuario', $nombre_usuario, $arr_err);
-                        echo $fM->get_input_password('contrasenya_usuario', 'Contraseña', $contrasenya_usuario, $arr_err); 
-                    ?>
-                    <div class="form-group">
-                        <button type="submit" class="btn btn-primary">Submit</button>
-                    </div>
-                    <div class="form-group">
-                        <div class="fb-login-button" scope="public_profile,email" onlogin="comprobarEstadologin();" data-max-rows="1" data-size="large" data-button-type="continue_with" data-show-faces="false" data-auto-logout-link="false" data-use-continue-as="true"></div>
-                    </div>
-                    <div class="campo">
-                        <div id="status"></div>
-                    </div>
-                </form>
-            </div>
-    </section>
-</div>
-<?php //include_once('inc/footer.inc.php'); ?>
+<script type="text/javascript"></script>
+<body style="background-color: rgba(12,15,28,.02);">
+    <div class="container">
+        <div class="modallogin">
+            <form action="" class="frmlogin">
+                <div class="header">
+                    <h1 class="titulo">Inicia sesión en Sesnines</h1>
+                </div>
+                <hr>
+                <div class="body">
+                    <?php echo $iM->get_input_text('loginemail','','form-control frmlogin','Email'); ?>
+                </div>
+            </form>
+        </div>
+    </div>
 </body>
 </html>

@@ -983,6 +983,9 @@ form#form-contact div.form-group{
     display: block;
     text-decoration: none;
     transition: color .25s;
+    padding: .75rem 1.25rem;
+    text-align: left;
+    font-size: 1.25rem;
 }
 #micuenta input.frm{
     font-size: 1.25rem;
@@ -994,7 +997,7 @@ form#form-contact div.form-group{
     position: absolute;
     right: 1rem;
     /* top: calc(50% - 4px); */
-    top: 30px;
+    top: 21px;
     transform: translate(-50%, -50%);
     color: rgba(0, 0, 0, .3);
 }
@@ -1002,8 +1005,48 @@ form#form-contact div.form-group{
     cursor: pointer;
     color: rgba(0, 0, 0, .5);
 }
-
-
+.btnsn{
+    background-color: rgba(237, 115, 115, 0.4)!important;
+    color: white;
+    font-weight: 400;
+}
+.btnsn:hover{
+    background-color: rgba(237, 115, 115, 0.6)!important;
+}
+.modallogin{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    width: 100%;
+    max-width: 550px;
+    box-shadow: 0px 0px 12px rgba(0,0,0,.25);
+    border-radius: 4px;
+    padding: 1.5rem 2.5rem;
+    box-sizing: border-box;
+}
+.frmlogin{
+    width: 100%;
+    padding-bottom: 1.5rem;
+    padding-top: 1.5rem;
+}
+.frmlogin .titulo{
+    font-size: 2rem;
+    text-align: center;
+    line-height: 1;
+    font-family: 'JosefinSans-Light';
+}
+.body .form-group label{
+    font-size: 1.3rem;
+}
+.body .form-group .frmlogin{
+    padding: .5rem;
+    font-size: 1.5rem;
+}
+.btnenviar{
+    max-width: 600px;
+}
 @media only screen and (max-width: 576px){
     .lin-movil-rsp{
         display: flex;
@@ -1029,6 +1072,12 @@ form#form-contact div.form-group{
     }
     .h3-enlace{
         font-size: 1rem;
+    }
+    .modallogin{
+        padding: 1.5rem 1rem;
+    }
+    .frmlogin .titulo{
+        font-size: 1.5rem;
     }
    
 }

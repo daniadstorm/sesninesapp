@@ -388,7 +388,7 @@ echo '</pre>'; */
                     forma de tu silueta. Preferiblemente en leggins y camiseta entallada. <strong color="#color">No te
                         preocupes, toda la información de tu cuenta es totalmente privada.</strong></h1>
             </div>
-            <?php //echo $iM->get_input_img('enviarfoto', $enviarfoto, $ruta_inicio, '', '', '', true, 5); ?>
+            <?php echo $iM->get_input_img('enviarfoto', $enviarfoto, $ruta_inicio, '', '', '', true, 5); ?>
             <div class="d-flex justify-content-around flex-wrap">
                 <input id="volverp2" class="btnFormps" type="button" value="Atrás">
                 <input id="btnp3" class="btnFormps" type="button" value="Siguiente">

@@ -3,10 +3,10 @@
 $html_mmnu = '';
 $arr_mmnu = array(
     1 => array('txt'=>'sobre ses nïnes', 'url'=> $ruta_inicio.'quiensomos.php'),
-    2 => array('txt'=>'personal shopper', 'url'=>'http://sesnineshopper.com/content/20-personal-shopper'),
-    3 => array('txt'=>'insp&iacute;rate', 'url'=>'http://sesnineshopper.com/inspirate/'),
-    4 => array('txt'=>'regala personal shopper', 'url'=>'http://sesnineshopper.com/promo/'),
-    5 => array('txt'=>'shopping', 'url'=>'http://sesnineshopper.com/content/16-shopping'),
+    2 => array('txt'=>'personal shopper', 'url'=> $ruta_inicio.'altaps'),
+    3 => array('txt'=>'insp&iacute;rate', 'url'=> 'http://sesnineshopper.com/inspirate/'),
+    4 => array('txt'=>'regala personal shopper', 'url'=> 'http://sesnineshopper.com/promo/'),
+    5 => array('txt'=>'shopping', 'url'=> 'http://sesnineshopper.com/content/16-shopping'),
     6 => array('txt'=>'mi cuenta', 'url'=> $ruta_inicio.'micuenta.php'),
 );
 
