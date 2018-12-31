@@ -64,9 +64,9 @@ if($rgu){
         $tipo_suscripcion=$fgu["tipo_suscripcion"];
     }
 }
-if(!$ps_completo){
+/* if(!$ps_completo){
     header('Location: '.$ruta_inicio.'sobre-mi.php'); exit();
-}
+} */
 $rgpp = $uM->get_proximo_paquete($_SESSION['id_usuario']);
 if($rgpp){
     while($fgpp = $rgpp->fetch_assoc()){

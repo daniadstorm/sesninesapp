@@ -24,12 +24,12 @@ echo '</pre>'; */
             </li>
         </ul>
         <div class="progress" style="height: 3px;">
-            <div id="pbsn" class="progress-bar sesnines" role="progressbar" style="width: 0%;" aria-valuenow="25"
+            <div id="pbsn" class="progress-bar sesnines" role="progressbar" style="width: 20%;" aria-valuenow="25"
                 aria-valuemin="0" aria-valuemax="100"></div>
         </div>
     </div>
-    <form action="index.php" method="POST" class="my-3">
-        <div id="p1" class="container pregunta-ns">
+    <form method="POST" class="my-3">
+        <div id="p1" class="container pregunta-ns show">
             <div class="pregunta">
                 <h1 class="mb-0">¿Cómo te gusta vestir en tu día a día?</h1>
                 <p>(Puedes escoger más de uno)</p>
@@ -110,7 +110,6 @@ echo '</pre>'; */
             </div>
             <div class="d-flex justify-content-around my-3">
                 <textarea id="colorArmario" placeholder="Escribe aquí.."></textarea>
-                <!-- <input id="colorArmario" type="text"> -->
             </div>
             <div class="pregunta">
                 <h1 class="mb-0">¿Te gustan más lo estampados o eres más de colores lisos?</h1>
@@ -137,11 +136,8 @@ echo '</pre>'; */
             </div>
             <div class="d-flex justify-content-around my-3">
                 <textarea id="personaConocida" placeholder="Escribe aquí.."></textarea>
-                <!-- <input id="colorArmario" type="text"> -->
             </div>
-
             <div class="d-flex justify-content-around flex-wrap">
-                <input id="btncancelar" class="btnFormps" type="button" value="Cancelar">
                 <input id="btnp1" class="btnFormps" type="button" value="Siguiente">
             </div>
         </div>
@@ -151,14 +147,12 @@ echo '</pre>'; */
             </div>
             <div class="d-flex justify-content-around my-3">
                 <textarea id="actividadOcio" class="textareasn" placeholder="Escribe aquí.."></textarea>
-                <!-- <input id="colorArmario" type="text"> -->
             </div>
             <div class="pregunta">
                 <h1 class="mb-0">¿A qué te dedicas?</h1>
             </div>
             <div class="d-flex justify-content-around my-3">
                 <textarea id="profesion" class="textareasn" placeholder="Escribe aquí.."></textarea>
-                <!-- <input id="colorArmario" type="text"> -->
             </div>
             <div class="pregunta">
                 <h1 class="mb-0">¿Tienes hijos?</h1>
@@ -187,7 +181,7 @@ echo '</pre>'; */
                 </div>
             </div>
             <div class="d-flex justify-content-around flex-wrap">
-                <input id="btncancelar" class="btnFormps" type="button" value="Cancelar">
+                <input id="volverp1" class="btnFormps" type="button" value="Atrás">
                 <input id="btnp2" class="btnFormps" type="button" value="Siguiente">
             </div>
         </div>
@@ -311,14 +305,12 @@ echo '</pre>'; */
             </div>
             <div class="d-flex justify-content-around my-3">
                 <textarea id="cuerporealzar" name="cuerporealzar" class="textareasn" placeholder="Escribe aquí.."></textarea>
-                <!-- <input id="colorArmario" type="text"> -->
             </div>
             <div class="pregunta">
                 <h1 class="mb-0">¿Qué parte de tu cuerpo te gusta menos (disimular)?</h1>
             </div>
             <div class="d-flex justify-content-around my-3">
                 <textarea id="cuerporealzar" name="cuerpodisimular" class="textareasn" placeholder="Escribe aquí.."></textarea>
-                <!-- <input id="colorArmario" type="text"> -->
             </div>
             <div class="pregunta">
                 <h1 class="mb-0">Tono de piel</h1>
@@ -390,14 +382,17 @@ echo '</pre>'; */
             </div>
             <div class="d-flex justify-content-around my-3">
                 <textarea id="cuerporealzar" name="colorcabello" class="textareasn" placeholder="Escribe aquí.."></textarea>
-                <!-- <input id="colorArmario" type="text"> -->
             </div>
             <div class="pregunta">
                 <h1 class="mb-0 ph">Si lo prefieres, puedes enviarnos una foto (max. 2MB) en la que podamos ver la
                     forma de tu silueta. Preferiblemente en leggins y camiseta entallada. <strong color="#color">No te
                         preocupes, toda la información de tu cuenta es totalmente privada.</strong></h1>
             </div>
-            <?php echo $iM->get_input_img('enviarfoto', $enviarfoto, $ruta_inicio, '', '', '', true, 5); ?>
+            <?php //echo $iM->get_input_img('enviarfoto', $enviarfoto, $ruta_inicio, '', '', '', true, 5); ?>
+            <div class="d-flex justify-content-around flex-wrap">
+                <input id="volverp2" class="btnFormps" type="button" value="Atrás">
+                <input id="btnp3" class="btnFormps" type="button" value="Siguiente">
+            </div>
         </div>
         <div id="p4" class="container pregunta-ns">
             <div class="pregunta">
@@ -406,8 +401,7 @@ echo '</pre>'; */
             <div class="d-flex flex-wrap justify-content-center my-3">
                 <label class="d-flex justify-content-center align-items-center mx-5">
                     <div class="cuadrado red7"></div>
-                    <input checked type="checkbox" name="listadoprendas[]" value="chaquetaamericanas" id="item" hidden
-                    >
+                    <input checked type="checkbox" name="listadoprendas[]" value="chaquetaamericanas" id="item" hidden>
                     <p class="text-center m-0 ml-2">Chaquetas / Americanas</p>
                 </label>
                 <label class="d-flex justify-content-center align-items-center mx-5">
@@ -496,8 +490,12 @@ echo '</pre>'; */
                     <p class="text-center m-0 ml-2">Abrigo o Trench</p>
                 </label>
             </div>
+             <div class="d-flex justify-content-around flex-wrap">
+                <input id="volverp3" class="btnFormps" type="button" value="Atrás">
+                <input id="btnp4" class="btnFormps" type="button" value="Siguiente">
+            </div>
         </div>
-        <div id="p5" class="container pregunta-ns show">
+        <div id="p5" class="container pregunta-ns">
             <div class="pregunta">
                 <h1 class="mb-3">¿Para qué looks necesitas asesoría?</h1>
             </div>
@@ -521,20 +519,156 @@ echo '</pre>'; */
             <div class="d-flex justify-content-center">
                 <textarea id="otroasesoria" class="textareasn my-3 esconderotros" placeholder="Escribe aquí.."></textarea>
             </div>
+            <div class="pregunta">
+                <h1 class="mb-3">Me apetece pedir mi Personal Shopper porque:</h1>
+            </div>
+            <div class="d-flex flex-wrap justify-content-center my-3">
+                <label class="d-flex justify-content-center align-items-center mx-5">
+                    <div class="cuadrado red10"></div>
+                    <input type="checkbox" name="pedirps[]" value="estilo" id="item" hidden>
+                    <p class="text-center m-0 ml-2">Quiero cambiar mi estilo</p>
+                </label>
+                <label class="d-flex justify-content-center align-items-center mx-5">
+                    <div class="cuadrado red10"></div>
+                    <input type="checkbox" name="pedirps[]" value="imagen" id="item" hidden>
+                    <p class="text-center m-0 ml-2">Quiero mejorar mi imagen</p>
+                </label>
+                <label class="d-flex justify-content-center align-items-center mx-5">
+                    <div class="cuadrado red10"></div>
+                    <input type="checkbox" name="pedirps[]" value="prendasnuevas" id="item" hidden>
+                    <p class="text-center m-0 ml-2">Me gustaría arriesgarme y probar prendas nuevas</p>
+                </label>
+                <label class="d-flex justify-content-center align-items-center mx-5">
+                    <div class="cuadrado red10"></div>
+                    <input type="checkbox" name="pedirps[]" value="addprendas" id="item" hidden>
+                    <p class="text-center m-0 ml-2">Añadir prendas a mi armario y renovarlo</p>
+                </label>
+                <label class="d-flex justify-content-center align-items-center mx-5">
+                    <div class="cuadrado red10"></div>
+                    <input type="checkbox" name="pedirps[]" value="nuevoslooks" id="item" hidden>
+                    <p class="text-center m-0 ml-2">Conseguir nuevos looks</p>
+                </label>
+                <label class="d-flex justify-content-center align-items-center mx-5">
+                    <div class="cuadrado red10"></div>
+                    <input id="inptpsOtros" type="checkbox" name="pedirps[]" value="otros" id="item" hidden>
+                    <p class="text-center m-0 ml-2">Otros</p>
+                </label>
+            </div>
+            <div class="d-flex justify-content-center">
+                <textarea id="pedirpsotros" class="textareasn my-3 esconderotros" placeholder="Escribe aquí.."></textarea>
+            </div>
+            <div class="pregunta">
+                <h1 class="mb-3">Me gustaría que mi Personal Shopper fuera:</h1>
+            </div>
+            <div class="d-flex flex-wrap justify-content-center my-3">
+                <label class="d-flex justify-content-center align-items-center mx-5">
+                    <div class="redonda red11"></div>
+                    <input type="radio" name="pedirpsfuera[]" value="estilo" id="item" hidden>
+                    <p class="text-center m-0 ml-2">Lídia: Sal de tu zona de confort</p>
+                </label>
+                <label class="d-flex justify-content-center align-items-center mx-5">
+                    <div class="redonda red11"></div>
+                    <input type="radio" name="pedirpsfuera[]" value="imagen" id="item" hidden>
+                    <p class="text-center m-0 ml-2">Mónica: Buen fondo de armario dentro de tu estilo</p>
+                </label>
+                <label class="d-flex justify-content-center align-items-center mx-5">
+                    <div class="redonda red11"></div>
+                    <input type="radio" name="pedirpsfuera[]" value="prendasnuevas" id="item" hidden>
+                    <p class="text-center m-0 ml-2">Trabajar conjuntamente</p>
+                </label>
+            </div>
+            <div class="d-flex justify-content-center">
+                <textarea id="pedirpsfueraotros" class="textareasn my-3 esconderotros" placeholder="Escribe aquí.."></textarea>
+            </div>
+            <div class="pregunta">
+                <h1 class="mb-3">Ayudanos a conocerte mejor (sigues las tendencias, tu día a día, algua petición especial...)</h1>
+            </div>
+            <div class="d-flex justify-content-center">
+                <textarea class="textareasn my-3" placeholder="Escribe aquí.."></textarea>
+            </div>
+             <div class="d-flex justify-content-around flex-wrap">
+                <input id="volverp4" class="btnFormps" type="button" value="Atrás">
+                <input id="btnp5" class="btnFormps" type="button" value="Finalizar">
+            </div>
         </div>
     </form>
     <script>
         $(document).ready(function (e) {
-            /* $(".redonda").click(function () {
-                $(".redonda").removeClass("check");
-                $(this).addClass("check");
-            }); */
+            $("#btnp1").click(function () {
+                $("#p1").toggleClass('show');
+                $("#pbsn").css("width", "40%");
+                setTimeout(function () {
+                    $("#p2").toggleClass('show');
+                }, 500);
+            });
+            $("#volverp1").click(function () {
+                $("#p2").toggleClass('show');
+                $("#pbsn").css("width", "20%");
+                setTimeout(function () {
+                    $("#p1").toggleClass('show');
+                }, 500);
+            });
+            $("#btnp2").click(function () {
+                $("#p2").toggleClass('show');
+                $("#pbsn").css("width", "60%");
+                setTimeout(function () {
+                    $("#p3").toggleClass('show');
+                }, 500);
+            });
+            $("#volverp2").click(function () {
+                $("#p3").toggleClass('show');
+                $("#pbsn").css("width", "40%");
+                setTimeout(function () {
+                    $("#p2").toggleClass('show');
+                }, 500);
+            });
+            $("#btnp3").click(function () {
+                $("#p3").toggleClass('show');
+                $("#pbsn").css("width", "80%");
+                setTimeout(function () {
+                    $("#p4").toggleClass('show');
+                }, 500);
+            });
+            $("#volverp3").click(function () {
+                $("#p4").toggleClass('show');
+                $("#pbsn").css("width", "60%");
+                setTimeout(function () {
+                    $("#p3").toggleClass('show');
+                }, 500);
+            });
+            $("#btnp4").click(function () {
+                $("#p4").toggleClass('show');
+                $("#pbsn").css("width", "100%");
+                setTimeout(function () {
+                    $("#p5").toggleClass('show');
+                }, 500);
+            });
+            $("#volverp4").click(function () {
+                $("#p5").toggleClass('show');
+                $("#pbsn").css("width", "80%");
+                setTimeout(function () {
+                    $("#p4").toggleClass('show');
+                }, 500);
+            });
+            $("#btnp5").click(function () {
+                console.log("ENVIAR");
+            });
+
             $(".red9").click(function () {
                 $(this).toggleClass("check");
-                if($("#inptOtros").prop("checked")){
-                    $("#otroasesoria").addClass("esconderotros");
-                }else{
+            });
+            $("#inptpsOtros").on('change', function () {
+                if ($("#inptpsOtros").prop("checked")) {
+                    $("#pedirpsotros").removeClass("esconderotros");
+                } else {
+                    $("#pedirpsotros").addClass("esconderotros");
+                }
+            });
+            $("#inptOtros").on('change', function () {
+                if ($("#inptOtros").prop("checked")) {
                     $("#otroasesoria").removeClass("esconderotros");
+                } else {
+                    $("#otroasesoria").addClass("esconderotros");
                 }
             });
             $("#altura").on('mousemove', function () {
@@ -555,6 +689,13 @@ echo '</pre>'; */
             });
             $("#tallapecho").on('change', function () {
                 $("#valpecho").html($(this).val());
+            });
+            $(".red10").click(function () {
+                $(this).toggleClass("check");
+            });
+            $(".red11").click(function () {
+                $(".red11").removeClass("check");
+                $(this).addClass("check");
             });
             $(".red1").click(function () {
                 $(".red1").removeClass("check");
@@ -593,20 +734,6 @@ echo '</pre>'; */
             });
             $(".img-check").click(function () {
                 $(this).toggleClass("check");
-            });
-            $("#btnp1").click(function () {
-                $("#p1").toggleClass('show');
-                $("#pbsn").css("width", "20%");
-                setTimeout(function () {
-                    $("#p2").toggleClass('show');
-                }, 500);
-            });
-            $("#btnp2").click(function () {
-                $("#p2").toggleClass('show');
-                $("#pbsn").css("width", "40%");
-                setTimeout(function () {
-                    $("#p3").toggleClass('show');
-                }, 500);
             });
         });
     </script>

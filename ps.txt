@@ -18,48 +18,6 @@ ________________________________________________________________________________
 P�GINA 5
 T�tulo: "ASES�RAME"
 
-5.1- Pregunta
-	�Para qu� looks necesitas asesor�a?
-5.1- Respuesta/s
-	Para mi trabajo
-	Para mi tiempo libre
-	Otros
-5.1- Comportamiento
-	Checkbox
-	M�nimo marcar 1 opci�n
-	M�ximo marcar todas opciones
-	"Otros" Si est� marcado el checkbox: 
-		M�nimo de 1 caracter
-		M�ximo de 255 car�cteres
-
-5.2- Pregunta
-	Me apetece pedir mi Personal Shopper porque:
-5.2- Respuesta/s
-	Quiero cambiar mi estilo
-	Quiero mejorar mi imagen
-	Me gustar�a arriesgarme y probar prendas nuevas
-	A�adir prendas a mi armario y renovarlo
-	Conseguir nuevos looks
-	Otros
-5.3- Comportamiento
-	Checkbox
-	M�nimo marcar 1 opci�n
-	M�ximo marcar todas opciones
-	"Otros" Si est� marcado el checkbox: 
-		M�nimo de 1 caracter
-		M�ximo de 255 car�cteres
-
-5.4- Pregunta
-	Me gustar�a que mi Personal Shopper fuera:
-5.4- Respuestas
-	L�dia: Sal de tu zona de confort
-	M�nica: Buen fondo de armario dentro de tu estilo
-	Trabajar conjuntamente
-5.4- Comportamiento
-	Radio Button
-	Elegir m�nimo una opci�n
-	Ninguna marcada por defecto	
-
 5.5- Pregunta
 	Comentarios.
 	Ay�danos a conocerte mejor (sigues las tendencias, tu d�a a d�a, alguna petici�n especial...)
