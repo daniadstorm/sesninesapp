@@ -28,9 +28,6 @@ if (isset($_POST['nombre_usuario'])) { //si viene de submit de login
 
 include_once('inc/cabecera.inc.php'); //cargando cabecera
 ?>
-<script type="text/javascript">
-
-</script>
 
 <body>
     <?php include_once('inc/franja_top.inc.php'); ?>
@@ -44,8 +41,9 @@ include_once('inc/cabecera.inc.php'); //cargando cabecera
                         <a class="navbar-brand" href="<?php echo $ruta_inicio; ?>">
                             <img src="<?php echo $ruta_inicio; ?>img/logo.svg" height="44px" alt="">
                         </a>
-                        <button id="btn-sesnines-menu" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-                            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <button id="btn-sesnines-menu" class="navbar-toggler" type="button" data-toggle="collapse"
+                            data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                            aria-label="Toggle navigation">
                             <span class="navbar-toggler-icon"></span>
                         </button>
                     </div>
@@ -102,13 +100,18 @@ include_once('inc/cabecera.inc.php'); //cargando cabecera
                     </div>
                     <div class="col-lg-10 offset-lg-1">
                         <div class="blq_2 mt-5">
-                            <p>Bienvenida al lugar del cambio, de la mejora, del sentirte guapa, donde sacaremos tu mejor versión.
-                                A partir de ahora, si nos dejas colarnos en tu armario seremos tu Personal Shopper. Porque
+                            <p>Bienvenida al lugar del cambio, de la mejora, del sentirte guapa, donde sacaremos tu
+                                mejor versión.
+                                A partir de ahora, si nos dejas colarnos en tu armario seremos tu Personal Shopper.
+                                Porque
                                 tú eres única.</p>
-                            <p>Que te veas bien, te sientas mejor, ganes en confianza y definas tu personalidad y con ello todo
-                                lo que te propongas. Nosotras nos encargamos de asesorarte y llenar tu armario con prendas
+                            <p>Que te veas bien, te sientas mejor, ganes en confianza y definas tu personalidad y con
+                                ello todo
+                                lo que te propongas. Nosotras nos encargamos de asesorarte y llenar tu armario con
+                                prendas
                                 seleccionadas sólo para ti.</p>
-                            <p>Déjate acompañar, prometemos sorprenderte… si has llegado hasta aquí es que algo ya está cambiando
+                            <p>Déjate acompañar, prometemos sorprenderte… si has llegado hasta aquí es que algo ya está
+                                cambiando
                                 en ti.</p>
                         </div>
                     </div>
@@ -131,7 +134,8 @@ include_once('inc/cabecera.inc.php'); //cargando cabecera
                                 <div class="blq_exp_ps">
                                     <img src="img/2.jpg" class="img-fluid" alt="">
                                     <h5 class="titulo">Somos tus nuevas Personal Shopper</h5>
-                                    <p class="texto">Cuéntanos qué necesitas, tu tipología y estilo. ¡Nosotras sacaremos lo mejor de ti! ¿Nos
+                                    <p class="texto">Cuéntanos qué necesitas, tu tipología y estilo. ¡Nosotras
+                                        sacaremos lo mejor de ti! ¿Nos
                                         haces un hueco en tu armario?</p>
                                 </div>
                             </div>
@@ -139,14 +143,16 @@ include_once('inc/cabecera.inc.php'); //cargando cabecera
                                 <div class="blq_exp_ps">
                                     <img src="img/3.jpg" class="img-fluid" alt="">
                                     <h5 class="titulo">Un armario irresistible</h5>
-                                    <p class="texto">Te enviamos una carta con consejos e indicaciones sobre cómo combinar las prendas.</p>
+                                    <p class="texto">Te enviamos una carta con consejos e indicaciones sobre cómo
+                                        combinar las prendas.</p>
                                 </div>
                             </div>
                             <div class="col-6 col-sm-6 col-md-6 col-lg-4 mt-2 mb-5">
                                 <div class="blq_exp_ps">
                                     <img src="img/4.jpg" class="img-fluid" alt="">
                                     <h5 class="titulo">¿Hablamos?</h5>
-                                    <p class="texto">Si tienes alguna duda, o nosotras queremos hacerte algún comentario para un mejor servicio,
+                                    <p class="texto">Si tienes alguna duda, o nosotras queremos hacerte algún
+                                        comentario para un mejor servicio,
                                         ¡aquí estamos!
                                     </p>
                                 </div>
@@ -155,7 +161,8 @@ include_once('inc/cabecera.inc.php'); //cargando cabecera
                                 <div class="blq_exp_ps">
                                     <img src="img/5.jpg" class="img-fluid" alt="">
                                     <h5 class="titulo">Emoción y sorpresa</h5>
-                                    <p class="texto">Porque sabemos que te encanta recibir el paquete preparado con cariño para ti, exclusivo
+                                    <p class="texto">Porque sabemos que te encanta recibir el paquete preparado con
+                                        cariño para ti, exclusivo
                                         y único.</p>
                                 </div>
                             </div>
@@ -163,7 +170,8 @@ include_once('inc/cabecera.inc.php'); //cargando cabecera
                                 <div class="blq_exp_ps">
                                     <img src="img/6.jpg" class="img-fluid" alt="">
                                     <h5 class="titulo">¡Qué cómodo es!</h5>
-                                    <p class="texto">Lo recibes en tu casa, te lo pruebas tranquilamente, y decides qué te quedas. ¡No puede
+                                    <p class="texto">Lo recibes en tu casa, te lo pruebas tranquilamente, y decides qué
+                                        te quedas. ¡No puede
                                         ser más fácil!</p>
                                 </div>
                             </div>
@@ -175,44 +183,65 @@ include_once('inc/cabecera.inc.php'); //cargando cabecera
                             <button class="btn-sesnines-empezamos btn rounded-0 px-5 text-center ml-auto mr-auto mt-4">¿Empezamos?</button>
                         </a>
                     </div>
-                    <div class="col-lg-9 offset-lg-1 mb-5 mt-4">
+                    <div class="carousel-personalizado">
+                        <div class="consejos">
+                            <div class="consejo consejo-1">
+                                <div class="consejo-responsive">
+                                    <div class="texto">
+                                        <h2>Texto</h2>
+                                        <p>Más texto</p>
 
-
-                        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-                            <div class="carousel-inner">
-                                <div class="carousel-item active">
-                                    <img class="d-block w-100" src="img/slider1.jpg" alt="First slide">
-                                    <div class="carousel-caption d-none d-md-block">
-                                        <h5>Holaa</h5>
-                                        <p>Holaa</p>
+                                    </div>
+                                    <div class="imagen">
+                                        <img src="<?php echo $ruta_inicio; ?>img/slider1.jpg" alt="">
                                     </div>
                                 </div>
-                                <!-- <div class="carousel-item">
-                                    <img class="d-block w-100" src="img/slider1.jpg" alt="Second slide">
-                                    <div class="carousel-caption d-none d-md-block">
-                                        <h5>Holaa</h5>
-                                        <p>Holaa</p>
-                                    </div>
-                                </div>
-                                <div class="carousel-item">
-                                    <img class="d-block w-100" src="img/slider1.jpg" alt="Third slide">
-                                    <div class="carousel-caption d-none d-md-block">
-                                        <h5>Holaa</h5>
-                                        <p>Holaa</p>
-                                    </div>
-                                </div> -->
                             </div>
-                            <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-                              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                              <span class="sr-only">Previous</span>
-                            </a>
-                            <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-                              <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                              <span class="sr-only">Next</span>
-                            </a>
-                          </div>
-
-
+                            <div class="consejo consejo-2">
+                                <div class="consejo-responsive">
+                                    <div class="texto">
+                                        <h2>Texto</h2>
+                                        <p>Más texto</p>
+                                    </div>
+                                    <div class="imagen">
+                                        <img src="<?php echo $ruta_inicio; ?>img/slider1.jpg" alt="">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="consejo consejo-3">
+                                <div class="consejo-responsive">
+                                    <div class="texto">
+                                        <h2>Texto</h2>
+                                        <p>Más texto</p>
+                                    </div>
+                                    <div class="imagen">
+                                        <img src="<?php echo $ruta_inicio; ?>img/slider1.jpg" alt="">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="botones">
+                            <button id="btn1" class="btnSlider bg-rosa"></button>
+                            <button id="btn2" class="btnSlider"></button>
+                            <button id="btn3" class="btnSlider"></button>
+                        </div>
+                        <script>
+                            $(document).ready(function () {
+                                $('.btnSlider').click(function(){
+                                    $('button').removeClass("bg-rosa");
+                                    $(this).addClass("bg-rosa");
+                                });
+                                $("#btn1").click(function () {
+                                    $('.consejo').css("transform", "translateX(0%)");
+                                });
+                                $("#btn2").click(function () {
+                                    $('.consejo').css("transform", "translateX(-100%)");
+                                });
+                                $("#btn3").click(function () {
+                                    $('.consejo').css("transform", "translateX(-200%)");
+                                });
+                            });
+                        </script>
                     </div>
                 </div>
                 <div class="row mx-0 blq_1">
@@ -275,46 +304,63 @@ include_once('inc/cabecera.inc.php'); //cargando cabecera
                         <div class="carousel-inner">
                             <div class="carousel-item carousel-item-tuopinas active">
                                 <div class="d-flex flex-column justify-content-center align-items-center">
-                                    <p class="texto-tuopinas">“Me ha encantado.. de verdad verdadera. Me han sorprendido un montón, han entendido a la primera lo que buscaba y TODAS las prendas me gustan. Impresionada de lo bien que ha ido el primer pedido. Repetiré seguro"</p>
+                                    <p class="texto-tuopinas">“Me ha encantado.. de verdad verdadera. Me han
+                                        sorprendido un montón, han entendido a la primera lo que buscaba y TODAS las
+                                        prendas me gustan. Impresionada de lo bien que ha ido el primer pedido.
+                                        Repetiré seguro"</p>
                                     <h1 class="texto-tuopinas mt-3">A. Aznar</h1>
                                 </div>
                             </div>
                             <div class="carousel-item carousel-item-tuopinas">
                                 <div class="d-flex flex-column justify-content-center align-items-center">
-                                    <h1 class="texto-tuopinas">Quiero felicitaros por el trabajo, se nota que lo habéis leído con detenimiento y os habéis esforzado en ello. Mil gracias porque me han encantado todas las prendas y me habéis sorprendido mucho con los looks</h1>
+                                    <h1 class="texto-tuopinas">Quiero felicitaros por el trabajo, se nota que lo habéis
+                                        leído con detenimiento y os habéis esforzado en ello. Mil gracias porque me han
+                                        encantado todas las prendas y me habéis sorprendido mucho con los looks</h1>
                                     <h1 class="texto-tuopinas mt-3">E. López</h1>
                                 </div>
                             </div>
                             <div class="carousel-item carousel-item-tuopinas">
                                 <div class="d-flex flex-column justify-content-center align-items-center">
-                                    <h1 class="texto-tuopinas">Hola esta sería la cuarta caja, las dos últimas me las he quedado entera. He salido de compras para renovar el armario junto lo que os compre y me he ido con las manos vacías.. O es muy fea o no le veo el bonito. Así que recurro de nuevo a vosotras”</h1>
+                                    <h1 class="texto-tuopinas">Hola esta sería la cuarta caja, las dos últimas me las
+                                        he quedado entera. He salido de compras para renovar el armario junto lo que os
+                                        compre y me he ido con las manos vacías.. O es muy fea o no le veo el bonito.
+                                        Así que recurro de nuevo a vosotras”</h1>
                                     <h1 class="texto-tuopinas mt-3">L. Garcia</h1>
                                 </div>
                             </div>
                             <div class="carousel-item carousel-item-tuopinas">
                                 <div class="d-flex flex-column justify-content-center align-items-center">
-                                    <h1 class="texto-tuopinas">"Me ha encantado TODA la selección de prendas que me habéis mandado. Que sepáis q habéis ganado una clienta!! Hablaré por todos lados de vosotras”</h1>
+                                    <h1 class="texto-tuopinas">"Me ha encantado TODA la selección de prendas que me
+                                        habéis mandado. Que sepáis q habéis ganado una clienta!! Hablaré por todos
+                                        lados de vosotras”</h1>
                                     <h1 class="texto-tuopinas mt-3">E.Magaña</h1>
                                 </div>
                             </div>
                             <div class="carousel-item carousel-item-tuopinas">
                                 <div class="d-flex flex-column justify-content-center align-items-center">
-                                    <h1 class="texto-tuopinas">Quedé muy contenta con mi primer pedido. Supisteis entender muy bien lo que buscaba, y me sorprendisteis muchísimo con los looks, además de acertar con las tallas. Fue absolutamente una experiencia de 10. Así que me he animado con una nueva caja.</h1>
+                                    <h1 class="texto-tuopinas">Quedé muy contenta con mi primer pedido. Supisteis
+                                        entender muy bien lo que buscaba, y me sorprendisteis muchísimo con los looks,
+                                        además de acertar con las tallas. Fue absolutamente una experiencia de 10. Así
+                                        que me he animado con una nueva caja.</h1>
                                     <h1 class="texto-tuopinas mt-3">R. Gómez</h1>
                                 </div>
                             </div>
                             <div class="carousel-item carousel-item-tuopinas">
                                 <div class="d-flex flex-column justify-content-center align-items-center">
-                                    <h1 class="texto-tuopinas">Sí, me lo quedo todo. ¡Me ha encantado! Las tallas un acierto total . Cruzo los dedos a ver si para finales de mes puedo pediros otra caja... Estilazo total :-)</h1>
+                                    <h1 class="texto-tuopinas">Sí, me lo quedo todo. ¡Me ha encantado! Las tallas un
+                                        acierto total . Cruzo los dedos a ver si para finales de mes puedo pediros otra
+                                        caja... Estilazo total :-)</h1>
                                     <h1 class="texto-tuopinas mt-3">O. Illana</h1>
                                 </div>
                             </div>
                         </div>
-                        <a class="carousel-control-prev carousel-control-prev-mod" href="#carouseltuopinas" role="button" data-slide="prev">
+                        <a class="carousel-control-prev carousel-control-prev-mod" href="#carouseltuopinas" role="button"
+                            data-slide="prev">
                             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                             <span class="sr-only">Previous</span>
                         </a>
-                        <a class="carousel-control-next carousel-control-next-mod" href="#carouseltuopinas" role="button" data-slide="next">
+                        <a class="carousel-control-next carousel-control-next-mod" href="#carouseltuopinas" role="button"
+                            data-slide="next">
                             <span class="carousel-control-next-icon" aria-hidden="true"></span>
                             <span class="sr-only">Next</span>
                         </a>
@@ -343,18 +389,21 @@ include_once('inc/cabecera.inc.php'); //cargando cabecera
                             <div class="col-sm-12 col-lg-6">
                                 <div class="padding-newsletter">
                                     <h1 class="news">Newsletter</h1>
-                                    <p class="news pr-3">Prometemos enviarte solo lo último en tendencias, inspiraciones y recomendaciones. Te
+                                    <p class="news pr-3">Prometemos enviarte solo lo último en tendencias,
+                                        inspiraciones y recomendaciones. Te
                                         encantará recibirlo.</p>
                                 </div>
                             </div>
                             <div class="col-sm-12 col-lg-6">
                                 <form action="" class="d-flex flex-column pl-4 pb-4 h-100 justify-content-end">
                                     <div class="mail-pc">
-                                        <input id="mail-newsletter" type="text" placeholder="Introduce tu e-mail" class="mr-2 mb-2" name="mail-newsletter">
+                                        <input id="mail-newsletter" type="text" placeholder="Introduce tu e-mail" class="mr-2 mb-2"
+                                            name="mail-newsletter">
                                         <button id="btn-mail-newsletter" class="mb-2" type="submit">Suscribirme</button>
                                     </div>
                                     <p id="acepto-terminos" class="d-flex">
-                                        <input type="checkbox" name="" class="mr-2">Acepto los términos, condiciones y política de privacidad</p>
+                                        <input type="checkbox" name="" class="mr-2">Acepto los términos, condiciones y
+                                        política de privacidad</p>
                                 </form>
                             </div>
                         </div>

@@ -24,13 +24,13 @@ echo '</pre>'; */
             </li>
         </ul>
         <div class="progress" style="height: 3px;">
-            <div id="pbsn" class="progress-bar sesnines" role="progressbar" style="width: 20%;" aria-valuenow="25"
-                aria-valuemin="0" aria-valuemax="100"></div>
+            <div id="pbsn" class="progress-bar sesnines" role="progressbar" style="width: 20%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
         </div>
     </div>
     <form method="POST" class="my-3">
         <div id="p1" class="container pregunta-ns show">
             <div class="pregunta">
+                <h1 class="titulo-sn">Estilo</h1>
                 <h1 class="mb-0">¿Cómo te gusta vestir en tu día a día?</h1>
                 <p>(Puedes escoger más de uno)</p>
             </div>
@@ -138,11 +138,12 @@ echo '</pre>'; */
                 <textarea id="personaConocida" placeholder="Escribe aquí.."></textarea>
             </div>
             <div class="d-flex justify-content-around flex-wrap">
-                <input id="btnp1" class="btnFormps" type="button" value="Siguiente">
+                <input id="btnp1" class="btnFormps" type="button" value="Seguimos conociéndote">
             </div>
         </div>
         <div id="p2" class="container pregunta-ns">
             <div class="pregunta">
+                <h1 class="titulo-sn">Sobre mí</h1>
                 <h1 class="mb-0">Cuentanos tus actividades de ocio</h1>
             </div>
             <div class="d-flex justify-content-around my-3">
@@ -182,11 +183,12 @@ echo '</pre>'; */
             </div>
             <div class="d-flex justify-content-around flex-wrap">
                 <input id="volverp1" class="btnFormps" type="button" value="Atrás">
-                <input id="btnp2" class="btnFormps" type="button" value="Siguiente">
+                <input id="btnp2" class="btnFormps" type="button" value="¡Vamos!">
             </div>
         </div>
         <div id="p3" class="container pregunta-ns">
             <div class="pregunta">
+                <h1 class="titulo-sn">Mi tipología</h1>
                 <h1 class="mb-3">Mi silueta es...</h1>
             </div>
             <div class="row justify-content-center flex-wrap">
@@ -391,11 +393,12 @@ echo '</pre>'; */
             <?php echo $iM->get_input_img('enviarfoto', $enviarfoto, $ruta_inicio, '', '', '', true, 5); ?>
             <div class="d-flex justify-content-around flex-wrap">
                 <input id="volverp2" class="btnFormps" type="button" value="Atrás">
-                <input id="btnp3" class="btnFormps" type="button" value="Siguiente">
+                <input id="btnp3" class="btnFormps" type="button" value="Un poco más de ti">
             </div>
         </div>
         <div id="p4" class="container pregunta-ns">
             <div class="pregunta">
+                <h1 class="titulo-sn">Mi armario</h1>
                 <h1 class="mb-3">Listado de prendas que te sueles poner</h1>
             </div>
             <div class="d-flex flex-wrap justify-content-center my-3">
@@ -492,11 +495,12 @@ echo '</pre>'; */
             </div>
              <div class="d-flex justify-content-around flex-wrap">
                 <input id="volverp3" class="btnFormps" type="button" value="Atrás">
-                <input id="btnp4" class="btnFormps" type="button" value="Siguiente">
+                <input id="btnp4" class="btnFormps" type="button" value="Te queda poco">
             </div>
         </div>
         <div id="p5" class="container pregunta-ns">
             <div class="pregunta">
+                <h1 class="titulo-sn">Asesórame</h1>
                 <h1 class="mb-3">¿Para qué looks necesitas asesoría?</h1>
             </div>
             <div class="d-flex flex-wrap justify-content-center my-3">
@@ -588,7 +592,7 @@ echo '</pre>'; */
             </div>
              <div class="d-flex justify-content-around flex-wrap">
                 <input id="volverp4" class="btnFormps" type="button" value="Atrás">
-                <input id="btnp5" class="btnFormps" type="button" value="Finalizar">
+                <input id="btnp5" class="btnFormps" type="button" value="Y el último paso">
             </div>
         </div>
     </form>
