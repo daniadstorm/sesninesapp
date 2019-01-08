@@ -7,11 +7,63 @@ $iM = load_model('inputs');
 
 include_once('../inc/cabecera.inc.php'); //cargando cabecera
 
+$id_usuario = isset($_SESSION['id_usuario']) ? $_SESSION['id_usuario'] : 0;
+
 $enviarfoto = null;
 
-/* echo '<pre>';
-print_r($_POST);
-echo '</pre>'; */
+if(isset($_POST['vestirdiadia'])){
+    echo '<pre>';
+    print_r($_POST);
+    echo '<pre>';
+    $_SESSION['vestirdiadia'] = (isset($_POST['vestirdiadia']) ? $_POST['vestirdiadia'] : ''); //array
+    $_SESSION['vestirsuperior'] = (isset($_POST['vestirsuperior']) ? $_POST['vestirsuperior'] : '');
+    $_SESSION['vestirinferior'] = (isset($_POST['vestirinferior']) ? $_POST['vestirinferior'] : '');
+    $_SESSION['colorarmario'] = (isset($_POST['colorarmario']) ? $_POST['colorarmario'] : '');
+    $_SESSION['colorfav'] = (isset($_POST['colorfav']) ? $_POST['colorfav'] : '');
+    $_SESSION['personaConocida'] = (isset($_POST['personaConocida']) ? $_POST['personaConocida'] : '');
+    $_SESSION['actividadOcio'] = (isset($_POST['actividadOcio']) ? $_POST['actividadOcio'] : '');
+    $_SESSION['profesion'] = (isset($_POST['profesion']) ? $_POST['profesion'] : '');
+    $_SESSION['hijos'] = (isset($_POST['hijos']) ? $_POST['hijos'] : '');
+    $_SESSION['frmdatosnombre'] = (isset($_POST['frmdatosnombre']) ? $_POST['frmdatosnombre'] : '');
+    $_SESSION['frmdatosapellidos'] = (isset($_POST['frmdatosapellidos']) ? $_POST['frmdatosapellidos'] : '');
+    $_SESSION['frmdatosfechanacimiento'] = (isset($_POST['frmdatosfechanacimiento']) ? $_POST['frmdatosfechanacimiento'] : '');
+    $_SESSION['frmdatosemail'] = (isset($_POST['frmdatosemail']) ? $_POST['frmdatosemail'] : '');
+    $_SESSION['silueta'] = (isset($_POST['silueta']) ? $_POST['silueta'] : ''); //array
+    $_SESSION['tallasuperior'] = (isset($_POST['tallasuperior']) ? $_POST['tallasuperior'] : '');
+    $_SESSION['tallainferior'] = (isset($_POST['tallainferior']) ? $_POST['tallainferior'] : '');
+    $_SESSION['tallapecho'] = (isset($_POST['tallapecho']) ? $_POST['tallapecho'] : '');
+    $_SESSION['altura'] = (isset($_POST['altura']) ? $_POST['altura'] : '');
+    $_SESSION['cuerporealzar'] = (isset($_POST['cuerporealzar']) ? $_POST['cuerporealzar'] : '');
+    $_SESSION['cuerpodisimular'] = (isset($_POST['cuerpodisimular']) ? $_POST['cuerpodisimular'] : '');
+    $_SESSION['tonopiel'] = (isset($_POST['tonopiel']) ? $_POST['tonopiel'] : '');
+    $_SESSION['ojos'] = (isset($_POST['ojos']) ? $_POST['ojos'] : '');
+    $_SESSION['colorcabello'] = (isset($_POST['colorcabello']) ? $_POST['colorcabello'] : '');
+    $_SESSION['enviarfoto'] = (isset($_POST['enviarfoto']) ? $_POST['enviarfoto'] : ''); //foto
+    $_SESSION['listadoprendas'] = (isset($_POST['listadoprendas']) ? $_POST['listadoprendas'] : '');
+    $_SESSION['renovar'] = (isset($_POST['renovar']) ? $_POST['renovar'] : '');
+    $_SESSION['looksasesoria'] = (isset($_POST['looksasesoria']) ? $_POST['looksasesoria'] : ''); //array
+    $_SESSION['otroasesoria'] = (isset($_POST['otroasesoria']) ? $_POST['otroasesoria'] : '');
+    $_SESSION['pedirps'] = (isset($_POST['pedirps']) ? $_POST['pedirps'] : ''); //array
+    $_SESSION['pedirpsotros'] = (isset($_POST['pedirpsotros']) ? $_POST['pedirpsotros'] : '');
+    $_SESSION['pedirpsfuera'] = (isset($_POST['pedirpsfuera']) ? $_POST['pedirpsfuera'] : ''); //array
+    $_SESSION['pedirpsfueraotros'] = (isset($_POST['pedirpsfueraotros']) ? $_POST['pedirpsfueraotros'] : '');
+    $_SESSION['tendencias'] = (isset($_POST['tendencias']) ? $_POST['tendencias'] : '');
+
+    if($id_usuario>0){
+        if($uM->existe_ps($id_usuario)>0){
+            $rdp = $uM->delete_ps($id_usuario);
+            if($rdp){
+                $raps = $uM->add_ps_reg($_SESSION['id_usuario'], $_SESSION['vestirdiadia'], $_SESSION['vestirsuperior'], $_SESSION['vestirinferior'], $_SESSION['colorarmario'], $_SESSION['colorfav'], $_SESSION['personaConocida'], $_SESSION['actividadOcio'], $_SESSION['profesion'], $_SESSION['hijos'], $_SESSION['frmdatosnombre'], $_SESSION['frmdatosapellidos'], $_SESSION['frmdatosfechanacimiento'], $_SESSION['frmdatosemail'], $_SESSION['silueta'], $_SESSION['tallasuperior'], $_SESSION['tallainferior'], $_SESSION['tallapecho'], $_SESSION['altura'], $_SESSION['cuerporealzar'], $_SESSION['cuerpodisimular'], $_SESSION['tonopiel'], $_SESSION['ojos'], $_SESSION['colorcabello'], $_SESSION['enviarfoto'], $_SESSION['listadoprendas'], $_SESSION['renovar'], $_SESSION['looksasesoria'], $_SESSION['otroasesoria'], $_SESSION['pedirps'], $_SESSION['pedirpsotros'], $_SESSION['pedirpsfuera'], $_SESSION['pedirpsfueraotros'], $_SESSION['tendencias']);
+                if($raps){
+                    echo 'Añadido con éxito';
+                }
+            }
+        }
+    }else{
+        //envia a formulario de registro
+        header('Location: '.$ruta_inicio.'login.php'); exit();
+    }
+}
     
 
 ?>
@@ -27,8 +79,8 @@ echo '</pre>'; */
             <div id="pbsn" class="progress-bar sesnines" role="progressbar" style="width: 20%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
         </div>
     </div>
-    <form method="POST" class="my-3">
-        <div id="p1" class="container pregunta-ns show">
+    <form id="frmps" method="POST" class="my-3">
+        <div id="p1" class="container pregunta-ns">
             <div class="pregunta">
                 <h1 class="titulo-sn">Estilo</h1>
                 <h1 class="mb-0">¿Cómo te gusta vestir en tu día a día?</h1>
@@ -38,70 +90,90 @@ echo '</pre>'; */
                 <div class="respuesta-sn col-xs-12 col-sm-4 col-md-2">
                     <label>
                         <img src="http://sesnineshopper.com/adstorm/img/casualstreet.jpg" class="img-thumbnail img-check">
-                        <input type="checkbox" name="check[]" value="img1" id="item" hidden>
+                        <input type="checkbox" name="vestirdiadia[]" value="img1" id="item" hidden>
                         <p class="text-center">CASUAL DEPORTIVA</p>
                     </label>
                 </div>
                 <div class="respuesta-sn col-xs-12 col-sm-4 col-md-2">
                     <label>
                         <img src="http://sesnineshopper.com/adstorm/img/casualstreet.jpg" class="img-thumbnail img-check">
-                        <input type="checkbox" name="check[]" value="img2" id="item" hidden>
+                        <input type="checkbox" name="vestirdiadia[]" value="img2" id="item" hidden>
                         <p class="text-center">CASUAL STREET</p>
                     </label>
                 </div>
                 <div class="respuesta-sn col-xs-12 col-sm-4 col-md-2">
                     <label>
                         <img src="http://sesnineshopper.com/adstorm/img/casualstreet.jpg" class="img-thumbnail img-check">
-                        <input type="checkbox" name="check[]" value="img3" id="item" hidden>
+                        <input type="checkbox" name="vestirdiadia[]" value="img3" id="item" hidden>
                         <p class="text-center">CLASICA</p>
                     </label>
                 </div>
                 <div class="respuesta-sn col-xs-12 col-sm-4 col-md-2">
                     <label>
                         <img src="http://sesnineshopper.com/adstorm/img/casualstreet.jpg" class="img-thumbnail img-check">
-                        <input type="checkbox" name="check[]" value="img4" id="item" hidden>
+                        <input type="checkbox" name="vestirdiadia[]" value="img4" id="item" hidden>
                         <p class="text-center">ACTUAL</p>
                     </label>
                 </div>
                 <div class="respuesta-sn col-xs-12 col-sm-4 col-md-2">
                     <label>
                         <img src="http://sesnineshopper.com/adstorm/img/casualstreet.jpg" class="img-thumbnail img-check">
-                        <input type="checkbox" name="check[]" value="img5" id="item" hidden>
+                        <input type="checkbox" name="vestirdiadia[]" value="img5" id="item" hidden>
                         <p class="text-center">OFFICE</p>
                     </label>
                 </div>
                 <div class="respuesta-sn col-xs-12 col-sm-4 col-md-2">
                     <label>
                         <img src="http://sesnineshopper.com/adstorm/img/casualstreet.jpg" class="img-thumbnail img-check">
-                        <input type="checkbox" name="check[]" value="img5" id="item" hidden>
+                        <input type="checkbox" name="vestirdiadia[]" value="img5" id="item" hidden>
                         <p class="text-center">SOFISTICADA</p>
                     </label>
                 </div>
                 <div class="respuesta-sn col-xs-12 col-sm-4 col-md-2">
                     <label>
                         <img src="http://sesnineshopper.com/adstorm/img/casualstreet.jpg" class="img-thumbnail img-check">
-                        <input type="checkbox" name="check[]" value="img5" id="item" hidden>
+                        <input type="checkbox" name="vestirdiadia[]" value="img5" id="item" hidden>
                         <p class="text-center">EXTREMADA</p>
                     </label>
                 </div>
             </div>
             <div class="pregunta">
-                <h1 class="mb-0">¿Cómo sueles vestir?</h1>
+                <h1 class="mb-0">¿Cómo sueles vestir en la parte superior?</h1>
             </div>
             <div class="d-flex justify-content-around my-3">
                 <label class="d-flex justify-content-center align-items-center">
                     <div class="redonda red1 check"></div>
-                    <input checked type="radio" name="vestir" value="holgada" id="item" hidden>
+                    <input checked type="radio" name="vestirsuperior" value="holgada" id="item" hidden>
                     <p class="text-center m-0 ml-2">Holgada</p>
                 </label>
                 <label class="d-flex justify-content-center align-items-center">
                     <div class="redonda red1"></div>
-                    <input type="radio" name="vestir" value="recta" id="item" hidden>
+                    <input type="radio" name="vestirsuperior" value="recta" id="item" hidden>
                     <p class="text-center m-0 ml-2">Recta</p>
                 </label>
                 <label class="d-flex justify-content-center align-items-center">
                     <div class="redonda red1"></div>
-                    <input type="radio" name="vestir" value="entallada" id="item" hidden>
+                    <input type="radio" name="vestirsuperior" value="entallada" id="item" hidden>
+                    <p class="text-center m-0 ml-2">Entallada</p>
+                </label>
+            </div>
+            <div class="pregunta">
+                <h1 class="mb-0">¿Cómo sueles vestir en la parte inferior?</h1>
+            </div>
+            <div class="d-flex justify-content-around my-3">
+                <label class="d-flex justify-content-center align-items-center">
+                    <div class="redonda red1 check"></div>
+                    <input checked type="radio" name="vestirinferior" value="holgada" id="item" hidden>
+                    <p class="text-center m-0 ml-2">Holgada</p>
+                </label>
+                <label class="d-flex justify-content-center align-items-center">
+                    <div class="redonda red1"></div>
+                    <input type="radio" name="vestirinferior" value="recta" id="item" hidden>
+                    <p class="text-center m-0 ml-2">Recta</p>
+                </label>
+                <label class="d-flex justify-content-center align-items-center">
+                    <div class="redonda red1"></div>
+                    <input type="radio" name="vestirinferior" value="entallada" id="item" hidden>
                     <p class="text-center m-0 ml-2">Entallada</p>
                 </label>
             </div>
@@ -109,7 +181,7 @@ echo '</pre>'; */
                 <h1 class="mb-0">¿Qué colores predominan en tu armario?</h1>
             </div>
             <div class="d-flex justify-content-around my-3">
-                <textarea id="colorArmario" placeholder="Escribe aquí.."></textarea>
+                <textarea id="colorArmario" name="colorarmario" placeholder="Escribe aquí.."></textarea>
             </div>
             <div class="pregunta">
                 <h1 class="mb-0">¿Te gustan más lo estampados o eres más de colores lisos?</h1>
@@ -135,7 +207,7 @@ echo '</pre>'; */
                 <h1 class="mb-0">¿Te identificas o te gusta el estilo de una persona conocida?</h1>
             </div>
             <div class="d-flex justify-content-around my-3">
-                <textarea id="personaConocida" placeholder="Escribe aquí.."></textarea>
+                <textarea id="personaConocida" name="personaConocida" placeholder="Escribe aquí.."></textarea>
             </div>
             <div class="d-flex justify-content-around flex-wrap">
                 <input id="btnp1" class="btnFormps" type="button" value="Seguimos conociéndote">
@@ -147,13 +219,13 @@ echo '</pre>'; */
                 <h1 class="mb-0">Cuentanos tus actividades de ocio</h1>
             </div>
             <div class="d-flex justify-content-around my-3">
-                <textarea id="actividadOcio" class="textareasn" placeholder="Escribe aquí.."></textarea>
+                <textarea id="actividadOcio" name="actividadOcio" class="textareasn" placeholder="Escribe aquí.."></textarea>
             </div>
             <div class="pregunta">
                 <h1 class="mb-0">¿A qué te dedicas?</h1>
             </div>
             <div class="d-flex justify-content-around my-3">
-                <textarea id="profesion" class="textareasn" placeholder="Escribe aquí.."></textarea>
+                <textarea id="profesion" name="profesion" class="textareasn" placeholder="Escribe aquí.."></textarea>
             </div>
             <div class="pregunta">
                 <h1 class="mb-0">¿Tienes hijos?</h1>
@@ -174,10 +246,10 @@ echo '</pre>'; */
                 <h1 class="mb-2">Datos personales</h1>
                 <div class="borde">
                     <div class="inputs">
-                        <input type="text" class="inp" placeholder="Nombre">
-                        <input type="text" class="inp" placeholder="Apellidos">
-                        <input type="date" class="inp" placeholder="Fecha de nacimiento">
-                        <input type="email" class="inp" placeholder="Correo electronico">
+                        <input type="text" name="frmdatosnombre" class="inp" placeholder="Nombre">
+                        <input type="text" name="frmdatosapellidos" class="inp" placeholder="Apellidos">
+                        <input type="date" name="frmdatosfechanacimiento" class="inp" placeholder="Fecha de nacimiento">
+                        <input type="email" name="frmdatosemail" class="inp" placeholder="Correo electronico">
                     </div>
                 </div>
             </div>
@@ -186,7 +258,7 @@ echo '</pre>'; */
                 <input id="btnp2" class="btnFormps" type="button" value="¡Vamos!">
             </div>
         </div>
-        <div id="p3" class="container pregunta-ns">
+        <div id="p3" class="container pregunta-ns show">
             <div class="pregunta">
                 <h1 class="titulo-sn">Mi tipología</h1>
                 <h1 class="mb-3">Mi silueta es...</h1>
@@ -293,14 +365,14 @@ echo '</pre>'; */
             </div>
             <div class="d-flex justify-content-center align-items-center flex-column">
                 <label id="valpecho" class="valuerange">80</label>
-                <input id="tallapecho" class="sliderrange" type="range" min="80" max="115" step="1" value="80">
+                <input id="tallapecho" name="tallapecho" class="sliderrange" type="range" min="80" max="115" step="1" value="80">
             </div>
             <div class="pregunta">
                 <h1 class="mb-3">Mi altura es..</h1>
             </div>
             <div class="d-flex justify-content-center align-items-center flex-column">
                 <label id="valaltura" class="valuerange">1.5 m</label>
-                <input id="altura" class="sliderrange" type="range" min="1.50" max="2" value="1.50" step="0.01">
+                <input id="altura" name="altura" class="sliderrange" type="range" min="1.50" max="2" value="1.50" step="0.01">
             </div>
             <div class="pregunta">
                 <h1 class="mb-0">¿Qué parte de tu cuerpo te gusta más (realzar)?</h1>
@@ -312,34 +384,34 @@ echo '</pre>'; */
                 <h1 class="mb-0">¿Qué parte de tu cuerpo te gusta menos (disimular)?</h1>
             </div>
             <div class="d-flex justify-content-around my-3">
-                <textarea id="cuerporealzar" name="cuerpodisimular" class="textareasn" placeholder="Escribe aquí.."></textarea>
+                <textarea id="cuerpodisimular" name="cuerpodisimular" class="textareasn" placeholder="Escribe aquí.."></textarea>
             </div>
             <div class="pregunta">
                 <h1 class="mb-0">Tono de piel</h1>
             </div>
             <div class="d-flex justify-content-center my-3">
                 <label class="d-flex justify-content-center align-items-center mx-5">
-                    <div class="redonda rosada red5 check"></div>
+                    <div class="redonda-completa redonda rosada red5 check"></div>
                     <input checked type="radio" name="tonopiel" value="rosada" id="item" hidden>
                     <p class="text-center m-0 ml-2">Rosada</p>
                 </label>
                 <label class="d-flex justify-content-center align-items-center mx-5">
-                    <div class="redonda beige red5"></div>
+                    <div class="redonda-completa redonda beige red5"></div>
                     <input type="radio" name="tonopiel" value="beige" id="item" hidden>
                     <p class="text-center m-0 ml-2">Beige</p>
                 </label>
                 <label class="d-flex justify-content-center align-items-center mx-5">
-                    <div class="redonda dorada red5"></div>
+                    <div class="redonda-completa redonda dorada red5"></div>
                     <input type="radio" name="tonopiel" value="dorada" id="item" hidden>
                     <p class="text-center m-0 ml-2">Dorada</p>
                 </label>
                 <label class="d-flex justify-content-center align-items-center mx-5">
-                    <div class="redonda mulata red5"></div>
+                    <div class="redonda-completa redonda mulata red5"></div>
                     <input type="radio" name="tonopiel" value="mulata" id="item" hidden>
                     <p class="text-center m-0 ml-2">Mulata</p>
                 </label>
                 <label class="d-flex justify-content-center align-items-center mx-5">
-                    <div class="redonda negra red5"></div>
+                    <div class="redonda-completa redonda negra red5"></div>
                     <input type="radio" name="tonopiel" value="negra" id="item" hidden>
                     <p class="text-center m-0 ml-2">Negra</p>
                 </label>
@@ -521,7 +593,7 @@ echo '</pre>'; */
                 </label>
             </div>
             <div class="d-flex justify-content-center">
-                <textarea id="otroasesoria" class="textareasn my-3 esconderotros" placeholder="Escribe aquí.."></textarea>
+                <textarea id="otroasesoria" name="otroasesoria" class="textareasn my-3 esconderotros" placeholder="Escribe aquí.."></textarea>
             </div>
             <div class="pregunta">
                 <h1 class="mb-3">Me apetece pedir mi Personal Shopper porque:</h1>
@@ -559,7 +631,7 @@ echo '</pre>'; */
                 </label>
             </div>
             <div class="d-flex justify-content-center">
-                <textarea id="pedirpsotros" class="textareasn my-3 esconderotros" placeholder="Escribe aquí.."></textarea>
+                <textarea id="pedirpsotros" name="pedirpsotros" class="textareasn my-3 esconderotros" placeholder="Escribe aquí.."></textarea>
             </div>
             <div class="pregunta">
                 <h1 class="mb-3">Me gustaría que mi Personal Shopper fuera:</h1>
@@ -582,13 +654,13 @@ echo '</pre>'; */
                 </label>
             </div>
             <div class="d-flex justify-content-center">
-                <textarea id="pedirpsfueraotros" class="textareasn my-3 esconderotros" placeholder="Escribe aquí.."></textarea>
+                <textarea id="pedirpsfueraotros" name="pedirpsfueraotros" class="textareasn my-3 esconderotros" placeholder="Escribe aquí.."></textarea>
             </div>
             <div class="pregunta">
                 <h1 class="mb-3">Ayudanos a conocerte mejor (sigues las tendencias, tu día a día, algua petición especial...)</h1>
             </div>
             <div class="d-flex justify-content-center">
-                <textarea class="textareasn my-3" placeholder="Escribe aquí.."></textarea>
+                <textarea class="textareasn my-3" name="tendencias" placeholder="Escribe aquí.."></textarea>
             </div>
              <div class="d-flex justify-content-around flex-wrap">
                 <input id="volverp4" class="btnFormps" type="button" value="Atrás">
@@ -655,7 +727,7 @@ echo '</pre>'; */
                 }, 500);
             });
             $("#btnp5").click(function () {
-                console.log("ENVIAR");
+                $("#frmps").submit();
             });
 
             $(".red9").click(function () {

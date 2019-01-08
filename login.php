@@ -26,6 +26,7 @@ if (isset($_POST['nombre_usuario'])) { //si viene de submit de login
     
     if (strlen($result_login) > 1) {
         $str_errores = $result_login;
+        echo 'login';
     }
 }
 
@@ -53,14 +54,17 @@ include_once('inc/cabecera.inc.php'); //cargando cabecera
 <body style="background-color: rgba(12,15,28,.02);">
     <div class="container">
         <div class="modallogin">
-            <form action="" class="frmlogin">
+            <a href="<?php echo $ruta_inicio; ?>altaps"><h1>Registrarme</h1></a>
+            <form action="" method="POST" class="frmlogin">
                 <div class="header">
                     <h1 class="titulo">Inicia sesión en Sesnines</h1>
                 </div>
                 <hr>
                 <div class="body">
-                    <?php echo $iM->get_input_text('loginemail','','form-control frmlogin','Email'); ?>
+                    <?php echo $iM->get_input_text('nombre_usuario','','form-control frmlogin','Email'); ?>
+                    <?php echo $iM->get_input_text('contrasenya_usuario','','form-control frmpassword','Contraseña'); ?>
                 </div>
+                <input type="submit" value="Login">
             </form>
         </div>
     </div>

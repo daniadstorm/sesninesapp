@@ -57,6 +57,44 @@ class usuarioModel extends Model {
         return $this->execute_query($q);
     }
 
+    function add_mi_ps($id_usuario, $tipo_cuota, $fecha, $mensaje){
+        $q  = ' INSERT INTO '.$this->pre.'usuario_pedidos (id_usuario, tipo_cuota, estado_pedido, observaciones_pedido, fecha_recogida_pedido) VALUES ';
+        $q .= ' ("'.$id_usuario.'", "'.$tipo_cuota.'", 0,"'.$mensaje.'", "'.$fecha.'")';
+        return $this->execute_query($q);
+    }
+
+    function existe_ps($id_usuario){
+        $q = ' SELECT * FROM '.$this->pre.'ps ';
+        $q .= ' WHERE id_usuario='.$id_usuario.' ';
+        $r = $this->execute_query($q);
+        if ($r) return $r->num_rows;
+            else return false;
+    }
+
+    function delete_ps($id_usuario){
+        $q  = ' DELETE FROM '.$this->pre.'ps ';
+        $q .= ' WHERE id_usuario='.$id_usuario.' ';
+        return $this->execute_query($q);
+    }
+
+    function add_ps_reg($id_usuario, $vestirdiadia, $vestirsuperior, $vestirinferior, $colorarmario, $colorfav, $personaConocida, $actividadOcio, $profesion, $hijos, $frmdatosnombre, $frmdatosapellidos, $frmdatosfechanacimiento, $frmdatosemail, $silueta, $tallasuperior, $tallainferior, $tallapecho, $altura, $cuerporealzar, $cuerpodisimular, $tonopiel, $ojos, $colorcabello, $enviarfoto, $listadoprendas, $renovar, $looksasesoria, $otroasesoria, $pedirps, $pedirpsotros, $pedirpsfuera, $pedirpsfueraotros, $tendencias){
+        $q  = ' INSERT INTO '.$this->pre.'ps (id_usuario, vestirdiadia, vestirsuperior, vestirinferior, colorarmario, colorfav, personaConocida, actividadOcio, profesion, hijos, frmdatosnombre, frmdatosapellidos, frmdatosfechanacimiento, frmdatosemail, silueta, tallasuperior, tallainferior, tallapecho, altura, cuerporealzar, cuerpodisimular, tonopiel, ojos, colorcabello, enviarfoto, listadoprendas, renovar, looksasesoria, otroasesoria, pedirps, pedirpsotros, pedirpsfuera, pedirpsfueraotros, tendencias) VALUES ';
+        $q .= ' ("'.$id_usuario.'", "'.$vestirdiadia.'", "'.$vestirsuperior.'", "'.$vestirinferior.'", "'.$colorarmario.'", "'.$colorfav.'", "'.$personaConocida.'", "'.$actividadOcio.'", "'.$profesion.'", "'.$hijos.'", "'.$frmdatosnombre.'", "'.$frmdatosapellidos.'", "'.$frmdatosfechanacimiento.'", "'.$frmdatosemail.'", "'.$silueta.'", "'.$tallasuperior.'", "'.$tallainferior.'", "'.$tallapecho.'", "'.$altura.'", "'.$cuerporealzar.'", "'.$cuerpodisimular.'", "'.$tonopiel.'", "'.$ojos.'", "'.$colorcabello.'", "'.$enviarfoto.'", "'.$listadoprendas.'", "'.$renovar.'", "'.$looksasesoria.'", "'.$otroasesoria.'", "'.$pedirps.'", "'.$pedirpsotros.'", "'.$pedirpsfuera.'", "'.$pedirpsfueraotros.'", "'.$tendencias.'")';
+    }
+
+    function get_ps($id_usuario){
+        $q = ' SELECT * FROM '.$this->pre.'usuario_pedidos ';
+        $q .= ' WHERE id_usuario='.$id_usuario.' ';
+        $r = $this->execute_query($q);
+        if ($r) return $r->num_rows;
+            else return false;
+    }
+
+    function update_mi_ps($id_usuario, $tipo_cuota, $fecha, $mensaje){
+        $q  = ' UPDATE '.$this->pre.'usuario_pedidos SET tipo_cuota="'.$tipo_cuota.'", observaciones_pedido="'.$mensaje.'", fecha_recogida_pedido="'.$fecha.'" WHERE id_usuario='.$id_usuario.' ';
+        return $this->execute_query($q);
+    }
+
     function add_destino_usuario($id_usuario, $nombre, $direccion, $cp, $poblacion, $provincia, $fecha_hora_inicio, $fecha_hora_fin) {
         $q  = ' INSERT INTO '.$this->pre.'usuario_destinos (id_usuario, nombre, direccion, cp, poblacion, provincia, fecha_hora_inicio, fecha_hora_fin) VALUES ';
         $q .= ' ("'.$id_usuario.'", "'.$nombre.'", "'.$direccion.'", "'.$cp.'", "'.$poblacion.'", "'.$provincia.'", "'.$fecha_hora_inicio.'", "'.$fecha_hora_fin.'")';

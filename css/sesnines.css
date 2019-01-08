@@ -654,6 +654,14 @@ form#form-contact div.form-group{
     padding: .25rem;
     transition: all .5s;
 }
+.redonda-completa{
+    height: 48px!important;
+    width: 48px!important;
+    border: 1px solid #6f859c;
+    border-radius: 4px!important;
+    padding: .25rem;
+    transition: all .5s;
+}
 .cuadrado{
     height: 32px;
     width: 32px;
@@ -689,6 +697,10 @@ form#form-contact div.form-group{
 }
 .redonda.check{
     border: 5px solid #6f859c;
+    transition: all .5s;
+}
+.redonda.red5.check{
+    border: 1px solid #6f859c;
     transition: all .5s;
 }
 #colorArmario{
@@ -847,25 +859,31 @@ form#form-contact div.form-group{
     color: #000;
 }
 .rosada{
-    border-color: #FFEAFB!important;
+    background-color: #FFEAFB!important;
+    /* border-color: #FFEAFB!important; */
 }
 .beige{
-    border-color: #FBEBD0!important;
+    background-color: #FBEBD0!important;
+    /* border-color: #FBEBD0!important; */
 }
 .dorada{
-    border-color: #FFDBBE!important;
+    background-color: #FFDBBE!important;
+    /* border-color: #FFDBBE!important; */
 }
 .mulata{
-    border-color: #D0784F!important;
+    background-color: #D0784F!important;
+    /* border-color: #D0784F!important; */
 }
 .negra{
-    border-color: #421914!important;
+    background-color: #421914!important;
+    /* border-color: #421914!important; */
 }
 .redonda.red5{
-    border: 4px solid;
+    /* border: 4px solid; */
 }
-.red5.check{
-    border: 10px solid;
+.red5.check+input+p{
+    font-weight: bold;
+    font-size: 1.1rem;
 }
 .pregunta h1.ph{
     font-size: 1.1rem;

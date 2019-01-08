@@ -44,6 +44,17 @@ if($rgu){
     }
 }
 
+if(isset($_POST['frm_ps'])){
+    echo '<pre>';
+    print_r($_POST);
+    echo '</pre>';
+    if(!$uM->get_ps($id_usuario)){
+        $ramp = $uM->add_mi_ps($id_usuario, $_POST['tipo_suscripcion'], $_POST['fechaps'], $_POST['mensajeps']);
+    }else{
+        $rump = $uM->update_mi_ps($id_usuario, $_POST['tipo_suscripcion'], $_POST['fechaps'], $_POST['mensajeps']);
+    }
+}
+
 //CONTROL_______________________________________________________________________
 
 include_once('inc/cabecera.inc.php'); //cargando cabecera
@@ -134,7 +145,7 @@ include_once('inc/cabecera.inc.php'); //cargando cabecera
                                             </div>
                                         </div>
                                         <div class="btnenviar">
-                                            <button type="submit" class="btn btn-lg btn-block p-3 btnsn">Pedir mi Personal Shopper</button>
+                                            <button type="submit" name="frm_ps" class="btn btn-lg btn-block p-3 btnsn">Pedir mi Personal Shopper</button>
                                         </div>
                                     </form>
                                     <div class="col-xl-4">
@@ -176,7 +187,7 @@ include_once('inc/cabecera.inc.php'); //cargando cabecera
                                                         </button>
                                                       </h2>
                                                 </div>
-                                                <form id="miemail" name="frmemail" class="collapse" aria-labelledby="headingOne"
+                                                <form id="miemail" name="frmemail" class="collapse show" aria-labelledby="headingOne"
                                                     data-parent="#accordionExample">
                                                     <div class="card-body">
                                                         <input type="email" name="email" class="form-control frm p-3">
@@ -195,7 +206,7 @@ include_once('inc/cabecera.inc.php'); //cargando cabecera
                                                             </button>
                                                           </h2>
                                                     </div>
-                                                    <form id="mipassord" name="frmpassword" class="collapse" aria-labelledby="headingdos"
+                                                    <form id="mipassord" name="frmpassword" class="collapse show" aria-labelledby="headingdos"
                                                         data-parent="#accordionExample">
                                                         <div class="card-body">
                                                             <input type="password" class="form-control frm p-3">
