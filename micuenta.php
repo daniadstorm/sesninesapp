@@ -16,6 +16,7 @@ $suscripciones = array(
     "3meses" => "3 Meses",
     "6meses" => "6 Meses",
 );
+
 //GET___________________________________________________________________________
 
 //GET___________________________________________________________________________
@@ -45,9 +46,6 @@ if($rgu){
 }
 
 if(isset($_POST['frm_ps'])){
-    echo '<pre>';
-    print_r($_POST);
-    echo '</pre>';
     if(!$uM->get_ps($id_usuario)){
         $ramp = $uM->add_mi_ps($id_usuario, $_POST['tipo_suscripcion'], $_POST['fechaps'], $_POST['mensajeps']);
     }else{
@@ -129,33 +127,34 @@ include_once('inc/cabecera.inc.php'); //cargando cabecera
                                 <div class="row">
                                     <form method="POST" class="col-xl-8">
                                         <label class="title-menuuser"><strong>Pide tu Personal Shopper</strong></label>
-                                        <div id="ps-menu-p" class="d-inline-flex my-1">
+                                        <div id="ps-menu-p" class="d-flex justify-content-center align-items-center my-1 flex-wrap">
                                             <?php echo $outps; ?>
                                         </div>
-                                        <div class="d-flex my-3">
-                                            <div class="d-flex flex-column ml-3">
+                                        <div class="d-flex my-3 flex-wrap">
+                                            <div class="d-flex flex-column ml-3 my-3">
                                                 <label class="mb-2">¿Cuándo quieres que te llegue?</label>
                                                 <div id="pedidofecha"></div>
                                                 <input hidden type="date" name="fechaps" id="fechaps">
                                             </div>
-                                            <div class="d-flex flex-column ml-3">
+                                            <div class="d-flex flex-column ml-3 my-3">
                                                 <label class="mb-2">Deja un mensaje</label>
                                                 <textarea placeholder="Ej: Normalmente visto de azul, gris o negro y siempre voy con camisetas y vaqueros. Me gustaría descubrir otros colores y estilos"
                                                     name="mensajeps" id="mensajeps" cols="40" rows="9"></textarea>
                                             </div>
                                         </div>
                                         <div class="btnenviar">
-                                            <button type="submit" name="frm_ps" class="btn btn-lg btn-block p-3 btnsn">Pedir mi Personal Shopper</button>
+                                            <button type="submit" name="frm_ps" class="btn btn-lg btn-block p-3 btnsn">Pedir
+                                                mi Personal Shopper</button>
                                         </div>
                                     </form>
                                     <div class="col-xl-4">
-                                        <div class="accordion" id="accordionExample">
+                                        <div class="accordion mt-3" id="accordionExample">
                                             <div class="card">
                                                 <div class="card-header" id="headingOne">
                                                     <h2 class="mb-0">
-                                                        <button class="btn btn-link" type="button" data-toggle="collapse"
-                                                            data-target="#collapseOne" aria-expanded="true"
-                                                            aria-controls="collapseOne">
+                                                        <button class="btn btn-link color-text" type="button"
+                                                            data-toggle="collapse" data-target="#collapseOne"
+                                                            aria-expanded="true" aria-controls="collapseOne">
                                                             Pedido #1
                                                         </button>
                                                     </h2>
@@ -163,10 +162,70 @@ include_once('inc/cabecera.inc.php'); //cargando cabecera
                                                 <div id="collapseOne" class="collapse" aria-labelledby="headingOne"
                                                     data-parent="#accordionExample">
                                                     <div class="card-body">
-                                                        uno
+                                                        <ul class="list-group">
+                                                            <li class="list-group-item p-0">
+                                                                <div class="input-group">
+                                                                    <div class="input-group-prepend">
+                                                                        <div class="input-group-text bordertrans">
+                                                                            <input type="checkbox" aria-label="Checkbox for following text input">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="form-control bordertrans d-flex justify-content-between align-items-center"
+                                                                        aria-label="Text input with checkbox">
+                                                                        <img data-toggle="modal" data-target="#exampleModalCenter"
+                                                                            class="img-pedido-ps" src="https://www.bananaprint.es/media/catalog/product/cache/1/image/9df78eab33525d08d6e5fb8d27136e95/c/a/camiseta-beagle-roly-rol-6554k-azul-denim-img01.jpg"
+                                                                            alt="">
+                                                                        <h5 class="ml-1 mb-0">Camiseta básica</h5>
+                                                                        <h5 class="ml-1 mb-0">12€</h5>
+                                                                        <!-- Button trigger modal -->
+                                                                    </div>
+                                                                </div>
+                                                                <!--  -->
+                                                            </li>
+                                                            <li class="list-group-item p-0">
+                                                                <div class="input-group">
+                                                                    <div class="input-group-prepend">
+                                                                        <div class="input-group-text bordertrans">
+                                                                            <input type="checkbox" aria-label="Checkbox for following text input">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="form-control bordertrans d-flex justify-content-between align-items-center"
+                                                                        aria-label="Text input with checkbox">
+                                                                        <img data-toggle="modal" data-target="#exampleModalCenter"
+                                                                            class="img-pedido-ps" src="https://www.bananaprint.es/media/catalog/product/cache/1/image/9df78eab33525d08d6e5fb8d27136e95/c/a/camiseta-beagle-roly-rol-6554k-azul-denim-img01.jpg"
+                                                                            alt="">
+                                                                        <h5 class="ml-1 mb-0">Camiseta básica 2</h5>
+                                                                        <h5 class="ml-1 mb-0">16€</h5>
+                                                                        <!-- Button trigger modal -->
+                                                                    </div>
+                                                                </div>
+                                                                <!--  -->
+                                                            </li>
+                                                            <li class="list-group-item">
+                                                                <button type="button" class="btn btn-outline-info btn-lg btn-block">¡Pedir!</button>
+                                                            </li>
+                                                        </ul>
                                                     </div>
                                                 </div>
                                             </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Modal -->
+                            <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+                                aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLongTitle">Camiseta básica</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <img class="img-max-modal" src="https://www.bananaprint.es/media/catalog/product/cache/1/image/9df78eab33525d08d6e5fb8d27136e95/c/a/camiseta-beagle-roly-rol-6554k-azul-denim-img01.jpg"
+                                                alt="">
                                         </div>
                                     </div>
                                 </div>
@@ -180,15 +239,15 @@ include_once('inc/cabecera.inc.php'); //cargando cabecera
                                                 <i class="fa fa-sort-down sortsn"></i>
                                                 <div class="card-header p-0" id="headingOne">
                                                     <h2 class="mb-0">
-                                                        <button class="btn btn-block btn-link btnsnac" type="button" data-toggle="collapse"
-                                                            data-target="#miemail" aria-expanded="true"
+                                                        <button class="btn btn-block btn-link btnsnac" type="button"
+                                                            data-toggle="collapse" data-target="#miemail" aria-expanded="true"
                                                             aria-controls="miemail">
                                                             Mi email
                                                         </button>
-                                                      </h2>
+                                                    </h2>
                                                 </div>
-                                                <form id="miemail" name="frmemail" class="collapse show" aria-labelledby="headingOne"
-                                                    data-parent="#accordionExample">
+                                                <form id="miemail" name="frmemail" class="collapse show"
+                                                    aria-labelledby="headingOne" data-parent="#accordionExample">
                                                     <div class="card-body">
                                                         <input type="email" name="email" class="form-control frm p-3">
                                                         <button class="btn btn-lg btn-block mt-3 btnsn">Guardar email</button>
@@ -196,24 +255,25 @@ include_once('inc/cabecera.inc.php'); //cargando cabecera
                                                 </form>
                                             </div>
                                             <div class="card">
-                                                    <i class="fa fa-sort-down sortsn"></i>
-                                                    <div class="card-header p-0" id="headingdos">
-                                                        <h2 class="mb-0">
-                                                            <button class="btn btn-block btn-link btnsnac" type="button" data-toggle="collapse"
-                                                                data-target="#mipassord" aria-expanded="true"
-                                                                aria-controls="mipassord">
-                                                                Mi contraseña
-                                                            </button>
-                                                          </h2>
-                                                    </div>
-                                                    <form id="mipassord" name="frmpassword" class="collapse show" aria-labelledby="headingdos"
-                                                        data-parent="#accordionExample">
-                                                        <div class="card-body">
-                                                            <input type="password" class="form-control frm p-3">
-                                                            <button class="btn btn-lg btn-block mt-3 btnsn">Cambiar contraseña</button>
-                                                        </div>
-                                                    </form>
+                                                <i class="fa fa-sort-down sortsn"></i>
+                                                <div class="card-header p-0" id="headingdos">
+                                                    <h2 class="mb-0">
+                                                        <button class="btn btn-block btn-link btnsnac" type="button"
+                                                            data-toggle="collapse" data-target="#mipassord"
+                                                            aria-expanded="true" aria-controls="mipassord">
+                                                            Mi contraseña
+                                                        </button>
+                                                    </h2>
                                                 </div>
+                                                <form id="mipassord" name="frmpassword" class="collapse show"
+                                                    aria-labelledby="headingdos" data-parent="#accordionExample">
+                                                    <div class="card-body">
+                                                        <input type="password" class="form-control frm p-3">
+                                                        <button class="btn btn-lg btn-block mt-3 btnsn">Cambiar
+                                                            contraseña</button>
+                                                    </div>
+                                                </form>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -228,8 +288,8 @@ include_once('inc/cabecera.inc.php'); //cargando cabecera
 </body>
 <script>
     $(document).ready(function (e) {
+        var arrayDiasDesactivados = [];
         $("#pedidofecha").on('change', function () {
-            console.log();
             var f = $("#pedidofecha").val().split('/');
             var dia = f[0];
             var mes = f[1];
@@ -241,7 +301,8 @@ include_once('inc/cabecera.inc.php'); //cargando cabecera
             $(".ps-menu").removeClass("check");
             $(this).addClass("check");
         });
-        var arrayfecha = ["15/01/2019"];
+
+        arrayDiasDesactivados.push("15/01/2019");
         $.datepicker.regional['es'] = {
             closeText: 'Cerrar',
             prevText: '<i class="fa fa-arrow-left"></i>',
@@ -258,9 +319,12 @@ include_once('inc/cabecera.inc.php'); //cargando cabecera
             isRTL: false,
             showMonthAfterYear: false,
             yearSuffix: '',
-            beforeShowDay: function(date){
-                var string = jQuery.datepicker.formatDate('dd/mm/yy', date);
-                return [ arrayfecha.indexOf(string) == -1 ]
+            beforeShowDay: function (date) {
+                /* var string = jQuery.datepicker.formatDate('dd/mm/yy', date);
+                return [arrayDiasDesactivados.indexOf(string) == -1] */
+                var finDeSemana = jQuery.datepicker.noWeekends(date);
+                console.log(finDeSemana);
+                return finDeSemana[0] ? diasFestivos(date) : finDeSemana;
             }
         };
         $.datepicker.setDefaults($.datepicker.regional['es']);
@@ -268,6 +332,17 @@ include_once('inc/cabecera.inc.php'); //cargando cabecera
 
 
     });
+    var dte = new Date();
+    var diasDesactivados = [dte.getDate(),dte.setDate(dte.getDate() +5)];
+    function diasFestivos(date) {
+        var m = date.getMonth(), d = date.getDate(), y = date.getFullYear();
+        for (i = 0; i < diasDesactivados.length; i++) {
+            if ($.inArray((m + 1) + '-' + d + '-' + y, diasDesactivados) != -1 || new Date() > date) {
+                return [false];
+            }
+        }
+        return [true];
+    }
 </script>
 
 </html>
