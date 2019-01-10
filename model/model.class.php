@@ -75,6 +75,19 @@ class Model {
             
         return $date;
     }
+
+    function arrayToString($arr, $delimitador=';'){
+        $str = '';
+        for ($i=0;$i<count($arr); $i++) {
+            $str .= $arr[$i];
+            $str .= ($i+1==count($arr)) ? '' : $delimitador;
+        }
+        return $str;
+    }
+
+    function stringToArray($str, $delimitador=';'){
+        
+    }
     
     function mysql_datetime_to_date($datetime) {
         $date = strtotime($datetime);

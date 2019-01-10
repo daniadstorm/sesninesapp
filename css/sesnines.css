@@ -1070,8 +1070,9 @@ form#form-contact div.form-group{
 .btnenviar{
     max-width: 600px;
 }
-
-
+td.ui-datepicker-unselectable.ui-state-disabled.highlight *{
+    background: red !important;
+  }
 
 .carousel-personalizado{
     max-width: 1280px;

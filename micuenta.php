@@ -39,7 +39,7 @@ if($rgu){
         $outps .= '">
             <p class="text-center m-0 ml-2">'.$value.'</p>
         </div>
-        <input checked type="radio" name="tipo_suscripcion" value="'.$key.'" id="item" hidden>
+        <input checked type="radio" name="tipo_suscripcion" value="'.$key.'" hidden>
         </label>';
     }
 }
@@ -241,6 +241,7 @@ include_once('inc/cabecera.inc.php'); //cargando cabecera
             $(".ps-menu").removeClass("check");
             $(this).addClass("check");
         });
+        var arrayfecha = ["15/01/2019"];
         $.datepicker.regional['es'] = {
             closeText: 'Cerrar',
             prevText: '<i class="fa fa-arrow-left"></i>',
@@ -256,10 +257,16 @@ include_once('inc/cabecera.inc.php'); //cargando cabecera
             firstDay: 1,
             isRTL: false,
             showMonthAfterYear: false,
-            yearSuffix: ''
+            yearSuffix: '',
+            beforeShowDay: function(date){
+                var string = jQuery.datepicker.formatDate('dd/mm/yy', date);
+                return [ arrayfecha.indexOf(string) == -1 ]
+            }
         };
         $.datepicker.setDefaults($.datepicker.regional['es']);
         $("#pedidofecha").datepicker();
+
+
     });
 </script>
 

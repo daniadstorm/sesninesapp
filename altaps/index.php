@@ -8,14 +8,15 @@ $iM = load_model('inputs');
 include_once('../inc/cabecera.inc.php'); //cargando cabecera
 
 $id_usuario = isset($_SESSION['id_usuario']) ? $_SESSION['id_usuario'] : 0;
-
 $enviarfoto = null;
 
 if(isset($_POST['vestirdiadia'])){
-    echo '<pre>';
+    /* echo '<pre>';
     print_r($_POST);
-    echo '<pre>';
-    $_SESSION['vestirdiadia'] = (isset($_POST['vestirdiadia']) ? $_POST['vestirdiadia'] : ''); //array
+    echo '<pre>'; */
+   
+    //$rootM->arrayToString()
+    $_SESSION['vestirdiadia'] = (isset($_POST['vestirdiadia']) ? $rootM->arrayToString($_POST['vestirdiadia']) : '');
     $_SESSION['vestirsuperior'] = (isset($_POST['vestirsuperior']) ? $_POST['vestirsuperior'] : '');
     $_SESSION['vestirinferior'] = (isset($_POST['vestirinferior']) ? $_POST['vestirinferior'] : '');
     $_SESSION['colorarmario'] = (isset($_POST['colorarmario']) ? $_POST['colorarmario'] : '');
@@ -28,7 +29,7 @@ if(isset($_POST['vestirdiadia'])){
     $_SESSION['frmdatosapellidos'] = (isset($_POST['frmdatosapellidos']) ? $_POST['frmdatosapellidos'] : '');
     $_SESSION['frmdatosfechanacimiento'] = (isset($_POST['frmdatosfechanacimiento']) ? $_POST['frmdatosfechanacimiento'] : '');
     $_SESSION['frmdatosemail'] = (isset($_POST['frmdatosemail']) ? $_POST['frmdatosemail'] : '');
-    $_SESSION['silueta'] = (isset($_POST['silueta']) ? $_POST['silueta'] : ''); //array
+    $_SESSION['silueta'] = (isset($_POST['silueta']) ? $rootM->arrayToString($_POST['silueta']) : ''); //array
     $_SESSION['tallasuperior'] = (isset($_POST['tallasuperior']) ? $_POST['tallasuperior'] : '');
     $_SESSION['tallainferior'] = (isset($_POST['tallainferior']) ? $_POST['tallainferior'] : '');
     $_SESSION['tallapecho'] = (isset($_POST['tallapecho']) ? $_POST['tallapecho'] : '');
@@ -38,30 +39,45 @@ if(isset($_POST['vestirdiadia'])){
     $_SESSION['tonopiel'] = (isset($_POST['tonopiel']) ? $_POST['tonopiel'] : '');
     $_SESSION['ojos'] = (isset($_POST['ojos']) ? $_POST['ojos'] : '');
     $_SESSION['colorcabello'] = (isset($_POST['colorcabello']) ? $_POST['colorcabello'] : '');
-    $_SESSION['enviarfoto'] = (isset($_POST['enviarfoto']) ? $_POST['enviarfoto'] : ''); //foto
-    $_SESSION['listadoprendas'] = (isset($_POST['listadoprendas']) ? $_POST['listadoprendas'] : '');
-    $_SESSION['renovar'] = (isset($_POST['renovar']) ? $_POST['renovar'] : '');
-    $_SESSION['looksasesoria'] = (isset($_POST['looksasesoria']) ? $_POST['looksasesoria'] : ''); //array
+    $_SESSION['enviarfoto'] = (isset($_POST['enviarfoto']) && count($_POST['enviarfoto'])>0 ? $rootM->arrayToString($_POST['enviarfoto']) : ''); //foto
+    $_SESSION['listadoprendas'] = (isset($_POST['listadoprendas']) ? $rootM->arrayToString($_POST['listadoprendas']) : '');
+    $_SESSION['renovar'] = (isset($_POST['renovar']) ? $rootM->arrayToString($_POST['renovar']) : '');
+    $_SESSION['looksasesoria'] = (isset($_POST['looksasesoria']) ? $rootM->arrayToString($_POST['looksasesoria']) : ''); //array
     $_SESSION['otroasesoria'] = (isset($_POST['otroasesoria']) ? $_POST['otroasesoria'] : '');
-    $_SESSION['pedirps'] = (isset($_POST['pedirps']) ? $_POST['pedirps'] : ''); //array
+    $_SESSION['pedirps'] = (isset($_POST['pedirps']) ? $rootM->arrayToString($_POST['pedirps']) : ''); //array
     $_SESSION['pedirpsotros'] = (isset($_POST['pedirpsotros']) ? $_POST['pedirpsotros'] : '');
-    $_SESSION['pedirpsfuera'] = (isset($_POST['pedirpsfuera']) ? $_POST['pedirpsfuera'] : ''); //array
+    $_SESSION['pedirpsfuera'] = (isset($_POST['pedirpsfuera']) ? $rootM->arrayToString($_POST['pedirpsfuera']) : ''); //array
     $_SESSION['pedirpsfueraotros'] = (isset($_POST['pedirpsfueraotros']) ? $_POST['pedirpsfueraotros'] : '');
     $_SESSION['tendencias'] = (isset($_POST['tendencias']) ? $_POST['tendencias'] : '');
 
     if($id_usuario>0){
         if($uM->existe_ps($id_usuario)>0){
+            echo 'existe<hr>';
             $rdp = $uM->delete_ps($id_usuario);
             if($rdp){
+                echo 'eliminado<hr>';
                 $raps = $uM->add_ps_reg($_SESSION['id_usuario'], $_SESSION['vestirdiadia'], $_SESSION['vestirsuperior'], $_SESSION['vestirinferior'], $_SESSION['colorarmario'], $_SESSION['colorfav'], $_SESSION['personaConocida'], $_SESSION['actividadOcio'], $_SESSION['profesion'], $_SESSION['hijos'], $_SESSION['frmdatosnombre'], $_SESSION['frmdatosapellidos'], $_SESSION['frmdatosfechanacimiento'], $_SESSION['frmdatosemail'], $_SESSION['silueta'], $_SESSION['tallasuperior'], $_SESSION['tallainferior'], $_SESSION['tallapecho'], $_SESSION['altura'], $_SESSION['cuerporealzar'], $_SESSION['cuerpodisimular'], $_SESSION['tonopiel'], $_SESSION['ojos'], $_SESSION['colorcabello'], $_SESSION['enviarfoto'], $_SESSION['listadoprendas'], $_SESSION['renovar'], $_SESSION['looksasesoria'], $_SESSION['otroasesoria'], $_SESSION['pedirps'], $_SESSION['pedirpsotros'], $_SESSION['pedirpsfuera'], $_SESSION['pedirpsfueraotros'], $_SESSION['tendencias']);
                 if($raps){
-                    echo 'Añadido con éxito';
+                    echo '1- Añadido con éxito';
+                }else{
+                    echo '1- Fallo al añadir<hr>';
                 }
+            }
+        }else{
+            echo '<pre>';
+            print_r($_SESSION);
+            echo '</pre>';
+            $raps = $uM->add_ps_reg($_SESSION['id_usuario'], $_SESSION['vestirdiadia'], $_SESSION['vestirsuperior'], $_SESSION['vestirinferior'], $_SESSION['colorarmario'], $_SESSION['colorfav'], $_SESSION['personaConocida'], $_SESSION['actividadOcio'], $_SESSION['profesion'], $_SESSION['hijos'], $_SESSION['frmdatosnombre'], $_SESSION['frmdatosapellidos'], $_SESSION['frmdatosfechanacimiento'], $_SESSION['frmdatosemail'], $_SESSION['silueta'], $_SESSION['tallasuperior'], $_SESSION['tallainferior'], $_SESSION['tallapecho'], $_SESSION['altura'], $_SESSION['cuerporealzar'], $_SESSION['cuerpodisimular'], $_SESSION['tonopiel'], $_SESSION['ojos'], $_SESSION['colorcabello'], $_SESSION['enviarfoto'], $_SESSION['listadoprendas'], $_SESSION['renovar'], $_SESSION['looksasesoria'], $_SESSION['otroasesoria'], $_SESSION['pedirps'], $_SESSION['pedirpsotros'], $_SESSION['pedirpsfuera'], $_SESSION['pedirpsfueraotros'], $_SESSION['tendencias']);
+            if($raps){
+                echo '2- Añadido con éxito';
+            }else{
+                echo '2- Fallo al añadir<hr>';
             }
         }
     }else{
         //envia a formulario de registro
-        header('Location: '.$ruta_inicio.'login.php'); exit();
+        header('Location: '.$ruta_inicio.'login.php');
+        exit();
     }
 }
     
@@ -80,7 +96,7 @@ if(isset($_POST['vestirdiadia'])){
         </div>
     </div>
     <form id="frmps" method="POST" class="my-3">
-        <div id="p1" class="container pregunta-ns">
+        <div id="p1" class="container pregunta-ns show">
             <div class="pregunta">
                 <h1 class="titulo-sn">Estilo</h1>
                 <h1 class="mb-0">¿Cómo te gusta vestir en tu día a día?</h1>
@@ -138,7 +154,10 @@ if(isset($_POST['vestirdiadia'])){
                 </div>
             </div>
             <div class="pregunta">
-                <h1 class="mb-0">¿Cómo sueles vestir en la parte superior?</h1>
+                <h1 class="mb-0">¿Cómo sueles vestir?</h1>
+            </div>
+            <div class="pregunta">
+                <h1 class="mb-0">Parte superior</h1>
             </div>
             <div class="d-flex justify-content-around my-3">
                 <label class="d-flex justify-content-center align-items-center">
@@ -158,21 +177,21 @@ if(isset($_POST['vestirdiadia'])){
                 </label>
             </div>
             <div class="pregunta">
-                <h1 class="mb-0">¿Cómo sueles vestir en la parte inferior?</h1>
+                <h1 class="mb-0">Parte inferior</h1>
             </div>
             <div class="d-flex justify-content-around my-3">
                 <label class="d-flex justify-content-center align-items-center">
-                    <div class="redonda red1 check"></div>
+                    <div class="redonda red12 check"></div>
                     <input checked type="radio" name="vestirinferior" value="holgada" id="item" hidden>
                     <p class="text-center m-0 ml-2">Holgada</p>
                 </label>
                 <label class="d-flex justify-content-center align-items-center">
-                    <div class="redonda red1"></div>
+                    <div class="redonda red12"></div>
                     <input type="radio" name="vestirinferior" value="recta" id="item" hidden>
                     <p class="text-center m-0 ml-2">Recta</p>
                 </label>
                 <label class="d-flex justify-content-center align-items-center">
-                    <div class="redonda red1"></div>
+                    <div class="redonda red12"></div>
                     <input type="radio" name="vestirinferior" value="entallada" id="item" hidden>
                     <p class="text-center m-0 ml-2">Entallada</p>
                 </label>
@@ -232,12 +251,12 @@ if(isset($_POST['vestirdiadia'])){
             </div>
             <div class="d-flex justify-content-center my-3">
                 <label class="d-flex justify-content-center align-items-center mx-5">
-                    <div class="redonda red2 check"></div>
+                    <div class="redonda redhijos check"></div>
                     <input checked type="radio" name="hijos" value="si" id="item" hidden>
                     <p class="text-center m-0 ml-2">Si</p>
                 </label>
                 <label class="d-flex justify-content-center align-items-center mx-5">
-                    <div class="redonda red2"></div>
+                    <div class="redonda redhijos"></div>
                     <input type="radio" name="hijos" value="no" id="item" hidden>
                     <p class="text-center m-0 ml-2">No</p>
                 </label>
@@ -258,7 +277,7 @@ if(isset($_POST['vestirdiadia'])){
                 <input id="btnp2" class="btnFormps" type="button" value="¡Vamos!">
             </div>
         </div>
-        <div id="p3" class="container pregunta-ns show">
+        <div id="p3" class="container pregunta-ns">
             <div class="pregunta">
                 <h1 class="titulo-sn">Mi tipología</h1>
                 <h1 class="mb-3">Mi silueta es...</h1>
@@ -536,32 +555,32 @@ if(isset($_POST['vestirdiadia'])){
                 </label>
                 <label class="d-flex justify-content-center align-items-center mx-5">
                     <div class="cuadrado red8"></div>
-                    <input checked type="checkbox" name="renovar[]" value="camisa" id="item" hidden>
+                    <input type="checkbox" name="renovar[]" value="camisa" id="item" hidden>
                     <p class="text-center m-0 ml-2">Camisa</p>
                 </label>
                 <label class="d-flex justify-content-center align-items-center mx-5">
                     <div class="cuadrado red8"></div>
-                    <input checked type="checkbox" name="renovar[]" value="tejana" id="item" hidden>
+                    <input type="checkbox" name="renovar[]" value="tejana" id="item" hidden>
                     <p class="text-center m-0 ml-2">Cazaora cuero / Tejana</p>
                 </label>
                 <label class="d-flex justify-content-center align-items-center mx-5">
                     <div class="cuadrado red8"></div>
-                    <input checked type="checkbox" name="renovar[]" value="pantalones" id="item" hidden>
+                    <input type="checkbox" name="renovar[]" value="pantalones" id="item" hidden>
                     <p class="text-center m-0 ml-2">Pantalones</p>
                 </label>
                 <label class="d-flex justify-content-center align-items-center mx-5">
                     <div class="cuadrado red8"></div>
-                    <input checked type="checkbox" name="renovar[]" value="jeans" id="item" hidden>
+                    <input type="checkbox" name="renovar[]" value="jeans" id="item" hidden>
                     <p class="text-center m-0 ml-2">Jeans</p>
                 </label>
                 <label class="d-flex justify-content-center align-items-center mx-5">
                     <div class="cuadrado red8"></div>
-                    <input checked type="checkbox" name="renovar[]" value="jerseypunto" id="item" hidden>
+                    <input type="checkbox" name="renovar[]" value="jerseypunto" id="item" hidden>
                     <p class="text-center m-0 ml-2">Jersey punto</p>
                 </label>
                 <label class="d-flex justify-content-center align-items-center mx-5">
                     <div class="cuadrado red8"></div>
-                    <input checked type="checkbox" name="renovar[]" value="abrigotrench" id="item" hidden>
+                    <input type="checkbox" name="renovar[]" value="abrigotrench" id="item" hidden>
                     <p class="text-center m-0 ml-2">Abrigo o Trench</p>
                 </label>
             </div>
@@ -654,7 +673,7 @@ if(isset($_POST['vestirdiadia'])){
                 </label>
             </div>
             <div class="d-flex justify-content-center">
-                <textarea id="pedirpsfueraotros" name="pedirpsfueraotros" class="textareasn my-3 esconderotros" placeholder="Escribe aquí.."></textarea>
+                <textarea id="pedirpsfueraotros" name="pedirpsfueraotros" class="textareasn my-3" placeholder="Escribe aquí.."></textarea>
             </div>
             <div class="pregunta">
                 <h1 class="mb-3">Ayudanos a conocerte mejor (sigues las tendencias, tu día a día, algua petición especial...)</h1>
@@ -773,12 +792,20 @@ if(isset($_POST['vestirdiadia'])){
                 $(".red11").removeClass("check");
                 $(this).addClass("check");
             });
+            $(".red12").click(function () {
+                $(".red12").removeClass("check");
+                $(this).addClass("check");
+            });
             $(".red1").click(function () {
                 $(".red1").removeClass("check");
                 $(this).addClass("check");
             });
             $(".red2").click(function () {
                 $(".red2").removeClass("check");
+                $(this).addClass("check");
+            });
+            $(".redhijos").click(function () {
+                $(".redhijos").removeClass("check");
                 $(this).addClass("check");
             });
             $(".red3").click(function () {
