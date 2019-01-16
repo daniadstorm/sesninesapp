@@ -16,12 +16,19 @@ class articulosModel extends Model {
         $q .= ' "' . $activado_articulo . '", "' . $visible_en_tienda_articulo . '", "' .$precio_coste_articulo . '", "' . $coste_externo_portes_articulo . '", ';
         $q .= ' "' . $PVP_final_articulo . '", "' . $margen_articulo . '","' . $cantidad_articulo . '", "' .$inicio_descuento_articulo. '", "' .$fin_descuento_articulo. '", ';
         $q .= ' "' .$descuento_porcentaje_articulo. '", "'.$descuento_euros_articulo.'","' . $almacen_articulo . '")';
+        echo $q;
         return $this->execute_query($q);
     }
 
     function add_articulo_etiquetas($id_articulo, $id_etiqueta) {
         $q  = ' INSERT INTO '.$this->pre.'articulo_etiquetas (id_articulo, id_etiqueta) VALUES ';
         $q .= ' (' . $id_articulo . ', ' . $id_etiqueta . ')';
+        return $this->execute_query($q);
+    }
+
+    function delete_articulo($id_articulo){
+        $q  = ' DELETE FROM '.$this->pre.'articulos';
+        $q .= ' WHERE id_articulo = '.$id_articulo.' ';
         return $this->execute_query($q);
     }
 

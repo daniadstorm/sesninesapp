@@ -119,7 +119,7 @@ if (isset($_POST['id_articulo'])) {
                 $precio_coste_articulo, $coste_externo_portes_articulo, $PVP_final_articulo, $margen_articulo, $inicio_descuento_articulo, $fin_descuento_articulo,
                 $descuento_porcentaje_articulo, $descuento_euros_articulo, $cantidad_articulo, $almacen_articulo);
             if ($raa) {
-                header('Location: '.$ruta_inicio.'articulos.php?nuevo_articulo=true'); exit();
+                //header('Location: '.$ruta_inicio.'articulos.php?nuevo_articulo=true'); exit();
             } else $str_errores = $hM->get_alert_danger('Error añadiendo artículo');
         }
     }

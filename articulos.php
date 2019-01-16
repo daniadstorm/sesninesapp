@@ -17,6 +17,14 @@ $str_ruta = $ruta_inicio.'etiquetas.php?';
 //GET___________________________________________________________________________
 if (isset($_GET['nuevo_articulo']) && $_GET['nuevo_articulo'] == 'true') $str_info = $hM->get_alert_success('Artículo añadido');
 if (isset($_GET['editar_articulo']) && $_GET['editar_articulo'] == 'true') $str_info = $hM->get_alert_success('Artículo actualizado');
+if (isset($_GET['eliminar_articulo'])){
+    $rda = $aM->delete_articulo($_GET['eliminar_articulo']);
+    if($rda){
+        $str_info = $hM->get_alert_success('Artículo eliminado');
+    }else{
+        $str_info = $hM->get_alert_danger('Error al eliminar el artículo');
+    }
+}
 /*
 if (isset($_GET['eliminar_etiqueta'])) {
     

@@ -13,11 +13,18 @@ $pagM->pag=0;
 //$pagM->regs_x_pag=1;
 
 $arr_filtro = array(//Estados
-    0 => "PENDIENTE",
-    1 => "LISTO PARA ENVIAR",
-    2 => "ENVIADO",
-    3 => "RECIBIDO",
-    4 => "CHECK OUT REALIZADO",
+    0 => "PENDIENTE (Confirmación de pedido)",
+    1 => "ENVIADO",
+    2 => "RECIBIDO",
+    3 => "ÚLTIMO DÍA",
+    4 => "CHECK OUT REALIZADO DEVOLVIENDO PRENDAS",
+    5 => "CHECK OUT REALIZADO SE LO QUEDA TODO Y PAGADO",
+    6 => "CHECK OUT REALIZADO SE LO QUEDA TODO Y NO PAGADO",
+    7 => "DEVOLUCIÓN COMPLETA Y PAGADA",
+    8 => "DEVOLUCIÓN ROPA PERO NO PAGADA",
+    9 => "SEGUIMOS SIN PODER HACER EL CARGO DE LA TARJETA",
+    10 => "INICIO PROCESO LEGAL",
+    
 );
 $arr_filtro_ps = 0;
 
@@ -53,12 +60,9 @@ if ($rgu) {
     while($fgu = $rgu->fetch_assoc()) {
         $ogu .= '<tr>';
         $ogu .= '<td><a href="'.$ruta_inicio.'ver-perfil.php?id_usuario='.$fgu['id_usuario'].'">'.$fgu['nombrecompleto_usuario'].'</a></td>';
-        $ogu .= '<td>'.$fgu['estado_pedido'].'</td>';
         $ogu .= '<td>'.$fgu['fecha_pedido'].'</td>';
-        //$ogu .= '<td><a href="'.$ruta_inicio.'asignar-articulos-pedido.php?id_pedido='.$fgu['id_pedido'].'"><img src="'.$ruta_inicio.'img/editpedido.png"></td>';
         if($fgu['estado_pedido']==0) $ogu .= '<td><a href="'.$ruta_inicio.'asignar-articulos-pedido.php?id_pedido='.$fgu['id_pedido'].'"><button type="button" class="btn btn-outline-info">Modificar</button>';
         if($fgu['estado_pedido']==1) $ogu .= '<td><a href="'.$ruta_inicio.'pedidos.php?id_pedido='.$fgu['id_pedido'].'&cambiar_estado=2&arr_filtro='.$arr_filtro_ps.'"><button type="button" class="btn btn-outline-success">Enviado</button></a></td>';
-        /* $ogu .= '<td><a href="'.$ruta_inicio.'asignar-articulos-pedido.php?id_pedido='.$fgu['id_pedido'].'"><button type="button" class="btn btn-outline-info">Modificar</button>'; */
         $ogu .= '</td></tr>';
     }
 } else $str_errores = $hM->get_alert_danger('Error cargando usuarios');
@@ -107,7 +111,6 @@ include_once('inc/cabecera.inc.php'); //cargando cabecera
                                                 <thead>
                                                     <tr>
                                                         <th>Nombre Completo</th>
-                                                        <th>Estado</th>
                                                         <th>Fecha pedido</th>
                                                         <th>Modificar pedido</th>
                                                     </tr>
