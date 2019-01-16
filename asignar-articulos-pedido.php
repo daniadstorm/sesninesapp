@@ -55,6 +55,7 @@ if(isset($_GET['id_pedido'])){
             if($rpm){
                 if($rtpu==4){
                     $pM->update_estado_pedido($id_pedido,1);
+                    header('Location: '.$ruta_inicio.'pedidos.php');
                 }
             }else $str_errores = 'Este producto ya está insertado o no hay stock';
         }else $str_errores = 'Este pedido ya contiene 5 articulos';
@@ -90,9 +91,24 @@ if ($ra) {
     $rw = '';
     $cf = 1;
     $count=1;
+    $sel1 = '';
     while ($row = $ra->fetch_assoc()) {
             $rw .='<tr>';
             $rw .=  '<td>'.'<a href="vista_articulo.php?id_articulo='.$row['id_articulo'].'" style="color:red;"  target="_blank" >'.$row['nombre_articulo'].'</a>'.'</td>';
+            $rw .=  '<td>';
+            $rgea = $aM->get_existencias_articulos($row['id_articulo']);
+            if($rgea){
+                while($fgea = $rgea->fetch_assoc()){
+                    $sel1 .= '<option value="'.$fgea['id_existencia'].'">'.$fgea['color_existencia'].' - '.$fgea['talla_existencia'].'</option>';
+                }
+                if($sel1!=''){
+                    $rw .= '<select class="custom-select">'.$sel1.'</select>';
+                }else{
+                    $rw .=  '<a href="'.$ruta_inicio.'asignar-existencias-articulo.php?id_articulo='.$row['id_articulo'].'"><button type="button" class="btn btn-outline-success">Añadir existencias</button></a>';
+                }
+                $sel1 = '';
+            }
+            $rw .=  '</td>';
             $rw .=  '<td>'.$row['precio_coste_articulo'].' &euro;</td>';
             $rw .=  '<td>'.$row['coste_externo_portes_articulo'].' &euro;</td>';
             $rw .=  '<td>'.$row['PVP_final_articulo'].' &euro;</td>';
@@ -143,6 +159,7 @@ include_once('inc/cabecera.inc.php'); //cargando cabecera
                                                 <thead>
                                                     <tr>
                                                         <th>Nombre</th>
+                                                        <td>Existencias</td>
                                                         <th>Precio coste</th>
                                                         <th>Precio extra porte</th>
                                                         <th>PVP</th>

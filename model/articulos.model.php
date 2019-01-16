@@ -26,6 +26,14 @@ class articulosModel extends Model {
         return $this->execute_query($q);
     }
 
+    function get_existencias_articulos($id_articulo){
+        $q  = ' SELECT ae.id_existencia, a.id_articulo, ae.color_existencia, ae.talla_existencia, ae.cantidad_existencia FROM '.$this->pre.'articulos as a ';
+        $q .= ' INNER JOIN adst_sesnines_articulo_existencias as ae ';
+        $q .= ' on a.id_articulo=ae.id_articulo ';
+        $q .= ' WHERE a.id_articulo='.$id_articulo.' ';
+        return $this->execute_query($q);
+    }
+
     function delete_articulo($id_articulo){
         $q  = ' DELETE FROM '.$this->pre.'articulos';
         $q .= ' WHERE id_articulo = '.$id_articulo.' ';
