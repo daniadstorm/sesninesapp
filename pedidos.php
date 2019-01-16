@@ -101,7 +101,6 @@ include_once('inc/cabecera.inc.php'); //cargando cabecera
                                             </form>
                                         </div>
                                     </div>
-                                    
                                     <div class="layout-table-content">
                                         <div class="table-responsive-sm">
                                             <table class="table">

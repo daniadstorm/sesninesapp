@@ -5,6 +5,15 @@ $uM = load_model('usuario');
 $iM = load_model('inputs');
 $uM->control_sesion($ruta_inicio, ADMIN);
 $ecommerce = '';
+$margendias = 1;
+
+$margen = array(
+    '1' => '1 Día',
+    '2' => '2 Días',
+    '3' => '3 Días',
+    '4' => '4 Días',
+    '5' => '5 Días'
+);
 
 if(isset($_POST['ecommerce'])){
     $ecommerce = $_POST['ecommerce'];
@@ -13,11 +22,18 @@ if(isset($_POST['ecommerce'])){
         $str_errores = 'No se ha podido actualizar el estado';
     }
 }
+if(isset($_POST['margenpedidos'])){
+    $uet = $uM->update_margen_pedido($_POST['margenpedidos']);
+    if(!$uet){
+        $str_errores = 'No se ha podido actualizar el margen del pedido';
+    }
+}
 
 $rget = $uM->get_estado_tienda();
 if($rget){
     while($fget = $rget->fetch_assoc()){
         $ecommerce = $fget['estado_tienda'];
+        $margendias = $fget['margen_pedidos'];
     }
 }
 include_once('inc/cabecera.inc.php'); //cargando cabecera 
@@ -62,6 +78,16 @@ include_once('inc/cabecera.inc.php'); //cargando cabecera
                                                 </span>
                                             </label>
                                         </form>
+                                        <form id="frmPedidos" action="" method="post">
+                                            <?php echo $iM->get_select("margenpedidos",$margendias,$margen,"form-control",'Margen pedidos');  ?>
+                                        </form>
+                                        <script>
+                                            $(document).ready(function (e){
+                                                $("#margenpedidos").on('change', function () {
+                                                    $("#frmPedidos").submit();
+                                                });
+                                            });
+                                        </script>
                                     </div>
                                 </div>
                             </div>
@@ -72,5 +98,4 @@ include_once('inc/cabecera.inc.php'); //cargando cabecera
         </div>
     </div>
 </body>
-
 </html>

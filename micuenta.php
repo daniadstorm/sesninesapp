@@ -126,26 +126,35 @@ include_once('inc/cabecera.inc.php'); //cargando cabecera
                             <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                                 <div class="row">
                                     <form method="POST" class="col-xl-8">
-                                        <label class="title-menuuser"><strong>Pide tu Personal Shopper</strong></label>
-                                        <div id="ps-menu-p" class="d-flex justify-content-center align-items-center my-1 flex-wrap">
-                                            <?php echo $outps; ?>
-                                        </div>
-                                        <div class="d-flex my-3 flex-wrap">
-                                            <div class="d-flex flex-column ml-3 my-3">
-                                                <label class="mb-2">¿Cuándo quieres que te llegue?</label>
-                                                <div id="pedidofecha"></div>
-                                                <input hidden type="date" name="fechaps" id="fechaps">
+                                        <?php
+                                            if($uM->get_ps($id_usuario)>0){
+                                        ?>
+                                        <h1>Ya hay un pedido en curso</h1>
+                                        <?php
+                                            }else{
+                                        ?>
+                                        <div>
+                                            <label class="title-menuuser"><strong>Pide tu Personal Shopper</strong></label>
+                                            <div id="ps-menu-p" class="d-flex justify-content-center align-items-center my-1 flex-wrap">
+                                                <?php echo $outps; ?>
                                             </div>
-                                            <div class="d-flex flex-column ml-3 my-3">
-                                                <label class="mb-2">Deja un mensaje</label>
-                                                <textarea placeholder="Ej: Normalmente visto de azul, gris o negro y siempre voy con camisetas y vaqueros. Me gustaría descubrir otros colores y estilos"
-                                                    name="mensajeps" id="mensajeps" cols="40" rows="9"></textarea>
+                                            <div class="d-flex my-3 flex-wrap">
+                                                <div class="d-flex flex-column ml-3 my-3">
+                                                    <label class="mb-2">¿Cuándo quieres que te llegue?</label>
+                                                    <div id="pedidofecha"></div>
+                                                    <input hidden type="date" name="fechaps" id="fechaps">
+                                                </div>
+                                                <div class="d-flex flex-column ml-3 my-3">
+                                                    <label class="mb-2">Deja un mensaje</label>
+                                                    <textarea placeholder="Ej: Normalmente visto de azul, gris o negro y siempre voy con camisetas y vaqueros. Me gustaría descubrir otros colores y estilos"
+                                                        name="mensajeps" id="mensajeps" cols="40" rows="9"></textarea>
+                                                </div>
+                                            </div>
+                                            <div class="btnenviar">
+                                                <button type="submit" name="frm_ps" class="btn btn-lg btn-block p-3 btnsn">Pedir mi Personal Shopper</button>
                                             </div>
                                         </div>
-                                        <div class="btnenviar">
-                                            <button type="submit" name="frm_ps" class="btn btn-lg btn-block p-3 btnsn">Pedir
-                                                mi Personal Shopper</button>
-                                        </div>
+                                            <?php } ?>
                                     </form>
                                     <div class="col-xl-4">
                                         <div class="accordion mt-3" id="accordionExample">
@@ -323,7 +332,6 @@ include_once('inc/cabecera.inc.php'); //cargando cabecera
                 /* var string = jQuery.datepicker.formatDate('dd/mm/yy', date);
                 return [arrayDiasDesactivados.indexOf(string) == -1] */
                 var finDeSemana = jQuery.datepicker.noWeekends(date);
-                console.log(finDeSemana);
                 return finDeSemana[0] ? diasFestivos(date) : finDeSemana;
             }
         };

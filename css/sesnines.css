@@ -1195,8 +1195,10 @@ td.ui-datepicker-unselectable.ui-state-disabled.highlight *{
 .btnSlider.bg-rosa{
     background-color: #6f859c;
 }
-
-
+.img-ps-select{
+    border-radius: 50%;
+    max-width: 400px;
+}
 
 @media only screen and (max-width: 576px){
     .lin-movil-rsp{

@@ -77,9 +77,9 @@ class usuarioModel extends Model {
         return $this->execute_query($q);
     }
 
-    function add_ps_reg($id_usuario, $vestirdiadia, $vestirsuperior, $vestirinferior, $colorarmario, $colorfav, $personaConocida, $actividadOcio, $profesion, $hijos, $frmdatosnombre, $frmdatosapellidos, $frmdatosfechanacimiento, $frmdatosemail, $silueta, $tallasuperior, $tallainferior, $tallapecho, $altura, $cuerporealzar, $cuerpodisimular, $tonopiel, $ojos, $colorcabello, $enviarfoto, $listadoprendas, $renovar, $looksasesoria, $otroasesoria, $pedirps, $pedirpsotros, $pedirpsfuera, $pedirpsfueraotros, $tendencias){
-        $q  = ' INSERT INTO '.$this->pre.'ps (id_usuario, vestirdiadia, vestirsuperior, vestirinferior, colorarmario, colorfav, personaConocida, actividadOcio, profesion, hijos, frmdatosnombre, frmdatosapellidos, frmdatosfechanacimiento, frmdatosemail, silueta, tallasuperior, tallainferior, tallapecho, altura, cuerporealzar, cuerpodisimular, tonopiel, ojos, colorcabello, enviarfoto, listadoprendas, renovar, looksasesoria, otroasesoria, pedirps, pedirpsotros, pedirpsfuera, pedirpsfueraotros, tendencias) VALUES ';
-        $q .= ' ("'.$id_usuario.'", "'.$vestirdiadia.'", "'.$vestirsuperior.'", "'.$vestirinferior.'", "'.$colorarmario.'", "'.$colorfav.'", "'.$personaConocida.'", "'.$actividadOcio.'", "'.$profesion.'", "'.$hijos.'", "'.$frmdatosnombre.'", "'.$frmdatosapellidos.'", "'.$frmdatosfechanacimiento.'", "'.$frmdatosemail.'", "'.$silueta.'", "'.$tallasuperior.'", "'.$tallainferior.'", "'.$tallapecho.'", "'.$altura.'", "'.$cuerporealzar.'", "'.$cuerpodisimular.'", "'.$tonopiel.'", "'.$ojos.'", "'.$colorcabello.'", "'.$enviarfoto.'", "'.$listadoprendas.'", "'.$renovar.'", "'.$looksasesoria.'", "'.$otroasesoria.'", "'.$pedirps.'", "'.$pedirpsotros.'", "'.$pedirpsfuera.'", "'.$pedirpsfueraotros.'", "'.$tendencias.'")';
+    function add_ps_reg($id_usuario, $opcion, $vestirdiadia, $vestirsuperior, $vestirinferior, $colorarmario, $colorfav, $personaConocida, $actividadOcio, $profesion, $hijos, $frmdatosnombre, $frmdatosapellidos, $frmdatosfechanacimiento, $frmdatosemail, $silueta, $tallasuperior, $tallainferior, $tallapecho, $altura, $cuerporealzar, $cuerpodisimular, $tonopiel, $ojos, $colorcabello, $enviarfoto, $listadoprendas, $renovar, $looksasesoria, $otroasesoria, $pedirps, $pedirpsotros, $pedirpsfuera, $pedirpsfueraotros, $tendencias){
+        $q  = ' INSERT INTO '.$this->pre.'ps (id_usuario, tipoopcion, vestirdiadia, vestirsuperior, vestirinferior, colorarmario, colorfav, personaConocida, actividadOcio, profesion, hijos, frmdatosnombre, frmdatosapellidos, frmdatosfechanacimiento, frmdatosemail, silueta, tallasuperior, tallainferior, tallapecho, altura, cuerporealzar, cuerpodisimular, tonopiel, ojos, colorcabello, enviarfoto, listadoprendas, renovar, looksasesoria, otroasesoria, pedirps, pedirpsotros, pedirpsfuera, pedirpsfueraotros, tendencias) VALUES ';
+        $q .= ' ("'.$id_usuario.'", "'.$opcion.'", "'.$vestirdiadia.'", "'.$vestirsuperior.'", "'.$vestirinferior.'", "'.$colorarmario.'", "'.$colorfav.'", "'.$personaConocida.'", "'.$actividadOcio.'", "'.$profesion.'", "'.$hijos.'", "'.$frmdatosnombre.'", "'.$frmdatosapellidos.'", "'.$frmdatosfechanacimiento.'", "'.$frmdatosemail.'", "'.$silueta.'", "'.$tallasuperior.'", "'.$tallainferior.'", "'.$tallapecho.'", "'.$altura.'", "'.$cuerporealzar.'", "'.$cuerpodisimular.'", "'.$tonopiel.'", "'.$ojos.'", "'.$colorcabello.'", "'.$enviarfoto.'", "'.$listadoprendas.'", "'.$renovar.'", "'.$looksasesoria.'", "'.$otroasesoria.'", "'.$pedirps.'", "'.$pedirpsotros.'", "'.$pedirpsfuera.'", "'.$pedirpsfueraotros.'", "'.$tendencias.'")';
         return $this->execute_query($q);
     }
 
@@ -219,6 +219,12 @@ class usuarioModel extends Model {
     function update_estado_tienda($estado){
         $q  = ' UPDATE '.$this->pre.'config SET ';
         $q .=   ' estado_tienda="'.$estado.'"';
+        return $this->execute_query($q);
+    }
+
+    function update_margen_pedido($margen){
+        $q  = ' UPDATE '.$this->pre.'config SET ';
+        $q .=   ' margen_pedidos="'.$margen.'"';
         return $this->execute_query($q);
     }
 

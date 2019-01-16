@@ -10,10 +10,10 @@ include_once('../inc/cabecera.inc.php'); //cargando cabecera
 $id_usuario = isset($_SESSION['id_usuario']) ? $_SESSION['id_usuario'] : 0;
 $enviarfoto = null;
 
+
+(isset($_POST['opcion']) ? $_SESSION['opcion']=$_POST['opcion'][0] : '');
+
 if(isset($_POST['vestirdiadia'])){
-    /* echo '<pre>';
-    print_r($_POST);
-    echo '<pre>'; */
    
     //$rootM->arrayToString()
     $_SESSION['vestirdiadia'] = (isset($_POST['vestirdiadia']) ? $rootM->arrayToString($_POST['vestirdiadia']) : '');
@@ -52,11 +52,9 @@ if(isset($_POST['vestirdiadia'])){
 
     if($id_usuario>0){
         if($uM->existe_ps($id_usuario)>0){
-            echo 'existe<hr>';
             $rdp = $uM->delete_ps($id_usuario);
             if($rdp){
-                echo 'eliminado<hr>';
-                $raps = $uM->add_ps_reg($_SESSION['id_usuario'], $_SESSION['vestirdiadia'], $_SESSION['vestirsuperior'], $_SESSION['vestirinferior'], $_SESSION['colorarmario'], $_SESSION['colorfav'], $_SESSION['personaConocida'], $_SESSION['actividadOcio'], $_SESSION['profesion'], $_SESSION['hijos'], $_SESSION['frmdatosnombre'], $_SESSION['frmdatosapellidos'], $_SESSION['frmdatosfechanacimiento'], $_SESSION['frmdatosemail'], $_SESSION['silueta'], $_SESSION['tallasuperior'], $_SESSION['tallainferior'], $_SESSION['tallapecho'], $_SESSION['altura'], $_SESSION['cuerporealzar'], $_SESSION['cuerpodisimular'], $_SESSION['tonopiel'], $_SESSION['ojos'], $_SESSION['colorcabello'], $_SESSION['enviarfoto'], $_SESSION['listadoprendas'], $_SESSION['renovar'], $_SESSION['looksasesoria'], $_SESSION['otroasesoria'], $_SESSION['pedirps'], $_SESSION['pedirpsotros'], $_SESSION['pedirpsfuera'], $_SESSION['pedirpsfueraotros'], $_SESSION['tendencias']);
+                $raps = $uM->add_ps_reg($_SESSION['id_usuario'], $_SESSION['opcion'], $_SESSION['vestirdiadia'], $_SESSION['vestirsuperior'], $_SESSION['vestirinferior'], $_SESSION['colorarmario'], $_SESSION['colorfav'], $_SESSION['personaConocida'], $_SESSION['actividadOcio'], $_SESSION['profesion'], $_SESSION['hijos'], $_SESSION['frmdatosnombre'], $_SESSION['frmdatosapellidos'], $_SESSION['frmdatosfechanacimiento'], $_SESSION['frmdatosemail'], $_SESSION['silueta'], $_SESSION['tallasuperior'], $_SESSION['tallainferior'], $_SESSION['tallapecho'], $_SESSION['altura'], $_SESSION['cuerporealzar'], $_SESSION['cuerpodisimular'], $_SESSION['tonopiel'], $_SESSION['ojos'], $_SESSION['colorcabello'], $_SESSION['enviarfoto'], $_SESSION['listadoprendas'], $_SESSION['renovar'], $_SESSION['looksasesoria'], $_SESSION['otroasesoria'], $_SESSION['pedirps'], $_SESSION['pedirpsotros'], $_SESSION['pedirpsfuera'], $_SESSION['pedirpsfueraotros'], $_SESSION['tendencias']);
                 if($raps){
                     echo '1- Añadido con éxito';
                 }else{
@@ -64,10 +62,7 @@ if(isset($_POST['vestirdiadia'])){
                 }
             }
         }else{
-            echo '<pre>';
-            print_r($_SESSION);
-            echo '</pre>';
-            $raps = $uM->add_ps_reg($_SESSION['id_usuario'], $_SESSION['vestirdiadia'], $_SESSION['vestirsuperior'], $_SESSION['vestirinferior'], $_SESSION['colorarmario'], $_SESSION['colorfav'], $_SESSION['personaConocida'], $_SESSION['actividadOcio'], $_SESSION['profesion'], $_SESSION['hijos'], $_SESSION['frmdatosnombre'], $_SESSION['frmdatosapellidos'], $_SESSION['frmdatosfechanacimiento'], $_SESSION['frmdatosemail'], $_SESSION['silueta'], $_SESSION['tallasuperior'], $_SESSION['tallainferior'], $_SESSION['tallapecho'], $_SESSION['altura'], $_SESSION['cuerporealzar'], $_SESSION['cuerpodisimular'], $_SESSION['tonopiel'], $_SESSION['ojos'], $_SESSION['colorcabello'], $_SESSION['enviarfoto'], $_SESSION['listadoprendas'], $_SESSION['renovar'], $_SESSION['looksasesoria'], $_SESSION['otroasesoria'], $_SESSION['pedirps'], $_SESSION['pedirpsotros'], $_SESSION['pedirpsfuera'], $_SESSION['pedirpsfueraotros'], $_SESSION['tendencias']);
+            $raps = $uM->add_ps_reg($_SESSION['id_usuario'], $_SESSION['opcion'], $_SESSION['vestirdiadia'], $_SESSION['vestirsuperior'], $_SESSION['vestirinferior'], $_SESSION['colorarmario'], $_SESSION['colorfav'], $_SESSION['personaConocida'], $_SESSION['actividadOcio'], $_SESSION['profesion'], $_SESSION['hijos'], $_SESSION['frmdatosnombre'], $_SESSION['frmdatosapellidos'], $_SESSION['frmdatosfechanacimiento'], $_SESSION['frmdatosemail'], $_SESSION['silueta'], $_SESSION['tallasuperior'], $_SESSION['tallainferior'], $_SESSION['tallapecho'], $_SESSION['altura'], $_SESSION['cuerporealzar'], $_SESSION['cuerpodisimular'], $_SESSION['tonopiel'], $_SESSION['ojos'], $_SESSION['colorcabello'], $_SESSION['enviarfoto'], $_SESSION['listadoprendas'], $_SESSION['renovar'], $_SESSION['looksasesoria'], $_SESSION['otroasesoria'], $_SESSION['pedirps'], $_SESSION['pedirpsotros'], $_SESSION['pedirpsfuera'], $_SESSION['pedirpsfueraotros'], $_SESSION['tendencias']);
             if($raps){
                 echo '2- Añadido con éxito';
             }else{
@@ -95,10 +90,30 @@ if(isset($_POST['vestirdiadia'])){
             <div id="pbsn" class="progress-bar sesnines" role="progressbar" style="width: 20%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
         </div>
     </div>
+    <?php if(!isset($_REQUEST['opcion'])){ ?>
+    <form id="frmpsopcion" action="" method="POST" class="my-3">
+        <div id="p0" class="container pregunta-ns <?php echo (!isset($_REQUEST['opcion'])) ? 'show' : ''; ?>">
+            <div class="row mt-5">
+                <div class="col-md-6 text-center">
+                    <label>
+                        <img src="http://sesnineshopper.com/adstorm/img/personalshopper.jpg" class="img-ps-select" alt="">
+                        <input type="checkbox" name="opcion[]" value="personalshopper" id="item" hidden>
+                    </label>
+                </div>
+                <div class="col-md-6 text-center">
+                    <label>
+                        <img src="http://sesnineshopper.com/adstorm/img/personalshopper.jpg" class="img-ps-select" alt="">
+                        <input type="checkbox" name="opcion[]" value="fondoarmario" id="item" hidden>
+                    </label>
+                </div>
+            </div>
+        </div>
+    </form>
+    <?php }else{ ?>
     <form id="frmps" method="POST" class="my-3">
         <div id="p1" class="container pregunta-ns show">
             <div class="pregunta">
-                <h1 class="titulo-sn">Estilo</h1>
+                <h1 class="titulo-sn">Estilo <?php echo $_SESSION['opcion'] ?></h1>
                 <h1 class="mb-0">¿Cómo te gusta vestir en tu día a día?</h1>
                 <p>(Puedes escoger más de uno)</p>
             </div>
@@ -141,14 +156,14 @@ if(isset($_POST['vestirdiadia'])){
                 <div class="respuesta-sn col-xs-12 col-sm-4 col-md-2">
                     <label>
                         <img src="http://sesnineshopper.com/adstorm/img/casualstreet.jpg" class="img-thumbnail img-check">
-                        <input type="checkbox" name="vestirdiadia[]" value="img5" id="item" hidden>
+                        <input type="checkbox" name="vestirdiadia[]" value="img6" id="item" hidden>
                         <p class="text-center">SOFISTICADA</p>
                     </label>
                 </div>
                 <div class="respuesta-sn col-xs-12 col-sm-4 col-md-2">
                     <label>
                         <img src="http://sesnineshopper.com/adstorm/img/casualstreet.jpg" class="img-thumbnail img-check">
-                        <input type="checkbox" name="vestirdiadia[]" value="img5" id="item" hidden>
+                        <input type="checkbox" name="vestirdiadia[]" value="img7" id="item" hidden>
                         <p class="text-center">EXTREMADA</p>
                     </label>
                 </div>
@@ -269,6 +284,7 @@ if(isset($_POST['vestirdiadia'])){
                         <input type="text" name="frmdatosapellidos" class="inp" placeholder="Apellidos">
                         <input type="date" name="frmdatosfechanacimiento" class="inp" placeholder="Fecha de nacimiento">
                         <input type="email" name="frmdatosemail" class="inp" placeholder="Correo electronico">
+                        <label><input type="checkbox" name="politicaprivacidad" id="politicaprivacidad" required> Acepto la <a href="">política de privacidad</a></label>
                     </div>
                 </div>
             </div>
@@ -687,8 +703,12 @@ if(isset($_POST['vestirdiadia'])){
             </div>
         </div>
     </form>
+    <?php } ?>
     <script>
         $(document).ready(function (e) {
+            $("input[name='opcion[]']").on('change', function(){
+                $("#frmpsopcion").submit();
+            });
             $("#btnp1").click(function () {
                 $("#p1").toggleClass('show');
                 $("#pbsn").css("width", "40%");
