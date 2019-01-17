@@ -36,7 +36,7 @@ if (isset($_SESSION['id_tipo_usuario'])) { //si hay login
     switch ($_SESSION['id_tipo_usuario']) {
         default:
         case USER:
-            header('Location: '.$ruta_inicio.'inicio.php');
+            header('Location: '.$ruta_inicio.'micuenta.php');
             exit();
         break;
         case ADMIN:

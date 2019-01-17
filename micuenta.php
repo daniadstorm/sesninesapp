@@ -2,6 +2,7 @@
 include_once('config/config.inc.php'); //cargando archivo de configuracion
 
 $uM = load_model('usuario'); //uM userModel
+$uM->control_sesion($ruta_inicio, USER);
 $hM = load_model('html');
 
 $id_usuario = (isset($_SESSION['id_usuario'])) ? $_SESSION['id_usuario'] : 0;
@@ -69,9 +70,7 @@ if($rgpc){
                 </div>
             </div>
             <div class="form-control bordertrans d-flex justify-content-between align-items-center">
-                <img data-toggle="modal" data-target="#modalFoto'.$frgpc['id_articulo'].'"
-                    class="img-pedido-ps" src="'.$frgpc['ruta_imagen'].'"
-                    alt="">
+                <img data-toggle="modal" data-target="#modalFoto'.$frgpc['id_articulo'].'" class="img-pedido-ps" src="'.$frgpc['ruta_imagen'].'" alt="">
                 <h5 class="ml-1 mb-0">'.$frgpc['nombre_articulo'].'</h5>
                 <h5 class="ml-1 mb-0">'.$frgpc['PVP_final_articulo'].'€</h5>
                 <!-- Button trigger modal -->
@@ -95,8 +94,6 @@ if($rgpc){
                                 </div>
                             </div>';
     }
-}else{
-    echo 'noooooo';
 }
 //CONTROL_______________________________________________________________________
 
