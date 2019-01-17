@@ -6,9 +6,9 @@ class proveedoresModel extends Model {
         //
     }
     
-    function add_proveedor($nombre_proveedor) {
-        $q  = ' INSERT INTO '.$this->pre.'proveedores (nombre_proveedor) VALUES ';
-        $q .= ' ("'.$nombre_proveedor.'") ';
+    function add_proveedor($nombre_proveedor, $referencia_proveedor) {
+        $q  = ' INSERT INTO '.$this->pre.'proveedores (nombre_proveedor, referencia_proveedor) VALUES ';
+        $q .= ' ("'.$nombre_proveedor.'", "'.$referencia_proveedor.'") ';
         return $this->execute_query($q);
     }
     
@@ -18,10 +18,16 @@ class proveedoresModel extends Model {
         return $this->execute_query($q);
     }
     
-    function update_proveedor($id_proveedor, $nombre_proveedor) {
+    function update_proveedor($id_proveedor, $nombre_proveedor, $referencia_proveedor) {
         $q  = ' UPDATE '.$this->pre.'proveedores SET ';
-        $q .=   ' nombre_proveedor = "'.$nombre_proveedor.'" ';
+        $q .=   ' nombre_proveedor = "'.$nombre_proveedor.'", ';
+        $q .=   ' referencia_proveedor = "'.$referencia_proveedor.'" ';
         $q .= ' WHERE id_proveedor = '.$id_proveedor.' ';
+        return $this->execute_query($q);
+    }
+
+    function get_total_proveedores(){
+        $q  = ' SELECT e.* FROM '.$this->pre.'proveedores e ';
         return $this->execute_query($q);
     }
     

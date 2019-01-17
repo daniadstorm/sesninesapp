@@ -7,8 +7,12 @@ $pagM = load_model('paginado');
 
 //viene de paginado por href
 
+echo '<pre>';
+print_r($_POST);
+echo '</pre>';
+
 $str_estado ='';
-$str_info ='';
+/* $str_info =''; */
 
 $aM = load_model('articulos');
 //$cM = load_model('carrito');
@@ -20,8 +24,8 @@ $mpag = ''; //menu paginacion
 $id_usuario=$_SESSION['id_usuario'];
 $id_pedido = '';
 $rau = '';
-if(isset($_GET['id_pedido'])){
-    $id_pedido=$_GET['id_pedido'];
+if(isset($_REQUEST['id_pedido'])){
+    $id_pedido=$_REQUEST['id_pedido'];
 }
 
 //GET___________________________________________________________________________
@@ -32,14 +36,14 @@ if(isset($_REQUEST['arr_filtro'])){
     $str_ruta = $ruta_inicio.'asignar-articulos-pedido.php?id_pedido='.$id_pedido.'&';
 }
 
-if (isset($_GET['pag'])) {
-    $pagM->pag=$_GET['pag'];
+if (isset($_REQUEST['pag'])) {
+    $pagM->pag=$_REQUEST['pag'];
 }
 
-if(isset($_GET['id_pedido'])){
+if(isset($_REQUEST['id_pedido'])){
     //Controlar si ha eliminado pedidos después de ser añadido a "listo para enviar"
-    if(isset($_GET['del_articulo'])){
-        $rdap = $pM->delete_articulo_pedido($id_pedido, $_GET['del_articulo']);
+    if(isset($_REQUEST['del_articulo'])){
+        $rdap = $pM->delete_articulo_pedido($id_pedido, $_REQUEST['del_articulo']);
         if(!$rdap){
             $str_errores = 'Error al eliminar el producto';
         }
@@ -48,14 +52,15 @@ if(isset($_GET['id_pedido'])){
     if($rtpu<5){
         $pM->update_estado_pedido($id_pedido,0);
     }
-    if(isset($_GET['add_articulo'])){
+    if(isset($_REQUEST['add_articulo'])){
         $rtpu = $pM->get_total_pedidos_user($id_pedido);
         if($rtpu<5){
-            $rpm = $pM->add_articulo_pedido($id_pedido,$_GET['add_articulo']);
+            $rpm = $pM->add_articulo_pedido($id_pedido,$_REQUEST['add_articulo'],$_REQUEST['prenda']);
             if($rpm){
-                if($rtpu==4){
-                    $pM->update_estado_pedido($id_pedido,1);
-                    header('Location: '.$ruta_inicio.'pedidos.php');
+                if($rtpu>=4){
+                    $str_info = 'Producto insertado, ya tienes los 5 articulos';
+                    /* $pM->update_estado_pedido($id_pedido,1);
+                    header('Location: '.$ruta_inicio.'pedidos.php'); */
                 }
             }else $str_errores = 'Este producto ya está insertado o no hay stock';
         }else $str_errores = 'Este pedido ya contiene 5 articulos';
@@ -76,9 +81,13 @@ if(isset($_GET['id_pedido'])){
 $pa = $pM->get_pedido($id_pedido);
 if($pa){
     $rau = '<div class="card">
-    <ul class="list-group list-group-flush">';
+    <ul class="list-group list-group-flush mb-2">';
     while($row = $pa->fetch_assoc()){
-        $rau .= '<li class="list-group-item">'.$row["nombre_articulo"].'<a href="'.$ruta_inicio.'asignar-articulos-pedido.php?del_articulo='.$row["id_articulo"].'&id_pedido='.$id_pedido.'"><button type="button" class="btn btn-outline-danger ml-1">Eliminar</button></a>'.'</li>';
+        $rau .= '<li class="list-group-item">';
+        $rau .= '<form method="post" action="" class="m-0">'.$row["nombre_articulo"].'
+        <input type="hidden" value="'.$row["id_articulo"].'" name="del_articulo">
+        <input type="hidden" value="'.$id_pedido.'" name="id_pedido">';
+        $rau .= '<button type="submit" class="btn btn-outline-danger ml-1">Eliminar</button>'.'</form></li>';
         //$rau .= '<div>'.$row["nombre_articulo"].'<a style="color:red;" href="'.$ruta_inicio.'asignar-articulos-pedido.php?del_articulo='.$row["id_articulo"].'&id_pedido='.$id_pedido.'">Eliminar producto</a></div>';
     }
     $rau .= '</ul></div>';
@@ -94,6 +103,7 @@ if ($ra) {
     $sel1 = '';
     while ($row = $ra->fetch_assoc()) {
             $rw .='<tr>';
+            $rw .= '<form method="post" action="">';
             $rw .=  '<td>'.'<a href="vista_articulo.php?id_articulo='.$row['id_articulo'].'" style="color:red;"  target="_blank" >'.$row['nombre_articulo'].'</a>'.'</td>';
             $rw .=  '<td>';
             $rgea = $aM->get_existencias_articulos($row['id_articulo']);
@@ -102,7 +112,7 @@ if ($ra) {
                     $sel1 .= '<option value="'.$fgea['id_existencia'].'">'.$fgea['color_existencia'].' - '.$fgea['talla_existencia'].'</option>';
                 }
                 if($sel1!=''){
-                    $rw .= '<select class="custom-select">'.$sel1.'</select>';
+                    $rw .= '<select name="prenda" class="custom-select">'.$sel1.'</select>';
                 }else{
                     $rw .=  '<a href="'.$ruta_inicio.'asignar-existencias-articulo.php?id_articulo='.$row['id_articulo'].'"><button type="button" class="btn btn-outline-success">Añadir existencias</button></a>';
                 }
@@ -113,8 +123,13 @@ if ($ra) {
             $rw .=  '<td>'.$row['coste_externo_portes_articulo'].' &euro;</td>';
             $rw .=  '<td>'.$row['PVP_final_articulo'].' &euro;</td>';
             $rw .=  '<td>'.$row['margen_articulo'].' &euro;</td>';
-            $rw .=  '<td><a href="'.$ruta_inicio.'asignar-articulos-pedido.php?add_articulo='.$row['id_articulo'].'&id_pedido='.$id_pedido.'"><button type="button" class="btn btn-outline-success">Añadir</button></a></td>';
-            $rw .= '</tr>';
+            $rw .=  '<td>
+            <input type="hidden" value="'.$row['id_articulo'].'" name="add_articulo">
+            <input type="hidden" value="'.$id_pedido.'" name="id_pedido">
+            <button type="submit" class="btn btn-outline-success">Añadir</button></a>
+            </td>';
+            $rw .= '</form>';
+            $rw .='</tr>';
             
             $cf = ($cf == 1) ? 2 : 1;
             
@@ -144,7 +159,7 @@ include_once('inc/cabecera.inc.php'); //cargando cabecera
                         <div class="layout">
                             <div class="layout-table">
                                 <div id="alertas">
-                                    <?php if (isset($str_info)) echo $str_info; ?>
+                                    <?php if (isset($str_info)) echo '<div class="alert alert-info" role="alert">'.$str_info.'</div>'; ?>
                                     <?php if (isset($str_errores)) echo '<div class="alert alert-danger" role="alert">'.$str_errores.'</div>'; ?>
                                 </div>
                                 <?php echo $rau; ?>
@@ -159,7 +174,7 @@ include_once('inc/cabecera.inc.php'); //cargando cabecera
                                                 <thead>
                                                     <tr>
                                                         <th>Nombre</th>
-                                                        <td>Existencias</td>
+                                                        <th>Existencias</th>
                                                         <th>Precio coste</th>
                                                         <th>Precio extra porte</th>
                                                         <th>PVP</th>

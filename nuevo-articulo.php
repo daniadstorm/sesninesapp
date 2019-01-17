@@ -6,8 +6,11 @@ $uM->control_sesion($ruta_inicio, ADMIN);
 $hM = load_model('html');
 $iM = load_model('inputs');
 $aM = load_model('articulos');
+$pM = load_model('proveedores');
 
 $ttl = 'Nuevo artículo';
+
+$arr_referencia_proveedor = array();
 
 //campos formulario
 $id_articulo = 0;
@@ -58,6 +61,12 @@ if (isset($_GET['id_articulo'])) {
             $almacen_articulo = $fga['almacen_articulo'];
         }
     } else $str_errores = $hM->get_alert_danger('Error cargando artículo');
+}
+$rgtp = $pM->get_total_proveedores();
+if($rgtp){
+    while($frgtp = $rgtp->fetch_assoc()){
+        //array_push($arr_referencia_proveedor, $frgtp['nombre_proveedor']=>$frgtp['referencia_proveedor']);
+    }
 }
 //GET___________________________________________________________________________
 
@@ -161,7 +170,8 @@ include_once('inc/cabecera.inc.php'); //cargando cabecera
                                         echo $iM->get_input_hidden('id_articulo', $id_articulo);
                                         echo $iM->get_input_text('nombre_articulo', $nombre_articulo, 'form-control', '*Nombre artículo', '', 'Campo requerido', 1);
                                         echo $iM->get_input_text('referencia_articulo', $referencia_articulo, 'form-control', '*Referencia', '', 'Campo requerido', 1);
-                                        echo $iM->get_input_text('referencia_proveedor_articulo', $referencia_proveedor_articulo, 'form-control', '*Referencia Proveedor', '', 'Campo requerido', 1);
+                                        echo $pM->get_select_proveedores("referencia_proveedor_articulo", $referencia_proveedor_articulo, 'form-control', '*Referencia Proveedor');
+                                        //echo $iM->get_input_text('referencia_proveedor_articulo', $referencia_proveedor_articulo, 'form-control', '*Referencia Proveedor', '', 'Campo requerido', 1);
                                         echo $iM->get_input_textarea('descripcion_articulo', $descripcion_articulo, 'form-control', '*Descripción', '', 'Campo requerido', 1);
                                         /* echo $iM->get_input_radio('activado_articulo', $activado_articulo, $arr_opt_activado_articulo, '', 'Activado'); */
                                         echo $iM->get_input_radio('visible_en_tienda_articulo', $visible_en_tienda_articulo, $arr_opt_visible_en_tienda_articulo, '', 'Visible en tienda');

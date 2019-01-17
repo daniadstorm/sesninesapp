@@ -13,6 +13,7 @@ $ttl = 'Nueva proveedor';
 //campos formulario
 $id_proveedor = 0;
 $nombre_proveedor = '';
+$referencia_proveedor = '';
 
 $verif = true;
 
@@ -25,6 +26,7 @@ if (isset($_GET['id_proveedor'])) {
     if ($rge) {
         while ($fge = $rge->fetch_assoc()) {
             $nombre_proveedor = $fge['nombre_proveedor'];
+            $referencia_proveedor = $fge['referencia_proveedor'];
         }
     } else $str_errores = $hM->get_alert_danger('Error cargando proveedor');
 }
@@ -35,6 +37,7 @@ if (isset($_POST['id_proveedor'])) {
     
     $id_proveedor = $_POST['id_proveedor'];
     $nombre_proveedor = $_POST['nombre_proveedor'];
+    $referencia_proveedor = $_POST['referencia_proveedor'];
     
     //control de errores ---------------------------------------------------- */
     //control de errores ---------------------------------------------------- */
@@ -46,12 +49,12 @@ if (isset($_POST['id_proveedor'])) {
         $nombre_proveedor = $eM->escstr($nombre_proveedor);
             
         if ($id_proveedor > 0) { //UPDATE
-            $rue = $eM->update_proveedor($id_proveedor, $nombre_proveedor);
+            $rue = $eM->update_proveedor($id_proveedor, $nombre_proveedor, $referencia_proveedor);
             if ($rue) {
                 header('Location: '.$ruta_inicio.'proveedores.php?editar_proveedor=true'); exit();
             } else $str_errores = $hM->get_alert_danger('Error actualizando categoría');
         } else { //NUEVO
-            $rae = $eM->add_proveedor($nombre_proveedor);
+            $rae = $eM->add_proveedor($nombre_proveedor, $referencia_proveedor);
             if ($rae) {
                 header('Location: '.$ruta_inicio.'proveedores.php?nueva_proveedor=true'); exit();
             } else $str_errores = $hM->get_alert_danger('Error añadiendo proveedor');
@@ -94,6 +97,7 @@ include_once('inc/cabecera.inc.php'); //cargando cabecera
                                     <?php 
                                         echo $iM->get_input_hidden('id_proveedor', $id_proveedor);
                                         echo $iM->get_input_text('nombre_proveedor', $nombre_proveedor, 'form-control', 'Nombre proveedor', '', 'Campo requerido', 1);
+                                        echo $iM->get_input_text('referencia_proveedor', $referencia_proveedor, 'form-control', 'Referencia proveedor', '', 'Campo requerido', 1);
                                     ?>                                    
                                     <button class="btn bg-primary text-light">Aceptar</button>
                                     </form>

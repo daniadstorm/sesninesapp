@@ -28,16 +28,17 @@ $arr_filtro = array(//Estados
 );
 $arr_filtro_ps = 0;
 
-
 //GET___________________________________________________________________________
 if (isset($_GET['nuevo_usuario']) && $_GET['nuevo_usuario'] == 'true') $str_info = $hM->get_alert_success('Usuario añadido');
 if (isset($_GET['editar_usuario']) && $_GET['editar_usuario'] == 'true') $str_info = $hM->get_alert_success('Usuario actualizado');
 if (isset($_GET['eliminar_usuario']) && $_GET['eliminar_usuario'] == 'true') $str_info = $hM->get_alert_success('Usuario eliminado');
 if ((isset($_GET['cambiar_estado']) && $_GET['cambiar_estado']==2) && isset($_GET['id_pedido'])) $pM->update_estado_pedido($_GET['id_pedido'],2);
+if (isset($_REQUEST['cambio_estado']) && isset($_REQUEST['id_pedido'])) $pM->update_estado_pedido($_REQUEST['id_pedido'], $_REQUEST['cambio_estado']);
 if(isset($_REQUEST['arr_filtro'])){
     $arr_filtro_ps=$_REQUEST['arr_filtro'];
     $str_ruta = $ruta_inicio.'pedidos.php?arr_filtro='.$arr_filtro_ps.'&';
 }else{
+    $arr_filtro_ps=0;
     $str_ruta = $ruta_inicio.'pedidos.php?';
 }
 
@@ -61,9 +62,11 @@ if ($rgu) {
         $ogu .= '<tr>';
         $ogu .= '<td><a href="'.$ruta_inicio.'ver-perfil.php?id_usuario='.$fgu['id_usuario'].'">'.$fgu['nombrecompleto_usuario'].'</a></td>';
         $ogu .= '<td>'.$fgu['fecha_pedido'].'</td>';
-        if($fgu['estado_pedido']==0) $ogu .= '<td><a href="'.$ruta_inicio.'asignar-articulos-pedido.php?id_pedido='.$fgu['id_pedido'].'"><button type="button" class="btn btn-outline-info">Modificar</button>';
-        if($fgu['estado_pedido']==1) $ogu .= '<td><a href="'.$ruta_inicio.'pedidos.php?id_pedido='.$fgu['id_pedido'].'&cambiar_estado=2&arr_filtro='.$arr_filtro_ps.'"><button type="button" class="btn btn-outline-success">Enviado</button></a></td>';
-        $ogu .= '</td></tr>';
+        if($fgu['estado_pedido']==0) $ogu .= '<td><a href="'.$ruta_inicio.'asignar-articulos-pedido.php?id_pedido='.$fgu['id_pedido'].'"><button type="button" class="btn btn-outline-info">Modificar</button></td>';
+        //if($fgu['estado_pedido']==1) $ogu .= '<td><a href="'.$ruta_inicio.'pedidos.php?id_pedido='.$fgu['id_pedido'].'&cambiar_estado=2&arr_filtro='.$arr_filtro_ps.'"><button type="button" class="btn btn-outline-success">Enviado</button></a></td>';
+        $ogu .= '<td><form method="post"><input type="hidden" name="id_pedido" value="'.$fgu['id_pedido'].'">';
+        $ogu .= $uM->get_combo_array($arr_filtro,"cambio_estado",$arr_filtro_ps,"",true).'</form></td>';
+        $ogu .= '</tr>';
     }
 } else $str_errores = $hM->get_alert_danger('Error cargando usuarios');
 
@@ -112,7 +115,8 @@ include_once('inc/cabecera.inc.php'); //cargando cabecera
                                                     <tr>
                                                         <th>Nombre Completo</th>
                                                         <th>Fecha pedido</th>
-                                                        <th>Modificar pedido</th>
+                                                        <?php echo ($arr_filtro_ps==0) ? '<th>Modificar pedido</th>' : '' ?>
+                                                        <th>Cambiar estado</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>

@@ -13,11 +13,12 @@ class pedidoModel extends Model{
         return $o;
     }
 
-    function add_articulo_pedido($id_pedido, $id_articulo){
+    function add_articulo_pedido($id_pedido, $id_articulo, $existencia){
         //PROCEDURE restarStock
         $q = ' INSERT INTO '.$this->pre.'pedido_articulos ( ';
-        $q .= ' id_pedido, id_articulo) ';
-        $q .= ' VALUES ("'.$id_pedido.'","'.$id_articulo.'")';
+        $q .= 'id_pedido, id_articulo, existencia) ';
+        $q .= ' VALUES ("'.$id_pedido.'","'.$id_articulo.'", "'.$existencia.'")';
+        echo $q;
         return $this->execute_query($q);
     }
 
@@ -98,8 +99,8 @@ class pedidoModel extends Model{
 
     function update_estado_pedido($id_pedido, $estado_pedido){
         $q = ' UPDATE '.$this->pre.'usuario_pedidos ';
-        $q .= ' SET estado_pedido='.$estado_pedido.', ';
-        $q .= ' fecha_lastmod_pedido=NOW()';
+        $q .= ' SET estado_pedido='.$estado_pedido.' ';
+        //$q .= ' fecha_lastmod_pedido=NOW()';
         $q .= ' WHERE id_pedido='.$id_pedido;
         //fecha_lastmod_pedido
         return $this->execute_query($q);

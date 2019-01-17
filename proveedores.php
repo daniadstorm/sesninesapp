@@ -42,6 +42,7 @@ if ($rge) {
         $oge .= '<tr>';
         
         $oge .=     '<td><a href="'.$ruta_inicio.'nuevo-proveedor.php?id_proveedor='.$fge['id_proveedor'].'">'.$fge['nombre_proveedor'].'</a></td>';
+        $oge .=     '<td>'.$fge['referencia_proveedor'].'</td>';
         $oge .=     '<td>';
         $oge .=         '<a href="'.$ruta_inicio.'proveedores.php?eliminar_proveedor='.$fge['id_proveedor'].'">';
         $oge .=             '<button type="button" class="btn btn-outline-danger">Eliminar</button>';
@@ -98,6 +99,7 @@ include_once('inc/cabecera.inc.php'); //cargando cabecera
                                             <thead>
                                                 <tr>
                                                     <th>Nombre proveedor</th>
+                                                    <th>Referencia proveedor</th>
                                                     <th>Eliminar proveedor</th>
                                                 </tr>
                                             </thead>

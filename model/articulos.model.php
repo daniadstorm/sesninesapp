@@ -30,7 +30,7 @@ class articulosModel extends Model {
         $q  = ' SELECT ae.id_existencia, a.id_articulo, ae.color_existencia, ae.talla_existencia, ae.cantidad_existencia FROM '.$this->pre.'articulos as a ';
         $q .= ' INNER JOIN adst_sesnines_articulo_existencias as ae ';
         $q .= ' on a.id_articulo=ae.id_articulo ';
-        $q .= ' WHERE a.id_articulo='.$id_articulo.' ';
+        $q .= ' WHERE a.id_articulo='.$id_articulo.' and ae.cantidad_existencia!=0 ';
         return $this->execute_query($q);
     }
 
