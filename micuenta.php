@@ -9,6 +9,7 @@ $id_usuario = (isset($_SESSION['id_usuario'])) ? $_SESSION['id_usuario'] : 0;
 $outps = '';
 $ps_completo = '';
 $tipo_suscripcion = '';
+$outPedido = '';
 $suscripciones = array(
     "puntual" => "Puntual",
     "mensual" => "Mensual",
@@ -53,6 +54,50 @@ if(isset($_POST['frm_ps'])){
     }
 }
 
+$rgpc = $uM->get_pedido_completo($id_usuario);
+if($rgpc){
+    while($frgpc = $rgpc->fetch_assoc()){
+        /* echo '<pre>';
+        print_r($frgpc);
+        echo '</pre>'; */
+        
+        $outPedido .= '<li class="list-group-item p-0">
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <div class="input-group-text bordertrans">
+                    <input type="checkbox" aria-label="Checkbox for following text input">
+                </div>
+            </div>
+            <div class="form-control bordertrans d-flex justify-content-between align-items-center">
+                <img data-toggle="modal" data-target="#modalFoto'.$frgpc['id_articulo'].'"
+                    class="img-pedido-ps" src="'.$frgpc['ruta_imagen'].'"
+                    alt="">
+                <h5 class="ml-1 mb-0">'.$frgpc['nombre_articulo'].'</h5>
+                <h5 class="ml-1 mb-0">'.$frgpc['PVP_final_articulo'].'€</h5>
+                <!-- Button trigger modal -->
+            </div>
+        </div>
+    </li>
+                            <div class="modal fade" id="modalFoto'.$frgpc['id_articulo'].'" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+                                aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLongTitle">'.$frgpc['nombre_articulo'].'</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <img class="img-max-modal" src="'.$frgpc['ruta_imagen'].'" alt="">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>';
+    }
+}else{
+    echo 'noooooo';
+}
 //CONTROL_______________________________________________________________________
 
 include_once('inc/cabecera.inc.php'); //cargando cabecera
@@ -161,7 +206,7 @@ include_once('inc/cabecera.inc.php'); //cargando cabecera
                                             <div class="card">
                                                 <div class="card-header" id="headingOne">
                                                     <h2 class="mb-0">
-                                                        <button class="btn btn-link color-text" type="button"
+                                                        <button class="btn btn-block text-left btn-link color-text" type="button"
                                                             data-toggle="collapse" data-target="#collapseOne"
                                                             aria-expanded="true" aria-controls="collapseOne">
                                                             Pedido #1
@@ -172,7 +217,8 @@ include_once('inc/cabecera.inc.php'); //cargando cabecera
                                                     data-parent="#accordionExample">
                                                     <div class="card-body">
                                                         <ul class="list-group">
-                                                            <li class="list-group-item p-0">
+                                                            <?php echo $outPedido; ?>
+                                                            <!-- <li class="list-group-item p-0">
                                                                 <div class="input-group">
                                                                     <div class="input-group-prepend">
                                                                         <div class="input-group-text bordertrans">
@@ -186,10 +232,8 @@ include_once('inc/cabecera.inc.php'); //cargando cabecera
                                                                             alt="">
                                                                         <h5 class="ml-1 mb-0">Camiseta básica</h5>
                                                                         <h5 class="ml-1 mb-0">12€</h5>
-                                                                        <!-- Button trigger modal -->
                                                                     </div>
                                                                 </div>
-                                                                <!--  -->
                                                             </li>
                                                             <li class="list-group-item p-0">
                                                                 <div class="input-group">
@@ -205,11 +249,9 @@ include_once('inc/cabecera.inc.php'); //cargando cabecera
                                                                             alt="">
                                                                         <h5 class="ml-1 mb-0">Camiseta básica 2</h5>
                                                                         <h5 class="ml-1 mb-0">16€</h5>
-                                                                        <!-- Button trigger modal -->
                                                                     </div>
                                                                 </div>
-                                                                <!--  -->
-                                                            </li>
+                                                            </li>-->
                                                             <li class="list-group-item">
                                                                 <button type="button" class="btn btn-outline-info btn-lg btn-block">¡Pedir!</button>
                                                             </li>
@@ -221,24 +263,7 @@ include_once('inc/cabecera.inc.php'); //cargando cabecera
                                     </div>
                                 </div>
                             </div>
-                            <!-- Modal -->
-                            <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
-                                aria-hidden="true">
-                                <div class="modal-dialog modal-dialog-centered" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLongTitle">Camiseta básica</h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <img class="img-max-modal" src="https://www.bananaprint.es/media/catalog/product/cache/1/image/9df78eab33525d08d6e5fb8d27136e95/c/a/camiseta-beagle-roly-rol-6554k-azul-denim-img01.jpg"
-                                                alt="">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+
                             <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                                 <div id="micuenta" class="row">
                                     <div class="col-6">

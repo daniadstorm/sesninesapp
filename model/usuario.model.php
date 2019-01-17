@@ -57,9 +57,57 @@ class usuarioModel extends Model {
         return $this->execute_query($q);
     }
 
+    function cambiar_usuario_fiable($id_usuario){
+        $q  = ' UPDATE '.$this->pre.'usuarios SET ';
+        $q .= 'fiable = 1-fiable WHERE id_usuario='.$id_usuario.' ';
+        return $this->execute_query($q);
+    }
+
     function add_mi_ps($id_usuario, $tipo_cuota, $fecha, $mensaje){
         $q  = ' INSERT INTO '.$this->pre.'usuario_pedidos (id_usuario, tipo_cuota, estado_pedido, observaciones_pedido, fecha_recogida_pedido) VALUES ';
         $q .= ' ("'.$id_usuario.'", "'.$tipo_cuota.'", 0,"'.$mensaje.'", "'.$fecha.'")';
+        return $this->execute_query($q);
+    }
+
+    /* USO */
+    function existemail($id_estado){
+        $q = ' SELECT * FROM '.$this->pre.'mail ';
+        $q .= ' WHERE id_estado = "'.$id_estado.'"';
+        $r = $this->execute_query($q);
+        if ($r) return $r->num_rows;
+            else return false;
+    }
+
+    function addmail($id_estado, $asunto, $cuerpo){
+        $q  = ' INSERT INTO '.$this->pre.'mail (id_estado, asunto, cuerpo) VALUES ';
+        $q .= ' ("'.$id_estado.'", "'.$asunto.'", "'.$cuerpo.'")';
+        return $this->execute_query($q);
+    }
+
+    function getmail($id_estado){
+        $q  = ' SELECT * FROM '.$this->pre.'mail ';
+        $q .= ' WHERE id_estado="'.$id_estado.'"';
+        return $this->execute_query($q);
+    }
+
+    function updatemail($id_estado, $asunto, $cuerpo){
+        $q = ' UPDATE '.$this->pre.'mail SET ';
+        $q .= ' asunto="'.$asunto.'", ';
+        $q .= ' cuerpo="'.$cuerpo.'" ';
+        $q .= ' WHERE id_estado="'.$id_estado.'" ';
+        return $this->execute_query($q);
+    }
+    /* USO */
+
+    function get_pedido_completo($id_usuario){
+        $q = ' SELECT * FROM '.$this->pre.'usuario_pedidos as up';
+        $q .= ' INNER JOIN '.$this->pre.'pedido_articulos as pa';
+        $q .= ' INNER JOIN '.$this->pre.'articulos as a';
+        $q .= ' INNER JOIN '.$this->pre.'articulo_imagenes as ai';
+        $q .= ' ON up.id_pedido=pa.id_pedido';
+        $q .= ' AND pa.id_articulo=a.id_articulo';
+        $q .= ' AND a.id_articulo=ai.id_articulo';
+        $q .= ' WHERE up.id_usuario='.$id_usuario.' ';
         return $this->execute_query($q);
     }
 

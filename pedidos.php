@@ -6,7 +6,7 @@ $uM->control_sesion($ruta_inicio, ADMIN);
 
 $pM = load_model('pedido');
 $pagM = load_model('paginado');
-
+$hM = load_model('html');
 $ogu = '';
 $pagM->regs_x_pag=20;
 $pagM->pag=0;
@@ -50,7 +50,12 @@ if (isset($_GET['pag'])) {
 //GET___________________________________________________________________________
 
 //POST__________________________________________________________________________
-
+if(isset($_POST['usuario_fiabilidad'])){
+    $rcuf = $uM->cambiar_usuario_fiable($_POST['usuario_fiabilidad']);
+    if($rcuf){
+        $str_info = 'Cambio realizado correctamente';
+    }else $str_errores = 'No se ha podido cambiar la fiabilidad del usuario';
+}
 //POST__________________________________________________________________________
 
 //LISTADO_______________________________________________________________________
@@ -61,9 +66,14 @@ if ($rgu) {
     while($fgu = $rgu->fetch_assoc()) {
         $ogu .= '<tr>';
         $ogu .= '<td><a href="'.$ruta_inicio.'ver-perfil.php?id_usuario='.$fgu['id_usuario'].'">'.$fgu['nombrecompleto_usuario'].'</a></td>';
-        $ogu .= '<td>'.$fgu['fecha_pedido'].'</td>';
+        $ogu .= '<td>'.$rootM->mysql_datetime_to_date($fgu['fecha_pedido']).'</td>';
+        $ogu .= '<td><button type="button" class="btn btn-outline-info" data-toggle="modal" data-target="#modalPedido'.$fgu['id_pedido'].'">Ver observaciones</button>
+        <div class="modal fade" id="modalPedido'.$fgu['id_pedido'].'" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"><div class="modal-dialog modal-dialog-centered" role="document"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="exampleModalLabel">Observaciones</h5><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></div><div class="modal-body">'.$fgu['observaciones_pedido'].'</div><div class="modal-footer"><button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button></div></div></div></div></td>';
         if($fgu['estado_pedido']==0) $ogu .= '<td><a href="'.$ruta_inicio.'asignar-articulos-pedido.php?id_pedido='.$fgu['id_pedido'].'"><button type="button" class="btn btn-outline-info">Modificar</button></td>';
         //if($fgu['estado_pedido']==1) $ogu .= '<td><a href="'.$ruta_inicio.'pedidos.php?id_pedido='.$fgu['id_pedido'].'&cambiar_estado=2&arr_filtro='.$arr_filtro_ps.'"><button type="button" class="btn btn-outline-success">Enviado</button></a></td>';
+        $ogu .= '<td><form method="post" class="m-0"><input type="hidden" name="usuario_fiabilidad" value="'.$fgu['id_usuario'].'"><i class="fa-fiabilidad fa ';
+        $ogu .= ($fgu['fiable']) ? 'fa-check-circle color-verde' : 'fa-ban color-red';
+        $ogu .= '" style="font-size:2rem;"></i></form></td>';
         $ogu .= '<td><form method="post"><input type="hidden" name="id_pedido" value="'.$fgu['id_pedido'].'">';
         $ogu .= $uM->get_combo_array($arr_filtro,"cambio_estado",$arr_filtro_ps,"",true).'</form></td>';
         $ogu .= '</tr>';
@@ -81,7 +91,11 @@ $mpag = $pagM->get_menu_paginacion($str_ruta);
 include_once('inc/cabecera.inc.php'); //cargando cabecera 
 ?>
 <script type="text/javascript">
-
+$(document).ready(function(){
+    $(".fa-fiabilidad").on('click', function(){
+        $(this).closest('form').submit();
+    });
+});
 </script>
 
 <body>
@@ -94,8 +108,8 @@ include_once('inc/cabecera.inc.php'); //cargando cabecera
                         <div class="layout">
                             <div class="layout-table">
                                 <div id="alertas">
-                                    <?php if (isset($str_info)) echo $str_info; ?>
-                                    <?php if (isset($str_errores)) echo $str_errores; ?>
+                                    <?php if (isset($str_info)) echo $hM->get_alert_success($str_info); ?>
+                                    <?php if (isset($str_errores)) echo $hM->get_alert_danger($str_error); ?>
                                 </div>
                                 <div class="layout-table-item">
                                     <div class="layout-table-header">
@@ -115,7 +129,9 @@ include_once('inc/cabecera.inc.php'); //cargando cabecera
                                                     <tr>
                                                         <th>Nombre Completo</th>
                                                         <th>Fecha pedido</th>
+                                                        <th>Observaciones</th>
                                                         <?php echo ($arr_filtro_ps==0) ? '<th>Modificar pedido</th>' : '' ?>
+                                                        <?php echo ($arr_filtro_ps==0) ? '<th>Usuario fiable</th>' : '' ?>
                                                         <th>Cambiar estado</th>
                                                     </tr>
                                                 </thead>

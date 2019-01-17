@@ -136,28 +136,28 @@ class articulosModel extends Model {
         }
     }
     
-    function update_articulo($id_articulo, $nombre_articulo, $referencia_articulo,$referencia_proveedor_articulo,$descripcion_articulo,$activado_articulo,
+    function update_articulo($id_articulo, $nombre_articulo, $referencia_articulo,$referencia_proveedor_articulo,$descripcion_articulo,
         $visible_en_tienda_articulo,$precio_coste_articulo,$coste_externo_portes_articulo,$PVP_final_articulo,$margen_articulo,$inicio_descuento_articulo,
-        $fin_descuento_articulo,$descuento_porcentaje_articulo,$descuento_euros_articulo,$cantidad_articulo, $almacen_articulo){
+        $fin_descuento_articulo,$descuento_porcentaje_articulo,$descuento_euros_articulo, $almacen_articulo){
         
         $q  = ' UPDATE ' . $this->pre . 'articulos SET ';
         $q .=   ' nombre_articulo = "' . $nombre_articulo . '", ';
         $q .=   ' referencia_articulo = "' . $referencia_articulo . '", ';
         $q .=   ' referencia_proveedor_articulo = "' . $referencia_proveedor_articulo . '", ';
         $q .=   ' descripcion_articulo = "' . $descripcion_articulo . '", ';
-        $q .=   ' activado_articulo = "' . $activado_articulo . '", ';
+        /* $q .=   ' activado_articulo = "' . $activado_articulo . '", '; */
         $q .=   ' visible_en_tienda_articulo = "' . $visible_en_tienda_articulo . '", ';
         $q .=   ' precio_coste_articulo = "' . $precio_coste_articulo . '", ';
         $q .=   ' coste_externo_portes_articulo = "' . $coste_externo_portes_articulo . '", ';
         $q .=   ' PVP_final_articulo = "' . $PVP_final_articulo . '", ';
         $q .=   ' margen_articulo = "' . $margen_articulo . '", ';
-        $q .=   ' cantidad_articulo = "' . $cantidad_articulo . '", ';
         $q .=   ' inicio_descuento_articulo = "' . $inicio_descuento_articulo. '", ';
         $q .=   ' fin_descuento_articulo = "' . $fin_descuento_articulo. '", ';
         $q .=   ' descuento_porcentaje_articulo = ' . $descuento_porcentaje_articulo . ', ';
         $q .=   ' descuento_euros_articulo = "' . $descuento_euros_articulo . '", ';
         $q .=   ' almacen_articulo = ' . $almacen_articulo . ' ';
         $q .= ' WHERE id_articulo = ' . $id_articulo . ';';
+        echo $q;
         return $this->execute_query($q);
     }
     

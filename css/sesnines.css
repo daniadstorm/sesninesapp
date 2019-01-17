@@ -1199,7 +1199,15 @@ td.ui-datepicker-unselectable.ui-state-disabled.highlight *{
     border-radius: 50%;
     max-width: 400px;
 }
-
+.fa-fiabilidad:hover{
+    cursor: pointer;
+}
+.color-red{
+    color: red;
+}
+.color-verde{
+    color: green;
+}
 @media only screen and (max-width: 576px){
     .lin-movil-rsp{
         display: flex;

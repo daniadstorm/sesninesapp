@@ -26,7 +26,6 @@ if (isset($_POST['nombre_usuario'])) { //si viene de submit de login
     
     if (strlen($result_login) > 1) {
         $str_errores = $result_login;
-        echo 'login';
     }
 }
 
