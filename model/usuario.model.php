@@ -108,6 +108,8 @@ class usuarioModel extends Model {
         $q .= ' AND pa.id_articulo=a.id_articulo';
         $q .= ' AND a.id_articulo=ai.id_articulo';
         $q .= ' WHERE up.id_usuario='.$id_usuario.' ';
+        $q .= ' AND up.prendas_seleccionadas=0 ';
+
         return $this->execute_query($q);
     }
 

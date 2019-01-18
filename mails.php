@@ -103,7 +103,7 @@ $(document).ready(function(){
                                 </div>
                                 <div class="layout-table-item">
                                     <div class="layout-table-header">
-                                        <h4 class="mb-0">Pedidos</h4>
+                                        <h4 class="mb-0">Mails</h4>
                                     </div>
                                     <div class="ml-3 mr-3 mt-3">
                                         <div class="dropdown">

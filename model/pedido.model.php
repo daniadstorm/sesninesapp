@@ -91,6 +91,14 @@ class pedidoModel extends Model{
         return $this->execute_query($q);
     }
     
+    function update_art_pedido($id_pedido, $id_articulo, $seleccionado=1){
+        $q = ' UPDATE '.$this->pre.'pedido_articulos ';
+        $q .= ' SET seleccionado='.$seleccionado.' ';
+        $q .= ' WHERE id_pedido='.$id_pedido.' ';
+        $q .= ' AND id_articulo='.$id_articulo.' ';
+        return $this->execute_query($q);
+    }
+
     function get_pedidos_personalshopper($id_usuario, $estado_pedido){
         $q = ' SELECT * FROM '.$this->pre.'usuario_pedidos ';
         $q .= ' WHERE estado_pedido ='.$estado_pedido.' ';
@@ -104,6 +112,13 @@ class pedidoModel extends Model{
         //$q .= ' fecha_lastmod_pedido=NOW()';
         $q .= ' WHERE id_pedido='.$id_pedido;
         //fecha_lastmod_pedido
+        return $this->execute_query($q);
+    }
+
+    function update_estado_pedido_seleccionado($id_pedido, $prendas_seleccionadas){
+        $q = ' UPDATE '.$this->pre.'usuario_pedidos ';
+        $q .= ' SET prendas_seleccionadas='.$prendas_seleccionadas.' ';
+        $q .= ' WHERE id_pedido='.$id_pedido;
         return $this->execute_query($q);
     }
 

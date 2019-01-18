@@ -4,13 +4,16 @@ include_once('config/config.inc.php'); //cargando archivo de configuracion
 $uM = load_model('usuario'); //uM userModel
 $uM->control_sesion($ruta_inicio, USER);
 $hM = load_model('html');
+$pM = load_model('pedido');
 
 $id_usuario = (isset($_SESSION['id_usuario'])) ? $_SESSION['id_usuario'] : 0;
-
+$id_pedido = '';
 $outps = '';
 $ps_completo = '';
 $tipo_suscripcion = '';
 $outPedido = '';
+$outFPedido = '';
+$siPedido = false;
 $suscripciones = array(
     "puntual" => "Puntual",
     "mensual" => "Mensual",
@@ -18,13 +21,26 @@ $suscripciones = array(
     "3meses" => "3 Meses",
     "6meses" => "6 Meses",
 );
-
+$errorUpdate = false;
 //GET___________________________________________________________________________
 
 //GET___________________________________________________________________________
 
 //POST__________________________________________________________________________
-
+/* echo '<pre>';
+print_r($_POST);
+echo '</pre>'; */
+if(isset($_POST['btnPedido'])){
+    if(isset($_POST['selectPedido'])){
+        for($i=0;$i<count($_POST['selectPedido']);$i++){
+            $uap = $pM->update_art_pedido($_POST['btnPedido'], $_POST['selectPedido'][$i], 1);
+            if(!$uap) $errorUpdate = true;
+        }
+    }
+    if(!$errorUpdate){
+        $ueps = $pM->update_estado_pedido_seleccionado($_POST['btnPedido'], 1);
+    }
+}
 //POST__________________________________________________________________________
 
 //CONTROL_______________________________________________________________________
@@ -58,42 +74,34 @@ if(isset($_POST['frm_ps'])){
 $rgpc = $uM->get_pedido_completo($id_usuario);
 if($rgpc){
     while($frgpc = $rgpc->fetch_assoc()){
-        /* echo '<pre>';
-        print_r($frgpc);
-        echo '</pre>'; */
-        
+        $siPedido=true;
         $outPedido .= '<li class="list-group-item p-0">
-        <div class="input-group">
-            <div class="input-group-prepend">
-                <div class="input-group-text bordertrans">
-                    <input type="checkbox" aria-label="Checkbox for following text input">
-                </div>
-            </div>
-            <div class="form-control bordertrans d-flex justify-content-between align-items-center">
-                <img data-toggle="modal" data-target="#modalFoto'.$frgpc['id_articulo'].'" class="img-pedido-ps" src="'.$frgpc['ruta_imagen'].'" alt="">
-                <h5 class="ml-1 mb-0">'.$frgpc['nombre_articulo'].'</h5>
-                <h5 class="ml-1 mb-0">'.$frgpc['PVP_final_articulo'].'€</h5>
-                <!-- Button trigger modal -->
-            </div>
-        </div>
-    </li>
-                            <div class="modal fade" id="modalFoto'.$frgpc['id_articulo'].'" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
-                                aria-hidden="true">
-                                <div class="modal-dialog modal-dialog-centered" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLongTitle">'.$frgpc['nombre_articulo'].'</h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <img class="img-max-modal" src="'.$frgpc['ruta_imagen'].'" alt="">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>';
+        <div class="input-group"><div class="input-group-prepend">
+        <div class="input-group-text bordertrans"><input type="checkbox" name="selectPedido[]" value="'.$frgpc['id_articulo'].'"></div></div>
+        <div class="form-control bordertrans d-flex justify-content-between align-items-center">
+        <img data-toggle="modal" data-target="#modalFoto'.$frgpc['id_articulo'].'" class="img-pedido-ps" src="'.$frgpc['ruta_imagen'].'" alt="">
+        <h5 class="ml-1 mb-0">'.$frgpc['nombre_articulo'].'</h5><h5 class="ml-1 mb-0">'.$frgpc['PVP_final_articulo'].'€</h5></div>
+        </div></li>
+        <div class="modal fade" id="modalFoto'.$frgpc['id_articulo'].'" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+        <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">'.$frgpc['nombre_articulo'].'</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span></button></div><div class="modal-body">
+        <img class="img-max-modal" src="'.$frgpc['ruta_imagen'].'" alt="">
+        </div></div></div></div>';
+        $id_pedido = $frgpc['id_pedido'];
     }
+    $outFPedido .= '<div class="accordion mt-3" id="accordionExample">
+        <div class="card">
+        <div class="card-header" id="headingOne"><h2 class="mb-0">
+        <button class="btn btn-block text-left btn-link color-text" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne"> Pedido #'.$id_pedido.'</button></h2></div>
+        <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample"><div class="card-body">
+        <form method="post" class="mb-0" action="">
+        <ul class="list-group">'.$outPedido.'<li class="list-group-item">
+        <button type="submit" name="btnPedido" value="'.$id_pedido.'" class="btn btn-outline-info btn-lg btn-block">¡Pedir!</button></li>
+        </ul></form></div></div></div></div>';
 }
 //CONTROL_______________________________________________________________________
 
@@ -199,64 +207,11 @@ include_once('inc/cabecera.inc.php'); //cargando cabecera
                                             <?php } ?>
                                     </form>
                                     <div class="col-xl-4">
-                                        <div class="accordion mt-3" id="accordionExample">
-                                            <div class="card">
-                                                <div class="card-header" id="headingOne">
-                                                    <h2 class="mb-0">
-                                                        <button class="btn btn-block text-left btn-link color-text" type="button"
-                                                            data-toggle="collapse" data-target="#collapseOne"
-                                                            aria-expanded="true" aria-controls="collapseOne">
-                                                            Pedido #1
-                                                        </button>
-                                                    </h2>
-                                                </div>
-                                                <div id="collapseOne" class="collapse" aria-labelledby="headingOne"
-                                                    data-parent="#accordionExample">
-                                                    <div class="card-body">
-                                                        <ul class="list-group">
-                                                            <?php echo $outPedido; ?>
-                                                            <!-- <li class="list-group-item p-0">
-                                                                <div class="input-group">
-                                                                    <div class="input-group-prepend">
-                                                                        <div class="input-group-text bordertrans">
-                                                                            <input type="checkbox" aria-label="Checkbox for following text input">
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="form-control bordertrans d-flex justify-content-between align-items-center"
-                                                                        aria-label="Text input with checkbox">
-                                                                        <img data-toggle="modal" data-target="#exampleModalCenter"
-                                                                            class="img-pedido-ps" src="https://www.bananaprint.es/media/catalog/product/cache/1/image/9df78eab33525d08d6e5fb8d27136e95/c/a/camiseta-beagle-roly-rol-6554k-azul-denim-img01.jpg"
-                                                                            alt="">
-                                                                        <h5 class="ml-1 mb-0">Camiseta básica</h5>
-                                                                        <h5 class="ml-1 mb-0">12€</h5>
-                                                                    </div>
-                                                                </div>
-                                                            </li>
-                                                            <li class="list-group-item p-0">
-                                                                <div class="input-group">
-                                                                    <div class="input-group-prepend">
-                                                                        <div class="input-group-text bordertrans">
-                                                                            <input type="checkbox" aria-label="Checkbox for following text input">
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="form-control bordertrans d-flex justify-content-between align-items-center"
-                                                                        aria-label="Text input with checkbox">
-                                                                        <img data-toggle="modal" data-target="#exampleModalCenter"
-                                                                            class="img-pedido-ps" src="https://www.bananaprint.es/media/catalog/product/cache/1/image/9df78eab33525d08d6e5fb8d27136e95/c/a/camiseta-beagle-roly-rol-6554k-azul-denim-img01.jpg"
-                                                                            alt="">
-                                                                        <h5 class="ml-1 mb-0">Camiseta básica 2</h5>
-                                                                        <h5 class="ml-1 mb-0">16€</h5>
-                                                                    </div>
-                                                                </div>
-                                                            </li>-->
-                                                            <li class="list-group-item">
-                                                                <button type="button" class="btn btn-outline-info btn-lg btn-block">¡Pedir!</button>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
+                                        <?php
+                                            if($siPedido){
+                                                echo $outFPedido;
+                                            }
+                                        ?>
                                     </div>
                                 </div>
                             </div>

@@ -67,9 +67,12 @@ if ($rgu) {
         $ogu .= '<tr>';
         $ogu .= '<td><a href="'.$ruta_inicio.'ver-perfil.php?id_usuario='.$fgu['id_usuario'].'">'.$fgu['nombrecompleto_usuario'].'</a></td>';
         $ogu .= '<td>'.$rootM->mysql_datetime_to_date($fgu['fecha_pedido']).'</td>';
-        $ogu .= '<td><button type="button" class="btn btn-outline-info" data-toggle="modal" data-target="#modalPedido'.$fgu['id_pedido'].'">Ver observaciones</button>
-        <div class="modal fade" id="modalPedido'.$fgu['id_pedido'].'" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"><div class="modal-dialog modal-dialog-centered" role="document"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="exampleModalLabel">Observaciones</h5><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></div><div class="modal-body">'.$fgu['observaciones_pedido'].'</div><div class="modal-footer"><button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button></div></div></div></div></td>';
-        if($fgu['estado_pedido']==0) $ogu .= '<td><a href="'.$ruta_inicio.'asignar-articulos-pedido.php?id_pedido='.$fgu['id_pedido'].'"><button type="button" class="btn btn-outline-info">Modificar</button></td>';
+        if($fgu['estado_pedido']==0){
+            $ogu .= '<td><button type="button" class="btn btn-outline-info" data-toggle="modal" data-target="#modalPedido'.$fgu['id_pedido'].'">Ver observaciones</button>
+            <div class="modal fade" id="modalPedido'.$fgu['id_pedido'].'" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"><div class="modal-dialog modal-dialog-centered" role="document"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="exampleModalLabel">Observaciones</h5><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></div><div class="modal-body">'.$fgu['observaciones_pedido'].'</div><div class="modal-footer"><button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button></div></div></div></div></td>';
+            if($fgu['prendas_seleccionadas']==1) $ogu .= '<td><i class="fa fa-check-circle color-verde" style="font-size:2rem;"></i></td>';
+                else $ogu .= '<td><a href="'.$ruta_inicio.'asignar-articulos-pedido.php?id_pedido='.$fgu['id_pedido'].'"><button type="button" class="btn btn-outline-info">Modificar</button></td>';
+        }
         //if($fgu['estado_pedido']==1) $ogu .= '<td><a href="'.$ruta_inicio.'pedidos.php?id_pedido='.$fgu['id_pedido'].'&cambiar_estado=2&arr_filtro='.$arr_filtro_ps.'"><button type="button" class="btn btn-outline-success">Enviado</button></a></td>';
         $ogu .= '<td><form method="post" class="m-0"><input type="hidden" name="usuario_fiabilidad" value="'.$fgu['id_usuario'].'"><i class="fa-fiabilidad fa ';
         $ogu .= ($fgu['fiable']) ? 'fa-check-circle color-verde' : 'fa-ban color-red';
@@ -129,10 +132,14 @@ $(document).ready(function(){
                                                     <tr>
                                                         <th>Nombre Completo</th>
                                                         <th>Fecha pedido</th>
-                                                        <th>Observaciones</th>
-                                                        <?php echo ($arr_filtro_ps==0) ? '<th>Modificar pedido</th>' : '' ?>
-                                                        <?php echo ($arr_filtro_ps==0) ? '<th>Usuario fiable</th>' : '' ?>
-                                                        <th>Cambiar estado</th>
+                                                        <?php
+                                                            if($arr_filtro_ps==0){
+                                                                echo '<th>Observaciones</th>';
+                                                                echo '<th>Modificar pedido</th>';
+                                                                echo '<th>Usuario fiable</th>';
+                                                            }
+                                                        ?>
+                                                        <th>Cambiar estado a</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
