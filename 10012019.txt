@@ -1,0 +1,10 @@
+1.-Datepicker
+    Controlar fecha mensual para adelante
+    Controlar siguiente pedido personal shopper
+2.-Check politica de privacidad alta ps
+3.-Imagenes lista de prendas
+4.-Mi personal shopper fuera.. (imágenes)
+5.-Listo para enviar MRW (se inserta cuando el pedido está enviado)
+6.-Ocultar pide personal shopper mientras hay pedido en envio
+7.-Cambiar personal shopper opción de cambi puntual a 6 meses (ex);
+8.-Usuario fiable no fiable (campo por si no paga)

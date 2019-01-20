@@ -1,30 +1,33 @@
-General:
-Las p�ginas van sin numeraci�n; pero s� con t�tulo
-Para ambas opciones {"PERSONAL SHOPPER", "FONDO DE ARMARIO"} se mostrar�n las mismas preguntas
-Mostrar estos datos en una sola p�gina que el administrador podr� consultar.
-Estos datos no ser�n mostrados en el resto de p�ginas.
-Incluir imagen de referencia en la pregunta siempre que esta exista en la p�gina "sesnineshopper"
-___________________________________________________________________________________________________
-
-P�GINA 0
-T�tulo: -
-
-0.1- Tipo de personal shopper
-	"PERSONAL SHOPPER"
-	"FONDO DE ARMARIO"
-_______________________________________________________________________________________________
-___________________________________________________________________________________________________
-
-P�GINA 5
-T�tulo: "ASES�RAME"
-
-5.5- Pregunta
-	Comentarios.
-	Ay�danos a conocerte mejor (sigues las tendencias, tu d�a a d�a, alguna petici�n especial...)
-5.5- Respuesta/s
-	Texto
-5.5- Comportamiento
-	Textarea
-	M�nimo 0 car�cteres
-	M�ximo 500 car�cteres
-
+1 vestirdiadia
+2 vestirsuperior
+3 vestirinferior
+4 colorarmario
+5 colorfav
+6 personaConocida
+7 actividadOcio
+8 profesion
+9 hijos
+10 frmdatosnombre
+11 frmdatosapellidos
+12 frmdatosfechanacimiento
+13 frmdatosemail
+14 silueta
+15 tallasuperior
+16 tallainferior
+17 tallapecho
+18 altura
+19 cuerporealzar
+20 cuerpodisimular
+21 tonopiel
+22 ojos
+23 colorcabello
+24 enviarfoto
+25 listadoprendas
+26 renovar
+27 looksasesoria
+28 otroasesoria
+29 pedirps
+30 pedirpsotros
+31 pedirpsfuera
+32 pedirpsfueraotros
+33 tendencias

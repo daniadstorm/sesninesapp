@@ -1,0 +1,6 @@
+1.-Pedir personal shopper
+2.-Mails
+3.-Proveedor vincular a articulo o prenda?
+4.-Mails al actualizar pedido o manualmente?
+5.-Observacion en pedido o dentro modificar pedido?
+6.-Proveedor depende de articulo o de prenda?
