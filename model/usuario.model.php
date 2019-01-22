@@ -100,7 +100,7 @@ class usuarioModel extends Model {
     /* USO */
 
     function get_pedido_completo($id_usuario){
-        $q = ' SELECT * FROM '.$this->pre.'usuario_pedidos as up';
+        $q = ' SELECT DISTINCT * FROM '.$this->pre.'usuario_pedidos as up';
         $q .= ' INNER JOIN '.$this->pre.'pedido_articulos as pa';
         $q .= ' INNER JOIN '.$this->pre.'articulos as a';
         $q .= ' INNER JOIN '.$this->pre.'articulo_imagenes as ai';
@@ -109,7 +109,6 @@ class usuarioModel extends Model {
         $q .= ' AND a.id_articulo=ai.id_articulo';
         $q .= ' WHERE up.id_usuario='.$id_usuario.' ';
         $q .= ' AND up.prendas_seleccionadas=0 ';
-
         return $this->execute_query($q);
     }
 
@@ -139,6 +138,11 @@ class usuarioModel extends Model {
         $r = $this->execute_query($q);
         if ($r) return $r->num_rows;
             else return false;
+    }
+    function get_data_ps($id_usuario){
+        $q = ' SELECT * FROM '.$this->pre.'ps ';
+        $q .= ' WHERE id_usuario='.$id_usuario.' ';
+        return $this->execute_query($q);
     }
 
     function update_mi_ps($id_usuario, $tipo_cuota, $fecha, $mensaje){

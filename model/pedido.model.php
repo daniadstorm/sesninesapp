@@ -29,7 +29,7 @@ class pedidoModel extends Model{
     }
 
     function get_pedido($id_pedido) {
-        //SELECT * FROM adst_sesnines_pedido_articulos as pa INNER JOIN adst_sesnines_articulos as a on pa.id_articulo=a.id_articulo WHERE pa.id_pedido=1
+        //SELECT * FROM '.$this->pre.'pedido_articulos as pa INNER JOIN '.$this->pre.'articulos as a on pa.id_articulo=a.id_articulo WHERE pa.id_pedido=1
         $q  = ' SELECT * FROM '.$this->pre.'pedido_articulos as pa ';
         $q .= ' INNER JOIN '.$this->pre.'articulos as a ';
         $q .= ' on pa.id_articulo=a.id_articulo ';
@@ -71,9 +71,9 @@ class pedidoModel extends Model{
     }
 
     function get_pedidos_personalshopper_total_regs($arr_filtro_ps=0) {
-        //SELECT * FROM adst_sesnines_usuario_pedidos as p INNER JOIN adst_sesnines_usuarios as u on p.id_usuario=u.id_usuario WHERE p.estado_pedido=0
+        //SELECT * FROM '.$this->pre.'usuario_pedidos as p INNER JOIN '.$this->pre.'usuarios as u on p.id_usuario=u.id_usuario WHERE p.estado_pedido=0
         $q  = ' SELECT * FROM '.$this->pre.'usuario_pedidos as p ';
-        $q .= ' INNER JOIN adst_sesnines_usuarios as u ';
+        $q .= ' INNER JOIN '.$this->pre.'usuarios as u ';
         $q .= ' on p.id_usuario=u.id_usuario ';
         $q .= ' WHERE p.estado_pedido='.$arr_filtro_ps;
         $r = $this->execute_query($q);
@@ -83,8 +83,10 @@ class pedidoModel extends Model{
 
     function get_pedidos($pag, $regs_x_pag, $arr_filtro_ps=0) {
         $q  = ' SELECT * FROM '.$this->pre.'usuario_pedidos p ';
-        $q .= ' INNER JOIN adst_sesnines_usuarios as u ';
+        $q .= ' INNER JOIN '.$this->pre.'usuarios as u ';
+        $q .= ' INNER JOIN '.$this->pre.'ps as ps ';//
         $q .= ' on p.id_usuario=u.id_usuario ';
+        $q .= ' AND p.id_usuario=ps.id_usuario ';//
         $q .= ' WHERE p.estado_pedido='.$arr_filtro_ps;
         $q .= ' ORDER BY p.fecha_pedido,u.fiable DESC ';
         $q .= ' LIMIT '.$pag*$regs_x_pag.','.$regs_x_pag.' ';
@@ -104,6 +106,15 @@ class pedidoModel extends Model{
         $q .= ' WHERE estado_pedido ='.$estado_pedido.' ';
         $q .= ' AND id_usuario = '.$id_usuario.' ';
         return $this->execute_query($q);
+    }
+
+    function get_pedidos_personalshopper_rows($id_usuario, $estado_pedido){
+        $q = ' SELECT * FROM '.$this->pre.'usuario_pedidos ';
+        $q .= ' WHERE estado_pedido ='.$estado_pedido.' ';
+        $q .= ' AND id_usuario = '.$id_usuario.' ';
+        $r = $this->execute_query($q);
+        if ($r) return $r->num_rows;
+            else return false;
     }
 
     function update_estado_pedido($id_pedido, $estado_pedido){

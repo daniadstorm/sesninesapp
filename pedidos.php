@@ -46,6 +46,10 @@ if (isset($_GET['pag'])) {
     $pagM->pag=$_GET['pag'];
 }
 
+echo '<pre>';
+print_r($_POST);
+echo '</pre>';
+
 
 //GET___________________________________________________________________________
 
@@ -64,6 +68,10 @@ $rgu = $pM->get_pedidos($pagM->pag, $pagM->regs_x_pag, $arr_filtro_ps);
 if ($rgu) {
     $cf = 1;
     while($fgu = $rgu->fetch_assoc()) {
+        /* echo '<pre>';
+        print_r($fgu);
+        echo '</pre>'; */
+
         $ogu .= '<tr>';
         $ogu .= '<td><a href="'.$ruta_inicio.'ver-perfil.php?id_usuario='.$fgu['id_usuario'].'">'.$fgu['nombrecompleto_usuario'].'</a></td>';
         $ogu .= '<td>'.$rootM->mysql_datetime_to_date($fgu['fecha_pedido']).'</td>';
@@ -77,8 +85,11 @@ if ($rgu) {
         $ogu .= '<td><form method="post" class="m-0"><input type="hidden" name="usuario_fiabilidad" value="'.$fgu['id_usuario'].'"><i class="fa-fiabilidad fa ';
         $ogu .= ($fgu['fiable']) ? 'fa-check-circle color-verde' : 'fa-ban color-red';
         $ogu .= '" style="font-size:2rem;"></i></form></td>';
+        $ogu .= '<td>'.$fgu['pedirpsfuera'].'</td>';
+        $ogu .= '<td>'.$fgu['tipoopcion'].'</td>';
         $ogu .= '<td><form method="post"><input type="hidden" name="id_pedido" value="'.$fgu['id_pedido'].'">';
         $ogu .= $uM->get_combo_array($arr_filtro,"cambio_estado",$arr_filtro_ps,"",true).'</form></td>';
+        $ogu .= '<td><form method="post"><button type="submit" name="enviarMail" value="'.$fgu['id_pedido'].'" class="btn btn-outline-info">Enviar</button></form></td>';
         $ogu .= '</tr>';
     }
 } else $str_errores = $hM->get_alert_danger('Error cargando usuarios');
@@ -137,9 +148,12 @@ $(document).ready(function(){
                                                                 echo '<th>Observaciones</th>';
                                                                 echo '<th>Modificar pedido</th>';
                                                                 echo '<th>Usuario fiable</th>';
+                                                                echo '<th>Mi ps es..</th>';
+                                                                echo '<th>Tipo</th>';
                                                             }
                                                         ?>
                                                         <th>Cambiar estado a</th>
+                                                        <th>Mail estado</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>

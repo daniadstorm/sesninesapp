@@ -1,0 +1,27 @@
+1.- Mi cuenta Personal Shopper, personalizar día actual (hacerlo más vistoso)
+2.- En panel de administración diferenciar pedidos de personal shopper y fondo de armario.
+3.- En panel de administracion añadir columna para ver quien atiende al pedido (lidia/monica)
+4.- Añadir proveedores al insertar nuevo articulo
+5.- Ver referencia de articulo al asignar nuevo articulo
+6.- Quitar precio coste, extra, porte de columna filtros en panel administración personal shopper
+7.- Quitar required de descuentos en nuevo articulo
+8.- Asignar varias imagenes a un producto
+9.- Cambiar 5 productos por caja a 6
+10.- En estado "enviado" mostrar prendas en micuenta.php
+
+
+1.- PS visualizar día actual*****************
+2.- Diferencia personal shopper o fondo de armario en panel admin*****************
+3.- Lidia o mónica en pedido****************
+4.- Proveedores en nuevo-articulo.php****************
+5.- asignar articulo, ver referencia****************
+6.- quitar precio coste, extra porte****************
+7.- Nuevo articulo, quitar required****************
+8.- cantidad, nuevo.-
+9.- asignar imagen, poder seleccionar varias
+10.- 6 productos por caja
+11.- estado de pedido enviado, mostrar prendas
+12.- checkout quitar imagen, solo nombre, precio, descuento
+13.- estado, boton enviar mail manual
+
+enviar mail mrw: trafico@lcyconsultors.com

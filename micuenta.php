@@ -79,18 +79,8 @@ if($rgpc){
         <div class="input-group"><div class="input-group-prepend">
         <div class="input-group-text bordertrans"><input type="checkbox" name="selectPedido[]" value="'.$frgpc['id_articulo'].'"></div></div>
         <div class="form-control bordertrans d-flex justify-content-between align-items-center">
-        <img data-toggle="modal" data-target="#modalFoto'.$frgpc['id_articulo'].'" class="img-pedido-ps" src="'.$frgpc['ruta_imagen'].'" alt="">
         <h5 class="ml-1 mb-0">'.$frgpc['nombre_articulo'].'</h5><h5 class="ml-1 mb-0">'.$frgpc['PVP_final_articulo'].'€</h5></div>
-        </div></li>
-        <div class="modal fade" id="modalFoto'.$frgpc['id_articulo'].'" tabindex="-1" role="dialog">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-        <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">'.$frgpc['nombre_articulo'].'</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-        <span aria-hidden="true">&times;</span></button></div><div class="modal-body">
-        <img class="img-max-modal" src="'.$frgpc['ruta_imagen'].'" alt="">
-        </div></div></div></div>';
+        </div></li>';
         $id_pedido = $frgpc['id_pedido'];
     }
     $outFPedido .= '<div class="accordion mt-3" id="accordionExample">
@@ -177,10 +167,11 @@ include_once('inc/cabecera.inc.php'); //cargando cabecera
                                 <div class="row">
                                     <form method="POST" class="col-xl-8">
                                         <?php
-                                            if($uM->get_ps($id_usuario)>0){
-                                        ?>
-                                        <h1>Ya hay un pedido en curso</h1>
-                                        <?php
+                                            if($pM->get_pedidos_personalshopper_rows($id_usuario, 1)){
+                                                //enviado, mostrar prendas
+                                                echo '<h1>Texto a mostrar cuando ya se ha enviado el paquete</h1>';
+                                            }else if($uM->get_ps($id_usuario)>0){
+                                                echo '<h1>Ya hay un pedido en curso</h1>';
                                             }else{
                                         ?>
                                         <div>
