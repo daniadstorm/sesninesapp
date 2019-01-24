@@ -7,10 +7,10 @@ $pagM = load_model('paginado');
 
 //viene de paginado por href
 
-echo '<pre>';
+/* echo '<pre>';
 print_r($_POST);
 echo '</pre>';
-
+ */
 $str_estado ='';
 /* $str_info =''; */
 
@@ -49,21 +49,21 @@ if(isset($_REQUEST['id_pedido'])){
         }
     }
     $rtpu = $pM->get_total_pedidos_user($id_pedido);
-    if($rtpu<5){
+    if($rtpu<6){
         $pM->update_estado_pedido($id_pedido,0);
     }
     if(isset($_REQUEST['add_articulo'])){
         $rtpu = $pM->get_total_pedidos_user($id_pedido);
-        if($rtpu<5){
+        if($rtpu<6){
             $rpm = $pM->add_articulo_pedido($id_pedido,$_REQUEST['add_articulo'],$_REQUEST['prenda']);
             if($rpm){
-                if($rtpu>=4){
-                    $str_info = 'Producto insertado, ya tienes los 5 articulos';
+                if($rtpu>=5){
+                    $str_info = 'Producto insertado, ya tienes los 6 articulos';
                     /* $pM->update_estado_pedido($id_pedido,1);
                     header('Location: '.$ruta_inicio.'pedidos.php'); */
                 }
             }else $str_errores = 'Este producto ya está insertado o no hay stock';
-        }else $str_errores = 'Este pedido ya contiene 5 articulos';
+        }else $str_errores = 'Este pedido ya contiene 6 articulos';
         
     }
     
@@ -102,8 +102,12 @@ if ($ra) {
     $count=1;
     $sel1 = '';
     while ($row = $ra->fetch_assoc()) {
+        /* echo '<pre>';
+        print_r($row);
+        echo '</pre>'; */
             $rw .='<tr>';
             $rw .= '<form method="post" action="">';
+            $rw .= '<td>'.$row['referencia_articulo'].'</td>';
             $rw .=  '<td>'.'<a href="vista_articulo.php?id_articulo='.$row['id_articulo'].'" style="color:red;"  target="_blank" >'.$row['nombre_articulo'].'</a>'.'</td>';
             $rw .=  '<td>';
             $rgea = $aM->get_existencias_articulos($row['id_articulo']);
@@ -119,8 +123,6 @@ if ($ra) {
                 $sel1 = '';
             }
             $rw .=  '</td>';
-            $rw .=  '<td>'.$row['precio_coste_articulo'].' &euro;</td>';
-            $rw .=  '<td>'.$row['coste_externo_portes_articulo'].' &euro;</td>';
             $rw .=  '<td>'.$row['PVP_final_articulo'].' &euro;</td>';
             $rw .=  '<td>'.$row['margen_articulo'].' &euro;</td>';
             $rw .=  '<td>
@@ -173,10 +175,9 @@ include_once('inc/cabecera.inc.php'); //cargando cabecera
                                             <table class="table">
                                                 <thead>
                                                     <tr>
+                                                        <th>Referencia</th>
                                                         <th>Nombre</th>
                                                         <th>Existencias</th>
-                                                        <th>Precio coste</th>
-                                                        <th>Precio extra porte</th>
                                                         <th>PVP</th>
                                                         <th>Margen</th>
                                                         <th>Opción</th>

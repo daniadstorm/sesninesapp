@@ -674,17 +674,17 @@ if(isset($_POST['vestirdiadia'])){
             <div class="d-flex flex-wrap justify-content-center my-3">
                 <label class="d-flex justify-content-center align-items-center mx-5">
                     <div class="redonda red11"></div>
-                    <input type="radio" name="pedirpsfuera[]" value="estilo" id="item" hidden>
+                    <input type="radio" name="pedirpsfuera[]" value="Lidia" id="item" hidden>
                     <p class="text-center m-0 ml-2">Lídia: Sal de tu zona de confort</p>
                 </label>
                 <label class="d-flex justify-content-center align-items-center mx-5">
                     <div class="redonda red11"></div>
-                    <input type="radio" name="pedirpsfuera[]" value="imagen" id="item" hidden>
+                    <input type="radio" name="pedirpsfuera[]" value="Monica" id="item" hidden>
                     <p class="text-center m-0 ml-2">Mónica: Buen fondo de armario dentro de tu estilo</p>
                 </label>
                 <label class="d-flex justify-content-center align-items-center mx-5">
                     <div class="redonda red11"></div>
-                    <input type="radio" name="pedirpsfuera[]" value="prendasnuevas" id="item" hidden>
+                    <input type="radio" name="pedirpsfuera[]" value="Lidia/Monica" id="item" hidden>
                     <p class="text-center m-0 ml-2">Trabajar conjuntamente</p>
                 </label>
             </div>

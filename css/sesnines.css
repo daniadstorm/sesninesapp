@@ -1002,7 +1002,6 @@ form#form-contact div.form-group{
 }
 #pedidofecha td {
     text-align: right;
-    border: 1px solid;
 }
 #pedidofecha td.ui-datepicker-today a{
     color: white;
@@ -1014,8 +1013,14 @@ form#form-contact div.form-group{
 #pedidofecha .ui-datepicker-current-day{
     background-color: #404040;
     /* padding: .2rem; */
-    border-radius: 3px;
     color: white!important;
+}
+#pedidofecha .ui-datepicker-days-cell-over.ui-datepicker-current-day.ui-datepicker-today{
+    background-color: #404040;
+    color: white;
+}
+#pedidofecha td.ui-datepicker-today{
+    background-color: #404040;
 }
 #pedidofecha .ui-datepicker-unselectable.ui-state-disabled{
     background-color: #cccccc;

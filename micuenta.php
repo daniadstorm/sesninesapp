@@ -27,9 +27,9 @@ $errorUpdate = false;
 //GET___________________________________________________________________________
 
 //POST__________________________________________________________________________
-/* echo '<pre>';
+echo '<pre>';
 print_r($_POST);
-echo '</pre>'; */
+echo '</pre>';
 if(isset($_POST['btnPedido'])){
     if(isset($_POST['selectPedido'])){
         for($i=0;$i<count($_POST['selectPedido']);$i++){
@@ -41,6 +41,31 @@ if(isset($_POST['btnPedido'])){
         $ueps = $pM->update_estado_pedido_seleccionado($_POST['btnPedido'], 1);
     }
 }
+if(isset($_POST['updateemail'])){
+    $rue = $uM->update_email($_SESSION['id_usuario'], $_POST['updateemail']);
+    if($rue){
+        $str_info = 'Email actualizado correctamente';
+    }else{
+        $str_error = 'Error al actualizar el email';
+    }
+}
+if(isset($_POST['updatepassword'])){
+    $rue = $uM->update_password($_SESSION['id_usuario'], $_POST['updatepassword']);
+    if($rue){
+        $str_info = 'Password actualizado correctamente';
+    }else{
+        $str_error = 'Error al actualizar el Password';
+    }
+}
+if(isset($_POST['paqueteRecibido'])){
+    $ruep = $pM->update_estado_pedido($_POST['paqueteRecibido'],2);
+}
+if(isset($_POST['btndatosenvio'])){
+    if(){
+        
+    }
+}
+
 //POST__________________________________________________________________________
 
 //CONTROL_______________________________________________________________________
@@ -74,32 +99,48 @@ if(isset($_POST['frm_ps'])){
 $rgpc = $uM->get_pedido_completo($id_usuario);
 if($rgpc){
     while($frgpc = $rgpc->fetch_assoc()){
+        /* echo '<pre>';
+        print_r($frgpc);
+        echo '</pre>'; */
+        
         $siPedido=true;
         $outPedido .= '<li class="list-group-item p-0">
         <div class="input-group"><div class="input-group-prepend">
-        <div class="input-group-text bordertrans"><input type="checkbox" name="selectPedido[]" value="'.$frgpc['id_articulo'].'"></div></div>
+        <div class="input-group-text bordertrans"><input type="checkbox" class="selectPed" desc="';
+        if($frgpc['descuento_euros_articulo']!=0){
+            $outPedido .= $frgpc['descuento_euros_articulo'];
+        }else{
+            $outPedido .= '0';
+        }
+        $outPedido .= '" pvp="'.$frgpc['PVP_final_articulo'].'" name="selectPedido[]" value="'.$frgpc['id_articulo'].'"></div></div>
         <div class="form-control bordertrans d-flex justify-content-between align-items-center">
-        <img data-toggle="modal" data-target="#modalFoto'.$frgpc['id_articulo'].'" class="img-pedido-ps" src="'.$frgpc['ruta_imagen'].'" alt="">
-        <h5 class="ml-1 mb-0">'.$frgpc['nombre_articulo'].'</h5><h5 class="ml-1 mb-0">'.$frgpc['PVP_final_articulo'].'€</h5></div>
-        </div></li>
-        <div class="modal fade" id="modalFoto'.$frgpc['id_articulo'].'" tabindex="-1" role="dialog">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-        <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">'.$frgpc['nombre_articulo'].'</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-        <span aria-hidden="true">&times;</span></button></div><div class="modal-body">
-        <img class="img-max-modal" src="'.$frgpc['ruta_imagen'].'" alt="">
-        </div></div></div></div>';
+        <h5 class="ml-1 mb-0">'.$frgpc['nombre_articulo'].'</h5><h5 class="ml-1 mb-0">'.$frgpc['PVP_final_articulo'].'€</h5>';
+        //if($frgpc['inicio_descuento_articulo']>=date('Y/m/d') && date('Y/m/d')<=$frgpc['fin_descuento_articulo']){
+            if($frgpc['descuento_euros_articulo']!=0){
+                $outPedido .= '<h5>-'.$frgpc['descuento_euros_articulo'].'€</h5>';
+            }else if($frgpc['descuento_porcentaje_articulo']!=0){
+                $outPedido .= '<h5>-'.$frgpc['descuento_porcentaje_articulo'].'%</h5>';
+            }else{
+                $outPedido .= '<h5>0€</h5>';
+            }
+        //}
+        $outPedido .= '</div></div></li>';
         $id_pedido = $frgpc['id_pedido'];
     }
     $outFPedido .= '<div class="accordion mt-3" id="accordionExample">
         <div class="card">
         <div class="card-header" id="headingOne"><h2 class="mb-0">
         <button class="btn btn-block text-left btn-link color-text" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne"> Pedido #'.$id_pedido.'</button></h2></div>
-        <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample"><div class="card-body">
+        <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample"><div class="card-body">
         <form method="post" class="mb-0" action="">
-        <ul class="list-group">'.$outPedido.'<li class="list-group-item">
+        <ul class="list-group">'.$outPedido.'
+        <li class="list-group-item d-flex justify-content-between mb-0">
+        <h5>TOTAL:</h5>
+        <h5><span id="boxtotal">0</span>€</h5>
+        <h5 id="boxdesc">0</h5>
+        </li>
+        <li class="list-group-item d-flex justify-content-between mb-0"><input name="descuento" placeholder="COD DESCUENTO" class="form-control"></li>
+        <li class="list-group-item">
         <button type="submit" name="btnPedido" value="'.$id_pedido.'" class="btn btn-outline-info btn-lg btn-block">¡Pedir!</button></li>
         </ul></form></div></div></div></div>';
 }
@@ -108,7 +149,39 @@ if($rgpc){
 include_once('inc/cabecera.inc.php'); //cargando cabecera
 ?>
 <script type="text/javascript">
-
+$(document).ready(function(e){
+    $(".selectPed").on('change', function(){
+        if(this.checked){
+            var precio = parseInt($(this).attr("pvp"));
+            var total = parseInt($("#boxtotal").html());
+            $("#boxtotal").html(total+precio);
+        }else{
+            var precio = parseInt($(this).attr("pvp"));
+            var total = parseInt($("#boxtotal").html());
+            $("#boxtotal").html(total-precio);
+        }
+        var qtt=0;
+        for(i=0;i<$(".selectPed").length;i++){
+            if($(".selectPed")[i].checked){
+                qtt++;
+            }
+        }
+        switch(qtt){
+            default:
+                $("#boxdesc").html("0%");
+                break;
+            case 4:
+                $("#boxdesc").html("10%");
+                break;
+            case 5:
+                $("#boxdesc").html("20%");
+                break;
+            case 6:
+                $("#boxdesc").html("25%");
+                break;
+        }
+    })
+});
 </script>
 
 <body>
@@ -175,12 +248,16 @@ include_once('inc/cabecera.inc.php'); //cargando cabecera
                         <div class="tab-content" id="myTabContent">
                             <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                                 <div class="row">
-                                    <form method="POST" class="col-xl-8">
+                                    <form method="POST" class="col-xl-12">
                                         <?php
-                                            if($uM->get_ps($id_usuario)>0){
-                                        ?>
-                                        <h1>Ya hay un pedido en curso</h1>
-                                        <?php
+                                            if($pM->get_pedidos_personalshopper_rows($id_usuario, 1)){
+                                                echo '<form method="post"><button type="submit" class="btn btn-primary" name="paqueteRecibido" value="'.$id_pedido.'">Ya he recibido mi paquete</button></form>';
+                                            }else if($pM->get_pedidos_personalshopper_rows($id_usuario, 2)){
+                                                if($siPedido){
+                                                    echo $outFPedido;
+                                                }
+                                            }else if($uM->get_ps($id_usuario)>0){
+                                                echo '<h1>Ya hay un pedido en curso</h1>';
                                             }else{
                                         ?>
                                         <div>
@@ -206,13 +283,13 @@ include_once('inc/cabecera.inc.php'); //cargando cabecera
                                         </div>
                                             <?php } ?>
                                     </form>
-                                    <div class="col-xl-4">
+                                    <!-- <div class="col-xl-4">
                                         <?php
                                             if($siPedido){
                                                 echo $outFPedido;
                                             }
                                         ?>
-                                    </div>
+                                    </div> -->
                                 </div>
                             </div>
 
@@ -232,10 +309,10 @@ include_once('inc/cabecera.inc.php'); //cargando cabecera
                                                         </button>
                                                     </h2>
                                                 </div>
-                                                <form id="miemail" name="frmemail" class="collapse show"
+                                                <form id="miemail" method="post" name="frmemail" class="collapse show"
                                                     aria-labelledby="headingOne" data-parent="#accordionExample">
                                                     <div class="card-body">
-                                                        <input type="email" name="email" class="form-control frm p-3">
+                                                        <input type="email" name="updateemail" class="form-control frm p-3">
                                                         <button class="btn btn-lg btn-block mt-3 btnsn">Guardar email</button>
                                                     </div>
                                                 </form>
@@ -251,12 +328,49 @@ include_once('inc/cabecera.inc.php'); //cargando cabecera
                                                         </button>
                                                     </h2>
                                                 </div>
-                                                <form id="mipassord" name="frmpassword" class="collapse show"
+                                                <form id="mipassord" method="post" name="frmpassword" class="collapse show"
                                                     aria-labelledby="headingdos" data-parent="#accordionExample">
                                                     <div class="card-body">
-                                                        <input type="password" class="form-control frm p-3">
+                                                        <input type="password" name="updatepassword" class="form-control frm p-3">
                                                         <button class="btn btn-lg btn-block mt-3 btnsn">Cambiar
                                                             contraseña</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                            <div class="card">
+                                                <i class="fa fa-sort-down sortsn"></i>
+                                                <div class="card-header p-0" id="headingdos">
+                                                    <h2 class="mb-0">
+                                                        <form method="post" class="m-0 p-0" action="<?php echo $ruta_inicio; ?>altaps/">
+                                                            <button class="btn btn-block btn-link btnsnac" type="submit"
+                                                                data-toggle="collapse" data-target="#mips"
+                                                                aria-expanded="true" aria-controls="mips">
+                                                                Mi Personal Shopper
+                                                            </button>
+                                                        </form>
+                                                    </h2>
+                                                </div>
+                                            </div>
+                                            <div class="card">
+                                                <i class="fa fa-sort-down sortsn"></i>
+                                                <div class="card-header p-0" id="headingdos">
+                                                    <h2 class="mb-0">
+                                                        <button class="btn btn-block btn-link btnsnac" type="button"
+                                                            data-toggle="collapse" data-target="#datosenvio"
+                                                            aria-expanded="true" aria-controls="datosenvio">
+                                                            Datos de envío
+                                                        </button>
+                                                    </h2>
+                                                </div>
+                                                <form id="datosenvio" method="post" name="datosenvio" class="collapse show"
+                                                    aria-labelledby="headingdos" data-parent="#accordionExample">
+                                                    <div class="card-body">
+                                                        <input type="text" placeholder="Nombre" name="nombre" class="form-control mb-2 frm p-3">
+                                                        <input type="text" placeholder="Direccion" name="direccion" class="form-control my-2 frm p-3">
+                                                        <input type="text" placeholder="Código postal" name="cp" class="form-control my-2 frm p-3">
+                                                        <input type="text" placeholder="Localidad" name="localidad" class="form-control my-2 frm p-3">
+                                                        <input type="tel" placeholder="Telefono" name="telefono" class="form-control my-2 frm p-3">
+                                                        <button name="btndatosenvio" class="btn btn-lg btn-block mt-3 btnsn">Actualizar datos de envío</button>
                                                     </div>
                                                 </form>
                                             </div>

@@ -176,14 +176,14 @@ include_once('inc/cabecera.inc.php'); //cargando cabecera
                                         /* echo $iM->get_input_radio('activado_articulo', $activado_articulo, $arr_opt_activado_articulo, '', 'Activado'); */
                                         echo $iM->get_input_radio('visible_en_tienda_articulo', $visible_en_tienda_articulo, $arr_opt_visible_en_tienda_articulo, '', 'Visible en tienda');
                                         echo $iM->get_input_number('precio_coste_articulo', $precio_coste_articulo, 'form-control', '*Precio de coste (&euro;)', '', 'Campo requerido', 1, false, 'price');
-                                        echo $iM->get_input_number('coste_externo_portes_articulo', $coste_externo_portes_articulo, 'form-control', '*Precio de portes (&euro;)', '', 'Campo requerido', 1, false, 'price');
+                                        echo $iM->get_input_number('coste_externo_portes_articulo', $coste_externo_portes_articulo, 'form-control', '*Precio de portes (&euro;)', '', 'Campo requerido', 0, false, 'price');
                                         echo $iM->get_input_number('PVP_final_articulo', $PVP_final_articulo, 'form-control', '*Precio de venta al público (&euro;)', '', 'Campo requerido', 1, false, 'price');
-                                        echo $iM->get_input_number('margen_articulo', $margen_articulo, 'form-control', '*Margen (&euro;)', '', 'Campo requerido', 1, false, 'price');
+                                        echo $iM->get_input_number('margen_articulo', $margen_articulo, 'form-control', '*Margen (&euro;)', '', 'Campo requerido', 0, false, 'price');
                                         /* echo $iM->get_input_number('cantidad_articulo', $cantidad_articulo, 'form-control', 'Cantidad', '', 'Campo requerido', 1, false, 'int', true); */
-                                        echo $iM->get_input_date('inicio_descuento_articulo', $inicio_descuento_articulo, 'form-control', 'Fecha inicio descuento', '', '', false, false, true);
-                                        echo $iM->get_input_date('fin_descuento_articulo', $fin_descuento_articulo, 'form-control', 'Fecha fin descuento', '', '', false, false, true);
+                                        //echo $iM->get_input_date('inicio_descuento_articulo', $inicio_descuento_articulo, 'form-control', 'Fecha inicio descuento', '', '', false, false, true);
+                                        //echo $iM->get_input_date('fin_descuento_articulo', $fin_descuento_articulo, 'form-control', 'Fecha fin descuento', '', '', false, false, true);
                                         echo $iM->get_input_number('descuento_porcentaje_articulo', $descuento_porcentaje_articulo, 'form-control', 'Descuento (%)', '', '', 0, 100, 'int', true);
-                                        echo $iM->get_input_number('descuento_euros_articulo', $descuento_euros_articulo, 'form-control', 'Descuento (&euro;)', '', '', 1, false, 'int', true);
+                                        echo $iM->get_input_number('descuento_euros_articulo', $descuento_euros_articulo, 'form-control', 'Descuento (&euro;)', '', '', 0, false, 'int', true);
                                         echo $aM->get_combo_almacenes('almacen_articulo', $almacen_articulo, 'form-control', 'Almacén');
                                     ?>                                    
                                     <button class="btn bg-primary text-light">Aceptar</button>
