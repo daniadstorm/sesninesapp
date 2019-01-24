@@ -99,6 +99,46 @@ class usuarioModel extends Model {
     }
     /* USO */
 
+    function enviarMail($email, $asunto, $cuerpo){
+        $op = '<!DOCTYPE html>
+        <html lang="es">
+        <head><meta charset="UTF-8"></head>
+        <body>
+            <div><h3>SESNINES</h3></div>
+            <div id="contenido">'.$cuerpo.'</div>
+        </body>
+        </html>';
+
+        $asunto = 'SESNINES';
+        $mail_admin = 'info@sesnineshopper.com';
+
+        $headers   = array();
+        $headers[] = "MIME-Version: 1.0";
+        $headers[] = "Content-type: text/html; charset=utf-8";
+        //TODO
+        $headers[] = "From: <info@sesnineshopper.com> SESNINES ";
+        $headers[] = "Reply-To: <info@sesnineshopper.com> SESNINES ";
+        $headers[] = "X-Mailer: PHP/" . phpversion();
+
+        $cabeceras = implode("\r\n", $headers);
+
+        $result_mail_send = TRUE;
+        $result_mail_send = mail($email, $asunto, $op, $cabeceras); //produccion
+        //$result_mail_send = getbagservice_mail($email, $asunto, $op, $headers);
+
+        return $result_mail_send;
+    }
+
+    function get_name($id_usuario){
+        $q = ' SELECT * FROM '.$this->pre.'usuarios ';
+        $q .= ' WHERE id_usuario='.$id_usuario.' ';
+        return $this->execute_query($q);
+    }
+
+    function get_existe_datosenvio($id_usuario){
+        
+    }
+
     function get_pedido_completo($id_usuario){
         $q = ' SELECT DISTINCT * FROM '.$this->pre.'usuario_pedidos as up';
         $q .= ' INNER JOIN '.$this->pre.'pedido_articulos as pa';
@@ -267,6 +307,20 @@ class usuarioModel extends Model {
 
     function get_estado_tienda(){
         $q = ' SELECT c.* FROM '.$this->pre.'config c';
+        return $this->execute_query($q);
+    }
+
+    function update_email($id_usuario, $email){
+        $q  = ' UPDATE '.$this->pre.'usuarios SET ';
+        $q .=   ' email_usuario="'.$email.'" ';
+        $q .=   ' WHERE id_usuario="'.$id_usuario.'"';
+        return $this->execute_query($q);
+    }
+
+    function update_password($id_usuario, $password){
+        $q  = ' UPDATE '.$this->pre.'usuarios SET ';
+        $q .=   ' contrasenya_usuario="'.$password.'" ';
+        $q .=   ' WHERE id_usuario="'.$id_usuario.'"';
         return $this->execute_query($q);
     }
 

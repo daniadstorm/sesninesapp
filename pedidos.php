@@ -10,6 +10,10 @@ $hM = load_model('html');
 $ogu = '';
 $pagM->regs_x_pag=20;
 $pagM->pag=0;
+$nombre_usuario = '';
+$asunto_mail = '';
+$cuerpo_mail = '';
+$mail_usuario = '';
 //$pagM->regs_x_pag=1;
 
 $arr_filtro = array(//Estados
@@ -45,12 +49,6 @@ if(isset($_REQUEST['arr_filtro'])){
 if (isset($_GET['pag'])) {
     $pagM->pag=$_GET['pag'];
 }
-
-echo '<pre>';
-print_r($_POST);
-echo '</pre>';
-
-
 //GET___________________________________________________________________________
 
 //POST__________________________________________________________________________
@@ -58,7 +56,31 @@ if(isset($_POST['usuario_fiabilidad'])){
     $rcuf = $uM->cambiar_usuario_fiable($_POST['usuario_fiabilidad']);
     if($rcuf){
         $str_info = 'Cambio realizado correctamente';
-    }else $str_errores = 'No se ha podido cambiar la fiabilidad del usuario';
+    }else $str_error = 'No se ha podido cambiar la fiabilidad del usuario';
+}
+if(isset($_POST['enviarMail']) && isset($_POST['id_usuario']) && isset($_POST['id_estado'])){
+    $rgn = $uM->get_name($_POST['id_usuario']);
+    if($rgn){
+        while($frgn = $rgn->fetch_assoc()){
+            $nombre_usuario = $frgn['nombre_usuario'];
+            $mail_usuario = $frgn['email_usuario'];
+        }
+    }
+    $rgm = $uM->getmail($_POST['id_estado']);
+    if($rgm){
+        while($frgm = $rgm->fetch_assoc()){
+            $asunto_mail = $frgm['asunto'];
+            $cuerpo_mail = $frgm['cuerpo'];
+        }
+    }
+    $cuerpoEntero = str_replace("[nombre_usuario]", $nombre_usuario, $cuerpo_mail);
+    $rem = $uM->enviarMail($mail_usuario, "Mail prueba - estado", $cuerpoEntero);
+    if($rem){
+        $str_info = 'Mail enviado correctamente';
+    }else{
+        $str_error = 'Fallo al enviar el correo';
+    }
+
 }
 //POST__________________________________________________________________________
 
@@ -82,17 +104,22 @@ if ($rgu) {
                 else $ogu .= '<td><a href="'.$ruta_inicio.'asignar-articulos-pedido.php?id_pedido='.$fgu['id_pedido'].'"><button type="button" class="btn btn-outline-info">Modificar</button></td>';
         }
         //if($fgu['estado_pedido']==1) $ogu .= '<td><a href="'.$ruta_inicio.'pedidos.php?id_pedido='.$fgu['id_pedido'].'&cambiar_estado=2&arr_filtro='.$arr_filtro_ps.'"><button type="button" class="btn btn-outline-success">Enviado</button></a></td>';
-        $ogu .= '<td><form method="post" class="m-0"><input type="hidden" name="usuario_fiabilidad" value="'.$fgu['id_usuario'].'"><i class="fa-fiabilidad fa ';
-        $ogu .= ($fgu['fiable']) ? 'fa-check-circle color-verde' : 'fa-ban color-red';
-        $ogu .= '" style="font-size:2rem;"></i></form></td>';
-        $ogu .= '<td>'.$fgu['pedirpsfuera'].'</td>';
-        $ogu .= '<td>'.$fgu['tipoopcion'].'</td>';
+        if($arr_filtro_ps==0){
+            $ogu .= '<td><form method="post" class="m-0"><input type="hidden" name="usuario_fiabilidad" value="'.$fgu['id_usuario'].'"><i class="fa-fiabilidad fa ';
+            $ogu .= ($fgu['fiable']) ? 'fa-check-circle color-verde' : 'fa-ban color-red';
+            $ogu .= '" style="font-size:2rem;"></i></form></td>';
+            $ogu .= '<td>'.$fgu['pedirpsfuera'].'</td>';
+            $ogu .= '<td>'.$fgu['tipoopcion'].'</td>';
+        }
         $ogu .= '<td><form method="post"><input type="hidden" name="id_pedido" value="'.$fgu['id_pedido'].'">';
         $ogu .= $uM->get_combo_array($arr_filtro,"cambio_estado",$arr_filtro_ps,"",true).'</form></td>';
-        $ogu .= '<td><form method="post"><button type="submit" name="enviarMail" value="'.$fgu['id_pedido'].'" class="btn btn-outline-info">Enviar</button></form></td>';
+        $ogu .= '<td><form method="post">
+        <input hidden name="id_estado" value="'.$arr_filtro_ps.'">
+        <input hidden name="id_usuario" value="'.$fgu['id_usuario'].'">
+        <button type="submit" name="enviarMail" class="btn btn-outline-info">Enviar</button></form></td>';
         $ogu .= '</tr>';
     }
-} else $str_errores = $hM->get_alert_danger('Error cargando usuarios');
+} else $str_error = $hM->get_alert_danger('Error cargando usuarios');
 
 //LISTADO________________________________________________________________________
 
@@ -123,7 +150,7 @@ $(document).ready(function(){
                             <div class="layout-table">
                                 <div id="alertas">
                                     <?php if (isset($str_info)) echo $hM->get_alert_success($str_info); ?>
-                                    <?php if (isset($str_errores)) echo $hM->get_alert_danger($str_error); ?>
+                                    <?php if (isset($str_error)) echo $hM->get_alert_danger($str_error); ?>
                                 </div>
                                 <div class="layout-table-item">
                                     <div class="layout-table-header">
