@@ -44,26 +44,64 @@ if (isset($_GET['pag'])) {
 //GET___________________________________________________________________________
 
 //POST__________________________________________________________________________
+echo '<pre>';
+print_r($_POST);
+echo '</pre>';
 
 //POST__________________________________________________________________________
 
 //LISTADO_______________________________________________________________________
-$pagM->total_regs = $uM->get_usuarios_total_regs($arr_filtro_ps);
-$rgu = $uM->get_usuarios($pagM->pag, $pagM->regs_x_pag, $arr_filtro_ps);
-if ($rgu) {
-    $cf = 1;
-    while($fgu = $rgu->fetch_assoc()) {
-            $ogu .= '<tr>';
-            $ogu .= '<td><a href="nuevo-cliente.php?id_usuario='.$fgu['id_usuario'].'">'.$fgu['nombrecompleto_usuario'].'</a></td>';
-            $ogu .= '<td>'.$fgu['email_usuario'].'</td>';
-            $ogu .= '<td>'.$fgu['nie_usuario'].'</td>';
-            $ogu .= '<td>'.mysql_to_date($fgu['fecha_nacimiento']).'</td>';
-            $ogu .= '<td>'.$fgu['telf_usuario'].'</td>';
-            $ogu .= '<td>';
-            ($fgu['ps_completo']) ? $ogu.='Completado' : $ogu.='No Completado';
-            $ogu .= '</td>';
-    }
-} else $str_errores = $hM->get_alert_danger('Error cargando usuarios');
+if(isset($_POST['fechadesde']) && isset($_POST['fechahasta'])){
+    $rgu = $uM->get_usuarios($pagM->pag, $pagM->regs_x_pag, false, $_POST['fechadesde'], $_POST['fechahasta']);
+    if ($rgu) {
+        while($fgu = $rgu->fetch_assoc()) {
+                $ogu .= '<tr>';
+                $ogu .= '<td><a href="nuevo-cliente.php?id_usuario='.$fgu['id_usuario'].'">'.$fgu['nombrecompleto_usuario'].'</a></td>';
+                $ogu .= '<td>'.$fgu['email_usuario'].'</td>';
+                $ogu .= '<td>'.$fgu['nie_usuario'].'</td>';
+                $ogu .= '<td>'.mysql_to_date($fgu['fecha_nacimiento']).'</td>';
+                $ogu .= '<td>'.$fgu['telf_usuario'].'</td>';
+                $ogu .= '<td>';
+                ($fgu['ps_completo']) ? $ogu.='Completado' : $ogu.='No Completado';
+                $ogu .= '</td>';
+        }
+        $str_info = $hM->get_alert_success('Filtro aplicado!');
+    } else $str_errores = $hM->get_alert_danger('Error cargando usuarios');
+}else if(isset($_POST['filtronprendas'])){
+    $rgu = $uM->get_usuarios($pagM->pag, $pagM->regs_x_pag, false, false, false, true);
+    if ($rgu) {
+        while($fgu = $rgu->fetch_assoc()) {
+            if($uM->filtro_num_prendas($fgu['id_usuario'])>=$_POST['filtronprendas']){
+                $ogu .= '<tr>';
+                $ogu .= '<td><a href="nuevo-cliente.php?id_usuario='.$fgu['id_usuario'].'">'.$fgu['nombrecompleto_usuario'].'</a></td>';
+                $ogu .= '<td>'.$fgu['email_usuario'].'</td>';
+                $ogu .= '<td>'.$fgu['nie_usuario'].'</td>';
+                $ogu .= '<td>'.mysql_to_date($fgu['fecha_nacimiento']).'</td>';
+                $ogu .= '<td>'.$fgu['telf_usuario'].'</td>';
+                $ogu .= '<td>';
+                ($fgu['ps_completo']) ? $ogu.='Completado' : $ogu.='No Completado';
+                $ogu .= '</td>';
+            }
+        }
+        $str_info = $hM->get_alert_success('Filtro aplicado!');
+    } else $str_errores = $hM->get_alert_danger('Error cargando usuarios');
+}else{
+    $pagM->total_regs = $uM->get_usuarios_total_regs($arr_filtro_ps);
+    $rgu = $uM->get_usuarios($pagM->pag, $pagM->regs_x_pag, $arr_filtro_ps);
+    if ($rgu) {
+        while($fgu = $rgu->fetch_assoc()) {
+                $ogu .= '<tr>';
+                $ogu .= '<td><a href="nuevo-cliente.php?id_usuario='.$fgu['id_usuario'].'">'.$fgu['nombrecompleto_usuario'].'</a></td>';
+                $ogu .= '<td>'.$fgu['email_usuario'].'</td>';
+                $ogu .= '<td>'.$fgu['nie_usuario'].'</td>';
+                $ogu .= '<td>'.mysql_to_date($fgu['fecha_nacimiento']).'</td>';
+                $ogu .= '<td>'.$fgu['telf_usuario'].'</td>';
+                $ogu .= '<td>';
+                ($fgu['ps_completo']) ? $ogu.='Completado' : $ogu.='No Completado';
+                $ogu .= '</td>';
+        }
+    } else $str_errores = $hM->get_alert_danger('Error cargando usuarios');
+}
 //LISTADO________________________________________________________________________
 
 //PAGINADO______________________________________________________________________
@@ -97,14 +135,39 @@ include_once('inc/cabecera.inc.php'); //cargando cabecera
                                         <a href="nuevo-cliente.php"><button class="btn btn-light ml-2">Nuevo Usuario</button></a>
                                     </div>
                                 </div>
-                                <div class="ml-3 mr-3 mt-3">
-                                    <div class="dropdown">
-                                        <form action="clientes.php" method="post">
-                                            <?php echo $uM->get_combo_array($arr_filtro_personal_shopper,"arr_filtro_personal_shopper",$arr_filtro_ps,"btn_aceptar bg_salmon tipogr_blanca",true) ?>
-                                        </form>
+                                <div class="ml-3 mr-3 mt-3 d-flex flex-wrap">
+                                    <div class="dropdown px-2">
+                                        <label>Por ps:</label>
                                         <form method="post">
                                             <?php echo $uM->get_combo_array($arr_filtro_personal_shopper,"arr_filtro_personal_shopper",$arr_filtro_ps,"btn_aceptar bg_salmon tipogr_blanca",true) ?>
                                         </form>
+                                    </div>
+                                    <div class="dropdown px-2">
+                                        <label>Pedido ps fecha</label>
+                                        <form id="filtrofecha" method="post" class="mb-0">
+                                            <input type="date" class="form-control d-inline-block" style="width:auto;" name="fechadesde" id="fechadesde">
+                                            <input type="date" class="form-control d-inline-block" style="width:auto;" name="fechahasta" id="fechahasta">
+                                        </form>
+                                        <script>
+                                            $(document).ready(function (e) {
+                                                $("#fechahasta").on('change', function(){
+                                                    $("#filtrofecha").submit();
+                                                });
+                                            });
+                                        </script>
+                                    </div>
+                                    <div class="dropdown px-2">
+                                        <label>Pedido nº prendas</label>
+                                        <form id="filtronprendas" method="post" class="mb-0">
+                                            <input type="number" class="form-control" min="1" max="6" value="1" name="filtronprendas" id="filtronprendas">
+                                        </form>
+                                        <script>
+                                            $(document).ready(function (e) {
+                                                $("#fechahasta").on('change', function(){
+                                                    $("#filtrofecha").submit();
+                                                });
+                                            });
+                                        </script>
                                     </div>
                                 </div>
                                 <div class="layout-table-content">

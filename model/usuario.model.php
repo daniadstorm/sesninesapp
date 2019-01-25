@@ -395,16 +395,28 @@ class usuarioModel extends Model {
         return $this->execute_query($q);
     }
 
-    function get_usuarios($pag, $regs_x_pag, $arr_filtro_ps=false) {
+    function get_usuarios($pag, $regs_x_pag, $arr_filtro_ps=false, $fechadesde=false, $fechahasta=false, $numprendas=false) {
         $q  = ' SELECT u.* FROM '.$this->pre.'usuarios u ';
+        $q .= ' INNER JOIN '.$this->pre.'usuario_pedidos up ';
+        $q .= ' ON u.id_usuario=up.id_usuario ';
         $q .= ' WHERE u.deleted = 0 and u.id_tipo_usuario=10 ';
-        if($arr_filtro_ps=="si"){
-            $q .= ' and ps_completo=1 ';
-        }else if($arr_filtro_ps=="no"){
-            $q .= ' and ps_completo=0 ';
-        }
-        $q .= ' LIMIT '.$pag*$regs_x_pag.','.$regs_x_pag.' ';
+        //FILTRO PS
+        if($arr_filtro_ps=="si") $q .= ' and ps_completo=1 ';
+        else if($arr_filtro_ps=="no") $q .= ' and ps_completo=0 ';
+        //FILTRO FECHA
+        if($fechadesde && $fechahasta) $q .= ' and up.fecha_pedido>="'.$fechadesde.'" and up.fecha_pedido<="'.$fechahasta.'" ';
+        if(!$numprendas) $q .= ' LIMIT '.$pag*$regs_x_pag.','.$regs_x_pag.' ';
         return $this->execute_query($q);
+    }
+
+    function filtro_num_prendas($id_usuario){
+        $q = ' SELECT * FROM '.$this->pre.'usuario_pedidos up ';
+        $q .= ' INNER JOIN '.$this->pre.'pedido_articulos pa ';
+        $q .= ' ON up.id_pedido=pa.id_pedido ';
+        $q .= ' WHERE up.id_usuario='.$id_usuario.' and pa.seleccionado=1 ';
+        $r = $this->execute_query($q);
+        if ($r) return $r->num_rows;
+            else return false;
     }
 
     function get_usuarios_total_regs($arr_filtro_ps=false) {
