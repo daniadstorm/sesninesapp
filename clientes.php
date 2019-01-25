@@ -102,6 +102,9 @@ include_once('inc/cabecera.inc.php'); //cargando cabecera
                                         <form action="clientes.php" method="post">
                                             <?php echo $uM->get_combo_array($arr_filtro_personal_shopper,"arr_filtro_personal_shopper",$arr_filtro_ps,"btn_aceptar bg_salmon tipogr_blanca",true) ?>
                                         </form>
+                                        <form method="post">
+                                            <?php echo $uM->get_combo_array($arr_filtro_personal_shopper,"arr_filtro_personal_shopper",$arr_filtro_ps,"btn_aceptar bg_salmon tipogr_blanca",true) ?>
+                                        </form>
                                     </div>
                                 </div>
                                 <div class="layout-table-content">

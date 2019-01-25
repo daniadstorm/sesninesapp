@@ -22,14 +22,20 @@ $suscripciones = array(
     "6meses" => "6 Meses",
 );
 $errorUpdate = false;
+$nombreDE = '';
+$direccionDE = '';
+$cpDE = '';
+$localidadDE = '';
+$telefonoDE = '';
+$outPedido1 = '';
 //GET___________________________________________________________________________
 
 //GET___________________________________________________________________________
 
 //POST__________________________________________________________________________
-echo '<pre>';
+/* echo '<pre>';
 print_r($_POST);
-echo '</pre>';
+echo '</pre>'; */
 if(isset($_POST['btnPedido'])){
     if(isset($_POST['selectPedido'])){
         for($i=0;$i<count($_POST['selectPedido']);$i++){
@@ -61,8 +67,22 @@ if(isset($_POST['paqueteRecibido'])){
     $ruep = $pM->update_estado_pedido($_POST['paqueteRecibido'],2);
 }
 if(isset($_POST['btndatosenvio'])){
-    if(){
-        
+    if($uM->get_existe_datosenvio($id_usuario)>0){
+        //update
+        $rud = $uM->update_datosenvio($id_usuario, $_POST['nombre'], $_POST['direccion'], $_POST['cp'], $_POST['localidad'], $_POST['telefono']);
+        if($rud){
+            $str_info =  'Actualizado con éxito';
+        }else{
+            $str_error =  'Error al actualizar';
+        }
+    }else{
+        //insert
+        $rad = $uM->add_datosenvio($id_usuario, $_POST['nombre'], $_POST['direccion'], $_POST['cp'], $_POST['localidad'], $_POST['telefono']);
+        if($rad){
+            $str_info =  'Insertado con éxito';
+        }else{
+            $str_error =  'Error al insertar';
+        }
     }
 }
 
@@ -85,6 +105,39 @@ if($rgu){
         </div>
         <input checked type="radio" name="tipo_suscripcion" value="'.$key.'" hidden>
         </label>';
+    }
+}
+
+$req1 = '';
+$req2 = '';
+$contReq = 0;
+$rgp = $uM->get_usuario_pedidos($id_usuario);
+if($rgp){
+    while($frgp = $rgp->fetch_assoc()){
+        $rgdp = $uM->get_datos_pedido($frgp['id_pedido']);
+        if($rgdp){
+            $req1 .= '<a class="list-group-item list-group-item-action ';
+            if($contReq==0) $req1 .= 'active';
+            $req1 .= '" id="list'.$contReq.'-list" data-toggle="list" href="#list'.$contReq.'" role="tab" aria-controls="home">Pedido #4</a>';
+            $req2 .= '<div class="tab-pane fade show ';
+            if($contReq==0) $req2 .= 'active';
+            $req2 .= '" id="list'.$contReq.'" role="tabpanel" aria-labelledby="list'.$contReq.'-list"><ul class="list-group" style="max-width: 400px;">';
+            while($frgdp = $rgdp->fetch_assoc()){
+                $req2 .= '<li class="list-group-item">'.$frgdp['nombre_articulo'].'</li>';
+            }
+            $req2 .= '</ul></div>';
+        }
+    }
+}
+
+$rgd = $uM->get_datosenvio($id_usuario);
+if($rgd){
+    while($frgd = $rgd->fetch_assoc()){
+        $nombreDE = $frgd['nombre'];
+        $direccionDE = $frgd['direccion'];
+        $cpDE = $frgd['cp'];
+        $localidadDE = $frgd['localidad'];
+        $telefonoDE = $frgd['telefono'];
     }
 }
 
@@ -237,6 +290,10 @@ $(document).ready(function(e){
                             <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab"
                                 aria-controls="profile" aria-selected="false">Mi cuenta</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="historial-tab" data-toggle="tab" href="#historial" role="tab"
+                                aria-controls="historial" aria-selected="false">Historial y Evolución</a>
+                        </li>
                         <!-- <li class="nav-item">
                             <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab"
                                 aria-controls="contact" aria-selected="false">Contact</a>
@@ -246,7 +303,7 @@ $(document).ready(function(e){
                 <div class="container-fluid">
                     <div class="my-3">
                         <div class="tab-content" id="myTabContent">
-                            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                            <div class="tab-pane fade" id="home" role="tabpanel" aria-labelledby="home-tab">
                                 <div class="row">
                                     <form method="POST" class="col-xl-12">
                                         <?php
@@ -292,7 +349,6 @@ $(document).ready(function(e){
                                     </div> -->
                                 </div>
                             </div>
-
                             <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                                 <div id="micuenta" class="row">
                                     <div class="col-6">
@@ -362,14 +418,14 @@ $(document).ready(function(e){
                                                         </button>
                                                     </h2>
                                                 </div>
-                                                <form id="datosenvio" method="post" name="datosenvio" class="collapse show"
+                                                <form id="datosenvio" method="post" name="datosenvio" class="collapse"
                                                     aria-labelledby="headingdos" data-parent="#accordionExample">
                                                     <div class="card-body">
-                                                        <input type="text" placeholder="Nombre" name="nombre" class="form-control mb-2 frm p-3">
-                                                        <input type="text" placeholder="Direccion" name="direccion" class="form-control my-2 frm p-3">
-                                                        <input type="text" placeholder="Código postal" name="cp" class="form-control my-2 frm p-3">
-                                                        <input type="text" placeholder="Localidad" name="localidad" class="form-control my-2 frm p-3">
-                                                        <input type="tel" placeholder="Telefono" name="telefono" class="form-control my-2 frm p-3">
+                                                        <input type="text" value="<?php echo ($nombreDE!='') ? $nombreDE : ''; ?>" placeholder="Nombre" name="nombre" class="form-control mb-2 frm p-3">
+                                                        <input type="text" value="<?php echo ($direccionDE!='') ? $direccionDE : ''; ?>" placeholder="Direccion" name="direccion" class="form-control my-2 frm p-3">
+                                                        <input type="text" value="<?php echo ($cpDE!='') ? $cpDE : ''; ?>" placeholder="Código postal" name="cp" class="form-control my-2 frm p-3">
+                                                        <input type="text" value="<?php echo ($localidadDE!='') ? $localidadDE : ''; ?>" placeholder="Localidad" name="localidad" class="form-control my-2 frm p-3">
+                                                        <input type="tel" value="<?php echo ($telefonoDE!='') ? $telefonoDE : ''; ?>" placeholder="Telefono" name="telefono" class="form-control my-2 frm p-3">
                                                         <button name="btndatosenvio" class="btn btn-lg btn-block mt-3 btnsn">Actualizar datos de envío</button>
                                                     </div>
                                                 </form>
@@ -378,7 +434,31 @@ $(document).ready(function(e){
                                     </div>
                                 </div>
                             </div>
-                            <!-- <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">...</div> -->
+                            <div class="tab-pane fade show active" id="historial" role="tabpanel" aria-labelledby="historial-tab">
+                                <div class="row">
+                                    <div class="d-flex flex-column w-100">
+                                        <h1>Mis pedidos</h1>
+                                        <div class="row">
+                                            <div class="col-2">
+                                              <div class="list-group" id="list-tab" role="tablist">
+                                                <!-- <a class="list-group-item list-group-item-action active" id="list-home-list" data-toggle="list" href="#list-home" role="tab" aria-controls="home">Pedido #4</a> -->
+                                                <!--  -->
+                                                <?php echo $req1; ?>
+                                              </div>
+                                            </div>
+                                            <div class="col-10">
+                                              <div class="tab-content" id="nav-tabContent">
+                                                <!-- <div class="tab-pane fade show active" id="list-home" role="tabpanel" aria-labelledby="list-home-list">
+                                                    <ul class="list-group" style="max-width: 400px;"></ul>
+                                                </div> -->
+                                                <?php echo $req2; ?>
+                                                
+                                              </div>
+                                            </div>
+                                          </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

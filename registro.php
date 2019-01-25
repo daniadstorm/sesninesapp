@@ -22,7 +22,12 @@ if (isset($_POST['nombre_usuario']) && isset($_POST['contrasenya_usuario']) && i
     $contrasenya_usuario = $_POST['contrasenya_usuario'];
 
     if($_POST['contrasenya_usuario']==$_POST['contrasenya_usuario_conf']){
-        
+        $rau = $uM->add_usuario($nombre_usuario, $_SESSION['frmdatosfechanacimiento'], $_SESSION['frmdatosnombre'].' '.$_SESSION['frmdatosapellidos'], $_SESSION['frmdatosemail'], $contrasenya_usuario, null, null, USER);
+        if($rau){
+            header('Location: '.$ruta_inicio.'login.php'); exit();
+        }else{
+            $str_error = 'Error al crear el usuario';
+        }
     }else{
         $str_error = 'Las contraseñas no coinciden';
     }
@@ -63,7 +68,7 @@ include_once('inc/cabecera.inc.php'); //cargando cabecera
                 </div>
                 <div class="d-flex flex-column">
                 <input type="submit" class="p-3 rounded border-0" value="Iniciar Sesión">
-                <label class="mt-3">¿Aún no tienes cuenta en Lookiero? <strong><a class="text-dark" href="<?php echo $ruta_inicio; ?>altaps">Crea tu perfil ahora</a></strong></label>
+                <label class="mt-3">¿Aún no tienes cuenta en Sesnines? <strong><a class="text-dark" href="<?php echo $ruta_inicio; ?>altaps">Crea tu perfil ahora</a></strong></label>
                 </div>
             </form>
         </div>

@@ -19,16 +19,15 @@ class usuarioModel extends Model {
 
     public $arr_si_no = array( 'Si' => 'Si', 'No' => 'No', );
 
-    function __construct() {
-    }
+    function __construct() {}
     
     function add_usuario($nombre_usuario, $fecha_nacimiento, $nombrecompleto_usuario, $email_usuario, $contrasenya_usuario, $telf_usuario, $nie_usuario, 
         $id_tipo_usuario) {
         
         $q  = ' INSERT INTO '.$this->pre.'usuarios ( '.
-            'nombre_usuario, fecha_nacimiento, nombrecompleto_usuario, email_usuario, contrasenya_usuario, telf_usuario, nie_usuario, id_tipo_usuario, estado_usuario) VALUES ';
+            'nombre_usuario, fecha_nacimiento, nombrecompleto_usuario, email_usuario, contrasenya_usuario, telf_usuario, nie_usuario, id_tipo_usuario, estado_usuario, ps_completo) VALUES ';
         $q .= ' ("'.$nombre_usuario.'", "'.$fecha_nacimiento.'", "'.$nombrecompleto_usuario.'", "'.$email_usuario.'", "'.$contrasenya_usuario.'", "'.$telf_usuario.'", "'.$nie_usuario.'", '.
-            $id_tipo_usuario.', 0) ';
+            $id_tipo_usuario.', 0, 1) ';
         return $this->execute_query($q);
     }
 
@@ -50,11 +49,18 @@ class usuarioModel extends Model {
     }
 
     function add_asesorame_usuario($id_usuario, $look_asesoria, $razon_ps, $comentario) {
-        
         $q  = ' INSERT INTO '.$this->pre.'usuario_asesorame ( '.
             'id_usuario, look_asesoria, razon_ps, comentario) VALUES ';
         $q .= ' ("'.$id_usuario.'", "'.$look_asesoria.'", "'.$razon_ps.'", "'.$comentario.'")';
         return $this->execute_query($q);
+    }
+
+    function ps_completo($id_usuario){
+        $q = ' SELECT * FROM '.$this->pre.'ps ';
+        $q .= ' WHERE id_usuario = "'.$id_usuario.'"';
+        $r = $this->execute_query($q);
+        if ($r) return $r->num_rows;
+            else return false;
     }
 
     function cambiar_usuario_fiable($id_usuario){
@@ -136,7 +142,34 @@ class usuarioModel extends Model {
     }
 
     function get_existe_datosenvio($id_usuario){
-        
+        $q = ' SELECT * FROM '.$this->pre.'datosenvio ';
+        $q .= ' WHERE id_usuario='.$id_usuario.' ';
+        $r = $this->execute_query($q);
+        if ($r) return $r->num_rows;
+            else return false;
+    }
+
+    function update_datosenvio($id_usuario, $nombre, $direccion, $cp, $localidad, $telefono){
+        $q = ' UPDATE '.$this->pre.'datosenvio SET ';
+        $q .= ' nombre="'.$nombre.'", ';
+        $q .= ' direccion="'.$direccion.'", ';
+        $q .= ' cp="'.$cp.'", ';
+        $q .= ' localidad="'.$localidad.'", ';
+        $q .= ' telefono="'.$telefono.'" ';
+        $q .= ' WHERE id_usuario="'.$id_usuario.'" ';
+        return $this->execute_query($q);
+    }
+
+    function add_datosenvio($id_usuario, $nombre, $direccion, $cp, $localidad, $telefono){
+        $q  = ' INSERT INTO '.$this->pre.'datosenvio (id_usuario, nombre, direccion, cp, localidad, telefono) VALUES ';
+        $q .= ' ("'.$id_usuario.'", "'.$nombre.'", "'.$direccion.'", "'.$cp.'", "'.$localidad.'", "'.$telefono.'")';
+        return $this->execute_query($q);
+    }
+
+    function get_datosenvio($id_usuario){
+        $q = ' SELECT * FROM '.$this->pre.'datosenvio ';
+        $q .= ' WHERE id_usuario='.$id_usuario.' ';
+        return $this->execute_query($q);
     }
 
     function get_pedido_completo($id_usuario){
@@ -149,6 +182,32 @@ class usuarioModel extends Model {
         $q .= ' AND a.id_articulo=ai.id_articulo';
         $q .= ' WHERE up.id_usuario='.$id_usuario.' ';
         $q .= ' AND up.prendas_seleccionadas=0 ';
+        return $this->execute_query($q);
+    }
+
+    function get_datos_pedido($id_pedido){
+        $q = ' SELECT * FROM '.$this->pre.'pedido_articulos pa';
+        $q .= ' INNER JOIN '.$this->pre.'articulos as a';
+        $q .= ' ON pa.id_articulo=a.id_articulo ';
+        $q .= ' WHERE id_pedido='.$id_pedido.' ';
+        return $this->execute_query($q);
+    }
+
+    function get_usuario_pedidos($id_usuario){
+        $q = ' SELECT * FROM '.$this->pre.'usuario_pedidos ';
+        $q .= ' WHERE id_usuario='.$id_usuario.' ';
+        return $this->execute_query($q);
+    }
+
+    function get_pedidos($id_usuario){
+        $q = ' SELECT DISTINCT * FROM '.$this->pre.'usuario_pedidos as up';
+        $q .= ' INNER JOIN '.$this->pre.'pedido_articulos as pa';
+        $q .= ' INNER JOIN '.$this->pre.'articulos as a';
+        $q .= ' INNER JOIN '.$this->pre.'articulo_imagenes as ai';
+        $q .= ' ON up.id_pedido=pa.id_pedido';
+        $q .= ' AND pa.id_articulo=a.id_articulo';
+        $q .= ' AND a.id_articulo=ai.id_articulo';
+        $q .= ' WHERE up.id_usuario='.$id_usuario.' ';
         return $this->execute_query($q);
     }
 

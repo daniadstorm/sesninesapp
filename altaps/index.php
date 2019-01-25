@@ -57,21 +57,25 @@ if(isset($_POST['vestirdiadia'])){
                 $raps = $uM->add_ps_reg($_SESSION['id_usuario'], $_SESSION['opcion'], $_SESSION['vestirdiadia'], $_SESSION['vestirsuperior'], $_SESSION['vestirinferior'], $_SESSION['colorarmario'], $_SESSION['colorfav'], $_SESSION['personaConocida'], $_SESSION['actividadOcio'], $_SESSION['profesion'], $_SESSION['hijos'], $_SESSION['frmdatosnombre'], $_SESSION['frmdatosapellidos'], $_SESSION['frmdatosfechanacimiento'], $_SESSION['frmdatosemail'], $_SESSION['silueta'], $_SESSION['tallasuperior'], $_SESSION['tallainferior'], $_SESSION['tallapecho'], $_SESSION['altura'], $_SESSION['cuerporealzar'], $_SESSION['cuerpodisimular'], $_SESSION['tonopiel'], $_SESSION['ojos'], $_SESSION['colorcabello'], $_SESSION['enviarfoto'], $_SESSION['listadoprendas'], $_SESSION['renovar'], $_SESSION['looksasesoria'], $_SESSION['otroasesoria'], $_SESSION['pedirps'], $_SESSION['pedirpsotros'], $_SESSION['pedirpsfuera'], $_SESSION['pedirpsfueraotros'], $_SESSION['tendencias']);
                 if($raps){
                     echo '1- Añadido con éxito';
+                    $uM->update_pscompleto($_SESSION['id_usuario'],1);
                 }else{
                     echo '1- Fallo al añadir<hr>';
+                    $uM->update_pscompleto($_SESSION['id_usuario'],0);
                 }
             }
         }else{
             $raps = $uM->add_ps_reg($_SESSION['id_usuario'], $_SESSION['opcion'], $_SESSION['vestirdiadia'], $_SESSION['vestirsuperior'], $_SESSION['vestirinferior'], $_SESSION['colorarmario'], $_SESSION['colorfav'], $_SESSION['personaConocida'], $_SESSION['actividadOcio'], $_SESSION['profesion'], $_SESSION['hijos'], $_SESSION['frmdatosnombre'], $_SESSION['frmdatosapellidos'], $_SESSION['frmdatosfechanacimiento'], $_SESSION['frmdatosemail'], $_SESSION['silueta'], $_SESSION['tallasuperior'], $_SESSION['tallainferior'], $_SESSION['tallapecho'], $_SESSION['altura'], $_SESSION['cuerporealzar'], $_SESSION['cuerpodisimular'], $_SESSION['tonopiel'], $_SESSION['ojos'], $_SESSION['colorcabello'], $_SESSION['enviarfoto'], $_SESSION['listadoprendas'], $_SESSION['renovar'], $_SESSION['looksasesoria'], $_SESSION['otroasesoria'], $_SESSION['pedirps'], $_SESSION['pedirpsotros'], $_SESSION['pedirpsfuera'], $_SESSION['pedirpsfueraotros'], $_SESSION['tendencias']);
             if($raps){
                 echo '2- Añadido con éxito';
+                $uM->update_pscompleto($_SESSION['id_usuario'],1);
             }else{
                 echo '2- Fallo al añadir<hr>';
+                $uM->update_pscompleto($_SESSION['id_usuario'],0);
             }
         }
     }else{
         //envia a formulario de registro
-        header('Location: '.$ruta_inicio.'login.php');
+        header('Location: '.$ruta_inicio.'registro.php');
         exit();
     }
 }

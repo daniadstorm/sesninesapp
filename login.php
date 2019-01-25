@@ -66,7 +66,7 @@ include_once('inc/cabecera.inc.php'); //cargando cabecera
                 </div>
                 <div class="d-flex flex-column">
                 <input type="submit" class="p-3 rounded border-0" value="Iniciar Sesión">
-                <label class="mt-3">¿Aún no tienes cuenta en Lookiero? <strong><a class="text-dark" href="<?php echo $ruta_inicio; ?>altaps">Crea tu perfil ahora</a></strong></label>
+                <label class="mt-3">¿Aún no tienes cuenta en Sesnines? <strong><a class="text-dark" href="<?php echo $ruta_inicio; ?>altaps">Crea tu perfil ahora</a></strong></label>
                 </div>
             </form>
         </div>
