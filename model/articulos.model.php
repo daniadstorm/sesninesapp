@@ -26,6 +26,11 @@ class articulosModel extends Model {
         return $this->execute_query($q);
     }
 
+    function get_all_articulos(){
+        $q = ' SELECT * FROM '.$this->pre.'articulos ';
+        return $this->execute_query($q);
+    }
+
     function get_existencias_articulos($id_articulo){
         $q  = ' SELECT ae.id_existencia, a.id_articulo, ae.color_existencia, ae.talla_existencia, ae.cantidad_existencia FROM '.$this->pre.'articulos as a ';
         $q .= ' INNER JOIN adst_sesnines_articulo_existencias as ae ';

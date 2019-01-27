@@ -3,7 +3,7 @@ include_once('config/config.inc.php'); //cargando archivo de configuracion
 
 $uM = load_model('usuario');
 $uM->control_sesion($ruta_inicio, ADMIN);
-
+$aM = load_model('articulos');
 $pagM = load_model('paginado');
 $hM = load_model('html');
 
@@ -16,12 +16,15 @@ $arr_filtro_personal_shopper = array(
     "si" => "Completado",
     "no" => "No Completado",
 );
+$arr_filtro_prendas = array();
+
 $arr_filtro_ps = false;
 
 //GET___________________________________________________________________________
 if (isset($_GET['nuevo_usuario']) && $_GET['nuevo_usuario'] == 'true') $str_info = $hM->get_alert_success('Usuario añadido');
 if (isset($_GET['editar_usuario']) && $_GET['editar_usuario'] == 'true') $str_info = $hM->get_alert_success('Usuario actualizado');
 if (isset($_GET['eliminar_usuario']) && $_GET['eliminar_usuario'] == 'true') $str_info = $hM->get_alert_success('Usuario eliminado');
+$filtro_prendas = (isset($_POST['arr_filtro_prendas'])) ? $_POST['arr_filtro_prendas'] : 0;
 if(isset($_REQUEST['arr_filtro_personal_shopper'])){
     $arr_filtro_ps=$_REQUEST['arr_filtro_personal_shopper'];
     $str_ruta = $ruta_inicio.'clientes.php?arr_filtro_personal_shopper='.$arr_filtro_ps.'&';
@@ -51,6 +54,12 @@ echo '</pre>';
 //POST__________________________________________________________________________
 
 //LISTADO_______________________________________________________________________
+$rgaa = $aM->get_all_articulos();
+if($rgaa){
+    while($frgaa = $rgaa->fetch_assoc()){
+        $arr_filtro_prendas = array_merge($arr_filtro_prendas, array($frgaa['id_articulo']=>$frgaa['nombre_articulo']));
+    }
+}
 if(isset($_POST['fechadesde']) && isset($_POST['fechahasta'])){
     $rgu = $uM->get_usuarios($pagM->pag, $pagM->regs_x_pag, false, $_POST['fechadesde'], $_POST['fechahasta']);
     if ($rgu) {
@@ -85,6 +94,7 @@ if(isset($_POST['fechadesde']) && isset($_POST['fechahasta'])){
         }
         $str_info = $hM->get_alert_success('Filtro aplicado!');
     } else $str_errores = $hM->get_alert_danger('Error cargando usuarios');
+}else if(isset($_POST['filtronprendas'])){
 }else{
     $pagM->total_regs = $uM->get_usuarios_total_regs($arr_filtro_ps);
     $rgu = $uM->get_usuarios($pagM->pag, $pagM->regs_x_pag, $arr_filtro_ps);
@@ -161,13 +171,12 @@ include_once('inc/cabecera.inc.php'); //cargando cabecera
                                         <form id="filtronprendas" method="post" class="mb-0">
                                             <input type="number" class="form-control" min="1" max="6" value="1" name="filtronprendas" id="filtronprendas">
                                         </form>
-                                        <script>
-                                            $(document).ready(function (e) {
-                                                $("#fechahasta").on('change', function(){
-                                                    $("#filtrofecha").submit();
-                                                });
-                                            });
-                                        </script>
+                                    </div>
+                                    <div class="dropdown px-2">
+                                        <label>Pedido prenda</label>
+                                        <form id="filtroporprendas" method="post" class="mb-0">
+                                            <?php echo $uM->get_combo_array($arr_filtro_prendas,"arr_filtro_prendas",$filtro_prendas,"",true) ?>
+                                        </form>
                                     </div>
                                 </div>
                                 <div class="layout-table-content">
