@@ -90,7 +90,6 @@ class pedidoModel extends Model{
         $q .= ' WHERE p.estado_pedido='.$arr_filtro_ps;
         $q .= ' ORDER BY p.fecha_pedido,u.fiable DESC ';
         $q .= ' LIMIT '.$pag*$regs_x_pag.','.$regs_x_pag.' ';
-        echo $q;
         return $this->execute_query($q);
     }
     
