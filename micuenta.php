@@ -291,6 +291,10 @@ $(document).ready(function(e){
                                 aria-controls="profile" aria-selected="false">Mi cuenta</a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link" id="misaldo-tab" data-toggle="tab" href="#misaldo" role="tab"
+                                aria-controls="misaldo" aria-selected="false">Mi saldo</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" id="historial-tab" data-toggle="tab" href="#historial" role="tab"
                                 aria-controls="historial" aria-selected="false">Historial y Evolución</a>
                         </li>
@@ -434,7 +438,7 @@ $(document).ready(function(e){
                                     </div>
                                 </div>
                             </div>
-                            <div class="tab-pane fade show active" id="historial" role="tabpanel" aria-labelledby="historial-tab">
+                            <div class="tab-pane fade" id="historial" role="tabpanel" aria-labelledby="historial-tab">
                                 <div class="row">
                                     <div class="d-flex flex-column w-100">
                                         <h1>Mis pedidos</h1>
@@ -456,6 +460,13 @@ $(document).ready(function(e){
                                               </div>
                                             </div>
                                           </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade show active" id="misaldo" role="tabpanel" aria-labelledby="misaldo-tab">
+                                <div class="row">
+                                    <div class="d-flex flex-column w-100">
+                                        <h1>Mi saldo</h1>
                                     </div>
                                 </div>
                             </div>

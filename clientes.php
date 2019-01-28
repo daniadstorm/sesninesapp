@@ -16,15 +16,25 @@ $arr_filtro_personal_shopper = array(
     "si" => "Completado",
     "no" => "No Completado",
 );
-$arr_filtro_prendas = array();
-
+$arr_filtro_prendas = array(
+    "val0" => "Seleccionar prenda"
+);
+$arr_filtro_suscripciones = array(
+    "val0" => "Seleccionar prenda",
+    "puntual" => "Puntual",
+    "mensual" => "Mensual",
+    "bimensual" => "Bimensual",
+    "3meses" => "3 Meses",
+    "6meses" => "6 Meses",
+);
 $arr_filtro_ps = false;
 
 //GET___________________________________________________________________________
 if (isset($_GET['nuevo_usuario']) && $_GET['nuevo_usuario'] == 'true') $str_info = $hM->get_alert_success('Usuario añadido');
 if (isset($_GET['editar_usuario']) && $_GET['editar_usuario'] == 'true') $str_info = $hM->get_alert_success('Usuario actualizado');
 if (isset($_GET['eliminar_usuario']) && $_GET['eliminar_usuario'] == 'true') $str_info = $hM->get_alert_success('Usuario eliminado');
-$filtro_prendas = (isset($_POST['arr_filtro_prendas'])) ? $_POST['arr_filtro_prendas'] : 0;
+$filtro_prendas = (isset($_POST['arr_filtro_prendas'])) ? $_POST['arr_filtro_prendas'] : 'val0';
+$suscripciones = (isset($_POST['arr_filtro_suscripciones'])) ? $_POST['arr_filtro_suscripciones'] : 'val0';
 if(isset($_REQUEST['arr_filtro_personal_shopper'])){
     $arr_filtro_ps=$_REQUEST['arr_filtro_personal_shopper'];
     $str_ruta = $ruta_inicio.'clientes.php?arr_filtro_personal_shopper='.$arr_filtro_ps.'&';
@@ -47,9 +57,9 @@ if (isset($_GET['pag'])) {
 //GET___________________________________________________________________________
 
 //POST__________________________________________________________________________
-echo '<pre>';
+/* echo '<pre>';
 print_r($_POST);
-echo '</pre>';
+echo '</pre>'; */
 
 //POST__________________________________________________________________________
 
@@ -57,7 +67,8 @@ echo '</pre>';
 $rgaa = $aM->get_all_articulos();
 if($rgaa){
     while($frgaa = $rgaa->fetch_assoc()){
-        $arr_filtro_prendas = array_merge($arr_filtro_prendas, array($frgaa['id_articulo']=>$frgaa['nombre_articulo']));
+        $new = array("val".$frgaa['id_articulo']=>$frgaa['nombre_articulo']);
+        $arr_filtro_prendas = array_merge($arr_filtro_prendas, $new);
     }
 }
 if(isset($_POST['fechadesde']) && isset($_POST['fechahasta'])){
@@ -94,7 +105,39 @@ if(isset($_POST['fechadesde']) && isset($_POST['fechahasta'])){
         }
         $str_info = $hM->get_alert_success('Filtro aplicado!');
     } else $str_errores = $hM->get_alert_danger('Error cargando usuarios');
-}else if(isset($_POST['filtronprendas'])){
+}else if(isset($_POST['arr_filtro_prendas']) && $filtro_prendas!='val0'){
+    $pagM->total_regs = $uM->get_usuarios_total_regs($arr_filtro_ps);
+    $valprenda = explode('val',$_POST['arr_filtro_prendas']);
+    $rgu = $uM->get_usuarios_xprenda($pagM->pag, $pagM->regs_x_pag, $arr_filtro_ps, $valprenda[1]);
+    if ($rgu) {
+        while($fgu = $rgu->fetch_assoc()) {
+                $ogu .= '<tr>';
+                $ogu .= '<td><a href="nuevo-cliente.php?id_usuario='.$fgu['id_usuario'].'">'.$fgu['nombrecompleto_usuario'].'</a></td>';
+                $ogu .= '<td>'.$fgu['email_usuario'].'</td>';
+                $ogu .= '<td>'.$fgu['nie_usuario'].'</td>';
+                $ogu .= '<td>'.mysql_to_date($fgu['fecha_nacimiento']).'</td>';
+                $ogu .= '<td>'.$fgu['telf_usuario'].'</td>';
+                $ogu .= '<td>';
+                ($fgu['ps_completo']) ? $ogu.='Completado' : $ogu.='No Completado';
+                $ogu .= '</td>';
+        }
+    } else $str_errores = $hM->get_alert_danger('Error cargando usuarios');
+}else if($suscripciones!='val0'){
+    $pagM->total_regs = $uM->get_usuarios_total_regs($arr_filtro_ps);
+    $rgu = $uM->get_usuarios_xsuscripcion($pagM->pag, $pagM->regs_x_pag, $arr_filtro_ps, $suscripciones);
+    if ($rgu) {
+        while($fgu = $rgu->fetch_assoc()) {
+                $ogu .= '<tr>';
+                $ogu .= '<td><a href="nuevo-cliente.php?id_usuario='.$fgu['id_usuario'].'">'.$fgu['nombrecompleto_usuario'].'</a></td>';
+                $ogu .= '<td>'.$fgu['email_usuario'].'</td>';
+                $ogu .= '<td>'.$fgu['nie_usuario'].'</td>';
+                $ogu .= '<td>'.mysql_to_date($fgu['fecha_nacimiento']).'</td>';
+                $ogu .= '<td>'.$fgu['telf_usuario'].'</td>';
+                $ogu .= '<td>';
+                ($fgu['ps_completo']) ? $ogu.='Completado' : $ogu.='No Completado';
+                $ogu .= '</td>';
+        }
+    } else $str_errores = $hM->get_alert_danger('Error cargando usuarios');
 }else{
     $pagM->total_regs = $uM->get_usuarios_total_regs($arr_filtro_ps);
     $rgu = $uM->get_usuarios($pagM->pag, $pagM->regs_x_pag, $arr_filtro_ps);
@@ -176,6 +219,12 @@ include_once('inc/cabecera.inc.php'); //cargando cabecera
                                         <label>Pedido prenda</label>
                                         <form id="filtroporprendas" method="post" class="mb-0">
                                             <?php echo $uM->get_combo_array($arr_filtro_prendas,"arr_filtro_prendas",$filtro_prendas,"",true) ?>
+                                        </form>
+                                    </div>
+                                    <div class="dropdown px-2">
+                                        <label>Tipo suscripción</label>
+                                        <form id="filtroporprendas" method="post" class="mb-0">
+                                            <?php echo $uM->get_combo_array($arr_filtro_suscripciones,"arr_filtro_suscripciones",$suscripciones,"",true) ?>
                                         </form>
                                     </div>
                                 </div>

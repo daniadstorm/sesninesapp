@@ -409,6 +409,38 @@ class usuarioModel extends Model {
         return $this->execute_query($q);
     }
 
+    function get_usuarios_xprenda($pag, $regs_x_pag, $arr_filtro_ps=false, $prenda) {
+        $q  = ' SELECT u.* FROM '.$this->pre.'usuarios u ';
+        $q .= ' INNER JOIN '.$this->pre.'usuario_pedidos up ';
+        $q .= ' INNER JOIN '.$this->pre.'pedido_articulos pa ';
+        $q .= ' INNER JOIN '.$this->pre.'articulos a ';
+        $q .= ' ON u.id_usuario=up.id_usuario ';
+        $q .= ' AND up.id_pedido=pa.id_pedido ';
+        $q .= ' AND pa.id_articulo=a.id_articulo ';
+        $q .= ' WHERE u.deleted = 0 and u.id_tipo_usuario=10 ';
+        //FILTRO PRENDA
+        $q .= ' AND a.id_articulo="'.$prenda.'" ';
+        //FILTRO PS
+        if($arr_filtro_ps=="si") $q .= ' and ps_completo=1 ';
+        else if($arr_filtro_ps=="no") $q .= ' and ps_completo=0 ';
+        $q .= ' LIMIT '.$pag*$regs_x_pag.','.$regs_x_pag.' ';
+        return $this->execute_query($q);
+    }
+
+    function get_usuarios_xsuscripcion($pag, $regs_x_pag, $arr_filtro_ps=false, $suscripcion) {
+        $q  = ' SELECT u.* FROM '.$this->pre.'usuarios u ';
+        $q .= ' INNER JOIN '.$this->pre.'usuario_pedidos up ';
+        $q .= ' ON u.id_usuario=up.id_usuario ';
+        $q .= ' WHERE u.deleted = 0 and u.id_tipo_usuario=10 ';
+        //FILTRO PRENDA
+        $q .= ' AND up.tipo_cuota="'.$suscripcion.'" ';
+        //FILTRO PS
+        if($arr_filtro_ps=="si") $q .= ' and ps_completo=1 ';
+        else if($arr_filtro_ps=="no") $q .= ' and ps_completo=0 ';
+        $q .= ' LIMIT '.$pag*$regs_x_pag.','.$regs_x_pag.' ';
+        return $this->execute_query($q);
+    }
+
     function filtro_num_prendas($id_usuario){
         $q = ' SELECT * FROM '.$this->pre.'usuario_pedidos up ';
         $q .= ' INNER JOIN '.$this->pre.'pedido_articulos pa ';
