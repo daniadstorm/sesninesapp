@@ -102,12 +102,14 @@ if(isset($_POST['vestirdiadia'])){
                     <label>
                         <img src="http://sesnineshopper.com/adstorm/img/personalshopper.jpg" class="img-ps-select" alt="">
                         <input type="checkbox" name="opcion[]" value="personalshopper" id="item" hidden>
+                        <h2 class="mt-3">Personal Shopper</h2>
                     </label>
                 </div>
                 <div class="col-md-6 text-center">
                     <label>
-                        <img src="http://sesnineshopper.com/adstorm/img/personalshopper.jpg" class="img-ps-select" alt="">
+                        <img src="http://sesnineshopper.com/adstorm/img/fondoarmario.jpg" class="img-ps-select" alt="">
                         <input type="checkbox" name="opcion[]" value="fondoarmario" id="item" hidden>
+                        <h2 class="mt-3">Fondo de armario</h2>
                     </label>
                 </div>
             </div>
@@ -117,56 +119,56 @@ if(isset($_POST['vestirdiadia'])){
     <form id="frmps" method="POST" class="my-3">
         <div id="p1" class="container pregunta-ns show">
             <div class="pregunta">
-                <h1 class="titulo-sn">Estilo <?php echo $_SESSION['opcion'] ?></h1>
+                <h1 class="titulo-sn">Estilo <?php echo $_SESSION['opcion']; ?></h1>
                 <h1 class="mb-0">¿Cómo te gusta vestir en tu día a día?</h1>
                 <p>(Puedes escoger más de uno)</p>
             </div>
             <div class="row justify-content-center flex-wrap">
                 <div class="respuesta-sn col-xs-12 col-sm-4 col-md-2">
                     <label>
-                        <img src="http://sesnineshopper.com/adstorm/img/casualstreet.jpg" class="img-thumbnail img-check">
+                        <img src="<?php echo $ruta_inicio; ?>imgps/DEPORTIVA.jpg" class="img-thumbnail img-check">
                         <input type="checkbox" name="vestirdiadia[]" value="img1" id="item" hidden>
                         <p class="text-center">CASUAL DEPORTIVA</p>
                     </label>
                 </div>
                 <div class="respuesta-sn col-xs-12 col-sm-4 col-md-2">
                     <label>
-                        <img src="http://sesnineshopper.com/adstorm/img/casualstreet.jpg" class="img-thumbnail img-check">
+                        <img src="<?php echo $ruta_inicio; ?>imgps/" class="img-thumbnail img-check">
                         <input type="checkbox" name="vestirdiadia[]" value="img2" id="item" hidden>
                         <p class="text-center">CASUAL STREET</p>
                     </label>
                 </div>
                 <div class="respuesta-sn col-xs-12 col-sm-4 col-md-2">
                     <label>
-                        <img src="http://sesnineshopper.com/adstorm/img/casualstreet.jpg" class="img-thumbnail img-check">
+                        <img src="<?php echo $ruta_inicio; ?>imgps/CLASICA.jpg" class="img-thumbnail img-check">
                         <input type="checkbox" name="vestirdiadia[]" value="img3" id="item" hidden>
                         <p class="text-center">CLASICA</p>
                     </label>
                 </div>
                 <div class="respuesta-sn col-xs-12 col-sm-4 col-md-2">
                     <label>
-                        <img src="http://sesnineshopper.com/adstorm/img/casualstreet.jpg" class="img-thumbnail img-check">
+                        <img src="<?php echo $ruta_inicio; ?>imgps/ACTUAL.jpg" class="img-thumbnail img-check">
                         <input type="checkbox" name="vestirdiadia[]" value="img4" id="item" hidden>
                         <p class="text-center">ACTUAL</p>
                     </label>
                 </div>
                 <div class="respuesta-sn col-xs-12 col-sm-4 col-md-2">
                     <label>
-                        <img src="http://sesnineshopper.com/adstorm/img/casualstreet.jpg" class="img-thumbnail img-check">
+                        <img src="<?php echo $ruta_inicio; ?>imgps/OFFICE.jpg" class="img-thumbnail img-check">
                         <input type="checkbox" name="vestirdiadia[]" value="img5" id="item" hidden>
                         <p class="text-center">OFFICE</p>
                     </label>
                 </div>
                 <div class="respuesta-sn col-xs-12 col-sm-4 col-md-2">
                     <label>
-                        <img src="http://sesnineshopper.com/adstorm/img/casualstreet.jpg" class="img-thumbnail img-check">
+                        <img src="<?php echo $ruta_inicio; ?>imgps/SOFISTICADA.jpg" class="img-thumbnail img-check">
                         <input type="checkbox" name="vestirdiadia[]" value="img6" id="item" hidden>
                         <p class="text-center">SOFISTICADA</p>
                     </label>
                 </div>
                 <div class="respuesta-sn col-xs-12 col-sm-4 col-md-2">
                     <label>
-                        <img src="http://sesnineshopper.com/adstorm/img/casualstreet.jpg" class="img-thumbnail img-check">
+                        <img src="<?php echo $ruta_inicio; ?>imgps/EXTREMADA.jpg" class="img-thumbnail img-check">
                         <input type="checkbox" name="vestirdiadia[]" value="img7" id="item" hidden>
                         <p class="text-center">EXTREMADA</p>
                     </label>

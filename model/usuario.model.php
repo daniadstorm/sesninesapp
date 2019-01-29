@@ -396,9 +396,11 @@ class usuarioModel extends Model {
     }
 
     function get_usuarios($pag, $regs_x_pag, $arr_filtro_ps=false, $fechadesde=false, $fechahasta=false, $numprendas=false) {
-        $q  = ' SELECT u.* FROM '.$this->pre.'usuarios u ';
-        $q .= ' INNER JOIN '.$this->pre.'usuario_pedidos up ';
-        $q .= ' ON u.id_usuario=up.id_usuario ';
+        $q  = ' SELECT DISTINCT u.* FROM '.$this->pre.'usuarios u ';
+        if($fechadesde || $fechahasta || $numprendas){
+            $q .= ' INNER JOIN '.$this->pre.'usuario_pedidos up ';
+            $q .= ' ON u.id_usuario=up.id_usuario ';
+        }
         $q .= ' WHERE u.deleted = 0 and u.id_tipo_usuario=10 ';
         //FILTRO PS
         if($arr_filtro_ps=="si") $q .= ' and ps_completo=1 ';
@@ -410,7 +412,7 @@ class usuarioModel extends Model {
     }
 
     function get_usuarios_xprenda($pag, $regs_x_pag, $arr_filtro_ps=false, $prenda) {
-        $q  = ' SELECT u.* FROM '.$this->pre.'usuarios u ';
+        $q  = ' SELECT DISTINCT u.* FROM '.$this->pre.'usuarios u ';
         $q .= ' INNER JOIN '.$this->pre.'usuario_pedidos up ';
         $q .= ' INNER JOIN '.$this->pre.'pedido_articulos pa ';
         $q .= ' INNER JOIN '.$this->pre.'articulos a ';
@@ -428,7 +430,7 @@ class usuarioModel extends Model {
     }
 
     function get_usuarios_xsuscripcion($pag, $regs_x_pag, $arr_filtro_ps=false, $suscripcion) {
-        $q  = ' SELECT u.* FROM '.$this->pre.'usuarios u ';
+        $q  = ' SELECT DISTINCT u.* FROM '.$this->pre.'usuarios u ';
         $q .= ' INNER JOIN '.$this->pre.'usuario_pedidos up ';
         $q .= ' ON u.id_usuario=up.id_usuario ';
         $q .= ' WHERE u.deleted = 0 and u.id_tipo_usuario=10 ';

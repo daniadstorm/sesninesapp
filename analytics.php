@@ -12,33 +12,35 @@ $bgColors = array(
     "#e8c3b9",
     "#c45850"
 );
+
 $arrMesesUsuariosNuevos = array(
-    "enero" => $aM->get_registro_month(1),
-    "febrero" => $aM->get_registro_month(2),
-    "marzo" => $aM->get_registro_month(3),
-    "abril" => $aM->get_registro_month(4),
-    "mayo" => $aM->get_registro_month(5),
-    "junio" => $aM->get_registro_month(6),
-    "julio" => $aM->get_registro_month(7),
-    "agosto" => $aM->get_registro_month(8),
-    "septiembre" => $aM->get_registro_month(9),
-    "octubre" => $aM->get_registro_month(10),
-    "noviembre" => $aM->get_registro_month(11),
-    "diciembre" => $aM->get_registro_month(12)
+    "Enero" => $aM->get_registro_month(1),
+    "Febrero" => $aM->get_registro_month(2),
+    "Marzo" => $aM->get_registro_month(3),
+    "Abril" => $aM->get_registro_month(4),
+    "Mayo" => $aM->get_registro_month(5),
+    "Junio" => $aM->get_registro_month(6),
+    "Julio" => $aM->get_registro_month(7),
+    "Agosto" => $aM->get_registro_month(8),
+    "Septiembre" => $aM->get_registro_month(9),
+    "Octubre" => $aM->get_registro_month(10),
+    "Noviembre" => $aM->get_registro_month(11),
+    "Diciembre" => $aM->get_registro_month(12)
 );
+
 $arrMesesPedidos = array(
-    "enero" => $aM->get_pedidos_month(1),
-    "febrero" => $aM->get_pedidos_month(2),
-    "marzo" => $aM->get_pedidos_month(3),
-    "abril" => $aM->get_pedidos_month(4),
-    "mayo" => $aM->get_pedidos_month(5),
-    "junio" => $aM->get_pedidos_month(6),
-    "julio" => $aM->get_pedidos_month(7),
-    "agosto" => $aM->get_pedidos_month(8),
-    "septiembre" => $aM->get_pedidos_month(9),
-    "octubre" => $aM->get_pedidos_month(10),
-    "noviembre" => $aM->get_pedidos_month(11),
-    "diciembre" => $aM->get_pedidos_month(12)
+    "Enero" => $aM->get_pedidos_month(1),
+    "Febrero" => $aM->get_pedidos_month(2),
+    "Marzo" => $aM->get_pedidos_month(3),
+    "Abril" => $aM->get_pedidos_month(4),
+    "Mayo" => $aM->get_pedidos_month(5),
+    "Junio" => $aM->get_pedidos_month(6),
+    "Julio" => $aM->get_pedidos_month(7),
+    "Agosto" => $aM->get_pedidos_month(8),
+    "Septiembre" => $aM->get_pedidos_month(9),
+    "Octubre" => $aM->get_pedidos_month(10),
+    "Noviembre" => $aM->get_pedidos_month(11),
+    "Diciembre" => $aM->get_pedidos_month(12)
 );
 //GET___________________________________________________________________________
 
@@ -64,50 +66,12 @@ include_once('inc/cabecera.inc.php'); //cargando cabecera
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.bundle.min.js"></script>
 <?php
-echo '<script>
-$(document).ready(function(e){
-    new Chart(document.getElementById("char-usuariosnuevos"), {
-        type: \'line\',
-        data: {
-            labels: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
-            datasets: [
-                {
-                    showLine: true,
-                    data: ['.$arrMesesUsuariosNuevos["enero"].', '.$arrMesesUsuariosNuevos["febrero"].', '.$arrMesesUsuariosNuevos["marzo"].', '.$arrMesesUsuariosNuevos["abril"].', '.$arrMesesUsuariosNuevos["mayo"].', '.$arrMesesUsuariosNuevos["junio"].', '.$arrMesesUsuariosNuevos["julio"].', '.$arrMesesUsuariosNuevos["agosto"].', '.$arrMesesUsuariosNuevos["septiembre"].', '.$arrMesesUsuariosNuevos["octubre"].', '.$arrMesesUsuariosNuevos["noviembre"].', '.$arrMesesUsuariosNuevos["diciembre"].'],
-                    backgroundColor: ["#3cba9f"]
-                }
-            ]
-        },
-        options: {
-            legend: { display: false },
-            title: {
-                display: true,
-                text: \'Usuarios nuevos :)\'
-            }
-        }
-    });
-    new Chart(document.getElementById("char-pedidos"), {
-        type: \'radar\',
-        data: {
-            labels: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
-            datasets: [
-                {
-                    showLine: true,
-                    data: ['.$arrMesesPedidos["enero"].', '.$arrMesesPedidos["febrero"].', '.$arrMesesPedidos["marzo"].', '.$arrMesesPedidos["abril"].', '.$arrMesesPedidos["mayo"].', '.$arrMesesPedidos["junio"].', '.$arrMesesPedidos["julio"].', '.$arrMesesPedidos["agosto"].', '.$arrMesesPedidos["septiembre"].', '.$arrMesesPedidos["octubre"].', '.$arrMesesPedidos["noviembre"].', '.$arrMesesPedidos["diciembre"].'],
-                    backgroundColor: ["#3cba9f"]
-                }
-            ]
-        },
-        options: {
-            legend: { display: false },
-            title: {
-                display: true,
-                text: \'Pedidos :)\'
-            }
-        }
-    });
-});
-</script>';
+    echo '<script>
+    $(document).ready(function(e){';
+    echo $aM->get_chart("char-usuariosnuevos", "line", "Nuevos usuarios", $arrMesesUsuariosNuevos, $bgColors[rand(0,5)]);
+    echo $aM->get_chart("char-pedidos" ,"radar", "Pedidos", $arrMesesPedidos, $bgColors[rand(0,5)]);
+    echo '});
+    </script>';
 ?>
 <body>
     <?php include_once('inc/franja_top.inc.php'); ?>
@@ -145,5 +109,6 @@ $(document).ready(function(e){
             </div>
         </div>
     </div>
+    
 </body>
 </html>

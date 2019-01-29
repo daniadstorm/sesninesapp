@@ -16,6 +16,47 @@ class analyticsModel extends Model{
             else return false;
     }
 
+    function get_chart($id, $tipo, $titulo, $data, $bgcolor){
+        $qtt = 0;
+        $label = '';
+        $xdata = '';
+        foreach ($data as $value => $key) {
+            $label .= '"'.$value.'"';
+            $xdata .= '"'.$key.'"';
+            if($qtt < count($data)-1){
+                $label .= ',';
+                $xdata .= ',';
+            }
+            $qtt++;
+        }
+        $q = 'new Chart(document.getElementById("'.$id.'"), {
+            type: \''.$tipo.'\',
+            data: {
+                labels: [';
+        $q .= $label;
+        $q .='],
+                datasets: [
+                    {
+                        showLine: true,
+                        data: [';
+        $q .= $xdata;
+        $q .= '],
+                        backgroundColor: ["'.$bgcolor.'"]
+                    }
+                ]
+            },
+            options: {
+                legend: { display: false },
+                title: {
+                    display: true,
+                    text: \''.$titulo.'\'
+                }
+            }
+        });';
+
+        return $q;
+    }
+
     /* function add_articulo_pedido($id_pedido, $id_articulo, $existencia){
         //PROCEDURE restarStock
         $q = ' INSERT INTO '.$this->pre.'pedido_articulos ( ';
