@@ -86,7 +86,7 @@ class Model {
     }
 
     function stringToArray($str, $delimitador=';'){
-        
+        return explode($delimitador, $str);
     }
     
     function mysql_datetime_to_date($datetime) {

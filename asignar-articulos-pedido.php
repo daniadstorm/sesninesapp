@@ -4,6 +4,7 @@ include_once('config/config.inc.php'); //cargando archivo de configuracion
 $uM = load_model('usuario');
 $pM = load_model('pedido');
 $pagM = load_model('paginado');
+$iM = load_model('inputs');
 
 //viene de paginado por href
 
@@ -24,6 +25,45 @@ $mpag = ''; //menu paginacion
 $id_usuario=$_SESSION['id_usuario'];
 $id_pedido = '';
 $rau = '';
+$id_usuario_datos = 0;
+
+/*  */
+$tipoopcion = '';
+$vestirdiadia = '';
+$vestirsuperior = '';
+$vestirinferior = '';
+$colorarmario = '';
+$colorfav = '';
+$personaConocida = '';
+$actividadOcio = '';
+$profesion = '';
+$hijos = '';
+$frmdatosnombre = '';
+$frmdatosapellidos = '';
+$frmdatosfechanacimiento = '';
+$frmdatosemail = '';
+$silueta = '';
+$tallasuperior = '';
+$tallainferior = '';
+$tallapecho = '';
+$altura = '';
+$cuerporealzar = '';
+$cuerpodisimular = '';
+$tonopiel = '';
+$ojos = '';
+$colorcabello = '';
+$enviarfoto = '';
+$listadoprendas = '';
+$renovar = '';
+$looksasesoria = '';
+$otroasesoria = '';
+$pedirps = '';
+$pedirpsotros = '';
+$pedirpsfuera = '';
+$pedirpsfueraotros = '';
+$tendencias = '';
+/*  */
+
 if(isset($_REQUEST['id_pedido'])){
     $id_pedido=$_REQUEST['id_pedido'];
 }
@@ -40,7 +80,7 @@ if (isset($_REQUEST['pag'])) {
     $pagM->pag=$_REQUEST['pag'];
 }
 
-if(isset($_REQUEST['id_pedido'])){
+if(isset($_POST['id_pedido'])){
     //Controlar si ha eliminado pedidos después de ser añadido a "listo para enviar"
     if(isset($_REQUEST['del_articulo'])){
         $rdap = $pM->delete_articulo_pedido($id_pedido, $_REQUEST['del_articulo']);
@@ -59,16 +99,68 @@ if(isset($_REQUEST['id_pedido'])){
             if($rpm){
                 if($rtpu>=5){
                     $str_info = 'Producto insertado, ya tienes los 6 articulos';
+                    $pM->update_estado_pedido_seleccionado($id_pedido, 1);
+                    header('Location: '.$ruta_inicio.'pedidos.php');
                     /* $pM->update_estado_pedido($id_pedido,1);
                     header('Location: '.$ruta_inicio.'pedidos.php'); */
                 }
             }else $str_errores = 'Este producto ya está insertado o no hay stock';
-        }else $str_errores = 'Este pedido ya contiene 6 articulos';
+        }else{
+            $str_errores = 'Este pedido ya contiene 6 articulos';
+            header('Location: '.$ruta_inicio.'pedidos.php');
+        }
         
     }
     
 }
 
+if(isset($_GET['id_pedido'])){
+    $rgiup = $pM->get_id_usuario_pedido($_GET['id_pedido']);
+    if($rgiup){
+        while($frgiup = $rgiup->fetch_assoc()){
+            $id_usuario_datos = $frgiup['id_usuario'];
+        }
+        $rgdp = $uM->get_data_ps($id_usuario_datos);
+        if($rgdp){
+            while($frgdp = $rgdp->fetch_assoc()){
+                $tipoopcion = $frgdp['tipoopcion'];
+                $vestirdiadia = $rootM->stringToArray($frgdp['vestirdiadia']);
+                $vestirsuperior = $frgdp['vestirsuperior'];
+                $vestirinferior = $frgdp['vestirinferior'];
+                $colorarmario = $frgdp['colorarmario'];
+                $colorfav = $frgdp['colorfav'];
+                $personaConocida = $frgdp['personaConocida'];
+                $actividadOcio = $frgdp['actividadOcio'];
+                $profesion = $frgdp['profesion'];
+                $hijos = $frgdp['hijos'];
+                $frmdatosnombre = $frgdp['frmdatosnombre'];
+                $frmdatosapellidos = $frgdp['frmdatosapellidos'];
+                $frmdatosfechanacimiento = mysql_to_date($frgdp['frmdatosfechanacimiento']);
+                $frmdatosemail = $frgdp['frmdatosemail'];
+                $silueta = $frgdp['silueta'];
+                $tallasuperior = $frgdp['tallasuperior'];
+                $tallainferior = $frgdp['tallainferior'];
+                $tallapecho = $frgdp['tallapecho'];
+                $altura = $frgdp['altura'];
+                $cuerporealzar = $frgdp['cuerporealzar'];
+                $cuerpodisimular = $frgdp['cuerpodisimular'];
+                $tonopiel = $frgdp['tonopiel'];
+                $ojos = $frgdp['ojos'];
+                $colorcabello = $frgdp['colorcabello'];
+                $enviarfoto = $frgdp['enviarfoto'];
+                $listadoprendas = $rootM->stringToArray($frgdp['listadoprendas']);
+                $renovar = $frgdp['renovar'];
+                $looksasesoria = $rootM->stringToArray($frgdp['looksasesoria']);
+                $otroasesoria = $frgdp['otroasesoria'];
+                $pedirps = $rootM->stringToArray($frgdp['pedirps']);
+                $pedirpsotros = $frgdp['pedirpsotros'];
+                $pedirpsfuera = $frgdp['pedirpsfuera'];
+                $pedirpsfueraotros = $frgdp['pedirpsfueraotros'];
+                $tendencias = $frgdp['tendencias'];
+            }
+        }
+    }
+}
 
 //GET___________________________________________________________________________
 
@@ -138,6 +230,8 @@ if ($ra) {
             $count++;
     }
 }
+
+
 //LISTADO
 
 //PAGINADO______________________________________________________________________
@@ -153,7 +247,66 @@ include_once('inc/cabecera.inc.php'); //cargando cabecera
 ?>
 <body>
 <?php include_once('inc/franja_top.inc.php'); ?>
-    <?php include_once('inc/main_menu.inc.php'); ?>
+<?php include_once('inc/main_menu.inc.php'); ?>
+    <!-- Modal -->
+    <div class="modal fade bd-example-modal-lg" id="modalDatos" tabindex="-1" role="dialog" aria-labelledby="modalDatosLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="modalDatosLabel">Información</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-12 col-md-6">
+                    <?php echo $iM->get_input_text("tipoopcion", $tipoopcion, 'form-control', 'Tipo opción:'); ?>
+                    <?php echo $iM->get_select("vestirdiadia", $vestirdiadia, $vestirdiadia, 'form-control', '¿Cómo te gusta vestir en tu día a día?', false, 'multiple'); ?>
+                    <?php echo $iM->get_input_text("vestirsuperior", $vestirsuperior, 'form-control', '¿Cómo sueles vestir? (Parte superior)'); ?>
+                    <?php echo $iM->get_input_text("vestirinferior", $vestirinferior, 'form-control', '¿Cómo sueles vestir? (Parte inferior)'); ?>
+                    <?php echo $iM->get_input_text("colorarmario2", $colorarmario, 'form-control', '¿Qué colores predominan en tu armario?'); ?>
+                    <?php echo $iM->get_input_text("colorfav", $colorfav, 'form-control', '¿Te gustan más lo estampados o eres más de colores lisos?'); ?>
+                    <?php echo $iM->get_input_text("personaConocida2", $personaConocida, 'form-control', '¿Te identificas o te gusta el estilo de una persona conocida?'); ?>
+                    <?php echo $iM->get_input_text("actividadOcio", $actividadOcio, 'form-control', 'Cuentanos tus actividades de ocio'); ?>
+                    <?php echo $iM->get_input_text("profesion", $profesion, 'form-control', '¿A qué te dedicas?'); ?>
+                    <?php echo $iM->get_input_text("hijos", $hijos, 'form-control', '¿Tienes hijos?'); ?>
+                    <?php echo $iM->get_input_text("frmdatosnombre", $frmdatosnombre, 'form-control', 'Datos personales'); ?>
+                    <?php echo $iM->get_input_text("frmdatosapellidos", $frmdatosapellidos, 'form-control', 'Datos personales'); ?>
+                    <?php echo $iM->get_input_text("frmdatosfechanacimiento", $frmdatosfechanacimiento, 'form-control', 'Datos personales'); ?>
+                    <?php echo $iM->get_input_text("frmdatosemail", $frmdatosemail, 'form-control', 'Datos personales'); ?>
+                    <?php echo $iM->get_input_text("silueta", $silueta, 'form-control', 'Mi silueta es...'); ?>
+                    <?php echo $iM->get_input_text("tallasuperior", $tallasuperior, 'form-control', 'Talla superior'); ?>
+                    <?php echo $iM->get_input_text("tallainferior", $tallainferior, 'form-control', 'Talla inferior'); ?>
+                    <?php echo $iM->get_input_text("tallapecho", $tallapecho, 'form-control', 'Talla de pecho'); ?>
+                </div>
+                <div class="col-12 col-md-6">
+                    <?php echo $iM->get_input_text("altura", $altura, 'form-control', 'Mi altura es..'); ?>
+                    <?php echo $iM->get_input_text("cuerporealzar", $cuerporealzar, 'form-control', '¿Qué parte de tu cuerpo te gusta más (realzar)?'); ?>
+                    <?php echo $iM->get_input_text("cuerpodisimular", $cuerpodisimular, 'form-control', '¿Qué parte de tu cuerpo te gusta menos (disimular)?'); ?>
+                    <?php echo $iM->get_input_text("tonopiel", $tonopiel, 'form-control', 'Tono de piel'); ?>
+                    <?php echo $iM->get_input_text("ojos", $ojos, 'form-control', 'Ojos'); ?>
+                    <?php echo $iM->get_input_text("colorcabello", $colorcabello, 'form-control', 'Color del cabello'); ?>
+                    <p>imagenes</p>
+                    <?php echo $iM->get_select("listadoprendas", $listadoprendas, $listadoprendas, 'form-control', 'Listado de prendas que te sueles poner', false, 'multiple'); ?>
+                    <?php echo $iM->get_select("renovar", $renovar, $renovar, 'form-control', '¿Qué necesitarías renovar?', false, 'multiple'); ?>
+                    <?php echo $iM->get_select("looksasesoria", $looksasesoria, $looksasesoria, 'form-control', '¿Para qué looks necesitas asesoría?', false, 'multiple'); ?>
+                    <?php echo $iM->get_input_text("otroasesoria", $otroasesoria, 'form-control', 'Texto asesoría'); ?>
+                    <?php echo $iM->get_select("pedirps", $pedirps, $pedirps, 'form-control', 'Me apetece pedir mi Personal Shopper porque:', false, 'multiple'); ?>
+                    <?php echo $iM->get_input_text("pedirpsotros", $pedirpsotros, 'form-control', 'Texto personal shopper'); ?>
+                    <?php echo $iM->get_input_text("pedirpsfuera", $pedirpsfuera, 'form-control', 'Me gustaría que mi Personal Shopper fuera:'); ?>
+                    <?php echo $iM->get_input_text("pedirpsfueraotros", $pedirpsfueraotros, 'form-control', 'Otros personal shopper fuera..'); ?>
+                    <?php echo $iM->get_input_text("tendencias", $tendencias, 'form-control', 'Ayudanos a conocerte mejor (sigues las tendencias, tu día a día, algua petición especial...)'); ?>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+        </div>
+        </div>
+    </div>
+    </div>
+    <!--  -->
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
@@ -167,11 +320,12 @@ include_once('inc/cabecera.inc.php'); //cargando cabecera
                                 <?php echo $rau; ?>
                                 
                                 <div class="layout-table-item">
-                                    <div class="layout-table-header">
+                                    <div class="layout-table-header" style="overflow-x: auto;">
                                         <h4 class="mb-0">Asignar articulos pedido</h4>
+                                        <button type="button" class="ml-3 btn btn-info" data-toggle="modal" data-target="#modalDatos">Ver información</button>
                                     </div>
                                     <div class="layout-table-content">
-                                        <div class="table-responsive-sm">
+                                        <div class="table-responsive-sm" style="overflow-x: auto;">
                                             <table class="table">
                                                 <thead>
                                                     <tr>
@@ -197,53 +351,9 @@ include_once('inc/cabecera.inc.php'); //cargando cabecera
                                 </div>
                             </div>
                         </div>
-                        
-                    </div>
+                </div>
             </div>
         </div>
     </div>
-<!-- <div id="main_container">
-    <?php include_once('inc/franja_top.inc.php'); ?>
-    <?php include_once('inc/main_menu.inc.php'); ?>
-    <section class="section_top"></section>
-    <section class="sep_section"></section>
-    <section class="middle_section">
-        <div class="responsive_seccion">
-            <div id="filtros_seccion">
-                <?php if (isset($str_info)) echo $str_info; ?>
-                <?php if (isset($str_errores)) echo $str_errores; ?>
-                
-            </div>
-            <div id="filtros_seccion">
-                <div class="filtro_cont menu_paginacion" ><?php echo $mpag; ?></div>
-                <div style="clear:both;"></div>
-            </div>
-
-            <div class="table_list">
-                <div class="table_th">
-                    <div class="left_td table_td" style="width:9%;min-width:1px;text-align:center;">Nom</div>
-                    <div style="clear:both;"></div>
-                </div>
-                <?php echo $rau; ?>
-               
-            </div>
-
-            <div class="table_list">
-                <div class="table_th">
-                    <div class="left_td table_td" style="width:9%;min-width:1px;text-align:center;">Nom</div>
-                    <div class="left_td table_td" style="width:9%;min-width:1px;text-align:center;">P_coste</div>
-                    <div class="left_td table_td" style="width:9%;min-width:1px;text-align:center;">P_ext_port</div>
-                    <div class="left_td table_td" style="width:9%;min-width:1px;text-align:center;">PVP</div>
-                    <div class="left_td table_td" style="width:9%;min-width:1px;text-align:center;">Mar</div>
-                    <div style="clear:both;"></div>
-                </div>
-                <?php echo $rw; ?>
-               
-            </div>
-
-            <div id="filtros_seccion"></div>
-        </div>
-    </section>
-</div> -->
 </body>
 </html>

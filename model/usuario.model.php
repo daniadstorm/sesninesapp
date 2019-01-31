@@ -238,6 +238,7 @@ class usuarioModel extends Model {
         if ($r) return $r->num_rows;
             else return false;
     }
+    
     function get_data_ps($id_usuario){
         $q = ' SELECT * FROM '.$this->pre.'ps ';
         $q .= ' WHERE id_usuario='.$id_usuario.' ';

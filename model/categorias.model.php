@@ -86,6 +86,26 @@ class categoriasModel extends Model {
         $q .= ' LIMIT '.$pag*$regs_x_pag.','.$regs_x_pag.' ';
         return $this->execute_query($q);
     }
+
+    function get_all_categorias($order_by=true) {
+        $q  = ' SELECT c.* FROM '.$this->pre.'categorias c ';
+        $q .= ' WHERE c.deleted = 0 ';
+        if ($order_by) $q .= ' ORDER BY c.nombre_categoria ASC ';
+        return $this->execute_query($q);
+    }
+
+    function get_all_subcategorias($order_by=true) {
+        $q  = ' SELECT c.* FROM '.$this->pre.'subcategorias c ';
+        $q .= ' WHERE c.deleted = 0 ';
+        if ($order_by) $q .= ' ORDER BY c.nombre_subcategoria ASC ';
+        return $this->execute_query($q);
+    }
+
+    function add_categoria_articulo($id_articulo, $id_categoria, $subcategoria=0) {
+        $q  = ' INSERT INTO '.$this->pre.'categorias_articulos (id_articulo, id_categoria, subcategoria) VALUES ';
+        $q .= ' ("'.$id_articulo.'", "'.$id_categoria.'", "'.$subcategoria.'") ';
+        return $this->execute_query($q);
+    }
     
     function get_categorias_total_regs() {
         $q  = ' SELECT c.* FROM '.$this->pre.'categorias c ';

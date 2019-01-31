@@ -18,7 +18,6 @@ class pedidoModel extends Model{
         $q = ' INSERT INTO '.$this->pre.'pedido_articulos ( ';
         $q .= 'id_pedido, id_articulo, existencia) ';
         $q .= ' VALUES ("'.$id_pedido.'","'.$id_articulo.'", "'.$existencia.'")';
-        echo $q;
         return $this->execute_query($q);
     }
 
@@ -90,7 +89,6 @@ class pedidoModel extends Model{
         $q .= ' WHERE p.estado_pedido='.$arr_filtro_ps;
         $q .= ' ORDER BY p.fecha_pedido,u.fiable DESC ';
         $q .= ' LIMIT '.$pag*$regs_x_pag.','.$regs_x_pag.' ';
-        echo $q;
         return $this->execute_query($q);
     }
     
@@ -116,6 +114,15 @@ class pedidoModel extends Model{
         $r = $this->execute_query($q);
         if ($r) return $r->num_rows;
             else return false;
+    }
+
+    function get_id_usuario_pedido($id_pedido){
+        $q = ' SELECT u.* FROM '.$this->pre.'usuario_pedidos up ';
+        $q .= ' INNER JOIN '.$this->pre.'usuarios u ';
+        $q .= ' INNER JOIN '.$this->pre.'ps ps ';
+        $q .= ' on u.id_usuario=ps.id_usuario ';
+        $q .= ' WHERE up.id_pedido='.$id_pedido.' ';
+        return $this->execute_query($q);
     }
 
     function update_estado_pedido($id_pedido, $estado_pedido){

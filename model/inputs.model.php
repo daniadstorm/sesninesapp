@@ -251,11 +251,16 @@ class inputsModel extends Model {
         if (strlen($lbl) > 0) $o .= '<div><label for="'.$id.'">'.$lbl.'</label></div>';
         $o .=   '<select '.$aux_multiple.' id="'.$id.'" name="'.$id.'" class="'.$class.'" '.$aux_onChange.'>';
         
-        foreach ($arr_opt as $k => $v) $o .= '<option '.(($val == $k) ? ' selected="selected" ' : '').' value="'.$k.'">'.$v.'</option>';
+        if(is_array($arr_opt)){
+            foreach ($arr_opt as $k => $v) $o .= '<option '.(($val == $k) ? ' selected="selected" ' : '').' value="'.$k.'">'.$v.'</option>';
+        }else{
+            $o .= '<option>No hay datos</option>';
+        }
         
         $o .=   '</select>';
         $o .= '</div>';
         
         return $o;
     }
+
 }

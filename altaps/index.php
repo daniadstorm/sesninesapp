@@ -68,6 +68,7 @@ if(isset($_POST['vestirdiadia'])){
             if($raps){
                 echo '2- Añadido con éxito';
                 $uM->update_pscompleto($_SESSION['id_usuario'],1);
+                header('Location: '.$ruta_inicio.'micuenta.php');
             }else{
                 echo '2- Fallo al añadir<hr>';
                 $uM->update_pscompleto($_SESSION['id_usuario'],0);

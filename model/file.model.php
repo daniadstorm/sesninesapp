@@ -6,15 +6,12 @@ class fileModel extends Model {
         $q  = ' INSERT INTO '.$this->pre.'img_articulos (id_articulo, ruta) VALUES ';
         $q .= ' ('.$id_articulo.',"'.$ruta.'")';
         
-        echo $q;
         return $this->execute_query($q);
     }
     
     function add_file($id_articulo, $filename) {
         $q  = ' INSERT INTO '.$this->pre.'articulosimg (id_articulo, url_imagen) VALUES ';
         $q .= ' ('.$id_articulo.',"'.$filename.'") ';
-        
-        echo $q;
         
         return $this->execute_query($q);
     }

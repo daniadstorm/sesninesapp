@@ -16,7 +16,6 @@ class articulosModel extends Model {
         $q .= ' "' . $activado_articulo . '", "' . $visible_en_tienda_articulo . '", "' .$precio_coste_articulo . '", "' . $coste_externo_portes_articulo . '", ';
         $q .= ' "' . $PVP_final_articulo . '", "' . $margen_articulo . '","' . $cantidad_articulo . '", "' .$inicio_descuento_articulo. '", "' .$fin_descuento_articulo. '", ';
         $q .= ' "' .$descuento_porcentaje_articulo. '", "'.$descuento_euros_articulo.'","' . $almacen_articulo . '")';
-        echo $q;
         return $this->execute_query($q);
     }
 
@@ -42,6 +41,41 @@ class articulosModel extends Model {
     function delete_articulo($id_articulo){
         $q  = ' DELETE FROM '.$this->pre.'articulos';
         $q .= ' WHERE id_articulo = '.$id_articulo.' ';
+        return $this->execute_query($q);
+    }
+
+    function asignar_categoria_articulo($id_articulo, $id_categoria, $subcategoria=0){
+        $q  = ' INSERT INTO '.$this->pre.'categorias_articulos (id_articulo, id_categoria, subcategoria) VALUES ';
+        $q .= ' (' . $id_articulo . ', ' . $id_categoria . ', ' . $subcategoria . ')';
+    }
+
+    function get_categorias_articulo($id_articulo){
+        $q = ' SELECT * FROM '.$this->pre.'categorias_articulos as ca ';
+        $q .= ' INNER JOIN '.$this->pre.'categorias as c ';
+        $q .= ' INNER JOIN '.$this->pre.'articulos as a ';
+        $q .= ' ON ca.id_articulo=a.id_articulo ';
+        $q .= ' and ca.id_categoria=c.id_categoria ';
+        $q .= ' WHERE ca.id_articulo='.$id_articulo.' ';
+        $q .= ' and ca.subcategoria=0 ';
+        return $this->execute_query($q);
+    }
+
+    function get_subcategorias_articulo($id_articulo){
+        $q = ' SELECT * FROM '.$this->pre.'categorias_articulos as ca ';
+        $q .= ' INNER JOIN '.$this->pre.'subcategorias as sc ';
+        $q .= ' INNER JOIN '.$this->pre.'articulos as a ';
+        $q .= ' ON ca.id_articulo=a.id_articulo ';
+        $q .= ' and ca.id_categoria=sc.id_subcategoria ';
+        $q .= ' WHERE ca.id_articulo='.$id_articulo.' ';
+        $q .= ' and ca.subcategoria=1 ';
+        return $this->execute_query($q);
+    }
+
+    function delete_categorias_articulo($id_articulo, $id_categoria, $subcategoria){
+        $q  = ' DELETE FROM '.$this->pre.'categorias_articulos ';
+        $q .= ' WHERE id_articulo = '.$id_articulo.' ';
+        $q .= ' and id_categoria = '.$id_categoria.' ';
+        $q .= ' and subcategoria = '.$subcategoria.' ';
         return $this->execute_query($q);
     }
 
@@ -162,7 +196,6 @@ class articulosModel extends Model {
         $q .=   ' descuento_euros_articulo = "' . $descuento_euros_articulo . '", ';
         $q .=   ' almacen_articulo = ' . $almacen_articulo . ' ';
         $q .= ' WHERE id_articulo = ' . $id_articulo . ';';
-        echo $q;
         return $this->execute_query($q);
     }
     

@@ -2,6 +2,11 @@
 
 class analyticsModel extends Model{
 
+    function get_avg_ps_tallasuperior(){
+        $q = ' SELECT * FROM '.$this->pre.'usuarios WHERE MONTH(fecha_registro)="'.$mes.'" ';
+        return $this->execute_query($q);
+    }
+
     function get_registro_month($mes){
         $q = ' SELECT * FROM '.$this->pre.'usuarios WHERE MONTH(fecha_registro)="'.$mes.'" ';
         $r = $this->execute_query($q);
@@ -16,10 +21,11 @@ class analyticsModel extends Model{
             else return false;
     }
 
-    function get_chart($id, $tipo, $titulo, $data, $bgcolor){
+    function get_chart($id, $tipo, $titulo, $data, $bgcolor, $barPercentage=1){
         $qtt = 0;
         $label = '';
         $xdata = '';
+        $strbg = '';
         foreach ($data as $value => $key) {
             $label .= '"'.$value.'"';
             $xdata .= '"'.$key.'"';
@@ -27,8 +33,18 @@ class analyticsModel extends Model{
                 $label .= ',';
                 $xdata .= ',';
             }
+            if(is_array($bgcolor)){
+                if($qtt < count($data)-1){
+                    $strbg .= '"'.$bgcolor[rand(0,count($bgcolor)-1)].'",';
+                }else{
+                    $strbg .= '"'.$bgcolor[rand(0,count($bgcolor)-1)].'"';
+                }
+            }else{
+                $strbg = '"'.$bgcolor.'"';
+            }
             $qtt++;
         }
+        
         $q = 'new Chart(document.getElementById("'.$id.'"), {
             type: \''.$tipo.'\',
             data: {
@@ -41,7 +57,7 @@ class analyticsModel extends Model{
                         data: [';
         $q .= $xdata;
         $q .= '],
-                        backgroundColor: ["'.$bgcolor.'"]
+                        backgroundColor: ['.$strbg.']
                     }
                 ]
             },
@@ -50,7 +66,10 @@ class analyticsModel extends Model{
                 title: {
                     display: true,
                     text: \''.$titulo.'\'
-                }
+                },
+                xAxes: [{
+                    barPercentage: '.$barPercentage.'
+                }]
             }
         });';
 

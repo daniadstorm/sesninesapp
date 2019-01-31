@@ -10,6 +10,21 @@ $bgColors = array(
     "#8e5ea2",
     "#3cba9f",
     "#e8c3b9",
+    "#c45850",
+    "#3e95cd",
+    "#8e5ea2",
+    "#3cba9f",
+    "#e8c3b9",
+    "#c45850",
+    "#3e95cd",
+    "#8e5ea2",
+    "#3cba9f",
+    "#e8c3b9",
+    "#c45850",
+    "#3e95cd",
+    "#8e5ea2",
+    "#3cba9f",
+    "#e8c3b9",
     "#c45850"
 );
 
@@ -29,6 +44,21 @@ $arrMesesUsuariosNuevos = array(
 );
 
 $arrMesesPedidos = array(
+    "Enero" => $aM->get_pedidos_month(1),
+    "Febrero" => $aM->get_pedidos_month(2),
+    "Marzo" => $aM->get_pedidos_month(3),
+    "Abril" => $aM->get_pedidos_month(4),
+    "Mayo" => $aM->get_pedidos_month(5),
+    "Junio" => $aM->get_pedidos_month(6),
+    "Julio" => $aM->get_pedidos_month(7),
+    "Agosto" => $aM->get_pedidos_month(8),
+    "Septiembre" => $aM->get_pedidos_month(9),
+    "Octubre" => $aM->get_pedidos_month(10),
+    "Noviembre" => $aM->get_pedidos_month(11),
+    "Diciembre" => $aM->get_pedidos_month(12)
+);
+
+$arrAVGps = array(
     "Enero" => $aM->get_pedidos_month(1),
     "Febrero" => $aM->get_pedidos_month(2),
     "Marzo" => $aM->get_pedidos_month(3),
@@ -68,8 +98,9 @@ include_once('inc/cabecera.inc.php'); //cargando cabecera
 <?php
     echo '<script>
     $(document).ready(function(e){';
-    echo $aM->get_chart("char-usuariosnuevos", "line", "Nuevos usuarios", $arrMesesUsuariosNuevos, $bgColors[rand(0,5)]);
-    echo $aM->get_chart("char-pedidos" ,"radar", "Pedidos", $arrMesesPedidos, $bgColors[rand(0,5)]);
+    echo $aM->get_chart("char-usuariosnuevos", "line", "Nuevos usuarios", $arrMesesUsuariosNuevos, $bgColors[rand(0,4)]);
+    echo $aM->get_chart("char-pedidos" ,"radar", "Pedidos", $arrMesesPedidos, $bgColors[rand(0,4)]);
+    echo $aM->get_chart("char-avg-tallas" ,"bar", "AVG", $arrAVGps, $bgColors);
     echo '});
     </script>';
 ?>
@@ -98,6 +129,9 @@ include_once('inc/cabecera.inc.php'); //cargando cabecera
                                             </div>
                                             <div class="col-md-4">
                                                 <canvas id="char-pedidos"></canvas>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <canvas id="char-avg-tallas"></canvas>
                                             </div>
                                         </div>
                                     </div>

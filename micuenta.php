@@ -115,6 +115,7 @@ $rgp = $uM->get_usuario_pedidos($id_usuario);
 if($rgp){
     while($frgp = $rgp->fetch_assoc()){
         $rgdp = $uM->get_datos_pedido($frgp['id_pedido']);
+        $id_pedido=$frgp['id_pedido'];
         if($rgdp){
             $req1 .= '<a class="list-group-item list-group-item-action ';
             if($contReq==0) $req1 .= 'active';
@@ -307,7 +308,7 @@ $(document).ready(function(e){
                 <div class="container-fluid">
                     <div class="my-3">
                         <div class="tab-content" id="myTabContent">
-                            <div class="tab-pane fade" id="home" role="tabpanel" aria-labelledby="home-tab">
+                            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                                 <div class="row">
                                     <form method="POST" class="col-xl-12">
                                         <?php
@@ -440,7 +441,7 @@ $(document).ready(function(e){
                             </div>
                             <div class="tab-pane fade" id="historial" role="tabpanel" aria-labelledby="historial-tab">
                                 <div class="row">
-                                    <div class="d-flex flex-column w-100">
+                                    <div class="d-flex flex-column w-100 px-3">
                                         <h1>Mis pedidos</h1>
                                         <div class="row">
                                             <div class="col-2">
@@ -463,7 +464,7 @@ $(document).ready(function(e){
                                     </div>
                                 </div>
                             </div>
-                            <div class="tab-pane fade show active" id="misaldo" role="tabpanel" aria-labelledby="misaldo-tab">
+                            <div class="tab-pane fade" id="misaldo" role="tabpanel" aria-labelledby="misaldo-tab">
                                 <div class="row">
                                     <div class="d-flex flex-column w-100">
                                         <h1>Mi saldo</h1>
