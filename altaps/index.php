@@ -128,49 +128,49 @@ if(isset($_POST['vestirdiadia'])){
                 <div class="respuesta-sn col-xs-12 col-sm-4 col-md-2">
                     <label>
                         <img src="<?php echo $ruta_inicio; ?>imgps/DEPORTIVA.jpg" class="img-thumbnail img-check">
-                        <input type="checkbox" name="vestirdiadia[]" value="img1" id="item" hidden>
+                        <input type="checkbox" name="vestirdiadia[]" value="CASUAL DEPORTIVA" id="item" hidden>
                         <p class="text-center">CASUAL DEPORTIVA</p>
                     </label>
                 </div>
                 <div class="respuesta-sn col-xs-12 col-sm-4 col-md-2">
                     <label>
                         <img src="<?php echo $ruta_inicio; ?>imgps/" class="img-thumbnail img-check">
-                        <input type="checkbox" name="vestirdiadia[]" value="img2" id="item" hidden>
+                        <input type="checkbox" name="vestirdiadia[]" value="CASUAL STREET" id="item" hidden>
                         <p class="text-center">CASUAL STREET</p>
                     </label>
                 </div>
                 <div class="respuesta-sn col-xs-12 col-sm-4 col-md-2">
                     <label>
                         <img src="<?php echo $ruta_inicio; ?>imgps/CLASICA.jpg" class="img-thumbnail img-check">
-                        <input type="checkbox" name="vestirdiadia[]" value="img3" id="item" hidden>
+                        <input type="checkbox" name="vestirdiadia[]" value="CLASICA" id="item" hidden>
                         <p class="text-center">CLASICA</p>
                     </label>
                 </div>
                 <div class="respuesta-sn col-xs-12 col-sm-4 col-md-2">
                     <label>
                         <img src="<?php echo $ruta_inicio; ?>imgps/ACTUAL.jpg" class="img-thumbnail img-check">
-                        <input type="checkbox" name="vestirdiadia[]" value="img4" id="item" hidden>
+                        <input type="checkbox" name="vestirdiadia[]" value="ACTUAL" id="item" hidden>
                         <p class="text-center">ACTUAL</p>
                     </label>
                 </div>
                 <div class="respuesta-sn col-xs-12 col-sm-4 col-md-2">
                     <label>
                         <img src="<?php echo $ruta_inicio; ?>imgps/OFFICE.jpg" class="img-thumbnail img-check">
-                        <input type="checkbox" name="vestirdiadia[]" value="img5" id="item" hidden>
+                        <input type="checkbox" name="vestirdiadia[]" value="OFFICE" id="item" hidden>
                         <p class="text-center">OFFICE</p>
                     </label>
                 </div>
                 <div class="respuesta-sn col-xs-12 col-sm-4 col-md-2">
                     <label>
                         <img src="<?php echo $ruta_inicio; ?>imgps/SOFISTICADA.jpg" class="img-thumbnail img-check">
-                        <input type="checkbox" name="vestirdiadia[]" value="img6" id="item" hidden>
+                        <input type="checkbox" name="vestirdiadia[]" value="SOFISTICADA" id="item" hidden>
                         <p class="text-center">SOFISTICADA</p>
                     </label>
                 </div>
                 <div class="respuesta-sn col-xs-12 col-sm-4 col-md-2">
                     <label>
                         <img src="<?php echo $ruta_inicio; ?>imgps/EXTREMADA.jpg" class="img-thumbnail img-check">
-                        <input type="checkbox" name="vestirdiadia[]" value="img7" id="item" hidden>
+                        <input type="checkbox" name="vestirdiadia[]" value="EXTREMADA" id="item" hidden>
                         <p class="text-center">EXTREMADA</p>
                     </label>
                 </div>
@@ -274,12 +274,12 @@ if(isset($_POST['vestirdiadia'])){
             <div class="d-flex justify-content-center my-3">
                 <label class="d-flex justify-content-center align-items-center mx-5">
                     <div class="redonda redhijos check"></div>
-                    <input checked type="radio" name="hijos" value="si" id="item" hidden>
+                    <input checked type="radio" name="hijos" value="Si" id="item" hidden>
                     <p class="text-center m-0 ml-2">Si</p>
                 </label>
                 <label class="d-flex justify-content-center align-items-center mx-5">
                     <div class="redonda redhijos"></div>
-                    <input type="radio" name="hijos" value="no" id="item" hidden>
+                    <input type="radio" name="hijos" value="No" id="item" hidden>
                     <p class="text-center m-0 ml-2">No</p>
                 </label>
             </div>
@@ -309,35 +309,35 @@ if(isset($_POST['vestirdiadia'])){
                 <div class="silueta-sn col-xs-12 col-sm-4 col-md-2">
                     <label>
                         <img src="http://sesnineshopper.com/adstorm/img/silueta1.png" class="img-thumbnail img-check-silueta">
-                        <input type="radio" name="silueta[]" value="triangulo" id="item" hidden>
+                        <input type="radio" name="silueta[]" value="TRIANGULO" id="item" hidden>
                         <p class="text-center">TRIANGULO</p>
                     </label>
                 </div>
                 <div class="silueta-sn col-xs-12 col-sm-4 col-md-2">
                     <label>
                         <img src="http://sesnineshopper.com/adstorm/img/silueta2.png" class="img-thumbnail img-check-silueta">
-                        <input type="radio" name="silueta[]" value="trianguloinvertido" id="item" hidden>
+                        <input type="radio" name="silueta[]" value="TRIANGULO INVERTIDO" id="item" hidden>
                         <p class="text-center">TRIANGULO INVERTIDO</p>
                     </label>
                 </div>
                 <div class="silueta-sn col-xs-12 col-sm-4 col-md-2">
                     <label>
                         <img src="http://sesnineshopper.com/adstorm/img/silueta3.png" class="img-thumbnail img-check-silueta">
-                        <input type="radio" name="silueta[]" value="relojarena" id="item" hidden>
+                        <input type="radio" name="silueta[]" value="RELOJ ARENA" id="item" hidden>
                         <p class="text-center">RELOJ ARENA</p>
                     </label>
                 </div>
                 <div class="silueta-sn col-xs-12 col-sm-4 col-md-2">
                     <label>
                         <img src="http://sesnineshopper.com/adstorm/img/silueta4.png" class="img-thumbnail img-check-silueta">
-                        <input type="radio" name="silueta[]" value="rectangulo" id="item" hidden>
+                        <input type="radio" name="silueta[]" value="RECTANGULAR" id="item" hidden>
                         <p class="text-center">RECTANGULAR</p>
                     </label>
                 </div>
                 <div class="silueta-sn col-xs-12 col-sm-4 col-md-2">
                     <label>
                         <img src="http://sesnineshopper.com/adstorm/img/silueta5.png" class="img-thumbnail img-check-silueta">
-                        <input type="radio" name="silueta[]" value="redonda" id="item" hidden>
+                        <input type="radio" name="silueta[]" value="REDONDA" id="item" hidden>
                         <p class="text-center">REDONDA</p>
                     </label>
                 </div>
@@ -518,7 +518,7 @@ if(isset($_POST['vestirdiadia'])){
             <div class="d-flex flex-wrap justify-content-center my-3">
                 <label class="d-flex justify-content-center align-items-center mx-5">
                     <div class="cuadrado red7"></div>
-                    <input checked type="checkbox" name="listadoprendas[]" value="chaquetaamericanas" id="item" hidden>
+                    <input checked type="checkbox" name="listadoprendas[]" value="chaquetasamericanas" id="item" hidden>
                     <p class="text-center m-0 ml-2">Chaquetas / Americanas</p>
                 </label>
                 <label class="d-flex justify-content-center align-items-center mx-5">

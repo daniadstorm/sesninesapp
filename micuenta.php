@@ -311,17 +311,7 @@ $(document).ready(function(e){
                             <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                                 <div class="row">
                                     <form method="POST" class="col-xl-12">
-                                        <?php
-                                            if($pM->get_pedidos_personalshopper_rows($id_usuario, 1)){
-                                                echo '<form method="post"><button type="submit" class="btn btn-primary" name="paqueteRecibido" value="'.$id_pedido.'">Ya he recibido mi paquete</button></form>';
-                                            }else if($pM->get_pedidos_personalshopper_rows($id_usuario, 2)){
-                                                if($siPedido){
-                                                    echo $outFPedido;
-                                                }
-                                            }else if($uM->get_ps($id_usuario)>0){
-                                                echo '<h1>Ya hay un pedido en curso</h1>';
-                                            }else{
-                                        ?>
+                                        <?php if($pM->get_pedidos_personalshopper_rows($id_usuario, 0)){ ?>
                                         <div>
                                             <label class="title-menuuser"><strong>Pide tu Personal Shopper</strong></label>
                                             <div id="ps-menu-p" class="d-flex justify-content-center align-items-center my-1 flex-wrap">
@@ -343,7 +333,16 @@ $(document).ready(function(e){
                                                 <button type="submit" name="frm_ps" class="btn btn-lg btn-block p-3 btnsn">Pedir mi Personal Shopper</button>
                                             </div>
                                         </div>
-                                            <?php } ?>
+                                        <?php }else if($pM->get_pedidos_personalshopper_rows($id_usuario, 1)){
+                                                echo '<form method="post"><button type="submit" class="btn btn-primary" name="paqueteRecibido" value="'.$id_pedido.'">Ya he recibido mi paquete</button></form>';
+                                            }else if($pM->get_pedidos_personalshopper_rows($id_usuario, 2)){
+                                                echo 'Estado recibido';
+                                                /* if($siPedido){
+                                                    echo $outFPedido;
+                                                } */
+                                            }else if($pM->get_pedidos_personalshopper_rows($id_usuario, 3)){
+                                                echo 'Estado ultimo dia';
+                                            }else if($uM->get_ps($id_usuario)>0){} ?>
                                     </form>
                                     <!-- <div class="col-xl-4">
                                         <?php

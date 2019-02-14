@@ -17,17 +17,17 @@ $mail_usuario = '';
 //$pagM->regs_x_pag=1;
 
 $arr_filtro = array(//Estados
-    0 => "PENDIENTE (Confirmación de pedido)",
-    1 => "ENVIADO",
-    2 => "RECIBIDO",
-    3 => "ÚLTIMO DÍA",
-    4 => "CHECK OUT REALIZADO DEVOLVIENDO PRENDAS",
-    5 => "CHECK OUT REALIZADO SE LO QUEDA TODO Y PAGADO",
-    6 => "CHECK OUT REALIZADO SE LO QUEDA TODO Y NO PAGADO",
-    7 => "DEVOLUCIÓN COMPLETA Y PAGADA",
-    8 => "DEVOLUCIÓN ROPA PERO NO PAGADA",
-    9 => "SEGUIMOS SIN PODER HACER EL CARGO DE LA TARJETA",
-    10 => "INICIO PROCESO LEGAL",
+    0 => "0 - PENDIENTE (Confirmación de pedido)",
+    1 => "1 - ENVIADO",
+    2 => "2 - RECIBIDO",
+    3 => "3 - ÚLTIMO DÍA",
+    4 => "4 - CHECK OUT REALIZADO DEVOLVIENDO PRENDAS",
+    5 => "5 - CHECK OUT REALIZADO SE LO QUEDA TODO Y PAGADO",
+    6 => "6 - CHECK OUT REALIZADO SE LO QUEDA TODO Y NO PAGADO",
+    7 => "7 - DEVOLUCIÓN COMPLETA Y PAGADA",
+    8 => "8 - DEVOLUCIÓN ROPA PERO NO PAGADA",
+    9 => "9 - SEGUIMOS SIN PODER HACER EL CARGO DE LA TARJETA",
+    10 => "10 - INICIO PROCESO LEGAL",
     
 );
 $arr_filtro_ps = 0;

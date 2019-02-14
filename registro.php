@@ -24,7 +24,16 @@ if (isset($_POST['nombre_usuario']) && isset($_POST['contrasenya_usuario']) && i
     if($_POST['contrasenya_usuario']==$_POST['contrasenya_usuario_conf']){
         $rau = $uM->add_usuario($nombre_usuario, $_SESSION['frmdatosfechanacimiento'], $_SESSION['frmdatosnombre'].' '.$_SESSION['frmdatosapellidos'], $_SESSION['frmdatosemail'], $contrasenya_usuario, null, null, USER);
         if($rau){
-            header('Location: '.$ruta_inicio.'login.php'); exit();
+            $uM->login_usuario($nombre_usuario, $contrasenya_usuario);
+            $raps = $uM->add_ps_reg($_SESSION['id_usuario'], $_SESSION['opcion'], $_SESSION['vestirdiadia'], $_SESSION['vestirsuperior'], $_SESSION['vestirinferior'], $_SESSION['colorarmario'], $_SESSION['colorfav'], $_SESSION['personaConocida'], $_SESSION['actividadOcio'], $_SESSION['profesion'], $_SESSION['hijos'], $_SESSION['frmdatosnombre'], $_SESSION['frmdatosapellidos'], $_SESSION['frmdatosfechanacimiento'], $_SESSION['frmdatosemail'], $_SESSION['silueta'], $_SESSION['tallasuperior'], $_SESSION['tallainferior'], $_SESSION['tallapecho'], $_SESSION['altura'], $_SESSION['cuerporealzar'], $_SESSION['cuerpodisimular'], $_SESSION['tonopiel'], $_SESSION['ojos'], $_SESSION['colorcabello'], $_SESSION['enviarfoto'], $_SESSION['listadoprendas'], $_SESSION['renovar'], $_SESSION['looksasesoria'], $_SESSION['otroasesoria'], $_SESSION['pedirps'], $_SESSION['pedirpsotros'], $_SESSION['pedirpsfuera'], $_SESSION['pedirpsfueraotros'], $_SESSION['tendencias']);
+            if($raps){
+                echo '2- Añadido con éxito';
+                $uM->update_pscompleto($_SESSION['id_usuario'],1);
+                header('Location: '.$ruta_inicio.'micuenta.php'); exit();
+            }else{
+                echo '2- Fallo al añadir<hr>';
+                $uM->update_pscompleto($_SESSION['id_usuario'],0);
+            }
         }else{
             $str_error = 'Error al crear el usuario';
         }
