@@ -1,0 +1,18 @@
+1.- Observaciones ficha clienta (campo textarea opinar)
+2.- Filtro prenda (talla - xs)
+3.- Desplegable datos de envio (barcelona)
+4.- Comentario de fecha de entrega y out
+5.- Medida de prendas por pedido (fuera shopping)
+6.- Cambiar image ps (ps o fondo armario)
+7.- Forzar a rellenar datos de envio
+8.- Datos de envió y pasarla de pago(sergi)
+ 8.1.- Solo habrá un 1 caso para elegir las prendas seleccionadas
+ 8.2.- Opción de cambio
+9.- asignar-articulos-pedido.php columna descuento
+10.- Mirar micuenta. estado de peido en curso (checkout)**
+11.- Modiciar 0 por 1
+12.- Mostrar si hay mail enviado por pedido
+13.- Mostrar estado check out pagado
+14.- devolución pagado
+15.- Mostrar orden y mechant_identifier en usuario.php
+16.- Eliminar pedido (cambiar estado)
