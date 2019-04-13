@@ -1,0 +1,12 @@
+Servicio //Economy por defecto
+Horario //ASM24
+Nombre remitente // 
+Direccion
+
+
+//Destinatario no obligatorio
+//Código barras va enlazado al mail
+//Checkout no poder cambiar opciones
+//Pendiente verificar
+//Box calculator, canjear añadir desplega talla
+//Checkout devolver prendas, añadir datos recogida.

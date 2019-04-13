@@ -98,6 +98,11 @@ class Model {
         $date = strtotime($datetime);
         return date('d/m/Y H:i:s', $date);
     }
+
+    function zerofill($valor, $longitud){
+        $res = str_pad($valor, $longitud, '0', STR_PAD_LEFT);
+        return $res;
+    }
     
     function get_formatted_price($precio) {
         return number_format((float)$precio, 2, ',', '');
