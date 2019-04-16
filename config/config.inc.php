@@ -14,6 +14,29 @@ $ruta_archivos = 'http://192.168.1.2/sesninesapp/'; */
 $document_root = $_SERVER['DOCUMENT_ROOT'].'/sesninesapp/';
 //====================================================================================
 
+//------------------------------------------------------------------------------
+define('DS_VERSION', 'HMAC_SHA256_V1');
+define('DS_MERCHANT_TERMINAL', '1');
+define('DS_AUTORIZACION', '0');
+define('DS_DEVOLUCION_AUTOMATICA', '3');
+define('DS_MERCHANT_NAME', 'Sesnines');
+
+define('DS_EURO', '978');
+define('DS_DOLAR', '840');
+define('DS_LIBRA', '826');
+define('DS_MERCHANT_URL', $ruta_inicio.'validation.php');
+define('ADSTORMLOG_URL', $document_root.'adstormlog/adstormlog.txt');
+//PRUEBAS-----------------------------------------------------------------------
+define('URL_PASARELA', 'https://sis-t.redsys.es:25443/sis/realizarPago'); //PRUEBAS
+define('DS_MERCHANT_CODE', '336503693'); //PRUEBAS
+define('DS_MERCHANT_KEY', 'sq7HjrUOBfKmC576ILgskD5srU870gJ7'); //PRUEBAS
+//PRUEBAS-----------------------------------------------------------------------
+//REAL--------------------------------------------------------------------------
+//define('URL_PASARELA', 'https://sis.redsys.es/sis/realizarPago'); //REAL
+//define('DS_MERCHANT_CODE', 'zvyy1IOfES3fVkE2FWL'); //REAL
+//define('DS_MERCHANT_KEY', '5+7jlNmNeTOBpdTZaIGgg8Ni9r/UHyi1'); //REAL
+//REAL--------------------------------------------------------------------------
+
 /* CONSTANTES */
 //-------------------------------------------------------------------------------------
 define('DOCUMENT_ROOT', $document_root);

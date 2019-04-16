@@ -28,14 +28,32 @@ $cpDE = '';
 $localidadDE = '';
 $telefonoDE = '';
 $outPedido1 = '';
+$getPedidos = 0;
+$datosEnvio = false;
+if($uM->get_existe_datosenvio($id_usuario)>0){
+    $datosEnvio = true;
+}
 //GET___________________________________________________________________________
 
 //GET___________________________________________________________________________
 
 //POST__________________________________________________________________________
-/* echo '<pre>';
+echo '<pre>';
+/* print_r($_SESSION); */
 print_r($_POST);
-echo '</pre>'; */
+echo '</pre>';
+if(isset($_POST['cerrarSesion'])){
+    $uM->unlogin_usuario();
+    header('Location: '.$ruta_inicio); exit();
+}
+if(isset($_POST['tipo_suscripcion'])){
+    $rct = $uM->cambiar_tiposuscripcion($_POST['id_usuario'], $_POST['tipo_suscripcion']);
+    if($rct){
+        $str_info = "Suscripción cambiada con éxito";
+    }else{
+        $str_error = "No se ha podido cambiar la suscripción";
+    }
+}
 if(isset($_POST['btnPedido'])){
     if(isset($_POST['selectPedido'])){
         for($i=0;$i<count($_POST['selectPedido']);$i++){
@@ -64,7 +82,7 @@ if(isset($_POST['updatepassword'])){
     }
 }
 if(isset($_POST['paqueteRecibido'])){
-    $ruep = $pM->update_estado_pedido($_POST['paqueteRecibido'],2);
+    $ruep = $pM->update_estado_pedido($_POST['paqueteRecibido'], 2);
 }
 if(isset($_POST['btndatosenvio'])){
     if($uM->get_existe_datosenvio($id_usuario)>0){
@@ -80,6 +98,7 @@ if(isset($_POST['btndatosenvio'])){
         $rad = $uM->add_datosenvio($id_usuario, $_POST['nombre'], $_POST['direccion'], $_POST['cp'], $_POST['localidad'], $_POST['telefono']);
         if($rad){
             $str_info =  'Insertado con éxito';
+            header('Refresh:0'); exit();
         }else{
             $str_error =  'Error al insertar';
         }
@@ -95,6 +114,9 @@ if($rgu){
     while($fgu = $rgu->fetch_assoc()){
         $ps_completo=$fgu["ps_completo"];
         $tipo_suscripcion=$fgu["tipo_suscripcion"];
+        /* echo '<pre>';
+        print_r($fgu);
+        echo '</pre>'; */
     }
     foreach ($suscripciones as $key => $value) {
         $outps .= '<label class="d-flex justify-content-center align-items-center m-0">
@@ -144,13 +166,16 @@ if($rgd){
 
 if(isset($_POST['frm_ps'])){
     if(!$uM->get_ps($id_usuario)){
-        $ramp = $uM->add_mi_ps($id_usuario, $_POST['tipo_suscripcion'], $_POST['fechaps'], $_POST['mensajeps']);
+        $ramp = $uM->add_mi_ps($id_usuario, $_POST['fechaps'], $_POST['mensajeps']);
+        $pedido_ps = $uM->get_insert_id();
+        $ir_pasarela = true;
+        header('Location: '.$ruta_inicio.'pasarela.php?id_pedido='.$pedido_ps.'&sumaTotal=0'); exit();
     }else{
-        $rump = $uM->update_mi_ps($id_usuario, $_POST['tipo_suscripcion'], $_POST['fechaps'], $_POST['mensajeps']);
+        $rump = $uM->update_mi_ps($id_usuario, $_POST['fechaps'], $_POST['mensajeps']);
     }
 }
 
-$rgpc = $uM->get_pedido_completo($id_usuario);
+$rgpc = $uM->get_pedido_completo($id_usuario, 1);
 if($rgpc){
     while($frgpc = $rgpc->fetch_assoc()){
         /* echo '<pre>';
@@ -241,7 +266,6 @@ $(document).ready(function(e){
 <body>
     <?php include_once('inc/franja_top.inc.php'); ?>
     <?php //include_once('inc/main_menu.inc.php'); ?>
-
     <div class="container-fluid">
         <div class="d-block d-lg-none">
             <div class="menu-fijo">
@@ -284,11 +308,11 @@ $(document).ready(function(e){
                 <div id="menuuser" class="container-fluid mt-2">
                     <ul class="nav nav-tabs" id="myTab" role="tablist">
                         <li class="nav-item">
-                            <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab"
+                            <a class="nav-link <?php echo ($datosEnvio ? 'active show' : ''); ?>" id="home-tab" data-toggle="tab" href="#home" role="tab"
                                 aria-controls="home" aria-selected="true">Inicio</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab"
+                            <a class="nav-link <?php echo (!$datosEnvio ? 'active show' : ''); ?>" id="profile-tab" data-toggle="tab" href="#profile" role="tab"
                                 aria-controls="profile" aria-selected="false">Mi cuenta</a>
                         </li>
                         <li class="nav-item">
@@ -308,42 +332,72 @@ $(document).ready(function(e){
                 <div class="container-fluid">
                     <div class="my-3">
                         <div class="tab-content" id="myTabContent">
-                            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                            <div class="tab-pane fade <?php echo ($datosEnvio ? 'show active' : ''); ?>" id="home" role="tabpanel" aria-labelledby="home-tab">
                                 <div class="row">
-                                    <form method="POST" class="col-xl-12">
-                                        <?php if($pM->get_pedidos_personalshopper_rows($id_usuario, 0)){ ?>
+                                    <div class="col-xl-12">
+                                        <?php //($datosEnvio ? 'show active' : ''); ?>
+                                        <?php
+                                            $hapagado = $uM->get_sihapagado($id_usuario);
+                                            $getPedidos = $pM->get_pedidos_personalshopper_rows($id_usuario, 0);
+                                            $getPedidoEstado1 = $pM->get_pedidos_personalshopper_rows($id_usuario, 1);
+                                            $getPedidoEstado2 = $pM->get_pedidos_personalshopper_rows($id_usuario, 2)
+                                        ?>
+                                        <?php
+                                        if($hapagado==1){
+                                            $rgups = $uM->get_ultimops($id_usuario);
+                                            if($rgups){
+                                                while($frgups = $rgups->fetch_assoc()){
+                                                    $id_pedido = $frgups['id_pedido'];
+                                                }
+                                                echo '<a class="btn btn-secondary" href="'.$ruta_inicio.'pasarela.php?id_pedido='.$id_pedido.'&sumaTotal=0">Ir a la pasarela</a>';
+                                            }else{
+                                                echo 'Error al cargar pasarela';
+                                            }
+                                        }else if(!$datosEnvio){
+                                            echo 'Faltan los datos de envio';
+                                        }else if(!$getPedidos && !$getPedidoEstado1 && !$getPedidoEstado2){ ?>
                                         <div>
-                                            <label class="title-menuuser"><strong>Pide tu Personal Shopper</strong></label>
-                                            <div id="ps-menu-p" class="d-flex justify-content-center align-items-center my-1 flex-wrap">
-                                                <?php echo $outps; ?>
-                                            </div>
-                                            <div class="d-flex my-3 flex-wrap">
-                                                <div class="d-flex flex-column ml-3 my-3">
-                                                    <label class="mb-2">¿Cuándo quieres que te llegue?</label>
-                                                    <div id="pedidofecha"></div>
-                                                    <input hidden type="date" name="fechaps" id="fechaps">
+                                            <form id="cuotaps" method="post">
+                                                <label class="title-menuuser"><strong>Pide tu Personal Shopper</strong></label>
+                                                <input type="text" name="id_usuario" value="<?php echo $_SESSION['id_usuario']; ?>" hidden>
+                                                <div id="ps-menu-p" class="d-flex justify-content-center align-items-center my-1 flex-wrap">
+                                                    <?php echo $outps; ?>
                                                 </div>
-                                                <div class="d-flex flex-column ml-3 my-3">
-                                                    <label class="mb-2">Deja un mensaje</label>
-                                                    <textarea placeholder="Ej: Normalmente visto de azul, gris o negro y siempre voy con camisetas y vaqueros. Me gustaría descubrir otros colores y estilos"
-                                                        name="mensajeps" id="mensajeps" cols="40" rows="9"></textarea>
+                                            </form>
+                                            <form method="post">
+                                                <div class="d-flex my-3 flex-wrap">
+                                                    <div class="d-flex flex-column ml-3 my-3">
+                                                        <label class="mb-2">¿Cuándo quieres que te llegue?</label>
+                                                        <div id="pedidofecha"></div>
+                                                        <input hidden type="date" name="fechaps" id="fechaps">
+                                                    </div>
+                                                    <div class="d-flex flex-column ml-3 my-3">
+                                                        <label class="mb-2">Deja un mensaje</label>
+                                                        <textarea placeholder="Ej: Normalmente visto de azul, gris o negro y siempre voy con camisetas y vaqueros. Me gustaría descubrir otros colores y estilos"
+                                                            name="mensajeps" id="mensajeps" cols="40" rows="9"></textarea>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div class="btnenviar">
-                                                <button type="submit" name="frm_ps" class="btn btn-lg btn-block p-3 btnsn">Pedir mi Personal Shopper</button>
-                                            </div>
+                                                <div class="btnenviar">
+                                                    <button type="submit" name="frm_ps" class="btn btn-lg btn-block p-3 btnsn">Pedir mi Personal Shopper</button>
+                                                </div>
+                                            </form>
                                         </div>
-                                        <?php }else if($pM->get_pedidos_personalshopper_rows($id_usuario, 1)){
-                                                echo '<form method="post"><button type="submit" class="btn btn-primary" name="paqueteRecibido" value="'.$id_pedido.'">Ya he recibido mi paquete</button></form>';
-                                            }else if($pM->get_pedidos_personalshopper_rows($id_usuario, 2)){
-                                                echo 'Estado recibido';
-                                                /* if($siPedido){
+                                        <?php
+                                            }else if($getPedidos){
+                                                echo 'Hay un pedido en preparación';
+                                            }else if($getPedidoEstado1){
+                                                //echo '<form method="post"><button type="submit" class="btn btn-primary" name="paqueteRecibido" value="'.$id_pedido.'">Ya he recibido mi paquete</button></form>';
+                                                if($siPedido){
                                                     echo $outFPedido;
-                                                } */
+                                                }
+                                                //Paso 3
+                                            }else if($pM->get_pedidos_personalshopper_rows($id_usuario, 2)){
+                                                echo 'Paquete ya recibido, ¿box calculator?';
                                             }else if($pM->get_pedidos_personalshopper_rows($id_usuario, 3)){
                                                 echo 'Estado ultimo dia';
-                                            }else if($uM->get_ps($id_usuario)>0){} ?>
-                                    </form>
+                                            }else if($uM->get_ps($id_usuario)>0){}
+                                        ?>
+                                    </div>
                                     <!-- <div class="col-xl-4">
                                         <?php
                                             if($siPedido){
@@ -353,7 +407,7 @@ $(document).ready(function(e){
                                     </div> -->
                                 </div>
                             </div>
-                            <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                            <div class="tab-pane fade <?php echo (!$datosEnvio ? 'show active' : ''); ?>" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                                 <div id="micuenta" class="row">
                                     <div class="col-6">
                                         <label class="title-menuuser"><strong>Mi cuenta</strong></label>
@@ -369,7 +423,7 @@ $(document).ready(function(e){
                                                         </button>
                                                     </h2>
                                                 </div>
-                                                <form id="miemail" method="post" name="frmemail" class="collapse show"
+                                                <form id="miemail" method="post" name="frmemail" class="collapse"
                                                     aria-labelledby="headingOne" data-parent="#accordionExample">
                                                     <div class="card-body">
                                                         <input type="email" name="updateemail" class="form-control frm p-3">
@@ -388,7 +442,7 @@ $(document).ready(function(e){
                                                         </button>
                                                     </h2>
                                                 </div>
-                                                <form id="mipassord" method="post" name="frmpassword" class="collapse show"
+                                                <form id="mipassord" method="post" name="frmpassword" class="collapse"
                                                     aria-labelledby="headingdos" data-parent="#accordionExample">
                                                     <div class="card-body">
                                                         <input type="password" name="updatepassword" class="form-control frm p-3">
@@ -422,7 +476,7 @@ $(document).ready(function(e){
                                                         </button>
                                                     </h2>
                                                 </div>
-                                                <form id="datosenvio" method="post" name="datosenvio" class="collapse"
+                                                <form id="datosenvio" method="post" name="datosenvio" class="collapse <?php echo (!$datosEnvio ? 'show' : ''); ?>"
                                                     aria-labelledby="headingdos" data-parent="#accordionExample">
                                                     <div class="card-body">
                                                         <input type="text" value="<?php echo ($nombreDE!='') ? $nombreDE : ''; ?>" placeholder="Nombre" name="nombre" class="form-control mb-2 frm p-3">
@@ -433,6 +487,20 @@ $(document).ready(function(e){
                                                         <button name="btndatosenvio" class="btn btn-lg btn-block mt-3 btnsn">Actualizar datos de envío</button>
                                                     </div>
                                                 </form>
+                                            </div>
+                                            <div class="card">
+                                                <i class="fa fa-sort-down sortsn"></i>
+                                                <div class="card-header p-0" id="headingdos">
+                                                    <h2 class="mb-0">
+                                                        <form method="post" class="m-0 p-0" action="<?php echo $ruta_inicio; ?>micuenta.php">
+                                                            <button name="cerrarSesion" class="btn btn-block btn-link btnsnac" type="submit"
+                                                                data-toggle="collapse" data-target="#mips"
+                                                                aria-expanded="true" aria-controls="mips">
+                                                                Cerrar sesión
+                                                            </button>
+                                                        </form>
+                                                    </h2>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -478,6 +546,11 @@ $(document).ready(function(e){
     </div>
 </body>
 <script>
+    $(document).ready(function (e){
+        $("input:radio[name=tipo_suscripcion]").change(function(){
+            $("#cuotaps").submit();
+        });
+    });
     $(document).ready(function (e) {
         var arrayDiasDesactivados = [];
         $("#pedidofecha").on('change', function () {

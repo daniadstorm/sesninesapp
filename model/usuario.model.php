@@ -28,6 +28,7 @@ class usuarioModel extends Model {
             'nombre_usuario, fecha_nacimiento, nombrecompleto_usuario, email_usuario, contrasenya_usuario, telf_usuario, nie_usuario, id_tipo_usuario, estado_usuario, ps_completo) VALUES ';
         $q .= ' ("'.$nombre_usuario.'", "'.$fecha_nacimiento.'", "'.$nombrecompleto_usuario.'", "'.$email_usuario.'", "'.$contrasenya_usuario.'", "'.$telf_usuario.'", "'.$nie_usuario.'", '.
             $id_tipo_usuario.', 0, 1) ';
+            echo $q;
         return $this->execute_query($q);
     }
 
@@ -63,15 +64,36 @@ class usuarioModel extends Model {
             else return false;
     }
 
+    function cambiar_tiposuscripcion($id_usuario, $tipo_sus){
+        $q  = ' UPDATE '.$this->pre.'usuarios SET ';
+        $q .= ' tipo_suscripcion = "'.$tipo_sus.'" ';
+        $q .= ' WHERE id_usuario='.$id_usuario.' ';
+        return $this->execute_query($q);
+    }
+
     function cambiar_usuario_fiable($id_usuario){
         $q  = ' UPDATE '.$this->pre.'usuarios SET ';
         $q .= 'fiable = 1-fiable WHERE id_usuario='.$id_usuario.' ';
         return $this->execute_query($q);
     }
 
-    function add_mi_ps($id_usuario, $tipo_cuota, $fecha, $mensaje){
-        $q  = ' INSERT INTO '.$this->pre.'usuario_pedidos (id_usuario, tipo_cuota, estado_pedido, observaciones_pedido, fecha_recogida_pedido) VALUES ';
-        $q .= ' ("'.$id_usuario.'", "'.$tipo_cuota.'", 0,"'.$mensaje.'", "'.$fecha.'")';
+    function add_mi_ps($id_usuario, $fecha, $mensaje){
+        $q  = ' INSERT INTO '.$this->pre.'usuario_pedidos (id_usuario, estado_pedido, observaciones_pedido, fecha_recogida_pedido) VALUES ';
+        $q .= ' ("'.$id_usuario.'", 0,"'.$mensaje.'", "'.$fecha.'")';
+        return $this->execute_query($q);
+    }
+
+    function get_sihapagado($id_usuario){
+        $q = ' SELECT * FROM '.$this->pre.'usuario_pedidos ';
+        $q .= ' WHERE id_usuario = "'.$id_usuario.'" and clave_pago="" ';
+        $r = $this->execute_query($q);
+        if ($r) return $r->num_rows;
+            else return false;
+    }
+
+    function get_ultimops($id_usuario){
+        $q = ' SELECT * FROM '.$this->pre.'usuario_pedidos ';
+        $q .= ' WHERE id_usuario = "'.$id_usuario.'" and clave_pago<>"" ';
         return $this->execute_query($q);
     }
 
@@ -172,7 +194,7 @@ class usuarioModel extends Model {
         return $this->execute_query($q);
     }
 
-    function get_pedido_completo($id_usuario){
+    function get_pedido_completo($id_usuario, $prendas=0){
         $q = ' SELECT DISTINCT * FROM '.$this->pre.'usuario_pedidos as up';
         $q .= ' INNER JOIN '.$this->pre.'pedido_articulos as pa';
         $q .= ' INNER JOIN '.$this->pre.'articulos as a';
@@ -181,7 +203,7 @@ class usuarioModel extends Model {
         $q .= ' AND pa.id_articulo=a.id_articulo';
         $q .= ' AND a.id_articulo=ai.id_articulo';
         $q .= ' WHERE up.id_usuario='.$id_usuario.' ';
-        $q .= ' AND up.prendas_seleccionadas=0 ';
+        $q .= ' AND up.prendas_seleccionadas='.$prendas.' ';
         return $this->execute_query($q);
     }
 
@@ -245,8 +267,8 @@ class usuarioModel extends Model {
         return $this->execute_query($q);
     }
 
-    function update_mi_ps($id_usuario, $tipo_cuota, $fecha, $mensaje){
-        $q  = ' UPDATE '.$this->pre.'usuario_pedidos SET tipo_cuota="'.$tipo_cuota.'", observaciones_pedido="'.$mensaje.'", fecha_recogida_pedido="'.$fecha.'" WHERE id_usuario='.$id_usuario.' ';
+    function update_mi_ps($id_usuario, $fecha, $mensaje){
+        $q  = ' UPDATE '.$this->pre.'usuario_pedidos SET observaciones_pedido="'.$mensaje.'", fecha_recogida_pedido="'.$fecha.'" WHERE id_usuario='.$id_usuario.' ';
         return $this->execute_query($q);
     }
 
