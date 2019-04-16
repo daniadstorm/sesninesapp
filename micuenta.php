@@ -405,6 +405,30 @@ $(document).ready(function(e){
                                             }
                                         ?>
                                     </div> -->
+                                    <form id="cuotaps" method="post">
+                                                <label class="title-menuuser"><strong>Pide tu Personal Shopper</strong></label>
+                                                <input type="text" name="id_usuario" value="<?php echo $_SESSION['id_usuario']; ?>" hidden>
+                                                <div id="ps-menu-p" class="d-flex justify-content-center align-items-center my-1 flex-wrap">
+                                                    <?php echo $outps; ?>
+                                                </div>
+                                            </form>
+                                            <form method="post">
+                                                <div class="d-flex my-3 flex-wrap">
+                                                    <div class="d-flex flex-column ml-3 my-3">
+                                                        <label class="mb-2">¿Cuándo quieres que te llegue?</label>
+                                                        <div id="pedidofecha"></div>
+                                                        <input hidden type="date" name="fechaps" id="fechaps">
+                                                    </div>
+                                                    <div class="d-flex flex-column ml-3 my-3">
+                                                        <label class="mb-2">Deja un mensaje</label>
+                                                        <textarea placeholder="Ej: Normalmente visto de azul, gris o negro y siempre voy con camisetas y vaqueros. Me gustaría descubrir otros colores y estilos"
+                                                            name="mensajeps" id="mensajeps" cols="40" rows="9"></textarea>
+                                                    </div>
+                                                </div>
+                                                <div class="btnenviar">
+                                                    <button type="submit" name="frm_ps" class="btn btn-lg btn-block p-3 btnsn">Pedir mi Personal Shopper</button>
+                                                </div>
+                                            </form>
                                 </div>
                             </div>
                             <div class="tab-pane fade <?php echo (!$datosEnvio ? 'show active' : ''); ?>" id="profile" role="tabpanel" aria-labelledby="profile-tab">
